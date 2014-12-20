@@ -29,7 +29,7 @@ public:
 
 	static bool rayCast(const Ray& r, const float distance, PxRaycastBuffer& hitCallback);
 
-	static PxTransform getActorTransform(shared_ptr<Actor> actor);
+	//static PxTransform getActorTransform(shared_ptr<Actor> actor);
 
 	static void updateActorsTransform();
 	static void createSphereRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic);

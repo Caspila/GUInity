@@ -1,6 +1,8 @@
 #include "Camera.h"
 #include "print.h"
 
+int Camera::nCount = 0;
+
 Camera::Camera(float nearClipPlane, float farClipPlane, float fov, float ratio)
 {
 	this->nearClipPlane = nearClipPlane;
@@ -9,11 +11,19 @@ Camera::Camera(float nearClipPlane, float farClipPlane, float fov, float ratio)
 	this->ratio = ratio;
 
 	transform = make_shared<Transform>();
+#ifdef GUINITY_DEBUG
+	nCount++;
+#endif
 }
 
 
 Camera::~Camera()
 {
+#ifdef GUINITY_DEBUG
+	nCount--;
+	cout << "Camera destroyed (" << nCount << " remaining)" << endl;
+#endif
+	
 }
 
 void Camera::computeModelViewMatrix()

@@ -5,6 +5,9 @@
 #include "Material.h"
 
 class MeshRenderer
+#ifdef GUINITY_DEBUG
+	:public StaticCounter<MeshRenderer>
+#endif
 {
 public:
 	MeshRenderer(shared_ptr<Mesh> mesh, shared_ptr<Material> m);
@@ -12,6 +15,7 @@ public:
 
 	shared_ptr<Mesh> mesh;
 	shared_ptr<Material> material;
+
 
 };
 

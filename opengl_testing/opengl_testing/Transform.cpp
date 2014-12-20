@@ -2,22 +2,23 @@
 #include "Math.h"
 #include "Actor.h"
 
-int Transform::nCount=0;
-
 Transform::Transform() : position(0.0f), rotationQuat(), scale(1.0f)
 {
+#ifdef GUINITY_DEBUG
 	nCount++;
+#endif
+
+	this->rigidBody = nullptr;
 }
 
 
 Transform::~Transform()
 {
+
+#ifdef GUINITY_DEBUG
 	nCount--;
-	shared_ptr<Actor> ac = actor.lock();
-	if (ac!=nullptr)
-		cout << "Transform destroyed: "<< ac->name << endl;
-	else
-		cout << "Transform destroyed (" <<nCount << " remaining)" << endl;
+	cout << "Transform destroyed (" << nCount << " remaining)" << endl;
+#endif
 
 }
 
@@ -26,6 +27,10 @@ void Transform::setActor(shared_ptr<Actor> actor)
 	this->actor = actor;
 }
 
+void Transform::setRigidBody(PxRigidBody* rigidBody)
+{
+	this->rigidBody = rigidBody;
+}
 
 void Transform::setPosition(glm::vec3 position)
 {

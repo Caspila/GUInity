@@ -11,7 +11,11 @@
 
 using namespace std;
 
+
 class Camera
+#ifdef GUINITY_DEBUG
+	: public StaticCounter<Camera>
+#endif
 {
 public:
 	Camera(float nearClipPlane, float farClipPlane, float fov, float ratio);
@@ -33,6 +37,9 @@ public:
 
 	glm::mat4 projection;
 	glm::mat4 view;
+
+	static int nCount;
+
 private:
 
 };

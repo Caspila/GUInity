@@ -10,6 +10,9 @@
 using namespace physx;
 
 class GraphicsSystem
+#ifdef GUINITY_DEBUG
+	:public StaticCounter<GraphicsSystem>
+#endif
 {
 public:
 	GraphicsSystem();
@@ -31,5 +34,6 @@ public:
 	void createDebugShader();
 	shared_ptr<Shader> debugShader;
 	shared_ptr<Material> debugMaterial;
+
 };
 

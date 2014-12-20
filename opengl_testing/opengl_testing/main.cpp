@@ -7,7 +7,6 @@
 #include <iostream>
 #include <fstream>
 
-#include "MyClassFactory.h"
 #include "Material.h"
 #include <vector>
 #include "Actor.h"
@@ -31,6 +30,8 @@
 #include "PhysicsMaterial.h"
 #include "Script.h"
 #include "PlayerScript.h"
+#include "LuaBinder.h"
+
 
 //-------Loading PhysX libraries----------]
 #ifdef _DEBUG
@@ -43,8 +44,40 @@
 #pragma comment(lib, "PhysX3Extensions.lib")
 #endif
 using namespace physx;
-
 using namespace std;
+
+//static int average(lua_State *L)
+//{
+//	/* get number of arguments */
+//	int n = lua_gettop(L);
+//	double sum = 0;
+//	int i;
+//
+//	/* loop through each argument */
+//	for (i = 1; i <= n; i++)
+//	{
+//		/* total the arguments */
+//		sum += lua_tonumber(L, i);
+//	}
+//
+//	/* push the average */
+//	lua_pushnumber(L, sum / n);
+//
+//	/* push the sum */
+//	lua_pushnumber(L, sum);
+//
+//	/* return the number of results */
+//	return 2;
+//}
+//
+//static int vec3 = 10;
+//
+//static int test(lua_State *L)
+//{
+//	lua_pushnumber(L, 1);
+//
+//	return 1;
+//}
 
 int main() {
 
@@ -54,7 +87,6 @@ int main() {
 		return 1;
 
 	Input input(graphicsSystem.window);
-	
 
 	float pointsTriangle[] = {
 		0.0f, 0.5f, 0.0f,
@@ -63,7 +95,7 @@ int main() {
 	};
 	float colorTriangle[] =
 	{
-		1.0f,0.0f,0.0f,
+		1.0f, 0.0f, 0.0f,
 		0.0f, 1.0f, 0.0f,
 		0.0f, 0.0f, 1.0f,
 	};
@@ -73,6 +105,7 @@ int main() {
 		0.0f, 0.0f, 1.0f,
 		0.0f, 0.0f, 1.0f,
 	};
+
 	float pointsQuad[] = {
 		-0.5f, -0.5f, 0.0f,
 		0.5f, 0.5f, 0.0f,
@@ -195,15 +228,15 @@ int main() {
 	};
 
 
-	shared_ptr<Shader> s = make_shared<Shader>(Shader("vsLight.vs", "fsLight.fragmentshader"));
+	shared_ptr<Shader> s = make_shared<Shader>("vsLight.vs", "fsLight.fragmentshader");
 	
-	shared_ptr<Material> m = make_shared<Material>(Material(s));
+	shared_ptr<Material> m = make_shared<Material>(s);
 	//m->setParamVec3("difuse", glm::vec3(1, 0, 0));
 
-	shared_ptr<Material> m2 = make_shared<Material>(Material(s));
+	shared_ptr<Material> m2 = make_shared<Material>(s);
 	//m2->setParamVec3("difuse", glm::vec3(0, 1, 0));
 
-	shared_ptr<Material> m3 = make_shared<Material>(Material(s));
+	shared_ptr<Material> m3 = make_shared<Material>(s);
 	//m3->setParamVec3("difuse", glm::vec3(0, 0, 1));
 
 	shared_ptr<Mesh> sphereMesh = make_shared<Mesh>("sphere.obj");
@@ -232,11 +265,11 @@ int main() {
 
 	shared_ptr<Actor> mysphere = Factory::CreateActor("Sphere", meshRenderer4);
 	mysphere->transform->setPosition(glm::vec3(0, -1, 0));
-	//mysphere->transform->setScale(glm::vec3(1, 1, 1)*0.5f);
+	mysphere->transform->setScale(glm::vec3(1, 1, 1)*0.5f);
 
 	shared_ptr<Script> script = make_shared<PlayerScript>();
-	//Factory::CreateScriptComponent(mysphere, script);
-	//Factory::CreateScriptComponent(mycube, script);
+	Factory::CreateScriptComponent(mysphere, script);
+	Factory::CreateScriptComponent(mycube, script);
 
 	
 
@@ -260,14 +293,15 @@ int main() {
 	//physics.createBoxRigidBody(myplane, glm::vec3(2.5f, 2.5f, 0.1f), 0.5f, 0.5f, 0.75f,true);
 	//physics.createSphereRigidBody(player, 0.5f, 0.5f, 0.5f, 0.75f,false);
 
-
-
 	/////////////////////END BOX2D//////////////////////////////
 
 	shared_ptr<Camera> camera = make_shared<Camera>(0.3f, 100.0f, 45, 4.0f / 3);
 	camera->transform->setPosition(glm::vec3(0, 0, 10));
 	camera->computeModelViewMatrix();
-	
+
+	LuaBinder luaBinder;
+	luaBinder.RunScript(nullptr);
+
 	int cont = 0;
 	while (!glfwWindowShouldClose(graphicsSystem.window.get())) {
 		Time::frameStart();
@@ -284,8 +318,8 @@ int main() {
 			cout << "Mouse click: " << a->name << endl;
 		}
 
-		//Physics::tick();
-		//Physics::updateActorsTransform();
+		Physics::tick();
+		Physics::updateActorsTransform();
 
 		world.tick(Time::deltaTime);
 
@@ -295,17 +329,14 @@ int main() {
 		graphicsSystem.render(camera, Physics::scene->getRenderBuffer(), glm::vec3(1, 1, 1));
 		graphicsSystem.swap();
 
-
-
 		Time::frameEnd();
 	}
 
 	physics.shutdown();
+
 	// close GL context and any other GLFW resources
 	graphicsSystem.shutdown();
 
 	return 0;
 }
-
-
-
+ 

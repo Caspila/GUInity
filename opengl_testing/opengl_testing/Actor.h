@@ -7,9 +7,15 @@
 #include "MeshRenderer.h"
 #include <memory>
 #include "ScriptComponent.h"
+#include "StaticCounter.h"
+
 
 class ScriptComponent;
+
 class Actor
+#ifdef GUINITY_DEBUG
+: public StaticCounter<Actor>
+#endif
 {
 
 

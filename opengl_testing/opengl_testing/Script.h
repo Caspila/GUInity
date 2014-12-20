@@ -3,6 +3,9 @@
 #include "Actor.h"
 
 class Script
+#ifdef GUINITY_DEBUG
+	:public StaticCounter<Script>
+#endif
 {
 public:
 	Script();
@@ -11,7 +14,7 @@ public:
 
 	shared_ptr<Actor> getActor();
 
-	void tick(shared_ptr<Actor> a, float deltaSeconds);
+	void tick(weak_ptr<Actor> a, float deltaSeconds);
 	virtual void tick(float deltaSecods) {};
 
 

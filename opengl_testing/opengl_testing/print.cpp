@@ -1,5 +1,8 @@
 #include "print.h"
 
+
+#include "Transform.h"
+
 ostream& operator<<(ostream& os, const glm::vec4& vec3)
 {
 	os << '(' << vec3.x << ',' << vec3.y << ',' << vec3.z << ',' << vec3.w << ')';
@@ -136,3 +139,13 @@ PxMat44 glmMat4ToPhysXMat4(const glm::mat4&  mat)
 
 	return result;
 }
+
+PxTransform transformToPhysXTransform(const shared_ptr<Transform>& transform)
+{
+	return PxTransform(glmVec3ToPhysXVec3(transform->position), glmQuatToPhysXQuat(transform->rotationQuat));
+}
+
+//PxTransform physXTransformToTransform(PxTransform& transform)
+//{
+//	return PxTransform(glmVec3ToPhysXVec3(actor->transform->position), glmQuatToPhysXQuat(actor->transform->rotationQuat));
+//}

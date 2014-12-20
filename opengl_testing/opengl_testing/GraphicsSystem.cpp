@@ -2,11 +2,18 @@
 
 GraphicsSystem::GraphicsSystem()
 {
+#ifdef GUINITY_DEBUG
+	nCount++;
+#endif
 }
 
 
 GraphicsSystem::~GraphicsSystem()
 {
+#ifdef GUINITY_DEBUG
+	nCount--;
+	cout << "Destroying GraphicsSystem" << endl;
+#endif
 }
 
 void GraphicsSystem::shutdown()
@@ -54,9 +61,9 @@ int GraphicsSystem::init()
 
 void GraphicsSystem::createDebugShader()
 {
-	debugShader = make_shared<Shader>(Shader("vs.vs", "fs.fragmentshader"));
+	debugShader = make_shared<Shader>("vs.vs", "fs.fragmentshader");
 
-	debugMaterial = make_shared<Material>(Material(debugShader));
+	debugMaterial = make_shared<Material>(debugShader);
 }
 
 GLint uniform(const GLuint shaderProgram, const GLchar* uniformName) {

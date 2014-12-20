@@ -12,7 +12,8 @@ Factory::~Factory()
 
 void Factory::CreateScriptComponent(shared_ptr<Actor> actor, shared_ptr<Script> script)
 {
-	actor->scriptComponents.push_back(ScriptComponent(script,actor));
+	ScriptComponent scriptComponent(script, actor);
+	actor->scriptComponents.push_back(scriptComponent);
 }
 
 shared_ptr<Actor> Factory::CreateActor(string name, shared_ptr<MeshRenderer> meshRenderer)

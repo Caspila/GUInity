@@ -2,8 +2,12 @@
 
 #include "Material.h"
 #include "Module.h"
+#include "StaticCounter.h"
 
 class Mesh
+#ifdef GUINITY_DEBUG
+	: public StaticCounter<Mesh>
+#endif
 {
 public:
 	Mesh(const char* fileName);
@@ -24,6 +28,7 @@ public:
 	void calculateBounds();
 	void createBuffers();
 
+	
 	glm::vec3 boundsMin, boundsMax;
 };
 

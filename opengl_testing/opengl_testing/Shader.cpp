@@ -4,12 +4,18 @@
 Shader::Shader(const char * vertex_file_path, const char * fragment_file_path)
 {
 	LoadShaders(vertex_file_path, fragment_file_path);
+#ifdef GUINITY_DEBUG
+	nCount++;
+#endif
 }
 
 
 Shader::~Shader()
 {
-	cout << "Shader destroyed" <<  endl;
+#ifdef GUINITY_DEBUG
+	nCount--;
+	cout << "Shader destroyed (" << nCount << " remaining)" << endl;
+#endif
 }
 
 

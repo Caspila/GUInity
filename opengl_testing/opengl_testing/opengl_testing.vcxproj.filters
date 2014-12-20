@@ -21,12 +21,6 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="MyClass.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="MyClassFactory.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Material.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -105,14 +99,14 @@
     <ClCompile Include="PlayerScript.cpp">
       <Filter>Game</Filter>
     </ClCompile>
+    <ClCompile Include="StaticCounter.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LuaBinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="MyClass.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="MyClassFactory.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Material.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -196,6 +190,12 @@
     </ClInclude>
     <ClInclude Include="PlayerScript.h">
       <Filter>Game</Filter>
+    </ClInclude>
+    <ClInclude Include="StaticCounter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LuaBinder.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

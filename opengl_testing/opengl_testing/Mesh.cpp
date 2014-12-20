@@ -98,6 +98,10 @@ Mesh::Mesh(float *points, int nPoints, float* colorPoints, float* normalPoints)
 		this->normalPoints.push_back(glm::vec3(normalPoints[i * 3], normalPoints[i * 3 + 1], normalPoints[i * 3 + 2]));
 	}
 
+#ifdef GUINITY_DEBUG
+	nCount++;
+#endif
+
 	createBuffers();
 }
 
@@ -112,6 +116,10 @@ Mesh::Mesh(const char* path)
 
 		createBuffers();
 	}
+
+#ifdef GUINITY_DEBUG
+	nCount++;
+#endif
 }
 
 void Mesh::createBuffers()
@@ -176,7 +184,12 @@ Mesh::~Mesh()
 	}
 	glDeleteVertexArrays(1, &vao);
 
-	cout << "Mesh destroyed" << endl;
+
+#ifdef GUINITY_DEBUG
+	nCount--;
+	cout << "Mesh destroyed (" << nCount << " remaining)" << endl;
+#endif
+	
 }
 
 

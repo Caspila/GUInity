@@ -39,19 +39,19 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;$(IncludePath);C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common</IncludePath>
+    <IncludePath>C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common;C:\dev\lua-5.1\include;C:\dev\LuaJIT-2.0.3\src;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);GUINITY_DEBUG</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\dev\glfw-3.0.4\bin\src\Release;C:\dev\glew-1.11.0\lib\Release\Win32;C:\dev\box2d-v2.3.1\Box2D\Build\vs2013\bin\x32\Debug;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Lib\win32</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32.lib;Box2D.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\glfw-3.0.4\bin\src\Release;C:\dev\glew-1.11.0\lib\Release\Win32;C:\dev\box2d-v2.3.1\Box2D\Build\vs2013\bin\x32\Debug;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Lib\win32;C:\dev\lua-5.1;C:\dev\LuaJIT-2.0.3\src</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32.lib;Box2D.lib;%(AdditionalDependencies);lua52.lib; lua51.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -77,13 +77,12 @@
     <ClCompile Include="Holder.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Light.cpp" />
+    <ClCompile Include="LuaBinder.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
-    <ClCompile Include="MyClass.cpp" />
-    <ClCompile Include="MyClassFactory.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PhysicsMaterial.cpp" />
     <ClCompile Include="PhysXEventCallback.cpp" />
@@ -94,6 +93,7 @@
     <ClCompile Include="Script.cpp" />
     <ClCompile Include="ScriptComponent.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="StaticCounter.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="Vector3.cpp" />
@@ -107,6 +107,7 @@
     <ClInclude Include="Factory.h" />
     <ClInclude Include="GraphicsSystem.h" />
     <ClInclude Include="Light.h" />
+    <ClInclude Include="LuaBinder.h" />
     <ClInclude Include="Math.h" />
     <ClInclude Include="Holder.h" />
     <ClInclude Include="Input.h" />
@@ -114,8 +115,6 @@
     <ClInclude Include="Mesh.h" />
     <ClInclude Include="MeshRenderer.h" />
     <ClInclude Include="Module.h" />
-    <ClInclude Include="MyClass.h" />
-    <ClInclude Include="MyClassFactory.h" />
     <ClInclude Include="Physics.h" />
     <ClInclude Include="PhysicsMaterial.h" />
     <ClInclude Include="PhysXEventCallback.h" />
@@ -126,6 +125,7 @@
     <ClInclude Include="Script.h" />
     <ClInclude Include="ScriptComponent.h" />
     <ClInclude Include="Shader.h" />
+    <ClInclude Include="StaticCounter.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Transform.h" />
     <ClInclude Include="Vector3.h" />

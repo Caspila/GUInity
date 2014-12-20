@@ -30,6 +30,16 @@ PxFilterFlags CustomSimulationFilterShader(
 	return PxFilterFlags();
 }
 
+
+void releaseMaterial(PxMaterial* material)
+{
+	//	material->release();
+}
+void releaseRigidDynamic(PxRigidDynamic* rigidDynamic)
+{
+	//	material->release();
+}
+
 int Physics::init()
 {
 	gFoundation = NULL;
@@ -85,21 +95,13 @@ int Physics::init()
 }
 	
 
-PxTransform Physics::getActorTransform(shared_ptr<Actor> actor)
-{
-	//return PxTransform(glmMat4ToPhysXMat4(actor->transform->getPosRotMatrix()));
 
-	//cout << "glm: "<<actor->transform->rotationQuat << endl;
-	//cout << "Physx: " << glmQuatToPhysXQuat(actor->transform->rotationQuat) << endl;
-
-	return PxTransform(glmVec3ToPhysXVec3(actor->transform->position), glmQuatToPhysXQuat(actor->transform->rotationQuat));
-}
 
 void Physics::createBoxRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic)
 {
 	//PxMaterial* mMaterial = gPhysicsSDK->createMaterial(friction, dynamicFriction, restitution);
 
-	PxTransform physxTransform = getActorTransform(actor);
+	PxTransform physxTransform = transformToPhysXTransform(actor->transform); //getActorTransform(actor);
 
 	PxVec3 boxSize(actor->meshRenderer->mesh->boundsMax.x - actor->meshRenderer->mesh->boundsMin.x,
 		actor->meshRenderer->mesh->boundsMax.y - actor->meshRenderer->mesh->boundsMin.y,
@@ -117,6 +119,9 @@ void Physics::createBoxRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMate
 
 	//cout << "boxSize" << boxSize << endl;
 	PxRigidDynamic*rigidDynamic = gPhysicsSDK->createRigidDynamic(physxTransform);
+	//shared_ptr<PxRigidDynamic> rigidDynamic;
+	//rigidDynamic.reset(gPhysicsSDK->createRigidDynamic(physxTransform),releaseRigidDynamic);
+
 	PxShape* shape = rigidDynamic->createShape(PxBoxGeometry(boxSize), *physicsMaterial->material.get());
 	rigidDynamic->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, isKinematic);
 	//shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, true);
@@ -126,6 +131,7 @@ void Physics::createBoxRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMate
 
 	scene->addActor(*rigidDynamic);
 
+	actor->transform->setRigidBody(rigidDynamic);
 }
 
 //void Physics::createBoxRigidBody(shared_ptr<Actor> actor, const glm::vec3& boxSize, float friction, float dynamicFriction, float restitution, bool isKinematic)
@@ -146,10 +152,7 @@ void Physics::createBoxRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMate
 //
 //}
 
-void releaseMaterial(PxMaterial* material)
-{
-//	material->release();
-}
+
 
 shared_ptr<PhysicsMaterial> Physics::createMaterial(float friction, float dynamicFriction, float restitution)
 {
@@ -166,7 +169,7 @@ void Physics::createSphereRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsM
 {
 	//PxMaterial* mMaterial = gPhysicsSDK->createMaterial(friction, dynamicFriction, restitution);
 
-	PxTransform physxTransform = getActorTransform(actor);
+	PxTransform physxTransform = transformToPhysXTransform(actor->transform);//getActorTransform(actor);
 
 	PxVec3 boxSize(actor->meshRenderer->mesh->boundsMax.x - actor->meshRenderer->mesh->boundsMin.x,
 		actor->meshRenderer->mesh->boundsMax.y - actor->meshRenderer->mesh->boundsMin.y,
@@ -186,6 +189,8 @@ void Physics::createSphereRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsM
 	radius = fmaxf(radius, boxSize.z);
 
 	PxRigidDynamic*rigidDynamic = gPhysicsSDK->createRigidDynamic(physxTransform);
+	//shared_ptr<PxRigidDynamic> rigidDynamic;
+	//rigidDynamic.reset(gPhysicsSDK->createRigidDynamic(physxTransform),releaseRigidDynamic);
 	PxShape* shape = rigidDynamic->createShape(PxSphereGeometry(radius), *physicsMaterial->material.get());
 
 	rigidDynamic->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, isKinematic);
@@ -195,6 +200,8 @@ void Physics::createSphereRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsM
 	rigidDynamic->userData = (void*)actor.get();
 
 	scene->addActor(*rigidDynamic);
+
+	actor->transform->setRigidBody(rigidDynamic);
 
 
 }

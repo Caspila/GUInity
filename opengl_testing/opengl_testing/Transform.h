@@ -15,21 +15,20 @@ using namespace physx;
 class Actor;
 
 class Transform
+#ifdef GUINITY_DEBUG
+	:public StaticCounter<Transform>
+#endif
 {
-private:
-	static int nCount;
 
 public:
 	Transform();
 	~Transform();
 
 	void setPosition(glm::vec3 position);
-	//void setRotation(glm::vec3 rotation);
 	void setRotationQuat(glm::quat rotationQuat);
 	void setScale(glm::vec3 scale);
 
 	glm::vec3 getPosition();
-	//glm::vec3 getRotation();
 	glm::vec3 getScale();
 	glm::quat Transform::getRotationQuat();
 
@@ -38,8 +37,6 @@ public:
 
 	glm::vec3 position;
 	glm::vec3 scale;
-	//glm::vec3 rotation;
-
 	glm::quat rotationQuat;
 
 	shared_ptr<Transform> parent;
@@ -47,10 +44,15 @@ public:
 
 	weak_ptr<Actor> actor;
 
+	// HOW TO REMOVE THIS POINTER?!
+	// Should never release cause this is taken care by PhysX
+	PxRigidBody* rigidBody;
+
 	void setParent(shared_ptr<Transform> parent);
 	void addChildren(shared_ptr<Transform> children);
 
 	void setActor(shared_ptr<Actor> actor);
+	void setRigidBody(PxRigidBody* rigidBody);
 
 	void updateTransform(const PxTransform& transform);
 

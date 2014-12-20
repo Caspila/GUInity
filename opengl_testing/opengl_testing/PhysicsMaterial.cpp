@@ -8,11 +8,20 @@ PhysicsMaterial::PhysicsMaterial(float friction, float dynamicFriction, float re
 	this->restitution = restitution;
 
 	this->material = material;
+
+#ifdef GUINITY_DEBUG
+	nCount++;
+#endif
+	
 }
 
 
 
 PhysicsMaterial::~PhysicsMaterial()
 {
-	cout << "PhysicsMaterial destroyed" << endl;
+#ifdef GUINITY_DEBUG
+	nCount--;
+	cout << "PhysicsMaterial destroyed (" << nCount << " remaining)" << endl;
+#endif
+	
 }

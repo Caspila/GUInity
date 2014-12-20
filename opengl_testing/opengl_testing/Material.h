@@ -10,6 +10,9 @@
 #include "AnyClass.h"
 
 class Material
+#ifdef GUINITY_DEBUG
+	: public StaticCounter<Material>
+#endif
 {	
 public:
 	shared_ptr<Shader> shader;
@@ -25,5 +28,6 @@ public:
 
 	Material(shared_ptr<Shader> s);
 	~Material();
+
 };
 

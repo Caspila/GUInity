@@ -26,12 +26,20 @@ Material::Material(shared_ptr<Shader> shader)
 
 
 	}
+
+#ifdef GUINITY_DEBUG
+	nCount++;
+#endif
 }
 
 
 Material::~Material()
 {
-	cout << "Material destroyed" << endl;
+#ifdef GUINITY_DEBUG
+	nCount--;
+	cout << "Material destroyed (" << nCount << " remaining)" << endl;
+#endif
+	
 }
 
 GLuint Material::getShaderProgram()

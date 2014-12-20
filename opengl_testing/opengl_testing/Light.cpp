@@ -1,14 +1,21 @@
 #include "Light.h"
 
-
 Light::Light(glm::vec3 position, glm::vec3 color)
 {
 	transform.setPosition(position);
 	this->color = color;
+
+#ifdef GUINITY_DEBUG
+	nCount++;
+#endif
 }
 
 
 Light::~Light()
 {
-	cout << "Light destroyed" << endl;
+#ifdef GUINITY_DEBUG
+	nCount--;
+	cout << "Light destroyed (" << nCount << " remaining)" << endl;
+#endif
+	
 }

@@ -5,6 +5,9 @@
 using namespace physx;
 
 class PhysicsMaterial
+#ifdef GUINITY_DEBUG
+	:public StaticCounter<PhysicsMaterial>
+#endif
 {
 public:
 	PhysicsMaterial(float friction, float dynamicFriction, float restitution, shared_ptr<PxMaterial> material);
@@ -13,5 +16,6 @@ public:
 	float friction, dynamicFriction, restitution;
 
 	shared_ptr<PxMaterial> material;
+
 };
 
