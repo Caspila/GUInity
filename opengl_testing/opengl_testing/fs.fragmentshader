@@ -1,0 +1,6 @@
+#version 400
+out vec3 color;
+uniform vec3 difuse ;
+void main(){
+    color = difuse;
+}
