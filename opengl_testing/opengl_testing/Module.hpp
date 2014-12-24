@@ -11,7 +11,7 @@
 #ifdef _WIN32 // note the underscore: without it, it's not msdn official!
 // Windows (x64 and x86)
 
-#define DATA_PATH "../../../../../../data/"
+#define DATA_PATH "../../data/"
 
 #elif __unix__ // all unices, not all compilers
 // Unix

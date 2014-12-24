@@ -249,7 +249,9 @@ int main() {
 	shared_ptr<Material> m3 = make_shared<Material>(s);
 	//m3->setParamVec3("difuse", glm::vec3(0, 0, 1));
 
-	//shared_ptr<Mesh> sphereMesh = make_shared<Mesh>("sphere.obj");
+	string meshDataPath = DATA_PATH;
+
+	shared_ptr<Mesh> sphereMesh = make_shared<Mesh>(meshDataPath.append("sphere.obj").c_str());
 	shared_ptr<Mesh> triangleMesh = make_shared<Mesh>(pointsTriangle,3,colorTriangle,normalTriangle);
 	shared_ptr<Mesh> quadMesh = make_shared<Mesh>(pointsQuad, 6, colorQuad, normalQuad);
 	shared_ptr<Mesh> cubeMesh = make_shared<Mesh>(pointsCube, 36, nullptr,normalCube);

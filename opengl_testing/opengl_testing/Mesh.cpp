@@ -10,18 +10,14 @@ bool loadOBJ(const char* path, std::vector <glm::vec3>& out_vertices, std::vecto
 	std::vector< glm::vec2 > temp_uvs;
 	std::vector< glm::vec3 > temp_normals;
 
-	FILE * file;
-	//errno_t e = fopen_s(&file, path, "r");
-    fopen(path, "r");
-	
-
+	FILE * file = fopen(path, "r");
 	
 	while (1){
 
 		//cout << file->_tmpfname << endl;
 		char lineHeader[128];
 		// read the first word of the line
-        int res = fscanf(file, "%s", lineHeader);
+        int res = fscanf(file, "%s", lineHeader,128);
 		//int res = fscanf_s(file, "%s", lineHeader, 128);
 		if (res == EOF)
 			break; // EOF = End Of File. Quit the loop.
