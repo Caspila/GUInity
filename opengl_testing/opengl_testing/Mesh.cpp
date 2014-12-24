@@ -11,43 +11,41 @@ bool loadOBJ(const char* path, std::vector <glm::vec3>& out_vertices, std::vecto
 	std::vector< glm::vec3 > temp_normals;
 
 	FILE * file;
-	errno_t e = fopen_s(&file, path, "r");
-
+	//errno_t e = fopen_s(&file, path, "r");
+    fopen(path, "r");
 	
 
-	if (e != 0){
-		printf("Impossible to open the file !\n");
-		return false;
-	}
+	
 	while (1){
 
 		//cout << file->_tmpfname << endl;
 		char lineHeader[128];
 		// read the first word of the line
-		int res = fscanf_s(file, "%s", lineHeader, 128);
+        int res = fscanf(file, "%s", lineHeader);
+		//int res = fscanf_s(file, "%s", lineHeader, 128);
 		if (res == EOF)
 			break; // EOF = End Of File. Quit the loop.
 
 		// else : parse lineHeader
 		if (strcmp(lineHeader, "v") == 0){
 			glm::vec3 vertex;
-			fscanf_s(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
+			fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
 			temp_vertices.push_back(vertex);
 		}
 		else if (strcmp(lineHeader, "vt") == 0){
 			glm::vec2 uv;
-			fscanf_s(file, "%f %f\n", &uv.x, &uv.y);
+			fscanf(file, "%f %f\n", &uv.x, &uv.y);
 			temp_uvs.push_back(uv);
 		}
 		else if (strcmp(lineHeader, "vn") == 0){
 			glm::vec3 normal;
-			fscanf_s(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
+			fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
 			temp_normals.push_back(normal);
 		}
 		else if (strcmp(lineHeader, "f") == 0){
 			std::string vertex1, vertex2, vertex3;
 			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-			int matches = fscanf_s(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
+			int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
 			if (matches != 9){
 				printf("File can't be read by our simple parser : ( Try exporting with other options\n");
 				return false;
@@ -88,7 +86,7 @@ bool loadOBJ(const char* path, std::vector <glm::vec3>& out_vertices, std::vecto
 
 Mesh::Mesh(float *points, int nPoints, float* colorPoints, float* normalPoints)
 {
-	int realPoints = nPoints * 3;
+	//int realPoints = nPoints * 3;
 
 	this->nPoints = nPoints;
 
@@ -112,7 +110,7 @@ Mesh::Mesh(const char* path)
 
 	if (loaded)
 	{
-		nPoints = points.size();
+		nPoints = (int)points.size();
 
 		createBuffers();
 	}

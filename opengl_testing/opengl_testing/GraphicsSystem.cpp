@@ -35,6 +35,11 @@ int GraphicsSystem::init()
 		fprintf(stderr, "ERROR: could not start GLFW3\n");
 		return 1;
 	}
+    
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
 	//window = make_shared<GLFWwindow>(glfwCreateWindow(640, 480, "Hello Triangle", NULL, NULL), glfwDestroyWindow);
 	//window = make_shared<GLFWwindow>(glfwCreateWindow(640, 480, "Hello Triangle", NULL, NULL),NULL);
@@ -69,8 +74,14 @@ int GraphicsSystem::init()
 
 void GraphicsSystem::createDebugShader()
 {
-	debugShader = make_shared<Shader>("vs.vs", "fs.fragmentshader");
+	//debugShader = make_shared<Shader>("../../../../../../data/vs.vs", "../../../../../../data/fs.fragmentshader");
 
+    string vsDataPath = DATA_PATH;
+    string fsDataPath = DATA_PATH;
+	debugShader = make_shared<Shader>(vsDataPath.append("vs.vs").c_str(),fsDataPath.append("fs.fragmentshader").c_str());
+    
+	//debugShader = make_shared<Shader>("/Users/guilherme_cunha/Dev/GITHUB/GUInity/data/vsLight.vs", "/Users/guilherme_cunha/Dev/GITHUB/GUInity/data/fsLight.fragmentshader");
+    
 	debugMaterial = make_shared<Material>(debugShader);
 }
 
@@ -90,6 +101,9 @@ void GraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<Actor
 	camera->computeModelViewMatrix();
 
 
+
+
+    
 	for (int i = 0; i < actors.size(); i++)
 	{
 		shared_ptr<Actor> actor = actors[i];
@@ -99,7 +113,7 @@ void GraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<Actor
 		glLinkProgram(shaderProgram);
 		glUseProgram (shaderProgram);
 
-
+  
 
 		//for each (pair<string, Holder> var in actor->meshRenderer->material->params)
 		//{
@@ -196,7 +210,11 @@ void GraphicsSystem::render(shared_ptr<Camera> camera,const physx::PxRenderBuffe
 
 	glDrawArrays(GL_LINES, 0, 2 * rb.getNbLines());
 
-	delete points;
+
+    
+    glBindVertexArray(0); // Unbind our Vertex Array Object
+    
+	delete []points;
 }
 
 void GraphicsSystem::render(shared_ptr<Camera> camera, const Ray& r, const glm::vec3& color)

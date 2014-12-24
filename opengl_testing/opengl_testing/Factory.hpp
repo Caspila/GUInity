@@ -1,18 +1,19 @@
 #pragma once
 
 #include "Module.hpp"
-//#include "Actor.h"
+#include "Actor.hpp"
 //#include "Player.h"
 
 class Script;
 class MeshRenderer;
-class Actor;
+//class Actor;
 
 template<typename T>
 static unique_ptr<T> CreateScriptComponent(shared_ptr<Actor> actor)
 {
 	unique_ptr<T> scriptComponent = make_unique<T>();
 
+    
 	actor->scriptComponents.push_back(scriptComponent);
 
 	return scriptComponent;

@@ -30,7 +30,7 @@ public:
 
 	glm::vec3 getPosition();
 	glm::vec3 getScale();
-	glm::quat Transform::getRotationQuat();
+	glm::quat getRotationQuat();
 
 	glm::mat4 getModelMatrix();
 	glm::mat4 getPosRotMatrix();

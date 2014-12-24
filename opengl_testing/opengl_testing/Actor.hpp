@@ -3,10 +3,11 @@
 #include "Module.hpp"
 #include <vector>
 #include "ScriptComponent.hpp"
+#include "Transform.hpp"
 
 class Actor;
 class MeshRenderer;
-class Transform;
+//class Transform;
 //class ScriptComponent;
 
 class Actor
@@ -32,6 +33,7 @@ public:
 	template <typename T>
 	shared_ptr<T> AddScript()
 	{
+        
 		shared_ptr<T> scriptComponent = make_shared<T>();
 		scriptComponent->setActor(transform->actor);
 		scriptComponents.push_back(scriptComponent);

@@ -1,7 +1,7 @@
 #include "Time.hpp"
 
-std::chrono::system_clock::time_point Time::startTimer = std::chrono::high_resolution_clock::now();
-std::chrono::system_clock::time_point Time::endTimer = std::chrono::high_resolution_clock::now();
+std::chrono::steady_clock::time_point Time::startTimer = std::chrono::high_resolution_clock::now();
+std::chrono::steady_clock::time_point Time::endTimer = std::chrono::high_resolution_clock::now();
 
 float Time::deltaTime = 0.0f;
 

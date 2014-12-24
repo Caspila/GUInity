@@ -47,6 +47,8 @@
 using namespace physx;
 using namespace std;
 
+
+
 //static int average(lua_State *L)
 //{
 //	/* get number of arguments */
@@ -232,9 +234,11 @@ int main() {
 		1.0f, 0.0f, 0.0f,
 
 	};
-
-
-	shared_ptr<Shader> s = make_shared<Shader>("vsLight.vs", "fsLight.fragmentshader");
+    
+    string vsDataPath = DATA_PATH;
+    string fsDataPath = DATA_PATH;
+    
+	shared_ptr<Shader> s = make_shared<Shader>(vsDataPath.append("vsLight.vs").c_str(),fsDataPath.append("fsLight.fragmentshader").c_str());//"/Users/guilherme_cunha/Dev/GITHUB/GUInity/data/vsLight.vs", "/Users/guilherme_cunha/Dev/GITHUB/GUInity/data/fsLight.fragmentshader");
 	
 	shared_ptr<Material> m = make_shared<Material>(s);
 	//m->setParamVec3("difuse", glm::vec3(1, 0, 0));
@@ -245,7 +249,7 @@ int main() {
 	shared_ptr<Material> m3 = make_shared<Material>(s);
 	//m3->setParamVec3("difuse", glm::vec3(0, 0, 1));
 
-	shared_ptr<Mesh> sphereMesh = make_shared<Mesh>("sphere.obj");
+	//shared_ptr<Mesh> sphereMesh = make_shared<Mesh>("sphere.obj");
 	shared_ptr<Mesh> triangleMesh = make_shared<Mesh>(pointsTriangle,3,colorTriangle,normalTriangle);
 	shared_ptr<Mesh> quadMesh = make_shared<Mesh>(pointsQuad, 6, colorQuad, normalQuad);
 	shared_ptr<Mesh> cubeMesh = make_shared<Mesh>(pointsCube, 36, nullptr,normalCube);
@@ -253,7 +257,7 @@ int main() {
 	shared_ptr<MeshRenderer> meshRenderer1 = make_shared<MeshRenderer>(quadMesh, m);
 	shared_ptr<MeshRenderer> meshRenderer2 = make_shared<MeshRenderer>(triangleMesh, m2);
 	shared_ptr<MeshRenderer> meshRenderer3 = make_shared<MeshRenderer>(cubeMesh, m3);
-	shared_ptr<MeshRenderer> meshRenderer4 = make_shared<MeshRenderer>(sphereMesh, m3);
+	//shared_ptr<MeshRenderer> meshRenderer4 = make_shared<MeshRenderer>(sphereMesh, m3);
 
 	//shared_ptr<Player> player = Factory::CreateActor<Player>("Player", meshRenderer2);
 	shared_ptr<Actor> player = Factory::CreateActor<Actor>("Player", meshRenderer2);
@@ -269,9 +273,9 @@ int main() {
 	mycube->transform->setRotationQuat(glm::quat(glm::vec3(-90 * Math::Deg2Radian, 0, 0)));
 	mycube->transform->setPosition(glm::vec3(0, -2, 0));
 
-	shared_ptr<Actor> mysphere = Factory::CreateActor("Sphere", meshRenderer4);
-	mysphere->transform->setPosition(glm::vec3(0, -1, 0));
-	mysphere->transform->setScale(glm::vec3(1, 1, 1)*0.5f);
+	//shared_ptr<Actor> mysphere = Factory::CreateActor("Sphere", meshRenderer4);
+	//mysphere->transform->setPosition(glm::vec3(0, -1, 0));
+	//mysphere->transform->setScale(glm::vec3(1, 1, 1)*0.5f);
 
 	//shared_ptr<Script> script = make_shared<PlayerScript>();
 //	unique_ptr<Script> script = make_unique<PlayerScript>();
@@ -279,11 +283,11 @@ int main() {
 	world.addActor(myplane);
 	world.addLight(light);
 	world.addActor(mycube);
-	world.addActor(mysphere);
+	//world.addActor(mysphere);
 
 
-	shared_ptr<PlayerScript> script = mycube->AddScript<PlayerScript>();
-	script->setSphereRef(world.findActor("Sphere"));
+	//shared_ptr<PlayerScript> script = mycube->AddScript<PlayerScript>();
+	//script->setSphereRef(world.findActor("Sphere"));
 	//script->setReference()
 	//mycube->AddScript<PlayerScript>();
 	//AddScript<PlayerScript>(mysphere);
@@ -303,9 +307,9 @@ int main() {
 
 	shared_ptr<PhysicsMaterial> physMaterial = physics.createMaterial(0.5f, 0.5f, 0.75f);
 
-//	physics.createBoxRigidBody(mycube,    physMaterial, false);
+	physics.createBoxRigidBody(mycube,    physMaterial, false);
 //	physics.createSphereRigidBody(player, physMaterial, false);
-	physics.createSphereRigidBody(mysphere, physMaterial, false);
+	//physics.createSphereRigidBody(mysphere, physMaterial, false);
 	physics.createBoxRigidBody(myplane,   physMaterial, true);
 	//physics.createBoxRigidBody(mycube, glm::vec3(0.5f, 0.5f, 0.5f), 0.5f, 0.5f, 0.75f, false);
 	//physics.createBoxRigidBody(myplane, glm::vec3(2.5f, 2.5f, 0.1f), 0.5f, 0.5f, 0.75f,true);
@@ -322,7 +326,7 @@ int main() {
 
 	world.awake();
 
-	int cont = 0;
+	//int cont = 0;
 	while (!glfwWindowShouldClose(graphicsSystem.window.get())) {
 		Time::frameStart();
 

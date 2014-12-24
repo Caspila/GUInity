@@ -101,6 +101,8 @@ int Physics::init()
 	scene->setVisualizationParameter(PxVisualizationParameter::eSCALE, 1.0f);
 	scene->setVisualizationParameter(PxVisualizationParameter::eACTOR_AXES, 1.0f);
 	scene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_SHAPES, 1.0f);
+    
+    return 0;
 }
 	
 

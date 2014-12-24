@@ -43,6 +43,10 @@ public:
 	void createDebugShader();
 	shared_ptr<Shader> debugShader;
 	shared_ptr<Material> debugMaterial;
+    
+    
+
+
 
 };
 
