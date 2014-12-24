@@ -1,5 +1,8 @@
-#include "Actor.h"
-#include "Script.h"
+#include "Actor.hpp"
+#include "Script.hpp"
+//#include "ScriptComponent.h"
+#include "Transform.hpp"
+#include "print.hpp"
 
 Actor::Actor(string name, shared_ptr<MeshRenderer> meshRenderer	)
 {
@@ -24,16 +27,27 @@ Actor::~Actor()
 	
 }
 
+void Actor::awake()
+{
+	for (int i = 0; i < scriptComponents.size(); i++)
+	{
+		shared_ptr<ScriptComponent> scriptComponent = scriptComponents[i];
+		scriptComponent->awake();
+	}
+}
+
 void Actor::tick(float deltaSeconds)
 {
 	for (int i = 0; i < scriptComponents.size(); i++)
 	{
-		ScriptComponent& scriptComponent = scriptComponents[i];
+		shared_ptr<ScriptComponent> scriptComponent = scriptComponents[i];
+		//ScriptComponent& scriptComponent = scriptComponents[i];
 
 		//shared_ptr<Actor> actor = scriptComponent.actor.lock();
 		//if (actor)
 		//{
-		scriptComponent.script->tick(scriptComponent.actor, deltaSeconds);
+		//scriptComponent.script->tick(scriptComponent.actor, deltaSeconds);
+		scriptComponent->tick(deltaSeconds);
 
 		//}
 

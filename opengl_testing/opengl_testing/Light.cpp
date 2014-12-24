@@ -1,4 +1,4 @@
-#include "Light.h"
+#include "Light.hpp"
 
 Light::Light(glm::vec3 position, glm::vec3 color)
 {

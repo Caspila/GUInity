@@ -1,5 +1,8 @@
-#include "Factory.h"
-
+#include "Factory.hpp"
+#include "Actor.hpp"
+#include "Transform.hpp"
+#include "Script.hpp"
+#include "ScriptComponent.hpp"
 
 Factory::Factory()
 {
@@ -10,11 +13,21 @@ Factory::~Factory()
 {
 }
 
-void Factory::CreateScriptComponent(shared_ptr<Actor> actor, shared_ptr<Script> script)
-{
-	ScriptComponent scriptComponent(script, actor);
-	actor->scriptComponents.push_back(scriptComponent);
-}
+//template<class T>
+//static void CreateScriptComponent(shared_ptr<Actor> actor);
+//template<typename T>
+//void Factory::CreateScriptComponent(shared_ptr<Actor> actor)
+//{
+//	//unique_ptr<T> uniqueScript = make_unique<T>();
+//	//ScriptComponent scriptComponent(uniqueScript, actor);
+//	//actor->scriptComponents.push_back(scriptComponent);
+//}
+
+//void Factory::CreateScriptComponent(shared_ptr<Actor> actor, unique_ptr<Script> script)
+//{
+//	ScriptComponent scriptComponent(script, actor);
+//	actor->scriptComponents.push_back(scriptComponent);
+//}
 
 shared_ptr<Actor> Factory::CreateActor(string name, shared_ptr<MeshRenderer> meshRenderer)
 {
@@ -24,7 +37,7 @@ shared_ptr<Actor> Factory::CreateActor(string name, shared_ptr<MeshRenderer> mes
 	return actor;
 }
 
-template<class T>
+template<typename T>
 shared_ptr<T> Factory::CreateActor(string name, shared_ptr<MeshRenderer> meshRenderer)
 {
 	shared_ptr<T> actor = make_shared<T>(name, meshRenderer);
@@ -34,4 +47,5 @@ shared_ptr<T> Factory::CreateActor(string name, shared_ptr<MeshRenderer> meshRen
 }
 
 template shared_ptr<Actor> Factory::CreateActor<Actor>(string name, shared_ptr<MeshRenderer> meshRenderer);
-template shared_ptr<Player> Factory::CreateActor<Player>(string name, shared_ptr<MeshRenderer> meshRenderer);
+
+//template void Factory::CreateScriptComponent<Script>(shared_ptr<Actor> actor);

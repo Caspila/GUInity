@@ -1,4 +1,12 @@
-#include "GraphicsSystem.h"
+#include "GraphicsSystem.hpp"
+#include "Mesh.hpp"
+#include "MeshRenderer.hpp"
+#include "Actor.hpp"
+#include "Camera.hpp"
+#include "Light.hpp"
+#include "Material.hpp"
+#include "Shader.hpp"
+
 
 GraphicsSystem::GraphicsSystem()
 {

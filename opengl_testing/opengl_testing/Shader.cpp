@@ -1,4 +1,4 @@
-#include "Shader.h"
+#include "Shader.hpp"
 #include <sstream>
 
 Shader::Shader(const char * vertex_file_path, const char * fragment_file_path)
@@ -152,10 +152,13 @@ void Shader::checkLine(const string& Line)
 
 void Shader::createUniformLocation()
 {
-	for each(pair<string, ShaderParamType> param in params)
-	{
-		const char* name = param.first.c_str();
+	std::map<string, ShaderParamType>::iterator it = params.begin();
 
-		paramID.insert(pair<string, GLuint>(param.first, glGetUniformLocation(programID, name)));
+	for (; it != params.end(); it++)
+	{
+		const char* name = it->first.c_str();
+
+		paramID.insert(pair<string, GLuint>(it->first, glGetUniformLocation(programID, name)));
 	}
+
 }

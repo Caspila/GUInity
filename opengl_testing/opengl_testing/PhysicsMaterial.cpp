@@ -1,4 +1,4 @@
-#include "PhysicsMaterial.h"
+#include "PhysicsMaterial.hpp"
 
 
 PhysicsMaterial::PhysicsMaterial(float friction, float dynamicFriction, float restitution, shared_ptr<PxMaterial> material)

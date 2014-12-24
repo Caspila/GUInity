@@ -1,5 +1,7 @@
-#include "Camera.h"
-#include "print.h"
+#include "Camera.hpp"
+#include "print.hpp"
+#include "Math.hpp"
+#include "Transform.hpp"
 
 int Camera::nCount = 0;
 

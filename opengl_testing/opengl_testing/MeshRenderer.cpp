@@ -1,4 +1,4 @@
-#include "MeshRenderer.h"
+#include "MeshRenderer.hpp"
 
 
 MeshRenderer::MeshRenderer(shared_ptr<Mesh> mesh, shared_ptr<Material> m)

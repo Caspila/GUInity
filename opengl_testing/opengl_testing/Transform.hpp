@@ -1,14 +1,14 @@
 #pragma once
 
-#include "Module.h"
-#include <glm\glm.hpp>
-#include <glm\gtc\matrix_transform.hpp>
-#include <glm\gtx\transform.hpp>
-#include <glm\gtx\quaternion.hpp>
+#include "Module.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include <vector>
-#include "Math.h"
+#include "Math.hpp"
 #include <PxPhysics.h>
-#include "print.h"
+
 
 using namespace physx;
 

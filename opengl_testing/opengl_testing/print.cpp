@@ -1,7 +1,6 @@
-#include "print.h"
-
-
-#include "Transform.h"
+#include "print.hpp"
+#include "Transform.hpp"
+#include "Math.hpp"
 
 ostream& operator<<(ostream& os, const glm::vec4& vec3)
 {

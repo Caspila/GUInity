@@ -1,11 +1,20 @@
 #pragma once
 
-#include "Module.h"
-#include "Actor.h"
-#include "Camera.h"
+
+#include <vector>
+#include "Module.hpp"
+//#include "Actor.h"
+//#include "Camera.h"
 #include <PxPhysicsAPI.h>
-#include "print.h"
-#include "Light.h"
+//#include "print.h"
+//#include "Light.h"
+#include "Ray.hpp"
+
+class Camera;
+class Actor;
+class Light;
+class Shader;
+class Material;
 
 using namespace physx;
 

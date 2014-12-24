@@ -1,4 +1,4 @@
-#include "Script.h"
+#include "Script.hpp"
 
 
 Script::Script()
@@ -18,21 +18,41 @@ Script::~Script()
 	
 }
 
-void Script::tick(weak_ptr<Actor> actor, float deltaSeconds)
+void Script::setActor(shared_ptr<Actor> actor)
 {
-	shared_ptr<Actor> actorLock = actor.lock();
-	if (actorLock)
-	{
-		currentActor = actorLock;
-		//currentActor = actor;
-		tick(deltaSeconds);
-		currentActor = nullptr;
+	this->actor = actor;
 }
-}
+
+//void Script::tick(float deltaSeconds)
+//{
+//	//shared_ptr<Actor> actorLock = actor.lock();
+//	//if (actorLock)
+//	//{
+//	//	actor = actorLock;
+//	//	//currentActor = actor;
+//	//	tick(deltaSeconds);
+//	//	currentActor = nullptr;
+//	//}
+//	tick(deltaSeconds);
+//}
+
+
+//void Script::tick(weak_ptr<Actor> actor, float deltaSeconds)
+//{
+//	shared_ptr<Actor> actorLock = actor.lock();
+//	if (actorLock)
+//	{
+//		actor = actorLock;
+//		//currentActor = actor;
+//		tick(deltaSeconds);
+//		currentActor = nullptr;
+//	}
+//}
 
 shared_ptr<Actor> Script::getActor()
 {
-	return currentActor;
+	return actor;
+	//return currentActor;
 	//shared_ptr<Actor> actorLock = currentActor.lock();
 	//if (actorLock)
 	//	return actorLock;

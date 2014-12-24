@@ -1,6 +1,7 @@
-#include "Transform.h"
-#include "Math.h"
-#include "Actor.h"
+#include "Transform.hpp"
+#include "Math.hpp"
+#include "Actor.hpp"
+#include "print.hpp"
 
 Transform::Transform() : position(0.0f), rotationQuat(), scale(1.0f)
 {

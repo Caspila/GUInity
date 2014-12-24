@@ -1,8 +1,8 @@
 #pragma once
 
-#include "Module.h"
+#include "Module.hpp"
 #include <vector>
-#include <glm\common.hpp>
+#include <glm/common.hpp>
 
 #include <array>
 

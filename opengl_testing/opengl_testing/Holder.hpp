@@ -1,7 +1,7 @@
 #pragma once
 
-#include "Module.h"
-#include <glm\glm.hpp>
+#include "Module.hpp"
+#include <glm/glm.hpp>
 
 #ifndef __HOLDER__
 #define __HOLDER__

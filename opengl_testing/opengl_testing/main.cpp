@@ -1,36 +1,37 @@
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
 #include <glm/common.hpp>
-#include <glm\gtc\quaternion.hpp>
+#include <glm/gtc/quaternion.hpp>
 #include <stdio.h>
 #include <memory>
 #include <iostream>
 #include <fstream>
 
-#include "Material.h"
+#include "Material.hpp"
 #include <vector>
-#include "Actor.h"
-#include "Camera.h"
+#include "Actor.hpp"
+#include "Camera.hpp"
 #include <tuple>
-#include "Input.h"
-#include "GraphicsSystem.h"
-#include "Time.h"
-#include "World.h"
-#include "Player.h"
+#include "Input.hpp"
+#include "GraphicsSystem.hpp"
+#include "Time.hpp"
+#include "World.hpp"
+#include "Mesh.hpp"
+#include "MeshRenderer.hpp"
+#include "Shader.hpp"
 //#include <Box2D\Box2D.h>
 #include <PxPhysicsAPI.h>
 #include <PxQueryReport.h>
 
 
-#include "print.h"
-#include "Factory.h"
-#include "PhysXEventCallback.h"
-#include "Physics.h"
-#include "Light.h"
-#include "PhysicsMaterial.h"
-#include "Script.h"
-#include "PlayerScript.h"
-#include "LuaBinder.h"
+#include "print.hpp"
+#include "Factory.hpp"
+#include "PhysXEventCallback.hpp"
+#include "Physics.hpp"
+#include "Light.hpp"
+#include "PhysicsMaterial.hpp"
+#include "Script.hpp"
+#include "PlayerScript.hpp"
 
 
 //-------Loading PhysX libraries----------]
@@ -87,6 +88,11 @@ int main() {
 		return 1;
 
 	Input input(graphicsSystem.window);
+
+	World world;
+
+	Physics physics;
+	physics.init();
 
 	float pointsTriangle[] = {
 		0.0f, 0.5f, 0.0f,
@@ -267,21 +273,33 @@ int main() {
 	mysphere->transform->setPosition(glm::vec3(0, -1, 0));
 	mysphere->transform->setScale(glm::vec3(1, 1, 1)*0.5f);
 
-	shared_ptr<Script> script = make_shared<PlayerScript>();
-	Factory::CreateScriptComponent(mysphere, script);
-	Factory::CreateScriptComponent(mycube, script);
+	//shared_ptr<Script> script = make_shared<PlayerScript>();
+//	unique_ptr<Script> script = make_unique<PlayerScript>();
 
-	
-
-	World world;
-	//world.addActor(player);
 	world.addActor(myplane);
 	world.addLight(light);
 	world.addActor(mycube);
 	world.addActor(mysphere);
 
-	Physics physics;
-	physics.init();
+
+	shared_ptr<PlayerScript> script = mycube->AddScript<PlayerScript>();
+	script->setSphereRef(world.findActor("Sphere"));
+	//script->setReference()
+	//mycube->AddScript<PlayerScript>();
+	//AddScript<PlayerScript>(mysphere);
+
+	//CreateScriptComponent<PlayerScript>(mysphere);
+	//Factory::CreateScriptComponent<int>(mysphere);
+	//Factory::CreateScriptComponent<PlayerScript>(mysphere);
+	//Factory::CreateScriptComponent<PlayerScript>(mysphere);
+	//Factory::CreateScriptComponent(mysphere, script);
+	//Factory::CreateScriptComponent(mycube, script);
+
+
+
+	//world.addActor(player);
+
+
 
 	shared_ptr<PhysicsMaterial> physMaterial = physics.createMaterial(0.5f, 0.5f, 0.75f);
 
@@ -299,8 +317,10 @@ int main() {
 	camera->transform->setPosition(glm::vec3(0, 0, 10));
 	camera->computeModelViewMatrix();
 
-	LuaBinder luaBinder;
-	luaBinder.RunScript(nullptr);
+//	LuaBinder luaBinder;
+//	luaBinder.RunScript(nullptr);
+
+	world.awake();
 
 	int cont = 0;
 	while (!glfwWindowShouldClose(graphicsSystem.window.get())) {
@@ -333,7 +353,7 @@ int main() {
 	}
 
 	physics.shutdown();
-
+	
 	// close GL context and any other GLFW resources
 	graphicsSystem.shutdown();
 

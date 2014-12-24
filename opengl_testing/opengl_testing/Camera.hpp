@@ -1,13 +1,12 @@
 #pragma once
 
-#include "Module.h"
-#include "Vector3.h"
-#include <glm\glm.hpp>
-#include <glm\gtc\matrix_transform.hpp>
-#include <glm\gtx\transform.hpp>
-#include "Math.h"
-#include "Ray.h"
-#include "Transform.h"
+#include "Module.hpp"
+#include <glm/glm.hpp>
+#include <glm/gtc/matrix_transform.hpp>
+#include <glm/gtx/transform.hpp>
+#include "Ray.hpp"
+
+class Transform;
 
 using namespace std;
 

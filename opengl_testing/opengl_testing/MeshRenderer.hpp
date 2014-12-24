@@ -1,8 +1,11 @@
 #pragma once
 
-#include "Module.h"
-#include "Mesh.h"
-#include "Material.h"
+#include "Module.hpp"
+//#include "Mesh.h"
+//#include "Material.h"
+
+class Mesh;
+class Material;
 
 class MeshRenderer
 #ifdef GUINITY_DEBUG

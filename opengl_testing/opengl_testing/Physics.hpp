@@ -1,10 +1,11 @@
 #pragma once
 #include <PxPhysicsAPI.h>
-#include "Ray.h"
-#include "print.h"
-#include "Actor.h"
-#include "PhysXEventCallback.h"
-#include "PhysicsMaterial.h"
+#include "Ray.hpp"
+#include "PhysXEventCallback.hpp"
+
+
+class Actor;
+class PhysicsMaterial;
 
 using namespace physx;
 

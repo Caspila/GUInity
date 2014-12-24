@@ -1,5 +1,14 @@
-#include "Physics.h"
+#include "Physics.hpp"
 #include <math.h>
+#include "Transform.hpp"
+#include "MeshRenderer.hpp"
+#include "Mesh.hpp"
+
+
+#include "print.hpp"
+#include "Actor.hpp"
+#include "PhysicsMaterial.hpp"
+
 
 PxScene* Physics::scene;
 PxPhysics* Physics::gPhysicsSDK;

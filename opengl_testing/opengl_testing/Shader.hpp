@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Module.h"
+#include "Module.hpp"
 #include <fstream>
 #include <vector>
 #include <map>
-#include <glm\glm.hpp>
-#include "Holder.h"
+#include <glm/glm.hpp>
+#include "Holder.hpp"
 
 class Shader
 #ifdef GUINITY_DEBUG

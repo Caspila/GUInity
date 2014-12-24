@@ -1,5 +1,6 @@
 
-#include "Material.h"
+#include "Material.hpp"
+#include "Shader.hpp"
 
 Material::Material(shared_ptr<Shader> shader)
 {
@@ -11,7 +12,24 @@ Material::Material(shared_ptr<Shader> shader)
 		pair<string, ShaderParamType> &param = shader->params.at(i);
 	}
 */
-	for each(pair<string,ShaderParamType> param in shader->params)
+
+	std::map<string, ShaderParamType>::iterator it = shader->params.begin();
+
+	for (; it != shader->params.end(); it++)
+	{
+		if (it->second == FLOAT)
+		{
+			params.insert(std::pair<string, Holder>(it->first, Holder(FLOAT, 1)));
+		}
+		else if (it->second == VEC3)
+		{
+			params.insert(std::pair<string, Holder>(it->first, Holder(VEC3, glm::vec3())));
+
+		}
+
+	}
+
+	/*for each(pair<string,ShaderParamType> param in shader->params)
 	{
 
 		if (param.second == FLOAT)
@@ -25,7 +43,7 @@ Material::Material(shared_ptr<Shader> shader)
 		}
 
 
-	}
+	}*/
 
 #ifdef GUINITY_DEBUG
 	nCount++;
@@ -49,11 +67,24 @@ GLuint Material::getShaderProgram()
 
 bool Material::paramExists(string paramName)
 {
-	for each (tuple<string,glm::vec3> var in params)
+//	for each (tuple<string,glm::vec3> var in params)
+//	{
+//		if (get<0>(var).compare(paramName) == 0)
+//			return true;
+//	}
+
+	//auto it = std::find(params.begin(), params.end(), paramName);
+	//
+	//return it != params.end();
+
+	std::map<string, ShaderParamType>::iterator it = shader->params.begin();
+
+	for (; it != shader->params.end(); it++)
 	{
-		if (get<0>(var).compare(paramName) == 0)
+		if (it->first.compare(paramName))
 			return true;
 	}
+
 
 	return false;
 }

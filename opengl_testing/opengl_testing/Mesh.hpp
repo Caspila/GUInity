@@ -1,8 +1,10 @@
 #pragma once
 
-#include "Material.h"
-#include "Module.h"
-#include "StaticCounter.h"
+//#include "Material.h"
+#include "Module.hpp"
+//#include "StaticCounter.h"
+#include <vector>
+#include <glm/common.hpp>
 
 class Mesh
 #ifdef GUINITY_DEBUG

@@ -1,13 +1,15 @@
 #pragma once
 
-#include <GL\glew.h>
-#include <GLFW\glfw3.h>
-#include "Module.h"
-#include "Shader.h"
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+#include "Module.hpp"
+//#include "Shader.h"
 #include <memory>
 #include <map>
-#include "Holder.h"
-#include "AnyClass.h"
+#include "Holder.hpp"
+//#include "AnyClass.h"
+
+class Shader;
 
 class Material
 #ifdef GUINITY_DEBUG

@@ -1,11 +1,11 @@
 #pragma once
 
-#include "Module.h"
-#include <glm\common.hpp>
-#include <glm\gtx\quaternion.hpp>
+#include "Module.hpp"
+#include <glm/common.hpp>
+#include <glm/gtx/quaternion.hpp>
 #include <PxPhysicsAPI.h>
-#include "Ray.h"
-#include "Math.h"
+#include "Ray.hpp"
+//#include "Math.h"
 
 class Transform;
 using namespace physx;
