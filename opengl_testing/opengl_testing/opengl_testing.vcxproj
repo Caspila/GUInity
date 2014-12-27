@@ -5,9 +5,17 @@
       <Configuration>Debug</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="Release|Win32">
       <Configuration>Release</Configuration>
       <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
@@ -21,7 +29,20 @@
     <PlatformToolset>v120</PlatformToolset>
     <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v120</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>MultiByte</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v120</PlatformToolset>
@@ -34,12 +55,21 @@
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
   <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common;C:\dev\lua-5.1\include;C:\dev\LuaJIT-2.0.3\src;$(IncludePath)</IncludePath>
+    <IncludePath>C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common;C:\dev\lua-5.1\include;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;$(IncludePath)</IncludePath>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <IncludePath>C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common;C:\dev\lua-5.1\include;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -50,8 +80,21 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\dev\glfw-3.0.4\bin\src\Release;C:\dev\glew-1.11.0\lib\Release\Win32;C:\dev\box2d-v2.3.1\Box2D\Build\vs2013\bin\x32\Debug;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Lib\win32;C:\dev\lua-5.1;C:\dev\LuaJIT-2.0.3\src</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32.lib;Box2D.lib;%(AdditionalDependencies);lua52.lib; lua51.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\glfw-3.0.4\bin\src\Release;C:\dev\glew-1.11.0\lib\Release\Win32;C:\dev\box2d-v2.3.1\Box2D\Build\vs2013\bin\x32\Debug;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Lib\win32;C:\dev\lua-5.1;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32.lib;Box2D.lib;%(AdditionalDependencies);lua52.lib;lua51.lib;fmodL64_vc.lib;fmodL_vc.lib</AdditionalDependencies>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);GUINITY_DEBUG</PreprocessorDefinitions>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <AdditionalLibraryDirectories>C:\dev\glfw-3.0.4\bin\src\Release;C:\dev\glew-1.11.0\lib\Release\Win32;C:\dev\box2d-v2.3.1\Box2D\Build\vs2013\bin\x32\Debug;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Lib\win32;C:\dev\lua-5.1;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32.lib;Box2D.lib;%(AdditionalDependencies);lua52.lib;lua51.lib;fmodL64_vc.lib;fmodL_vc.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -68,30 +111,57 @@
       <OptimizeReferences>true</OptimizeReferences>
     </Link>
   </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>MaxSpeed</Optimization>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+    </Link>
+  </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
+    <ClCompile Include="Converter.cpp" />
+    <ClCompile Include="Editor.cpp" />
+    <ClCompile Include="EditorCameraControl.cpp" />
     <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="Game.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="Holder.cpp" />
+    <ClCompile Include="IncreaseColliderScript.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshFilter.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="MoveHandle.cpp" />
+    <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PhysicsMaterial.cpp" />
     <ClCompile Include="PhysXEventCallback.cpp" />
     <ClCompile Include="PlayerScript.cpp" />
     <ClCompile Include="print.cpp" />
     <ClCompile Include="Ray.cpp" />
-    <ClCompile Include="Script.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
+    <ClCompile Include="RigidStatic.cpp" />
     <ClCompile Include="ScriptComponent.cpp" />
     <ClCompile Include="Shader.cpp" />
+    <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="StaticCounter.cpp" />
+    <ClCompile Include="Subject.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
     <ClCompile Include="World.cpp" />
@@ -99,28 +169,43 @@
   <ItemGroup>
     <ClInclude Include="Actor.hpp" />
     <ClInclude Include="AnyClass.hpp" />
+    <ClInclude Include="BoxCollider.hpp" />
     <ClInclude Include="Camera.hpp" />
+    <ClInclude Include="Collider.hpp" />
     <ClInclude Include="Component.hpp" />
+    <ClInclude Include="Converter.hpp" />
+    <ClInclude Include="Editor.hpp" />
+    <ClInclude Include="EditorCameraControl.h" />
+    <ClInclude Include="Enums.hpp" />
     <ClInclude Include="Factory.hpp" />
+    <ClInclude Include="Game.hpp" />
     <ClInclude Include="GraphicsSystem.hpp" />
+    <ClInclude Include="IncreaseColliderScript.hpp" />
     <ClInclude Include="Light.hpp" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="Holder.hpp" />
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="Material.hpp" />
     <ClInclude Include="Mesh.hpp" />
+    <ClInclude Include="MeshFilter.hpp" />
     <ClInclude Include="MeshRenderer.hpp" />
     <ClInclude Include="Module.hpp" />
+    <ClInclude Include="MoveHandle.h" />
+    <ClInclude Include="Observer.hpp" />
     <ClInclude Include="Physics.hpp" />
     <ClInclude Include="PhysicsMaterial.hpp" />
     <ClInclude Include="PhysXEventCallback.hpp" />
     <ClInclude Include="PlayerScript.hpp" />
+    <ClInclude Include="PointerHolder.hpp" />
     <ClInclude Include="print.hpp" />
     <ClInclude Include="Ray.hpp" />
-    <ClInclude Include="Script.hpp" />
+    <ClInclude Include="RigidBody.hpp" />
+    <ClInclude Include="RigidStatic.hpp" />
     <ClInclude Include="ScriptComponent.hpp" />
     <ClInclude Include="Shader.hpp" />
+    <ClInclude Include="SphereCollider.hpp" />
     <ClInclude Include="StaticCounter.hpp" />
+    <ClInclude Include="Subject.hpp" />
     <ClInclude Include="Time.hpp" />
     <ClInclude Include="Transform.hpp" />
     <ClInclude Include="World.hpp" />

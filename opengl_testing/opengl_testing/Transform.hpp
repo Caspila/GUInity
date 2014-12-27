@@ -14,9 +14,9 @@ using namespace physx;
 
 class Actor;
 
-class Transform
+class Transform : public enable_shared_from_this<Transform>
 #ifdef GUINITY_DEBUG
-	:public StaticCounter<Transform>
+	,public StaticCounter<Transform>
 #endif
 {
 
@@ -28,6 +28,7 @@ public:
 	void setRotationQuat(glm::quat rotationQuat);
 	void setScale(glm::vec3 scale);
 
+	glm::vec3 getGlobalPosition();
 	glm::vec3 getPosition();
 	glm::vec3 getScale();
 	glm::quat getRotationQuat();
@@ -39,20 +40,17 @@ public:
 	glm::vec3 scale;
 	glm::quat rotationQuat;
 
-	shared_ptr<Transform> parent;
-	vector<shared_ptr<Transform>> children;
 
 	weak_ptr<Actor> actor;
 
 	// HOW TO REMOVE THIS POINTER?!
 	// Should never release cause this is taken care by PhysX
-	PxRigidBody* rigidBody;
+	// PxRigidBody* rigidBody;
 
-	void setParent(shared_ptr<Transform> parent);
-	void addChildren(shared_ptr<Transform> children);
+
 
 	void setActor(shared_ptr<Actor> actor);
-	void setRigidBody(PxRigidBody* rigidBody);
+	//void setRigidBody(PxRigidBody* rigidBody);
 
 	void updateTransform(const PxTransform& transform);
 

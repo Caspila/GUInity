@@ -1,10 +1,12 @@
 #include "MeshRenderer.hpp"
+#include "Actor.hpp"
+#include "MeshFilter.hpp"
+#include "GraphicsSystem.hpp"
 
-
-MeshRenderer::MeshRenderer(shared_ptr<Mesh> mesh, shared_ptr<Material> m)
+MeshRenderer::MeshRenderer()// shared_ptr<Mesh> mesh, shared_ptr<Material> m)
 {
-	this->material = m;
-	this->mesh = mesh;
+	//this->material = m;
+	//this->mesh = mesh;
 
 #ifdef GUINITY_DEBUG
 	nCount++;
@@ -16,7 +18,17 @@ MeshRenderer::~MeshRenderer()
 {
 #ifdef GUINITY_DEBUG
 	nCount--;
-	cout << "MeshRenderer destroyed (" << nCount << " remaining)" << endl;
+	cout << "MeshRenderer Component destroyed (" << nCount << " remaining)" << endl;
 #endif
 	
+}
+
+void MeshRenderer::init()
+{
+
+	this->meshFilter = getActor()->GetComponent<MeshFilter>();
+
+//	GraphicsSystem::getInstance().allMeshRenderer.push_back(shared_from_this());
+
+	MeshRenderer::notify(EventType::NewMeshRenderer, shared_from_this());
 }

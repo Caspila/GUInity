@@ -4,10 +4,10 @@
 #include "World.hpp"
 
 
-//PlayerScript::PlayerScript()
-//{
-//
-//}
+PlayerScript::PlayerScript()
+{
+
+}
 
 
 PlayerScript::~PlayerScript()
@@ -17,26 +17,23 @@ PlayerScript::~PlayerScript()
 
 void PlayerScript::awake()
 {
-	moveSpeed = 1;
-
+	moveSpeed = 10;
+	sphereReference = World::findActor("Sphere");
 	//sphereReference = World::findActor("Sphere");
 }
 
-
-void PlayerScript::setSphereRef(weak_ptr<Actor> actor)
-{
-	sphereReference = actor;
-}
 
 void PlayerScript::tick(float deltaSeconds)
 {
 	//shared_ptr<Transform> transform = getActor()->transform;
 
+
+
 	shared_ptr<Actor> lock = sphereReference.lock();
 	
 	if (!lock)
 		return;
-	
+
 	shared_ptr<Transform> transform = lock->transform;
 
 	//shared_ptr<Transform> transform = sphereReference->transform;
@@ -77,5 +74,17 @@ void PlayerScript::tick(float deltaSeconds)
 	
 		transform->setRotationQuat(glm::slerp(rot, right, deltaSeconds));
 	}
+
+}
+
+void PlayerScript::onCollision(Actor* actor)
+{
+	cout << "This actor (" << getActor()->name << ") collided with (" << actor->name << ")" << endl;
+
+}
+
+void PlayerScript::onTrigger(Actor* actor)
+{
+	cout << "This actor (" << getActor()->name << ") triggered with (" << actor->name << ")" << endl;
 
 }

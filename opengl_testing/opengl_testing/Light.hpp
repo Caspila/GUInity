@@ -1,18 +1,23 @@
 #pragma once
 
 #include "Transform.hpp"
+#include "Subject.hpp"
+#include "Component.hpp"
 
-class Light
+class Light : public Component, public Subject<Light>, public enable_shared_from_this<Light>
 #ifdef GUINITY_DEBUG
-	: public StaticCounter<Light>
+	, public StaticCounter<Light>
 #endif
 {
 public:
-	Light(glm::vec3 position, glm::vec3 color);
+	Light();
+	//Light(glm::vec3 color);
 	~Light();
 
-	Transform transform;
+	//Transform transform;
 	glm::vec3 color;
+
+	virtual void init() override;
 
 };
 

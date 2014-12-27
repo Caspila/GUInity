@@ -5,22 +5,25 @@
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>
 #include "Ray.hpp"
+#include "Component.hpp"
+#include "Subject.hpp"
 
 class Transform;
 
 using namespace std;
 
 
-class Camera
+class Camera : public Component, public Subject<Camera>, public enable_shared_from_this<Camera>
 #ifdef GUINITY_DEBUG
-	: public StaticCounter<Camera>
+	, public StaticCounter<Camera>
 #endif
 {
 public:
+	Camera();
 	Camera(float nearClipPlane, float farClipPlane, float fov, float ratio);
 	~Camera();
 
-	shared_ptr<Transform> transform;
+	//shared_ptr<Transform> transform;
 
 	void computeModelViewMatrix();
 
@@ -38,6 +41,10 @@ public:
 	glm::mat4 view;
 
 	static int nCount;
+
+	virtual void init() override;
+	virtual void awake() override;
+	virtual void tick(float deltaSecods) override;
 
 private:
 

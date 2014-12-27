@@ -26,18 +26,22 @@ public:
 	static PxFoundation* gFoundation;
 	static PxScene* scene;
 
-	PhysXEventCallback physxEventCallback;
+	static PxMaterial* defaultPhysicsMaterial;
+
+	PhysXEventCallback* physxEventCallback;
 
 	static bool rayCast(const Ray& r, const float distance, PxRaycastBuffer& hitCallback);
 
 	//static PxTransform getActorTransform(shared_ptr<Actor> actor);
 
 	static void updateActorsTransform();
-	static void createSphereRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic);
-	static void createBoxRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic);
-	//static void createBoxRigidBody(shared_ptr<Actor> actor, const glm::vec3& boxSize, float friction, float dynamicFriction, float restitution, bool isKinematic);
-	//static void createSphereRigidBody(shared_ptr<Actor> actor, float radius, float friction, float dynamicFriction, float restitution, bool isKinematic);
-	//static void CreateSphereRigidBody(weak_ptr<Actor> actor);
+	//static void createSphereRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic);
+	//static void createBoxRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic);
+
+	//static PxRigidStatic* createRigidStatic(shared_ptr<Actor> actor);
+	static PxRigidDynamic* createRigidDynamic(shared_ptr<Actor> actor);
+	static PxShape* createBoxCollider(shared_ptr<Actor> actor);
+	static PxShape* createSphereCollider(shared_ptr<Actor> actor);
 
 	static shared_ptr<PhysicsMaterial> createMaterial(float friction, float dynamicFriction, float restitution);
 

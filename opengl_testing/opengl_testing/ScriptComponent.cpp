@@ -32,18 +32,3 @@ ScriptComponent::~ScriptComponent()
 #endif
 }
 
-shared_ptr<Actor> ScriptComponent::getActor()
-{
-	shared_ptr<Actor> actorLock = actor.lock();
-	if (actorLock)
-		return actorLock;
-
-	cerr << "ScriptComponent trying to get an actor that does not exist" << endl;
-
-	return nullptr;
-}
-
-void ScriptComponent::setActor(weak_ptr<Actor> actor)
-{
-	this->actor = actor;
-}

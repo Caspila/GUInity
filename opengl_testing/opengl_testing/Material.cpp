@@ -91,9 +91,6 @@ bool Material::paramExists(string paramName)
 
 void Material::setParamVec3(string paramName, glm::vec3 paramValue)
 {
-	//Holder<glm::vec3> v(VEC3, gml::vec3(1));
-
-
 
 	auto found = params.find(paramName);
 	if (found != params.end())

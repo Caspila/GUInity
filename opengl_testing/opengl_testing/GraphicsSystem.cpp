@@ -1,6 +1,7 @@
 #include "GraphicsSystem.hpp"
 #include "Mesh.hpp"
 #include "MeshRenderer.hpp"
+#include "MeshFilter.hpp"
 #include "Actor.hpp"
 #include "Camera.hpp"
 #include "Light.hpp"
@@ -8,24 +9,28 @@
 #include "Shader.hpp"
 
 
-GraphicsSystem::GraphicsSystem()
-{
-#ifdef GUINITY_DEBUG
-	nCount++;
-#endif
-}
+
+//GraphicsSystem::GraphicsSystem()
+//{
+//#ifdef GUINITY_DEBUG
+//	nCount++;
+//#endif
+//}
 
 
 GraphicsSystem::~GraphicsSystem()
 {
-#ifdef GUINITY_DEBUG
-	nCount--;
-	cout << "Destroying GraphicsSystem" << endl;
-#endif
+//#ifdef GUINITY_DEBUG
+//	nCount--;
+//	cout << "Destroying GraphicsSystem" << endl;
+//#endif
 }
 
 void GraphicsSystem::shutdown()
 {
+	debugMaterial.reset();
+	debugShader.reset();
+
 	glfwTerminate();
 }
 
@@ -98,68 +103,162 @@ GLint uniform(const GLuint shaderProgram, const GLchar* uniformName) {
 
 void GraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<Actor>> actors, vector < shared_ptr<Light>> lights)
 {
+	//camera->computeModelViewMatrix();
+
+
+
+
+ //   
+	//for (int i = 0; i < actors.size(); i++)
+	//{
+	//	shared_ptr<Actor> actor = actors[i];
+
+	//	GLuint shaderProgram = actor->meshRenderer->material->getShaderProgram();
+
+	//	glLinkProgram(shaderProgram);
+	//	glUseProgram (shaderProgram);
+
+ // 
+
+	//	//for each (pair<string, Holder> var in actor->meshRenderer->material->params)
+	//	//{
+	//	//	if (var.second.isVec3())
+	//	//		glUniform3fv(actor->meshRenderer->material->shader->paramID[var.first], 1, &var.second.operator glm::vec3()[0]);
+	//	//
+	//	//}
+	//	
+	//	//glm::mat4 transformMatrix = camera->MVPMatrix * actor->transform->getModelMatrix();
+
+	//	//map<string, GLuint> watch = actor->meshRenderer->material->shader->paramID;
+
+	//	float ambientLight = 0.5f;
+	//	glm::vec3 ambientLightColor(1.0, 0.0, 0.0);
+
+	//	//glUniform3fv(actor->meshRenderer->material->shader->paramID["ambientLightColor"], 1, &ambientLightColor[0]);
+	//	glUniform3fv(uniform(shaderProgram,"ambientLightColor"), 1, &ambientLightColor[0]);
+	//	glUniform1f(uniform(shaderProgram, "ambientLightIntensity"), ambientLight);
+	//	//glUniform3fv(actor->meshRenderer->material->shader->paramID["ambientLightColor"], 1, &ambientLightColor[0]);
+	//	//glUniform1f(actor->meshRenderer->material->shader->paramID["ambientLightIntensity"], ambientLight);
+	//	
+	//	glUniformMatrix4fv(uniform(shaderProgram, "camera") , 1, GL_FALSE, &camera->MVPMatrix[0][0]);
+	//	glUniformMatrix4fv(uniform(shaderProgram, "model"), 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
+	//	//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["model2"], 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
+
+	//	
+	//	//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["camera"], 1, GL_FALSE, &camera->MVPMatrix[0][0]);
+	//	//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["model"], 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
+	//	//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["model2"], 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
+
+	//	//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["MVP"], 1, GL_FALSE, &transformMatrix[0][0]);
+	//	//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["M"], 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
+	//	//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["V"], 1, GL_FALSE, &camera->view[0][0]);
+
+	//	for (int j = 0; j < lights.size(); j++)
+	//	{
+	//		shared_ptr<Light> light = lights[j];
+
+	//		glUniform3fv(actor->meshRenderer->material->shader->paramID["lightPos"], 1, &light->transform.position[0]);
+	//		glUniform3fv(actor->meshRenderer->material->shader->paramID["lightIntensity"], 1, &light->color[0]);
+	//	}
+
+	//	glBindVertexArray(actor->meshRenderer->mesh->vao);
+	//	
+	//	// draw points 0-3 from the currently bound VAO with current in-use shader
+	//	glDrawArrays(GL_TRIANGLES, 0, actor->meshRenderer->mesh->nPoints);
+	//}
+
+}
+
+//
+//void GraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<Light>> lights)
+//{
+//	camera->computeModelViewMatrix();
+//   
+//	for (int i = 0; i < allMeshRenderer.size(); i++)
+//	{
+//		shared_ptr<MeshRenderer> meshRenderer = allMeshRenderer[i].lock();
+//		if (!meshRenderer)
+//			continue;
+//
+//		shared_ptr<Actor> actor = meshRenderer->getActor();
+//
+//		shared_ptr<MeshFilter> meshFilter = meshRenderer->meshFilter.lock();
+//		if (!meshFilter)
+//			continue;
+//
+//		GLuint shaderProgram = meshRenderer->material->getShaderProgram();
+//
+//		glLinkProgram(shaderProgram);
+//		glUseProgram (shaderProgram);
+//
+//		float ambientLight = 0.5f;
+//		glm::vec3 ambientLightColor(1.0, 0.0, 0.0);
+//
+//		glUniform3fv(uniform(shaderProgram,"ambientLightColor"), 1, &ambientLightColor[0]);
+//		glUniform1f(uniform(shaderProgram, "ambientLightIntensity"), ambientLight);
+//		
+//		glUniformMatrix4fv(uniform(shaderProgram, "camera") , 1, GL_FALSE, &camera->MVPMatrix[0][0]);
+//		glUniformMatrix4fv(uniform(shaderProgram, "model"), 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
+//		for (int j = 0; j < lights.size(); j++)
+//		{
+//			shared_ptr<Light> light = lights[j];
+//
+//			glUniform3fv(meshRenderer->material->shader->paramID["lightPos"], 1, &light->transform.position[0]);
+//			glUniform3fv(meshRenderer->material->shader->paramID["lightIntensity"], 1, &light->color[0]);
+//		}
+//
+//		glBindVertexArray(meshFilter->mesh->vao);
+//		
+//		// draw points 0-3 from the currently bound VAO with current in-use shader
+//		glDrawArrays(GL_TRIANGLES, 0, meshFilter->mesh->nPoints);
+//	}
+//
+//}
+
+void GraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<MeshRenderer>>& renderers, vector<shared_ptr<Light>>& lights)
+//void GraphicsSystem::render(World& world)
+{
+	//shared_ptr<Camera> camera = world.cameras[0];
+
 	camera->computeModelViewMatrix();
 
-
-
-
-    
-	for (int i = 0; i < actors.size(); i++)
+	for (int i = 0; i < renderers.size(); i++)
 	{
-		shared_ptr<Actor> actor = actors[i];
+		shared_ptr<MeshRenderer> meshRenderer = renderers[i];// .lock();
+		//if (!meshRenderer)
+		//	continue;
 
-		GLuint shaderProgram = actor->meshRenderer->material->getShaderProgram();
+		shared_ptr<Actor> actor = meshRenderer->getActor();
+
+		shared_ptr<MeshFilter> meshFilter = meshRenderer->meshFilter.lock();
+		if (!meshFilter)
+			continue;
+
+		GLuint shaderProgram = meshRenderer->material->getShaderProgram();
 
 		glLinkProgram(shaderProgram);
-		glUseProgram (shaderProgram);
-
-  
-
-		//for each (pair<string, Holder> var in actor->meshRenderer->material->params)
-		//{
-		//	if (var.second.isVec3())
-		//		glUniform3fv(actor->meshRenderer->material->shader->paramID[var.first], 1, &var.second.operator glm::vec3()[0]);
-		//
-		//}
-		
-		//glm::mat4 transformMatrix = camera->MVPMatrix * actor->transform->getModelMatrix();
-
-		//map<string, GLuint> watch = actor->meshRenderer->material->shader->paramID;
+		glUseProgram(shaderProgram);
 
 		float ambientLight = 0.5f;
 		glm::vec3 ambientLightColor(1.0, 0.0, 0.0);
 
-		//glUniform3fv(actor->meshRenderer->material->shader->paramID["ambientLightColor"], 1, &ambientLightColor[0]);
-		glUniform3fv(uniform(shaderProgram,"ambientLightColor"), 1, &ambientLightColor[0]);
+		glUniform3fv(uniform(shaderProgram, "ambientLightColor"), 1, &ambientLightColor[0]);
 		glUniform1f(uniform(shaderProgram, "ambientLightIntensity"), ambientLight);
-		//glUniform3fv(actor->meshRenderer->material->shader->paramID["ambientLightColor"], 1, &ambientLightColor[0]);
-		//glUniform1f(actor->meshRenderer->material->shader->paramID["ambientLightIntensity"], ambientLight);
-		
-		glUniformMatrix4fv(uniform(shaderProgram, "camera") , 1, GL_FALSE, &camera->MVPMatrix[0][0]);
+
+		glUniformMatrix4fv(uniform(shaderProgram, "camera"), 1, GL_FALSE, &camera->MVPMatrix[0][0]);
 		glUniformMatrix4fv(uniform(shaderProgram, "model"), 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
-		//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["model2"], 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
-
-		
-		//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["camera"], 1, GL_FALSE, &camera->MVPMatrix[0][0]);
-		//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["model"], 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
-		//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["model2"], 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
-
-		//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["MVP"], 1, GL_FALSE, &transformMatrix[0][0]);
-		//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["M"], 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
-		//glUniformMatrix4fv(actor->meshRenderer->material->shader->paramID["V"], 1, GL_FALSE, &camera->view[0][0]);
-
 		for (int j = 0; j < lights.size(); j++)
 		{
 			shared_ptr<Light> light = lights[j];
 
-			glUniform3fv(actor->meshRenderer->material->shader->paramID["lightPos"], 1, &light->transform.position[0]);
-			glUniform3fv(actor->meshRenderer->material->shader->paramID["lightIntensity"], 1, &light->color[0]);
+			glUniform3fv(meshRenderer->material->shader->paramID["lightPos"], 1, &light->getActor()->transform->position[0]);
+			glUniform3fv(meshRenderer->material->shader->paramID["lightIntensity"], 1, &light->color[0]);
 		}
 
-		glBindVertexArray(actor->meshRenderer->mesh->vao);
-		
+		glBindVertexArray(meshFilter->mesh->vao);
+
 		// draw points 0-3 from the currently bound VAO with current in-use shader
-		glDrawArrays(GL_TRIANGLES, 0, actor->meshRenderer->mesh->nPoints);
+		glDrawArrays(GL_TRIANGLES, 0, meshFilter->mesh->nPoints);
 	}
 
 }

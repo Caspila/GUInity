@@ -1,15 +1,15 @@
 #include "Actor.hpp"
-#include "Script.hpp"
+//#include "Script.hpp"
 //#include "ScriptComponent.h"
 #include "Transform.hpp"
 #include "print.hpp"
 
-Actor::Actor(string name, shared_ptr<MeshRenderer> meshRenderer	)
+Actor::Actor(string name)// , shared_ptr<MeshRenderer> meshRenderer	)
 {
 	
 	transform = make_shared<Transform>();
 
-	this->meshRenderer = meshRenderer;
+	//this->meshRenderer = meshRenderer;
 
 	this->name = name;
 
@@ -29,25 +29,25 @@ Actor::~Actor()
 
 void Actor::awake()
 {
-	for (int i = 0; i < scriptComponents.size(); i++)
+	for (int i = 0; i < components.size(); i++)
 	{
-		shared_ptr<ScriptComponent> scriptComponent = scriptComponents[i];
-		scriptComponent->awake();
+		shared_ptr<Component> component = components[i];
+		component->awake();
 	}
 }
 
 void Actor::tick(float deltaSeconds)
 {
-	for (int i = 0; i < scriptComponents.size(); i++)
+	for (int i = 0; i < components.size(); i++)
 	{
-		shared_ptr<ScriptComponent> scriptComponent = scriptComponents[i];
+		shared_ptr<Component> component = components[i];
 		//ScriptComponent& scriptComponent = scriptComponents[i];
 
 		//shared_ptr<Actor> actor = scriptComponent.actor.lock();
 		//if (actor)
 		//{
 		//scriptComponent.script->tick(scriptComponent.actor, deltaSeconds);
-		scriptComponent->tick(deltaSeconds);
+		component->tick(deltaSeconds);
 
 		//}
 
@@ -60,8 +60,51 @@ void Actor::tick(float deltaSeconds)
 	//	cout << transform->rigidBody.expired();
 
 	//shared_ptr<PxRigidBody> rigidBodyLock = transform->rigidBody.lock();
-	if (transform->rigidBody != nullptr)
+	//if (transform->rigidBody != nullptr)
+	//{
+	//	transform->rigidBody->setGlobalPose(transformToPhysXTransform(transform));
+	//}
+}
+
+void Actor::triggerPhysxCollision(Actor* actor)//string name)
+{
+	for (auto& x : components)
 	{
-		transform->rigidBody->setGlobalPose(transformToPhysXTransform(transform));
+		shared_ptr<ScriptComponent> scriptComponent = dynamic_pointer_cast<ScriptComponent> (x);
+
+		if (scriptComponent)
+			scriptComponent->onCollision(actor);
+	}
+}
+void Actor::triggerPhysxTrigger(Actor* actor)
+{
+	for (auto& x : components)
+	{
+		shared_ptr<ScriptComponent> scriptComponent = dynamic_pointer_cast<ScriptComponent> (x);
+
+		if (scriptComponent)
+			scriptComponent->onTrigger(actor);
+	}
+}
+
+void Actor::setParent(shared_ptr<Actor> parent)
+{
+	this->parent = parent;
+}
+void Actor::addChildren(shared_ptr<Actor> children)
+{
+	this->children.push_back(children);
+	children->setParent(shared_from_this());
+}
+
+void Actor::setActive(bool isActive)
+{
+	for (auto& x : components)
+	{
+		x->setActive(isActive);
+		//shared_ptr<ScriptComponent> scriptComponent = dynamic_pointer_cast<ScriptComponent> (x);
+		//
+		//if (scriptComponent)
+		//	scriptComponent->onTrigger(actor);
 	}
 }

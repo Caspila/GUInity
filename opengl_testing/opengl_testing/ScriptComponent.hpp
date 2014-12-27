@@ -1,13 +1,14 @@
 #pragma once
 #include "Module.hpp"
-#include "Script.hpp"
+//#include "Script.hpp"
+#include "Component.hpp"
 class Actor;
 //class Script;
 
 // template < class T >
-class ScriptComponent
+class ScriptComponent: public Component
 #ifdef GUINITY_DEBUG
-	:public StaticCounter<ScriptComponent>
+	, public StaticCounter<ScriptComponent>
 #endif
 {
 public:
@@ -20,13 +21,15 @@ public:
 
 	//shared_ptr<Script> script;
 	//shared_ptr<Script> script;
-	weak_ptr<Actor> actor;
 
-	shared_ptr<Actor> getActor();
-	void setActor(weak_ptr<Actor> actor);
+	virtual void init() {};
+	virtual void awake() override {} ;
+	virtual void tick(float deltaSecods) override {};
 
-	virtual void awake() {};
-	virtual void tick(float deltaSecods) {};
+
+
+	virtual void onCollision(Actor* actor) {};
+	virtual void onTrigger(Actor* actor) {};
 
 private:
 	//ScriptComponent();

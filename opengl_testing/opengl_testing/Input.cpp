@@ -65,6 +65,7 @@ int Input::nKeys;
 int Input::nMouseButtons;
 glm::vec2 Input::lastMousePos;
 glm::vec2 Input::mousePos;
+glm::vec2 Input::mouseDelta;
 std::array<int, 8> Input::oldMouseInputState;
 std::array<int, 8> Input::mouseInputState;
 
@@ -118,5 +119,7 @@ void Input::updateInputState()
 	glfwGetCursorPos(window.get(), &x, &y);
 
 	mousePos = glm::vec2(x, y);
+
+	mouseDelta = mousePos - lastMousePos;
 
 }

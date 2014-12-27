@@ -4,7 +4,7 @@
 #include "ScriptComponent.hpp"
 #include "Input.hpp"
 #include "Transform.hpp"
-#include "Script.hpp"
+//#include "Script.hpp"
 
 class PlayerScript : public ScriptComponent
 {
@@ -15,15 +15,17 @@ public:
 
 	float moveSpeed;
 
+	PlayerScript();
 	~PlayerScript();
 
 	weak_ptr <Actor> sphereReference;
 
-	void setSphereRef(weak_ptr<Actor> actor);
-
+	
+	virtual void onCollision(Actor* actor) override;
+	virtual void onTrigger(Actor* actor) override;
 
 private:
-	//PlayerScript();
+	
 	
 };
 

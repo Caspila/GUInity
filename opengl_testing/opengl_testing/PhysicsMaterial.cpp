@@ -12,7 +12,6 @@ PhysicsMaterial::PhysicsMaterial(float friction, float dynamicFriction, float re
 #ifdef GUINITY_DEBUG
 	nCount++;
 #endif
-	
 }
 
 
@@ -23,5 +22,4 @@ PhysicsMaterial::~PhysicsMaterial()
 	nCount--;
 	cout << "PhysicsMaterial destroyed (" << nCount << " remaining)" << endl;
 #endif
-	
 }

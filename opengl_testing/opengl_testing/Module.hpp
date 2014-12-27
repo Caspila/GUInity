@@ -6,6 +6,7 @@
 #include <gl/glew.h>
 #include <GLFW/glfw3.h>
 #include "StaticCounter.hpp"
+#include "PointerHolder.hpp"
 
 #ifndef DATA_PATH
 #ifdef _WIN32 // note the underscore: without it, it's not msdn official!

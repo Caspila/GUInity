@@ -2,8 +2,12 @@
 #include "print.hpp"
 #include "Math.hpp"
 #include "Transform.hpp"
+#include "Actor.hpp"
 
 int Camera::nCount = 0;
+
+Camera::Camera() : Camera(0.3f, 100.0f, 45.0f, 4.0f / 3.0f){}
+
 
 Camera::Camera(float nearClipPlane, float farClipPlane, float fov, float ratio)
 {
@@ -12,7 +16,9 @@ Camera::Camera(float nearClipPlane, float farClipPlane, float fov, float ratio)
 	this->fov = fov;
 	this->ratio = ratio;
 
-	transform = make_shared<Transform>();
+	//transform = getActor()->
+
+	//transform = make_shared<Transform>();
 #ifdef GUINITY_DEBUG
 	nCount++;
 #endif
@@ -33,29 +39,26 @@ void Camera::computeModelViewMatrix()
 	//glm::mat4 projection = glm::perspective(45.0f, 4.0f / 3.0f, 0.1f, 100.0f);
 	projection = glm::perspective(fov,ratio,nearClipPlane,farClipPlane);
 
-	glm::vec3 up(0, 1, 0);
-
-	//glm::mat4 view = glm::lookAt(position, rotation, up);
+	//glm::vec3 up(0, 1, 0);
+	//
+	//glm::mat4 look = glm::lookAt(getActor()->transform->position, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	//glm::mat4 look2 = getActor()->transform->getPosRotMatrix();
+	//glm::mat4 look3 = getActor()->transform->getPosRotMatrix();
+	//
+	view = glm::lookAt(getActor()->transform->position, getActor()->transform->position+getActor()->transform->getForward(), getActor()->transform->getUp());
+	//view = getActor()->transform->getPosRotMatrix();
+	//view = (glm::mat4)getActor()->transform->getRotationQuat() *  glm::translate(getActor()->transform->position);
+	//view = glm::translate(getActor()->transform->position) * (glm::mat4)Math::LookAt(getActor()->transform->getForward(), getActor()->transform->getUp());
 	
-	//float x = glm::cos(rotation.x)*glm::cos(rotation.y);
-	//float y = glm::sin(rotation.x)*glm::cos(rotation.y);
-	//float z = glm::sin(rotation.y);
-
-	view = glm::lookAt(transform->position, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-	//view = glm::lookAt(position, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
-	// view = glm::translate(position) * glm::rotate(rotation.x * Math::Deg2Radian, glm::vec3(1, 0, 0)) *
-	//	glm::rotate(rotation.y * Math::Deg2Radian, glm::vec3(0, 1, 0)) *
-	//	glm::rotate(rotation.z * Math::Deg2Radian, glm::vec3(0, 0, 1));
-
-	//glm::mat4 model = glm::mat4(1.0f);
-
-	//VPMatrix = projection * view;
+	// Right one
+	//view = glm::lookAt(getActor()->transform->position, glm::vec3(0, 0, 0), glm::vec3(0, 1, 0));
+	
 	MVPMatrix = projection * view;
 }
 
 glm::mat4 Camera::getModelMatrix()
 {
-	return transform->getPosRotMatrix();
+	return getActor()->transform->getPosRotMatrix();
 	//return glm::translate(position)  * glm::rotate(rotation.x * Math::Deg2Radian, glm::vec3(1, 0, 0)) *
 	//	glm::rotate(rotation.y * Math::Deg2Radian, glm::vec3(0, 1, 0)) *
 	//	glm::rotate(rotation.z * Math::Deg2Radian, glm::vec3(0, 0, 1));
@@ -85,7 +88,7 @@ Ray Camera::screenPointToRay(glm::vec2 pos)
 
 	//cout << "ray_wor:" << ray_wor << endl;
 
-	glm::vec3 ray_origin = transform->position;// +ray_wor*nearClipPlane;
+	glm::vec3 ray_origin = getActor()->transform->position;// +ray_wor*nearClipPlane;
 
 	return Ray(ray_origin, ray_wor);
 }
@@ -112,4 +115,18 @@ Ray Camera::screenPointToRay2(glm::vec2 pos)
 		R_far.z / R_far.w);
 
 	return Ray(R3_near,normalize(R3_far - R3_near));
+}
+
+void Camera::init()
+{
+	Camera::notify(EventType::NewCamera, shared_from_this());
+}
+
+void Camera::awake()
+{
+	computeModelViewMatrix();
+}
+void Camera::tick(float deltaSecods)
+{
+	computeModelViewMatrix();
 }

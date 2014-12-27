@@ -36,11 +36,9 @@ class Input
 		static bool getMouseButtonReleased(int keyCode);
 		static bool getMouseButton(int keyCode);
 
-
-
 		static glm::vec2 lastMousePos;
 		static glm::vec2 mousePos;
-
+		static glm::vec2 mouseDelta;
 
 		~Input() { };
 		Input(shared_ptr<GLFWwindow> w) {
