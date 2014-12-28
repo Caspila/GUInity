@@ -9,7 +9,7 @@ Transform::Transform() : position(0.0f), rotationQuat(), scale(1.0f)
 	nCount++;
 #endif
 
-//	this->rigidBody = nullptr;
+//	this->actor = actor;
 }
 
 

@@ -20,6 +20,17 @@ void MoveHandle::setAxis(glm::vec3 axis)
 
 void MoveHandle::tick(float deltaSeconds)
 {
+	shared_ptr<Actor> currentActor = Editor::currentSelectedActor;
+	if (!currentActor)
+		return;
+
+	shared_ptr<Actor> myParent = getActor()->getParent();
+	if (myParent)
+	{
+		myParent->transform->position = currentActor->transform->position;
+		myParent->transform->rotationQuat = currentActor->transform->rotationQuat;
+	}
+
 	Ray r = Editor::cameraComponent->screenPointToRay(Input::mousePos);
 
 	PxRaycastBuffer hitCallback;
@@ -31,11 +42,12 @@ void MoveHandle::tick(float deltaSeconds)
 
 		if (a == getActor().get())
 		{
+			glm::vec2 mouseDelta = Input::mouseDelta;
+
 			cout << "Mouse click on ME!" << getActor()->name << endl;
 
-			shared_ptr<Actor> currentActor = Editor::currentSelectedActor;
 
-			currentActor->transform->position = currentActor->transform->position + axis;
+			currentActor->transform->position = currentActor->transform->position + axis * 0.1f * mouseDelta.x;
 
 			//getActor()->transform->position = getActor()->transform->position + axis;
 		}

@@ -102,9 +102,25 @@ void Actor::setActive(bool isActive)
 	for (auto& x : components)
 	{
 		x->setActive(isActive);
-		//shared_ptr<ScriptComponent> scriptComponent = dynamic_pointer_cast<ScriptComponent> (x);
-		//
-		//if (scriptComponent)
-		//	scriptComponent->onTrigger(actor);
 	}
+	for (auto& x : children)
+	{
+		auto ptrLock = x.lock();
+		if (ptrLock)
+			ptrLock->setActive(isActive);
+	}
+
+
+}
+
+
+shared_ptr<Actor> Actor::getParent()
+{
+	shared_ptr<Actor> parentLock = parent.lock();
+	return parentLock;
+}
+
+void Actor::setEditorFlag(bool isEditor)
+{
+	editorFlag = isEditor;
 }

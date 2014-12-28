@@ -29,6 +29,8 @@ public:
 	static shared_ptr<Actor> cameraActor;
 	static shared_ptr<Camera> cameraComponent;
 
+	static shared_ptr<Actor> getEditorSharedPtrActor(Actor* actor);
+
 	virtual void onNotify(EventType type, shared_ptr<Component> component) override;
 
 	static vector<shared_ptr<Actor>> editorActors;

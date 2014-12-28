@@ -26,6 +26,15 @@ protected:
 		}
 
 	}
+	static void notify(EventType type, shared_ptr<Actor> actor)
+	{
+		for (auto x : observers)
+		{
+			x->onNotify(type, actor);
+		}
+
+	}
+
 
 public:
 

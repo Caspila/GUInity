@@ -96,15 +96,24 @@ void Editor::update(shared_ptr<World> world, float deltaSeconds)
 		{
 			Actor *a = (Actor*)hitCallback.block.actor->userData;
 
-			currentSelectedActor = world->getSharedPtrActor(a);
-			cout << "Mouse click: " << a->name << endl;
+			shared_ptr<Actor> clickedActor = world->getSharedPtrActor(a);
+
+			if (clickedActor)
+				currentSelectedActor = clickedActor;
+		
+			//if (!currentSelectedActor)
+			//	currentSelectedActor = getEditorSharedPtrActor(a);
+			//cout << "Mouse click: " << a->name << endl;
 		}
 		//else
 		//	currentSelectedActor = nullptr;
 
 	//	if (Input::getKeyPressed(GLFW_KEY_RIGHT))
 	//		cout << "Right pressed" << endl;
-
+	if (currentSelectedActor)
+		cout << currentSelectedActor->name << endl;
+		moveHandles->setActive(currentSelectedActor != nullptr);
+	
 	tickEditorActors(deltaSeconds);
 
 	cameraComponent->computeModelViewMatrix();
@@ -129,4 +138,16 @@ void Editor::tickEditorActors(float deltaSeconds)
 void Editor::onNotify(EventType type, shared_ptr<Component> component)
 {
 
+}
+
+shared_ptr<Actor> Editor::getEditorSharedPtrActor(Actor* actor)
+{
+	for (auto& a : editorActors)
+	{
+		if (a.get() == actor)
+			return a;
+	}
+	cerr << "There's a pointer to an actor that does not live in the world!" << endl;
+
+	return nullptr;
 }
