@@ -2,16 +2,20 @@
 
 #include <glm/common.hpp>
 #include "ScriptComponent.hpp"
+#include "Enums.hpp"
 
 class MoveHandle : public ScriptComponent
 {
+
+
 public:
+
 	MoveHandle();
 	~MoveHandle();
 
-	glm::vec3 axis;
+	MoveAxis axis;
 	
-	void setAxis(glm::vec3 axis);
+	void setAxis(MoveAxis axis);
 
 	virtual void tick(float deltaSeconds) override;
 

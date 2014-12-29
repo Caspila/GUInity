@@ -70,3 +70,9 @@ glm::quat Math::LookAt(glm::vec3 direction, glm::vec3 desiredUp){
 
 	return targetOrientation;
 }
+
+glm::vec3 Math::projectOnPlane(glm::vec3 vector, Plane p)
+{
+	return vector - p.normal * glm::dot(vector, p.normal);
+}
+

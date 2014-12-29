@@ -2,31 +2,57 @@
 #include "Actor.hpp"
 #include "Light.hpp"
 #include "MeshRenderer.hpp"
+#include "Factory.hpp"
+#include "Physics.hpp"
+#include "RigidStatic.hpp"
+#include "EditorCollider.hpp"
 
-std::vector<shared_ptr<Light>> World::lights;
-std::vector<shared_ptr<Actor>> World::actors;
-std::vector<shared_ptr<MeshRenderer>> World::meshRenderers;
-std::vector<shared_ptr<Camera>> World::cameras;
+//#define _ITERATOR_DEBUG_LEVEL 1
+
+//std::vector<shared_ptr<Light>> World::lights;
+//std::vector<shared_ptr<Actor>> World::actors;
+//std::vector<shared_ptr<MeshRenderer>> World::meshRenderers;
+//std::vector<shared_ptr<Camera>> World::cameras;
 
 World::World()
 {
-
+	isAwake = false;
 }
 
 void World::init()
 {
-	shared_ptr<World> thisPtr = shared_from_this();
+	physicsScene = Physics::createPhysicsScene();
+
+}
+
+void World::registerObserverAsGame()
+{
+	isEditor = false;
+
 	Camera::addObserver(shared_from_this());
 	Light::addObserver(shared_from_this());
+	RigidBody::addObserver(shared_from_this());
+	RigidStatic::addObserver(shared_from_this());
 	MeshRenderer::addObserver(shared_from_this());
+	Factory::addObserver(shared_from_this());
 }
 
 
+void World::registerObserverAsEditor()
+{
+	isEditor = true;
 
-	World::~World()
-	{
+	Factory::addObserver(shared_from_this());
 
-	}
+	RigidBody::addObserver(shared_from_this());
+	RigidStatic::addObserver(shared_from_this());
+	EditorCollider::addObserver(shared_from_this());
+}
+
+World::~World()
+{
+
+}
 
 void World::addMeshRenderer(shared_ptr<MeshRenderer> renderer)
 {
@@ -48,6 +74,28 @@ void World::addActor(shared_ptr<Actor> actor)
 {
 	actors.push_back(actor);
 }
+
+void World::transferNewActors()
+{
+	for (auto& a : newActors)
+	{
+		a->awake();
+	}
+	std::move(newActors.begin(), newActors.end(),std::back_inserter(actors));
+	//for (auto& a : newActors)
+	//{
+	//	a = nullptr;
+	//}
+	
+
+	newActors.erase(newActors.begin(),newActors.end());
+	
+}
+
+void World::addActorDelayed(shared_ptr<Actor> actor)
+{
+	newActors.push_back(actor);
+}
 void World::removeActor(shared_ptr<Actor> actor)
 {
 	//auto index = find(actors.begin, actors.end, actor);
@@ -59,11 +107,12 @@ void World::removeActor(shared_ptr<Actor> actor)
 
 shared_ptr<Actor> World::findActor(string name)
 {
+
 	for (auto& a : actors)
 	{
 		if (a->name.compare(name) == 0)
 			return a;
-		//a->awake();
+	
 	}
 
 	return nullptr;
@@ -82,10 +131,12 @@ shared_ptr<Actor> World::getSharedPtrActor(Actor* actor)
 
 void World::awake()
 {
+	isAwake = false;
 	for (auto& a : actors)
 	{
 		a->awake();
 	}
+	isAwake = true;
 }
 
 void World::tick(float deltaTime)
@@ -94,6 +145,10 @@ void World::tick(float deltaTime)
 	{
 		a->tick(deltaTime);
 	}
+
+	transferNewActors();
+
+	Physics::tickScene(physicsScene);
 }
 
 void World::shutdown()
@@ -104,8 +159,6 @@ void World::shutdown()
 	//Light::removeObserver(shared_from_this());
 	//MeshRenderer::removeObserver(shared_from_this());
 
-	//for (auto& x : lights)
-	//	x.reset();
 	for (auto& x : lights)
 		x = nullptr;
 	for (auto& x : meshRenderers)
@@ -114,21 +167,64 @@ void World::shutdown()
 		x = nullptr;
 	for (auto& x : actors)
 		x = nullptr;
+	for (auto& x : newActors)
+		x = nullptr;
 
 }
 
-void World::onNotify(EventType type, shared_ptr<Component> component)
+void World::onNotify(ComponentEventType type, shared_ptr<Component> component, bool isEditor)
 {
+	if (this->isEditor != isEditor)
+		return;
+
 	switch (type)
 	{
 	case NewMeshRenderer:
-		World::addMeshRenderer(dynamic_pointer_cast<MeshRenderer>(component));
+		addMeshRenderer(dynamic_pointer_cast<MeshRenderer>(component));
 		break;
 	case NewCamera:
-		World::addCamera(dynamic_pointer_cast<Camera>(component));
+		addCamera(dynamic_pointer_cast<Camera>(component));
 		break;
 	case NewLight:
-		World::addLight(dynamic_pointer_cast<Light>(component));
+		addLight(dynamic_pointer_cast<Light>(component));
+		break;
+	case NewRigidBody:
+	{
+		shared_ptr<RigidBody> rigidBody = dynamic_pointer_cast<RigidBody>(component);
+		physicsScene->addActor(*rigidBody->physxRigidBody);
+		break;
+	}
+	case NewRigidStatic:
+	{
+		shared_ptr<RigidStatic> rigidStatic = dynamic_pointer_cast<RigidStatic>(component);
+		if (rigidStatic)
+			physicsScene->addActor(*rigidStatic->physxRigidStatic);
+		break;
+	}
+	case NewEditorCollider:
+	{
+		shared_ptr<EditorCollider> editorCollider = dynamic_pointer_cast<EditorCollider>(component);
+		if (editorCollider)
+			physicsScene->addActor(*editorCollider->physxRigidStatic);
+		break;
+	}
+	default:
+		break;
+	}
+}
+
+void World::onNotify(ActorEventType type, shared_ptr<Actor> actor, bool isEditor)
+{
+	if (this->isEditor != isEditor)
+		return;
+
+	switch (type)
+	{
+	case NewActor:
+		if (isAwake)
+			addActor(actor);
+		else
+			addActorDelayed(actor);
 		break;
 	default:
 		break;

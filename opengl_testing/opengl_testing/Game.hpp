@@ -9,13 +9,13 @@ using namespace physx;
 
 class Camera;
 
-class Game : public Observer, public enable_shared_from_this<Game>
+class Game : public enable_shared_from_this<Game>
 {
 public:
 	Game();
 	~Game();
 
-	void update(shared_ptr<World> world, float deltaSeconds);
+	void update(float deltaSeconds);
 
 	PxScene* physicsScene;
 
@@ -23,7 +23,11 @@ public:
 	void init();
 	void shutdown();
 
-	virtual void onNotify(EventType type, shared_ptr<Component> component) override;
+	//virtual void onNotify(EventType type, shared_ptr<Component> component, bool isEditor) override;
+
+	static shared_ptr<World> world;
+
+
 	//shared_ptr<Camera> camera;
 
 	//vector<Actor> ctors;

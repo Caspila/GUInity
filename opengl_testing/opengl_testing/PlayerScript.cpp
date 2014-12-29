@@ -18,7 +18,7 @@ PlayerScript::~PlayerScript()
 void PlayerScript::awake()
 {
 	moveSpeed = 10;
-	sphereReference = World::findActor("Sphere");
+//	sphereReference = World::findActor("Sphere");
 	//sphereReference = World::findActor("Sphere");
 }
 

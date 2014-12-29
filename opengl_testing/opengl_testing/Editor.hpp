@@ -13,7 +13,7 @@ using namespace physx;
 class Camera;
 class Actor;
 
-class Editor : public Observer, public enable_shared_from_this<Editor>
+class Editor : public enable_shared_from_this<Editor>
 {
 public:
 	Editor();
@@ -22,23 +22,27 @@ public:
 	static void init();
 	static void shutdown();
 
-	static void update(shared_ptr<World> world, float deltaSeconds);
+	static void update(float deltaSeconds, shared_ptr<World> gameWorld);
 
-	static PxScene* physicsScene;
+	//static PxScene* physicsScene;
 
 	static shared_ptr<Actor> cameraActor;
 	static shared_ptr<Camera> cameraComponent;
 
-	static shared_ptr<Actor> getEditorSharedPtrActor(Actor* actor);
+	//static shared_ptr<Actor> getEditorSharedPtrActor(Actor* actor);
 
-	virtual void onNotify(EventType type, shared_ptr<Component> component) override;
+	//virtual void onNotify(EventType type, shared_ptr<Component> component, bool isEditor) override;
 
-	static vector<shared_ptr<Actor>> editorActors;
+	//static vector<shared_ptr<Actor>> editorActors;
+	//
+	//static void tickEditorActors(float deltaSeconds);
 
-	static void tickEditorActors(float deltaSeconds);
+	static shared_ptr<World> world;
 
 	static shared_ptr<Actor> currentSelectedActor;
 
 	static shared_ptr<Actor> moveHandles;
+
+	static shared_ptr<Actor> rotateHandles;
 };
 

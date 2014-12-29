@@ -33,6 +33,7 @@ public:
 	float fov;
 	float ratio;
 
+	glm::vec3 screenPointToWorld(glm::vec2 pos);
 	Ray screenPointToRay(glm::vec2 pos);
 	Ray screenPointToRay2(glm::vec2 pos);
 	glm::mat4 getModelMatrix();

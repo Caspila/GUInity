@@ -256,9 +256,12 @@ void GraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<MeshR
 		}
 
 		glBindVertexArray(meshFilter->mesh->vao);
+		//glBindVertexArray(meshFilter->mesh->nbo);
+		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshFilter->mesh->ibo);
 
 		// draw points 0-3 from the currently bound VAO with current in-use shader
 		glDrawArrays(GL_TRIANGLES, 0, meshFilter->mesh->nPoints);
+		//glDrawElements(GL_TRIANGLES, meshFilter->mesh->triangles.size(), GL_UNSIGNED_SHORT, (void*)0);
 	}
 
 }

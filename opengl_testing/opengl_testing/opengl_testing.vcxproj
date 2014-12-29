@@ -76,7 +76,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;%(PreprocessorDefinitions);GUINITY_DEBUG</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_CRT_SECURE_NO_WARNINGS;GUINITY_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -129,11 +129,13 @@
     <ClCompile Include="Actor.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="CapsuleCollider.cpp" />
     <ClCompile Include="Collider.cpp" />
     <ClCompile Include="Component.cpp" />
     <ClCompile Include="Converter.cpp" />
     <ClCompile Include="Editor.cpp" />
     <ClCompile Include="EditorCameraControl.cpp" />
+    <ClCompile Include="EditorCollider.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
@@ -145,9 +147,11 @@
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Math.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="MeshCollider.cpp" />
     <ClCompile Include="MeshFilter.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
     <ClCompile Include="MoveHandle.cpp" />
+    <ClCompile Include="MoveTool.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PhysicsMaterial.cpp" />
@@ -157,6 +161,8 @@
     <ClCompile Include="Ray.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RigidStatic.cpp" />
+    <ClCompile Include="RotateHandle.cpp" />
+    <ClCompile Include="RotateTool.cpp" />
     <ClCompile Include="ScriptComponent.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
@@ -171,11 +177,13 @@
     <ClInclude Include="AnyClass.hpp" />
     <ClInclude Include="BoxCollider.hpp" />
     <ClInclude Include="Camera.hpp" />
+    <ClInclude Include="CapsuleCollider.hpp" />
     <ClInclude Include="Collider.hpp" />
     <ClInclude Include="Component.hpp" />
     <ClInclude Include="Converter.hpp" />
     <ClInclude Include="Editor.hpp" />
-    <ClInclude Include="EditorCameraControl.h" />
+    <ClInclude Include="EditorCameraControl.hpp" />
+    <ClInclude Include="EditorCollider.hpp" />
     <ClInclude Include="Enums.hpp" />
     <ClInclude Include="Factory.hpp" />
     <ClInclude Include="Game.hpp" />
@@ -187,10 +195,12 @@
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="Material.hpp" />
     <ClInclude Include="Mesh.hpp" />
+    <ClInclude Include="MeshCollider.hpp" />
     <ClInclude Include="MeshFilter.hpp" />
     <ClInclude Include="MeshRenderer.hpp" />
     <ClInclude Include="Module.hpp" />
-    <ClInclude Include="MoveHandle.h" />
+    <ClInclude Include="MoveHandle.hpp" />
+    <ClInclude Include="MoveTool.hpp" />
     <ClInclude Include="Observer.hpp" />
     <ClInclude Include="Physics.hpp" />
     <ClInclude Include="PhysicsMaterial.hpp" />
@@ -201,6 +211,8 @@
     <ClInclude Include="Ray.hpp" />
     <ClInclude Include="RigidBody.hpp" />
     <ClInclude Include="RigidStatic.hpp" />
+    <ClInclude Include="RotateHandle.hpp" />
+    <ClInclude Include="RotateTool.hpp" />
     <ClInclude Include="ScriptComponent.hpp" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="SphereCollider.hpp" />

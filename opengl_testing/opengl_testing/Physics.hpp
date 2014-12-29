@@ -6,13 +6,13 @@
 
 class Actor;
 class PhysicsMaterial;
-
+class Mesh;
 using namespace physx;
 
 
 class Physics
 {
-	enum ColliderType {sphere, box};
+	//enum ColliderType {sphere, box};
 
 public:
 	Physics();// shared_ptr<PxScene> physicsScene);
@@ -24,17 +24,17 @@ public:
 	static PxDefaultErrorCallback gDefaultErrorCallback;
 	static PxDefaultAllocator gDefaultAllocatorCallback;
 	static PxFoundation* gFoundation;
-	static PxScene* scene;
+	//static PxScene* scene;
 
 	static PxMaterial* defaultPhysicsMaterial;
 
-	PhysXEventCallback* physxEventCallback;
+	static PhysXEventCallback* physxEventCallback;
 
-	static bool rayCast(const Ray& r, const float distance, PxRaycastBuffer& hitCallback);
+	static bool rayCast(PxScene* scene, const Ray& r, const float distance, PxRaycastBuffer& hitCallback);
 
 	//static PxTransform getActorTransform(shared_ptr<Actor> actor);
 
-	static void updateActorsTransform();
+	static void updateActorsTransform(PxScene* scene);
 	//static void createSphereRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic);
 	//static void createBoxRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic);
 
@@ -42,10 +42,16 @@ public:
 	static PxRigidDynamic* createRigidDynamic(shared_ptr<Actor> actor);
 	static PxShape* createBoxCollider(shared_ptr<Actor> actor);
 	static PxShape* createSphereCollider(shared_ptr<Actor> actor);
+	static PxShape* createCapsuleCollider(shared_ptr<Actor> actor);
+	static PxShape* createMeshCollider(shared_ptr<Actor> actor);
+	static PxConvexMesh* getPxConvexMesh(shared_ptr<Mesh> mesh);
+
+	static PxScene* createPhysicsScene();
 
 	static shared_ptr<PhysicsMaterial> createMaterial(float friction, float dynamicFriction, float restitution);
 
-	static void tick();
+	//static void tick();
+	static void tickScene(PxScene* scene);
 
 	static void shutdown();
 

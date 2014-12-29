@@ -136,6 +136,24 @@
       <Filter>EditorScripts</Filter>
     </ClCompile>
     <ClCompile Include="MoveHandle.cpp">
+      <Filter>EditorScripts</Filter>
+    </ClCompile>
+    <ClCompile Include="EditorCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveTool.cpp">
+      <Filter>EditorScripts</Filter>
+    </ClCompile>
+    <ClCompile Include="RotateHandle.cpp">
+      <Filter>EditorScripts</Filter>
+    </ClCompile>
+    <ClCompile Include="RotateTool.cpp">
+      <Filter>EditorScripts</Filter>
+    </ClCompile>
+    <ClCompile Include="CapsuleCollider.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="MeshCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -260,10 +278,28 @@
     <ClInclude Include="Subject.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="EditorCameraControl.h">
+    <ClInclude Include="MoveHandle.hpp">
       <Filter>EditorScripts</Filter>
     </ClInclude>
-    <ClInclude Include="MoveHandle.h">
+    <ClInclude Include="EditorCameraControl.hpp">
+      <Filter>EditorScripts</Filter>
+    </ClInclude>
+    <ClInclude Include="EditorCollider.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveTool.hpp">
+      <Filter>EditorScripts</Filter>
+    </ClInclude>
+    <ClInclude Include="RotateTool.hpp">
+      <Filter>EditorScripts</Filter>
+    </ClInclude>
+    <ClInclude Include="RotateHandle.hpp">
+      <Filter>EditorScripts</Filter>
+    </ClInclude>
+    <ClInclude Include="CapsuleCollider.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="MeshCollider.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

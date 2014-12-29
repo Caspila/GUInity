@@ -118,18 +118,18 @@ void Transform::updateTransform(const PxTransform& transform)
 glm::vec3 Transform::getUp()
 {
 	glm::vec4 v = getModelMatrix() * glm::vec4(0, 1, 0, 0);
-	return glm::vec3(v.x, v.y, v.z);
+	return glm::normalize(glm::vec3(v.x, v.y, v.z));
 
 }
 glm::vec3 Transform::getForward()
 {
 	glm::vec4 v = getModelMatrix() * glm::vec4(0, 0, 1, 0);
-	return glm::vec3(v.x, v.y, v.z);
+	return glm::normalize(glm::vec3(v.x, v.y, v.z));
 }
 glm::vec3 Transform::getRight()
 {
 	glm::vec4 v = getModelMatrix() * glm::vec4(1, 0, 0, 0);
-	return glm::vec3(v.x, v.y, v.z);
+	return glm::normalize(glm::vec3(v.x, v.y, v.z));
 }
 
 glm::vec3 Transform::getGlobalPosition()

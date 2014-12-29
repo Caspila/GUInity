@@ -1,4 +1,5 @@
 #include "Light.hpp"
+#include "Actor.hpp"
 
 Light::Light()
 {
@@ -25,5 +26,5 @@ Light::~Light()
 
 void Light::init()
 {
-	Light::notify(EventType::NewLight, shared_from_this());
+	Light::notify(ComponentEventType::NewLight, shared_from_this(), getActor()->editorFlag);
 }

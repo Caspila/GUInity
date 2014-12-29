@@ -30,5 +30,5 @@ void MeshRenderer::init()
 
 //	GraphicsSystem::getInstance().allMeshRenderer.push_back(shared_from_this());
 
-	MeshRenderer::notify(EventType::NewMeshRenderer, shared_from_this());
+	MeshRenderer::notify(ComponentEventType::NewMeshRenderer, shared_from_this(),getActor()->editorFlag);
 }

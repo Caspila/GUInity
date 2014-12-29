@@ -1,4 +1,4 @@
-#include "EditorCameraControl.h"
+#include "EditorCameraControl.hpp"
 #include "Input.hpp"
 #include "Actor.hpp"
 #include "Transform.hpp"
@@ -68,30 +68,9 @@ void EditorCameraControl::tick(float deltaSeconds)
 	if (rightButtonPressed)
 	{
 		glm::vec2 mouseDelta = Input::mouseDelta;
-		//mouseDelta = glm::normalize(mouseDelta);
 
-		glm::vec3 eulerAngles = glm::eulerAngles(getActor()->transform->getRotationQuat());
+		getActor()->transform->rotationQuat = glm::angleAxis(-mouseDelta.x * deltaSeconds, glm::vec3(0, 1, 0))* glm::angleAxis(mouseDelta.y * deltaSeconds, getActor()->transform->getRight())  * getActor()->transform->rotationQuat;
 
-		eulerAngles = glm::vec3(eulerAngles.x + mouseDelta.y * deltaSeconds * rotationSpeed, eulerAngles.y + mouseDelta.x * deltaSeconds * rotationSpeed, eulerAngles.z);
-
-		//eulerAngles.x = fmodf(eulerAngles.x, 3.1416);
-		//eulerAngles.y = fmodf(eulerAngles.y, 3.1416);
-		//eulerAngles.z = fmodf(eulerAngles.z, 3.1416);
-
-		cout <<"eulerAngles: " << eulerAngles * Math::Radian2Deg<< endl;
-
-		glm::quat rot = glm::quat(eulerAngles);
-
-		//cout << "quat: " << rot << endl;
-
-		getActor()->transform->setRotationQuat(rot);
-
-		//glm::quat rightQuat = Math::LookAt(getActor()->transform->getRight());
-		//glm::quat upQuat = Math::LookAt(getActor()->transform->getUp());
-		//
-		//getActor()->transform->setRotationQuat(glm::slerp())
-
-		//transform->setRotationQuat()
 	}
 
 }

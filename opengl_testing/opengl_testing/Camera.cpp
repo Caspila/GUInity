@@ -64,6 +64,28 @@ glm::mat4 Camera::getModelMatrix()
 	//	glm::rotate(rotation.z * Math::Deg2Radian, glm::vec3(0, 0, 1));
 }
 
+
+glm::vec3 Camera::screenPointToWorld(glm::vec2 pos)
+{
+	float x = (2.0f * pos.x) / 640 - 1.0f;
+	float y = 1.0f - (2.0f * pos.y) / 480;
+	float z = 1.0f;
+	glm::vec3 ray_nds(x, y, z);
+
+	//cout << "x: " << x << "  y: " << y << endl;
+
+	glm::vec4 ray_clip = glm::vec4(ray_nds.x, ray_nds.y, -1.0, 1.0);
+	glm::vec4 ray_eye = glm::inverse(projection) * ray_clip;
+
+	ray_eye = glm::vec4(ray_eye.x, ray_eye.y, -1.0, 0.0);
+
+	glm::vec4 ray_w = (glm::inverse(view) * ray_eye);
+
+	glm::vec3 ray_wor(ray_w.x, ray_w.y, ray_w.z);
+
+	return ray_wor;
+}
+
 Ray Camera::screenPointToRay(glm::vec2 pos)
 {
 	float x = (2.0f * pos.x) / 640 - 1.0f;
@@ -119,7 +141,7 @@ Ray Camera::screenPointToRay2(glm::vec2 pos)
 
 void Camera::init()
 {
-	Camera::notify(EventType::NewCamera, shared_from_this());
+	Camera::notify(ComponentEventType::NewCamera, shared_from_this(), getActor()->editorFlag);
 }
 
 void Camera::awake()

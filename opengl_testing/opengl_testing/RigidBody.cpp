@@ -24,6 +24,7 @@ void RigidBody::init()
 	
 	physxRigidBody = Physics::createRigidDynamic(getActor());
 
+	notify(NewRigidBody, shared_from_this(), getActor()->editorFlag);
 }
 
 void RigidBody::tick(float deltaSeconds)

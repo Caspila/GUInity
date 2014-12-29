@@ -18,22 +18,39 @@ private:
 	static vector<shared_ptr<Observer>> observers;
 
 protected:
-	static void notify(EventType type, shared_ptr<Component> component)
+	static void notify(ComponentEventType type, shared_ptr<Component> component, bool isEditor)
 	{
-		for (auto x : observers)
+		for (auto& x : observers)
 		{
-			x->onNotify(type, component);
+			x->onNotify(type, component, isEditor);
 		}
 
 	}
-	static void notify(EventType type, shared_ptr<Actor> actor)
+	static void notify(ActorEventType type, shared_ptr<Actor> actor, bool isEditor)
 	{
-		for (auto x : observers)
+		for (auto& x : observers)
 		{
-			x->onNotify(type, actor);
+			x->onNotify(type, actor, isEditor);
 		}
 
 	}
+	//static void notify(EventType type, shared_ptr<Component> component)
+	//{
+	//	for (auto x : observers)
+	//	{
+	//		x->onNotify(type, component);
+	//	}
+	//
+	//}
+
+	//static void notify(EventType type, shared_ptr<Actor> actor)
+	//{
+	//	for (auto x : observers)
+	//	{
+	//		x->onNotify(type, actor);
+	//	}
+	//
+	//}
 
 
 public:

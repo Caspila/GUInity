@@ -1,11 +1,11 @@
 #pragma once
 #include "Component.hpp"
 #include <PxPhysics.h>
-
+#include "Subject.hpp"
 using namespace physx;
 
 
-class RigidStatic :
+class RigidStatic : public Subject<RigidStatic>, public enable_shared_from_this<RigidStatic>,
 	public Component
 {
 public:

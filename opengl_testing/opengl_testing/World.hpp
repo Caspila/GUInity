@@ -13,32 +13,44 @@ class World : public Observer, public enable_shared_from_this<World>
 {
 public:
 
-
-
 	World();
 	~World();
 	void init();
 
-	static std::vector<shared_ptr<MeshRenderer>> meshRenderers;
-	static void addMeshRenderer(shared_ptr<MeshRenderer> meshRenderer);
+	PxScene *physicsScene;
 
-	static std::vector<shared_ptr<Camera>> cameras;
-	static void addCamera(shared_ptr<Camera> camera);
+	std::vector<shared_ptr<MeshRenderer>> meshRenderers;
+	void addMeshRenderer(shared_ptr<MeshRenderer> meshRenderer);
 	
-	static std::vector<shared_ptr<Light>> lights;
-	static void addLight(shared_ptr<Light> light);
+	std::vector<shared_ptr<Camera>> cameras;
+	void addCamera(shared_ptr<Camera> camera);
 	
-	static std::vector<shared_ptr<Actor>> actors;
-	static void addActor(shared_ptr<Actor> actor);
-	static void removeActor(shared_ptr<Actor> actor);
+	std::vector<shared_ptr<Light>> lights;
+	void addLight(shared_ptr<Light> light);
 	
-	static shared_ptr<Actor> findActor(string name);
-	static shared_ptr<Actor> getSharedPtrActor(Actor* actor);
+	std::vector<shared_ptr<Actor>> actors;
+	void addActor(shared_ptr<Actor> actor);
+	void addActorDelayed(shared_ptr<Actor> actor);
+	void removeActor(shared_ptr<Actor> actor);
+	std::vector<shared_ptr<Actor>> newActors;
 
-	static void awake();
-	static void tick(float deltaTime);
-	static void shutdown();
+	void transferNewActors();
 
-	void onNotify(EventType type, shared_ptr<Component> component);
+	shared_ptr<Actor> findActor(string name);
+	shared_ptr<Actor> getSharedPtrActor(Actor* actor);
+	
+	bool isAwake;
+
+	void awake();
+	void tick(float deltaTime);
+	void shutdown();
+
+	bool isEditor;
+
+	virtual void onNotify(ComponentEventType type, shared_ptr<Component> component, bool isEditor) override;
+	virtual void onNotify(ActorEventType type, shared_ptr<Actor> actor, bool isEditor) override;
+
+	void registerObserverAsGame()  ;
+	void registerObserverAsEditor();
 };
 

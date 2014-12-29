@@ -5,15 +5,14 @@
 #include "Mesh.hpp"
 #include "RigidBody.hpp"
 
-
 #include "Converter.hpp"
 #include "Actor.hpp"
 #include "PhysicsMaterial.hpp"
 #include "MeshFilter.hpp"
 #include "RigidStatic.hpp"
+#include <PxPhysicsAPI.h>
 
-
-PxScene* Physics::scene;
+PhysXEventCallback* Physics::physxEventCallback;
 PxPhysics* Physics::gPhysicsSDK;
 PxDefaultErrorCallback Physics::gDefaultErrorCallback;
 PxDefaultAllocator Physics::gDefaultAllocatorCallback;
@@ -81,24 +80,6 @@ int Physics::init()
 
 	//gPhysicsSDK->createRigidStatic(();
 
-	//Creating scene
-	PxSceneDesc sceneDesc(gPhysicsSDK->getTolerancesScale());
-	sceneDesc.flags = PxSceneFlag::eENABLE_ACTIVETRANSFORMS;
-	sceneDesc.simulationEventCallback = physxEventCallback;
-	sceneDesc.gravity = PxVec3(0.0f, -9.8f, 0.0f);
-	sceneDesc.cpuDispatcher = PxDefaultCpuDispatcherCreate(1);
-	//sceneDesc.filterShader = PxDefaultSimulationFilterShader;
-	sceneDesc.filterShader = CustomSimulationFilterShader;
-	//gScene = gPhysicsSDK->createScene(sceneDesc);
-
-	//shared_ptr<PxScene>gScene;
-	//gScene.reset(
-	scene = gPhysicsSDK->createScene(sceneDesc);// , releaseScene);
-
-	scene->setSimulationEventCallback(physxEventCallback);
-	scene->setVisualizationParameter(PxVisualizationParameter::eSCALE, 1.0f);
-	scene->setVisualizationParameter(PxVisualizationParameter::eACTOR_AXES, 1.0f);
-	scene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_SHAPES, 1.0f);
     
 	defaultPhysicsMaterial = gPhysicsSDK->createMaterial(0.5f, 0.5f, 0.1f);
 
@@ -116,105 +97,7 @@ shared_ptr<PhysicsMaterial> Physics::createMaterial(float friction, float dynami
 
 	return physics;
 }
-//
-//
-//void Physics::createBoxRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic)
-//{
-//	//PxMaterial* mMaterial = gPhysicsSDK->createMaterial(friction, dynamicFriction, restitution);
-//
-//	PxTransform physxTransform = transformToPhysXTransform(actor->transform); //getActorTransform(actor);
-//
-//	PxVec3 boxSize(actor->meshRenderer->mesh->boundsMax.x - actor->meshRenderer->mesh->boundsMin.x,
-//		actor->meshRenderer->mesh->boundsMax.y - actor->meshRenderer->mesh->boundsMin.y,
-//		actor->meshRenderer->mesh->boundsMax.z - actor->meshRenderer->mesh->boundsMin.z );
-//
-//	boxSize = boxSize / 2;
-//
-//	boxSize.x = std::fmaxf(boxSize.x,0.001f);
-//	boxSize.y = std::fmaxf(boxSize.y, 0.001f);
-//	boxSize.z = std::fmaxf(boxSize.z, 0.001f);
-//
-//	boxSize.x *= actor->transform->scale.x;
-//	boxSize.y *= actor->transform->scale.y;
-//	boxSize.z *= actor->transform->scale.z;
-//
-//	//cout << "boxSize" << boxSize << endl;
-//	PxRigidDynamic*rigidDynamic = gPhysicsSDK->createRigidDynamic(physxTransform);
-//	//shared_ptr<PxRigidDynamic> rigidDynamic;
-//	//rigidDynamic.reset(gPhysicsSDK->createRigidDynamic(physxTransform),releaseRigidDynamic);
-//
-//	PxShape* shape = rigidDynamic->createShape(PxBoxGeometry(boxSize), *physicsMaterial->material.get());
-//	rigidDynamic->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, isKinematic);
-//	//shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, true);
-//	//rigidDynamic->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, false);
-//
-//	rigidDynamic->userData = (void*)actor.get();
-//
-//	scene->addActor(*rigidDynamic);
-//
-//	actor->transform->setRigidBody(rigidDynamic);
-//}
-//
-//
-//void Physics::createSphereRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic)
-//{
-//	//PxMaterial* mMaterial = gPhysicsSDK->createMaterial(friction, dynamicFriction, restitution);
-//
-//	PxTransform physxTransform = transformToPhysXTransform(actor->transform);//getActorTransform(actor);
-//
-//	PxVec3 boxSize(actor->meshRenderer->mesh->boundsMax.x - actor->meshRenderer->mesh->boundsMin.x,
-//		actor->meshRenderer->mesh->boundsMax.y - actor->meshRenderer->mesh->boundsMin.y,
-//		actor->meshRenderer->mesh->boundsMax.z - actor->meshRenderer->mesh->boundsMin.z);
-//
-//	boxSize = boxSize / 2;
-//
-//	boxSize.x = std::fmaxf(boxSize.x, 0.001f);
-//	boxSize.y = std::fmaxf(boxSize.y, 0.001f);
-//	boxSize.z = std::fmaxf(boxSize.z, 0.001f);
-//
-//	boxSize.x *= actor->transform->scale.x;
-//	boxSize.y *= actor->transform->scale.y;
-//	boxSize.z *= actor->transform->scale.z;
-//
-//	float radius = fmaxf(boxSize.x, boxSize.y);
-//	radius = fmaxf(radius, boxSize.z);
-//
-//	PxRigidDynamic*rigidDynamic = gPhysicsSDK->createRigidDynamic(physxTransform);
-//	//shared_ptr<PxRigidDynamic> rigidDynamic;
-//	//rigidDynamic.reset(gPhysicsSDK->createRigidDynamic(physxTransform),releaseRigidDynamic);
-//	PxShape* shape = rigidDynamic->createShape(PxSphereGeometry(radius), *physicsMaterial->material.get());
-//
-//	rigidDynamic->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, isKinematic);
-//	//shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, true);
-//	//rigidDynamic->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, false);
-//
-//	rigidDynamic->userData = (void*)actor.get();
-//
-//	scene->addActor(*rigidDynamic);
-//
-//	actor->transform->setRigidBody(rigidDynamic);
-//
-//
-//}
 
-
-//PxRigidStatic* Physics::createRigidStatic(shared_ptr<Actor> actor)
-//{
-//	//PxTransform physxTransform = transformToPhysXTransform(actor->transform);
-//	//
-//	//PxRigidStatic* rigidStatic = gPhysicsSDK->createRigidStatic(physxTransform);
-//	//
-//	//rigidStatic->userData = (void*)actor.get();
-//	//
-//	//scene->addActor(*rigidStatic);
-//	//
-//	//return rigidStatic;
-//	
-//	PxRigidDynamic* rigidStatic = createRigidDynamic(actor);
-//	
-//
-//
-//}
 PxRigidDynamic* Physics::createRigidDynamic(shared_ptr<Actor> actor)
 {
 	PxTransform physxTransform = transformToPhysXTransform(actor->transform);
@@ -223,7 +106,7 @@ PxRigidDynamic* Physics::createRigidDynamic(shared_ptr<Actor> actor)
 
 	rigidDynamic->userData = static_cast<void*> (actor.get()); //(void*)actor.get();
 
-	scene->addActor(*rigidDynamic);
+	//scene->addActor(*rigidDynamic);
 
 	return rigidDynamic;
 }
@@ -287,15 +170,12 @@ PxShape* Physics::createBoxCollider(shared_ptr<Actor> actor)
 	}
 	else
 	{
-		shared_ptr<RigidStatic> rigidStatic = actor->AddComponent<RigidStatic>();
+		shared_ptr<RigidStatic> rigidStatic = actor->GetComponent<RigidStatic>();
+		if (!rigidStatic)
+			rigidStatic = actor->AddComponent<RigidStatic>();
 
-		if (rigidStatic)
-		{
 			shape = rigidStatic->physxRigidStatic->createShape(PxBoxGeometry(boxSize), *defaultPhysicsMaterial);
 			shape->userData = (void*)actor.get();
-		}
-		else
-			cerr << "Error when trying to create rigid static for collider";
 			
 	}
 
@@ -315,25 +195,109 @@ PxShape* Physics::createSphereCollider(shared_ptr<Actor> actor)
 	PxShape* shape = nullptr;
 	if (rigidBody)
 	{
+
 		shape = rigidBody->physxRigidBody->createShape(PxSphereGeometry(radius), *defaultPhysicsMaterial);
 	}
 	else
 	{
-		shared_ptr<RigidStatic> rigidStatic = actor->AddComponent<RigidStatic>();
 
-		if (rigidStatic)
-		{
+		shared_ptr<RigidStatic> rigidStatic = actor->GetComponent<RigidStatic>();
+		if (!rigidStatic)
+			rigidStatic = actor->AddComponent<RigidStatic>();
+
 			shape = rigidStatic->physxRigidStatic->createShape(PxSphereGeometry(radius), *defaultPhysicsMaterial);
 			shape->userData = (void*)actor.get();
 		}
-		else
-			cerr << "Error when trying to create rigid static for collider";
+
+	return shape;
+}
+
+
+PxShape* Physics::createCapsuleCollider(shared_ptr<Actor> actor)
+{
+	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
+	//shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
+	//
+	//float radius = 0.5f;// PxVec3 boxSize(0.5f, 0.5f, 0.5f);
+	//if (meshFilter)
+	//	radius = getSphereSize(actor, meshFilter);
+
+	PxShape* shape = nullptr;
+	if (rigidBody)
+	{
+		shape = rigidBody->physxRigidBody->createShape(PxCapsuleGeometry(0.5f,0.5f), *defaultPhysicsMaterial);
+	}
+	else
+	{
+		
+		shared_ptr<RigidStatic> rigidStatic = actor->GetComponent<RigidStatic>();
+		if (!rigidStatic)
+			rigidStatic = actor->AddComponent<RigidStatic>();
+
+		shape = rigidStatic->physxRigidStatic->createShape(PxCapsuleGeometry(0.5f, 0.5f), *defaultPhysicsMaterial);
+		shape->userData = (void*)actor.get();
 	}
 
 	return shape;
 }
 
-void Physics::updateActorsTransform()
+PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
+{
+
+	//desc.points.
+
+	PxVec3* mMeshVertices = new physx::PxVec3[mesh->nPoints];
+	for (int i = 0; i < mesh->nPoints; i++)
+	{
+		mMeshVertices[0] = PxVec3(mesh->points[i].x, mesh->points[i].y, mesh->points[i].z);
+	}
+	PxConvexMeshDesc convexDesc;
+	convexDesc.points.count = mesh->nPoints;
+	convexDesc.points.stride = sizeof(PxVec3);
+	convexDesc.points.data = mMeshVertices;
+
+
+	PxCooking *cooking = PxCreateCooking(PX_PHYSICS_VERSION, PxGetFoundation(), PxCookingParams(PxTolerancesScale()));
+
+	PxDefaultMemoryOutputStream output;
+	
+	bool status = cooking->cookConvexMesh(convexDesc, output);
+	
+	PxDefaultMemoryInputData input(output.getData(), output.getSize());
+	physx::PxConvexMesh* convexMesh = gPhysicsSDK->createConvexMesh(input);
+	
+	return convexMesh;
+
+	//PxU32* mMeshFaces = new physx::PxU32[mIndexCount];
+}
+
+PxShape* Physics::createMeshCollider(shared_ptr<Actor> actor)
+{
+	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
+	shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
+
+	PxShape* shape = nullptr;
+	if (rigidBody)
+	{
+		PxConvexMeshGeometry geo(getPxConvexMesh(meshFilter->mesh));
+		rigidBody->physxRigidBody->createShape(geo, *defaultPhysicsMaterial);
+	
+	}
+	else
+	{
+
+		//shared_ptr<RigidStatic> rigidStatic = actor->GetComponent<RigidStatic>();
+		//if (!rigidStatic)
+		//	rigidStatic = actor->AddComponent<RigidStatic>();
+		//
+		//shape = rigidStatic->physxRigidStatic->createShape(PxCapsuleGeometry(0.5f, 0.5f), *defaultPhysicsMaterial);
+		//shape->userData = (void*)actor.get();
+	}
+
+	return shape;
+}
+
+void Physics::updateActorsTransform(PxScene* scene)
 {
 	PxU32 nActiveTransforms;
 	const PxActiveTransform* activeTransforms = scene->getActiveTransforms(nActiveTransforms);
@@ -363,21 +327,52 @@ Physics::~Physics()
 }
 
 
-bool Physics::rayCast(const Ray& r, const float distance, PxRaycastBuffer& hitCallback)
+bool Physics::rayCast(PxScene* scene, const Ray& r, const float distance, PxRaycastBuffer& hitCallback)
 {
 	return scene->raycast(glmVec3ToPhysXVec3(r.origin), glmVec3ToPhysXVec3(r.direction), distance, hitCallback);
 }
 
-void Physics::tick()
+void Physics::tickScene(PxScene* scene)
 {
 	scene->simulate(myTimestep);
 	scene->fetchResults(true);
 }
 
+//void Physics::tick()
+//{
+//	scene->simulate(myTimestep);
+//	scene->fetchResults(true);
+//}
+
 void Physics::shutdown()
 {
-	scene->release();
+//	scene->release();
 	gPhysicsSDK->release();
 	gFoundation->release();
 	
+}
+
+PxScene* Physics::createPhysicsScene()
+{
+
+	//Creating scene
+	PxSceneDesc sceneDesc(gPhysicsSDK->getTolerancesScale());
+	sceneDesc.flags = PxSceneFlag::eENABLE_ACTIVETRANSFORMS;
+	sceneDesc.simulationEventCallback = physxEventCallback;
+	sceneDesc.gravity = PxVec3(0.0f, -9.8f, 0.0f);
+	sceneDesc.cpuDispatcher = PxDefaultCpuDispatcherCreate(1);
+	//sceneDesc.filterShader = PxDefaultSimulationFilterShader;
+	sceneDesc.filterShader = CustomSimulationFilterShader;
+	//gScene = gPhysicsSDK->createScene(sceneDesc);
+
+	//shared_ptr<PxScene>gScene;
+	//gScene.reset(
+	PxScene* scene = gPhysicsSDK->createScene(sceneDesc);// , releaseScene);
+
+	scene->setSimulationEventCallback(physxEventCallback);
+	scene->setVisualizationParameter(PxVisualizationParameter::eSCALE, 1.0f);
+	scene->setVisualizationParameter(PxVisualizationParameter::eACTOR_AXES, 1.0f);
+	scene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_SHAPES, 1.0f);
+
+	return scene;
 }

@@ -22,6 +22,5 @@ SphereCollider::~SphereCollider()
 
 void SphereCollider::init()
 {
-
 	shape = Physics::createSphereCollider(getActor());
 }

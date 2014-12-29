@@ -3,10 +3,11 @@
 #include "Module.hpp"
 #include "Component.hpp"
 #include <PxPhysicsAPI.h>
+#include "Subject.hpp"
 
 using namespace physx;
 
-class RigidBody :
+class RigidBody : public Subject<RigidBody>, public enable_shared_from_this<RigidBody>,
 	public Component
 
 #ifdef GUINITY_DEBUG

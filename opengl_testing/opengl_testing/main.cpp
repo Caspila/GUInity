@@ -38,6 +38,7 @@
 #include "IncreaseColliderScript.hpp"
 #include "Editor.hpp"
 #include "Game.hpp"
+#include "MeshCollider.hpp"
 
 #include <fmod.hpp>
 #include <fmod_common.h>
@@ -48,10 +49,12 @@
 #pragma comment(lib, "PhysX3DEBUG_x86.lib")
 #pragma comment(lib, "PhysX3CommonDEBUG_x86.lib")
 #pragma comment(lib, "PhysX3ExtensionsDEBUG.lib")
+#pragma comment(lib, "PhysX3CookingDEBUG_x86.lib")
 #else
 #pragma comment(lib, "PhysX3_x86.lib")
 #pragma comment(lib, "PhysX3Common_x86.lib")
 #pragma comment(lib, "PhysX3Extensions.lib")
+#pragma comment(lib, "PhysX3Cooking_x86.lib")
 #endif
 using namespace physx;
 using namespace std;
@@ -89,7 +92,7 @@ int main() {
 	result = system->createSound("C:/Users/guilherme_cunha/Desktop/music.mp3", FMOD_DEFAULT, 0, &sound1);
 	//ERRCHECK(result);
 
-	result = system->playSound(sound1, 0, false, &channel);
+	//result = system->playSound(sound1, 0, false, &channel);
 	//ERRCHECK(result);
 
 	Physics physics;
@@ -100,8 +103,8 @@ int main() {
 	shared_ptr<Editor> editor = make_shared<Editor>();
 	editor->init();
 
-	shared_ptr<World> world = make_shared<World>();
-	world->init();
+	//shared_ptr<World> world = make_shared<World>();
+	//world->init();
 
 	shared_ptr<Game> game = make_shared<Game>();
 	game->init();
@@ -249,7 +252,30 @@ int main() {
 		1.0f, 0.0f, 0.0f,
 
 	};
+
+	float quadNormal[] =
+	{
+		0.0f, 0.0f, 1.0f, //0
+		0.0f, 0.0f, 1.0f, //1
+		0.0f, 0.0f, 1.0f, //2
+		0.0f, 0.0f, 1.0f, //3
+	};
+
+	float quadIndex[] =
+	{
+		-0.5f, -0.5f, 0,  //0
+		-0.5f, 0.5f, 0,   //1
+		0.5f, 0.5f, 0,    //2
+		0.5f, -0.5f, 0    //3
+	};
     
+	unsigned int quadTriangles[] =
+	{
+		0,1,3,
+		1,2,3
+
+	};
+
     string vsDataPath = DATA_PATH;
     string fsDataPath = DATA_PATH;
     
@@ -269,20 +295,8 @@ int main() {
 	shared_ptr<Mesh> sphereMesh = make_shared<Mesh>(meshDataPath.append("sphere.obj").c_str());
 	shared_ptr<Mesh> triangleMesh = make_shared<Mesh>(pointsTriangle,3,colorTriangle,normalTriangle);
 	shared_ptr<Mesh> quadMesh = make_shared<Mesh>(pointsQuad, 6, colorQuad, normalQuad);
+	//shared_ptr<Mesh> quadMesh = make_shared<Mesh>(quadIndex,quadTriangles, 4,6, normalQuad);
 	shared_ptr<Mesh> cubeMesh = make_shared<Mesh>(pointsCube, 36, nullptr,normalCube);
-
-	//shared_ptr<MeshRenderer> meshRenderer1 = make_shared<MeshRenderer>(quadMesh, m);
-	//shared_ptr<MeshRenderer> meshRenderer2 = make_shared<MeshRenderer>(triangleMesh, m2);
-	//shared_ptr<MeshRenderer> meshRenderer3 = make_shared<MeshRenderer>(cubeMesh, m3);
-	//shared_ptr<MeshRenderer> meshRenderer4 = make_shared<MeshRenderer>(sphereMesh, m3);
-
-
-
-
-
-	//shared_ptr<Player> player = Factory::CreateActor<Player>("Player", meshRenderer2);
-	shared_ptr<Actor> player = Factory::CreateActor("Player");// , meshRenderer2);
-	player->transform->setPosition(glm::vec3(0, 0, 0));
 
 	shared_ptr<Actor> myplane = Factory::CreateActor("Plane");// , meshRenderer1);
 	myplane->transform->setPosition(glm::vec3(0, -4, 0));
@@ -293,37 +307,22 @@ int main() {
 	shared_ptr<Actor> mycube = Factory::CreateActor("Cube");// , meshRenderer3);
 	mycube->transform->setRotationQuat(glm::quat(glm::vec3(-90 * Math::Deg2Radian, 0, 0)));
 	mycube->transform->setPosition(glm::vec3(0, -2, 0));
-
+	
 	shared_ptr<Actor> mysphere = Factory::CreateActor("Sphere");// , meshRenderer4);
 	mysphere->transform->setPosition(glm::vec3(0, 0, 0));
 	mysphere->transform->setScale(glm::vec3(1, 1, 1)*0.5f);
-
+	
 	shared_ptr<Actor> myLight = Factory::CreateActor("Light");// , meshRenderer4);
 	myLight->transform->setPosition(glm::vec3(0, 10, 10));
 	myLight->AddComponent<Light>();
-
+	
 	shared_ptr<Actor> myCamera = Factory::CreateActor("Camera");// , meshRenderer4);
 	myCamera->transform->setPosition(glm::vec3(0, 0, 10));
 	myCamera->transform->setRotationQuat(glm::quat(glm::vec3(0, 180 * Math::Deg2Radian, 0)));
 	myCamera->AddComponent<Camera>();
-	//mysphere->transform->setScale(glm::vec3(1, 1, 1)*0.5f);
-	//shared_ptr<Light> light = make_shared<Light>(glm::vec3(0, 10, 10), glm::vec3(1,1,1));
-
-	//shared_ptr<Script> script = make_shared<PlayerScript>();
-//	unique_ptr<Script> script = make_unique<PlayerScript>();
-
-	world->addActor(myLight);
-	world->addActor(myplane);
-	world->addActor(mycube);
-	world->addActor(mysphere);
-	world->addActor(myCamera);
-
-	//shared_ptr<PlayerScript> script = mycube->AddScript<PlayerScript>();
-	//script->setSphereRef(world.findActor("Sphere"));
-	//script->setReference()
-	// mycube->AddComponent<PlayerScript>();
+	
 	mysphere->AddComponent<PlayerScript>();
-
+	
 	shared_ptr<MeshFilter> meshFilter = mycube->AddComponent<MeshFilter>();
 	meshFilter->mesh = cubeMesh;
 	shared_ptr<MeshRenderer> meshRenderer = mycube->AddComponent<MeshRenderer>();
@@ -342,12 +341,13 @@ int main() {
 	//rigidBody->setKinematic(true);
 	myplane->AddComponent<BoxCollider>();
 
-	meshFilter = mysphere->AddComponent<MeshFilter>();
-	meshFilter->mesh = sphereMesh;
-	meshRenderer = mysphere->AddComponent<MeshRenderer>();
-	meshRenderer->material = m;
-	mysphere->AddComponent<RigidBody>();
-	mysphere->AddComponent<SphereCollider>();
+	//meshFilter = mysphere->AddComponent<MeshFilter>();
+	//meshFilter->mesh = sphereMesh;
+	//meshRenderer = mysphere->AddComponent<MeshRenderer>();
+	//meshRenderer->material = m;
+	//mysphere->AddComponent<RigidBody>();
+	//mysphere->AddComponent<SphereCollider>();
+//	//mysphere->AddComponent<MeshCollider>();
 	
 
 	shared_ptr<PhysicsMaterial> physMaterial = physics.createMaterial(0.5f, 0.5f, 0.75f);
@@ -368,8 +368,9 @@ int main() {
 
 
 
-
-	world->awake();
+	editor->world->awake();
+	game->world->awake();
+	//world->awake();
 
 	//int cont = 0;
 	while (!glfwWindowShouldClose(GraphicsSystem::getInstance().window.get())) {
@@ -380,44 +381,20 @@ int main() {
 		switch (engineMode)
 		{
 		case EngineMode::editor:
-			editor->update(world, Time::deltaTime);
+			editor->update(Time::deltaTime,game->world);
 			break;
 		case EngineMode::game:
-			game->update(world, Time::deltaTime);
+			game->update(Time::deltaTime);
 			break;
 		default:
 			break;
 		}
 		
-
 		if (Input::getKeyPressed(GLFW_KEY_1))
 			engineMode = EngineMode::editor;
 		if (Input::getKeyPressed(GLFW_KEY_2))
 			engineMode = EngineMode::game;
-		/*
-		Ray r = camera->screenPointToRay(Input::mousePos);
-		
-		PxRaycastBuffer hitCallback;
-		if (Input::getMouseButton(GLFW_MOUSE_BUTTON_1) && Physics::rayCast(r, 300, hitCallback))
-		{
-			Actor *a = (Actor*)hitCallback.block.actor->userData;
-		
-			cout << "Mouse click: " << a->name << endl;
-		}
-
-		world.tick(Time::deltaTime);
-
-		Physics::tick();
-		Physics::updateActorsTransform();
-
-
-
-		GraphicsSystem::getInstance().clear();
-		
-		GraphicsSystem::getInstance().render(camera, world.lights);
-		GraphicsSystem::getInstance().render(camera, Physics::scene->getRenderBuffer(), glm::vec3(1, 1, 1));
-		GraphicsSystem::getInstance().swap();
-*/
+	
 		Time::frameEnd();
 	}
 
@@ -425,7 +402,9 @@ int main() {
 	
 	editor->shutdown();
 
-	world->shutdown();
+	game->shutdown();
+
+	//world->shutdown();
 
 
 	// close GL context and any other GLFW resources
@@ -433,5 +412,5 @@ int main() {
 
 
 	return 0;
-}
+}	
  
