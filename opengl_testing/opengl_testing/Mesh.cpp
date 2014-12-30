@@ -1,114 +1,165 @@
 #include "Mesh.hpp"
 #include <math.h>
+#include <glm/geometric.hpp>
 
 
 // Code from http://www.opengl-tutorial.org/beginners-tutorials/tutorial-7-model-loading/
-bool loadOBJ(const char* path, std::vector <glm::vec3>& out_vertices, std::vector <glm::vec2>& out_uvs, std::vector <glm::vec3>& out_normals)
+
+
+Mesh::Mesh()
 {
-	std::vector< unsigned int > vertexIndices, uvIndices, normalIndices;
-	std::vector< glm::vec3 > temp_vertices;
-	std::vector< glm::vec2 > temp_uvs;
-	std::vector< glm::vec3 > temp_normals;
+	 mvbo = vao  = ibo = 0;
 
-	FILE * file = fopen(path, "r");
-	
-	while (1){
-
-		//cout << file->_tmpfname << endl;
-		char lineHeader[128];
-		// read the first word of the line
-        int res = fscanf(file, "%s", lineHeader,128);
-		//int res = fscanf_s(file, "%s", lineHeader, 128);
-		if (res == EOF)
-			break; // EOF = End Of File. Quit the loop.
-
-		// else : parse lineHeader
-		if (strcmp(lineHeader, "v") == 0){
-			glm::vec3 vertex;
-			fscanf(file, "%f %f %f\n", &vertex.x, &vertex.y, &vertex.z);
-			temp_vertices.push_back(vertex);
-		}
-		else if (strcmp(lineHeader, "vt") == 0){
-			glm::vec2 uv;
-			fscanf(file, "%f %f\n", &uv.x, &uv.y);
-			temp_uvs.push_back(uv);
-		}
-		else if (strcmp(lineHeader, "vn") == 0){
-			glm::vec3 normal;
-			fscanf(file, "%f %f %f\n", &normal.x, &normal.y, &normal.z);
-			temp_normals.push_back(normal);
-		}
-		else if (strcmp(lineHeader, "f") == 0){
-			std::string vertex1, vertex2, vertex3;
-			unsigned int vertexIndex[3], uvIndex[3], normalIndex[3];
-			int matches = fscanf(file, "%d/%d/%d %d/%d/%d %d/%d/%d\n", &vertexIndex[0], &uvIndex[0], &normalIndex[0], &vertexIndex[1], &uvIndex[1], &normalIndex[1], &vertexIndex[2], &uvIndex[2], &normalIndex[2]);
-			if (matches != 9){
-				printf("File can't be read by our simple parser : ( Try exporting with other options\n");
-				return false;
-			}
-			vertexIndices.push_back(vertexIndex[0]);
-			vertexIndices.push_back(vertexIndex[1]);
-			vertexIndices.push_back(vertexIndex[2]);
-			uvIndices.push_back(uvIndex[0]);
-			uvIndices.push_back(uvIndex[1]);
-			uvIndices.push_back(uvIndex[2]);
-			normalIndices.push_back(normalIndex[0]);
-			normalIndices.push_back(normalIndex[1]);
-			normalIndices.push_back(normalIndex[2]);
-
-		}
-	}
-		// For each vertex of each triangle
-		for (unsigned int i = 0; i < vertexIndices.size(); i++){
-			unsigned int vertexIndex = vertexIndices[i];
-			glm::vec3 vertex = temp_vertices[vertexIndex - 1];
-			//vertex = vertex * 0.5f;
-			out_vertices.push_back(vertex);
-		}
-		for (unsigned int i = 0; i < uvIndices.size(); i++){
-			unsigned int uvIndex = uvIndices[i];
-			glm::vec2 uv = temp_uvs[uvIndex - 1];
-			out_uvs.push_back(uv);
-		}
-		for (unsigned int i = 0; i < normalIndices.size(); i++){
-			unsigned int normalIndex = normalIndices[i];
-			glm::vec3 normal = temp_normals[normalIndex - 1];
-			out_normals.push_back(normal);
-		}
-
-		return true;
-}
-
-
-Mesh::Mesh(float *points, int nPoints, float* colorPoints, float* normalPoints)
-{
-	//int realPoints = nPoints * 3;
-
-	this->nPoints = nPoints;
-
-	for (int i = 0; i < nPoints; i++)
-	{
-		this->points.push_back(glm::vec3(points[i * 3], points[i * 3 + 1], points[i * 3 + 2]));
-		this->normalPoints.push_back(glm::vec3(normalPoints[i * 3], normalPoints[i * 3 + 1], normalPoints[i * 3 + 2]));
-	}
 
 #ifdef GUINITY_DEBUG
 	nCount++;
 #endif
 
-	createBuffers();
 }
 
-Mesh::Mesh(float* indices, unsigned int *triangles, int nPoints, int nTriangles, float* normalPoints)
+	//
+	//
+	//bool Mesh::closeEnough(MeshVertex& v, glm::vec3& point, glm::vec2& uv, glm::vec3& normal)
+	//{
+	//	if (glm::length(v.position - point) < 0.01f &&
+	//		glm::length(v.normal - normal) < 0.01f &&
+	//		glm::length(v.uv - uv) < 0.01f)
+	//		return true;
+	//	return false;
+	//
+	//		return true;
+	//}
+	////
+	////int Mesh::vertexExists(glm::vec3& vec3, glm::vec2& uv, glm::vec3& normal)
+	////{
+	////	int cont = 0;
+	////	for (auto&x : meshVertices)
+	////	{
+	////		if (closeEnough(x, vec3, uv, normal))
+	////			return cont;
+	////		cont++;
+	////	}
+	////
+	////	return -1;
+	////}
+
+//
+//unsigned short Mesh::getVertexIndex(glm::vec3& vec3, glm::vec2& uv, glm::vec3& normal)
+//{
+//	unsigned short cont = 0;
+//	for (auto&x : meshVertices)
+//	{
+//		if (closeEnough(x, vec3, uv, normal))
+//			return cont;
+//		cont++;
+//	}
+//
+//	cerr << "Could not find vertex!" << endl;
+//
+//	return 0;
+//}
+//MeshVertex Mesh::getVertex(glm::vec3& vec3, glm::vec2& uv, glm::vec3& normal)
+//{
+//	for (auto&x : meshVertices)
+//		if (closeEnough(x, vec3, uv, normal))
+//			return x;
+//
+//	cerr << "Could not find vertex!" << endl;
+//
+//	return MeshVertex();
+//}
+
+void Mesh::addVertex(glm::vec3 position, glm::vec2 uv, glm::vec3 normal)
 {
-	//int realPoints = nPoints * 3;
+	//int vertexIndex=	vertexExists(position, uv, normal);
+	//
+	//if (vertexIndex == -1)
+	//{
+		meshVertices.push_back(MeshVertex(position, uv, normal));
+	//	return meshVertices.size() - 1;
+	//}
+	//else
+	//	return vertexIndex;
+		
+}
+
+void Mesh::addTriangle(int vertexIndex)
+{
+	triangles.push_back(vertexIndex);
+}
+
+//void Mesh::addTriangle(glm::vec3 position, glm::vec2 uv, glm::vec3 normal)
+//{
+//	unsigned short v1 = getVertexIndex(position, uv, normal);
+//	
+//	triangles.push_back(v1);
+//}
+//
+//void Mesh::addTriangle(glm::vec3 position, glm::vec2 uv, glm::vec3 normal,
+//	glm::vec3 position2, glm::vec2 uv2, glm::vec3 normal2, 
+//	glm::vec3 position3, glm::vec2 uv3, glm::vec3 normal3)
+//{
+//
+//	unsigned short v1 = getVertexIndex(position, uv, normal);
+//	unsigned short v2 = getVertexIndex(position2, uv2, normal2);
+//	unsigned short v3 = getVertexIndex(position3, uv3, normal3);
+//
+//	triangles.push_back(v1);
+//	triangles.push_back(v2);
+//	triangles.push_back(v3);
+//}
+
+void Mesh::scale(float f)
+{
+	for (auto &x : meshVertices)
+		x.position *= f;
+
+	if (mvbo != 0)
+	{
+		glDeleteBuffers(1, &mvbo);
+		mvbo = 0;
+	}
+
+	glGenBuffers(1, &mvbo);
+	glBindBuffer(GL_ARRAY_BUFFER, mvbo);
+	glBufferData(GL_ARRAY_BUFFER, meshVertices.size() * sizeof(MeshVertex), &meshVertices[0], GL_STATIC_DRAW);
+
+	boundsMin *= f;
+	boundsMax *= f;
+	avgCenter *= f;
+}
+
+//Mesh::Mesh(float *points, int nPoints, float* colorPoints, float* normalPoints)
+//{
+//	mvbo = vao = ibo = 0;
+//	//int realPoints = nPoints * 3;
+//
+//	this->nPoints = nPoints;
+//
+//	for (int i = 0; i < nPoints; i++)
+//	{
+//		this->points.push_back(glm::vec3(points[i * 3], points[i * 3 + 1], points[i * 3 + 2]));
+//		this->normalPoints.push_back(glm::vec3(normalPoints[i * 3], normalPoints[i * 3 + 1], normalPoints[i * 3 + 2]));
+//	}
+//
+//#ifdef GUINITY_DEBUG
+//	nCount++;
+//#endif
+//
+//	createBuffers();
+//}
+
+Mesh::Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangles, int nPoints, int nTriangles)
+{
+	mvbo = vao = ibo = 0;
 
 	this->nPoints = nPoints;
 
 	for (int i = 0; i < nPoints; i++)
 	{
-		this->indices.push_back(glm::vec3(indices[i * 3], indices[i * 3 + 1], indices[i * 3 + 2]));
-		this->normalPoints.push_back(glm::vec3(normalPoints[i * 3], normalPoints[i * 3 + 1], normalPoints[i * 3 + 2]));
+		meshVertices.push_back(MeshVertex(glm::vec3(indices[i * 3], indices[i * 3 + 1], indices[i * 3 + 2]),
+			glm::vec2(uv[i * 3], uv[i * 3 + 1]),
+			glm::vec3(normalPoints[i * 3], normalPoints[i * 3 + 1], normalPoints[i * 3 + 2])));
 	}
 
 	for (int i = 0; i < nTriangles; i++)
@@ -120,145 +171,142 @@ Mesh::Mesh(float* indices, unsigned int *triangles, int nPoints, int nTriangles,
 	nCount++;
 #endif
 
-	createBuffers();
+	createBuffers3();
 }
 
-Mesh::Mesh(const char* path)
+//Mesh::Mesh(const char* path)
+//{
+//	vbo = mvbo = vao = nbo = cbo = ibo = 0;
+//	bool loaded = loadOBJ(path, points, uv, normalPoints);
+//
+//	if (loaded)
+//	{
+//		nPoints = (int)points.size();
+//
+//		createBuffers();
+//	}
+//
+//#ifdef GUINITY_DEBUG
+//	nCount++;
+//#endif
+//}
+
+//void Mesh::createBuffers()
+//{
+//	vbo = 0;
+//	glGenBuffers(1, &vbo);
+//	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+//	glBufferData(GL_ARRAY_BUFFER, nPoints * 3 *sizeof(float), &points[0], GL_STATIC_DRAW);
+//
+//
+//	if (!colorPoints.empty())
+//	{
+//		cbo = 0;
+//		glGenBuffers(1, &cbo);
+//		glBindBuffer(GL_ARRAY_BUFFER, cbo);
+//		glBufferData(GL_ARRAY_BUFFER, nPoints * 3 * sizeof(float), &colorPoints[0], GL_STATIC_DRAW);
+//	}
+//
+//	if (!normalPoints.empty())
+//	{
+//		nbo = 0;
+//		glGenBuffers(1, &nbo);
+//		glBindBuffer(GL_ARRAY_BUFFER, nbo);
+//		glBufferData(GL_ARRAY_BUFFER, nPoints * 3 * sizeof(float), &normalPoints[0], GL_STATIC_DRAW);
+//	}
+//
+//	vao = 0;
+//	glGenVertexArrays(1, &vao);
+//	
+//	/*glBindVertexArray(vao);
+//	
+//	glEnableVertexAttribArray(0);
+//	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+//	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+//	
+//	if(!colorPoints.empty())
+//	{
+//		glEnableVertexAttribArray(1);
+//		glBindBuffer(GL_ARRAY_BUFFER, cbo);
+//		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+//	}
+//	if (!normalPoints.empty())
+//	{
+//		glEnableVertexAttribArray(2);
+//		glBindBuffer(GL_ARRAY_BUFFER, nbo);
+//		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+//	}
+//
+//*/
+//	calculateBounds();
+//}
+//
+//
+//void Mesh::createBuffers2()
+//{
+//	vao = 0;
+//	glGenVertexArrays(1, &vao);
+//	glBindVertexArray(vao);
+//
+//	vbo = 0;
+//	glGenBuffers(1, &vbo);
+//	glBindBuffer(GL_ARRAY_BUFFER, vbo);
+//	glBufferData(GL_ARRAY_BUFFER, nPoints * 3 * sizeof(float), &indices[0], GL_STATIC_DRAW);
+//
+//	nbo = 0;
+//	glGenBuffers(1, &nbo);
+//	glBindBuffer(GL_ARRAY_BUFFER, nbo);
+//	glBufferData(GL_ARRAY_BUFFER, nPoints * 3 * sizeof(float), &normalPoints[0], GL_STATIC_DRAW);
+//
+//	ibo = 0;
+//	glGenBuffers(1, &ibo);
+//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+//	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles.size() * sizeof(unsigned short), &triangles[0], GL_STATIC_DRAW);
+//	
+//	calculateBounds2();
+//}
+//
+
+
+void Mesh::createBuffers3()
 {
-	
-	bool loaded = loadOBJ(path, points, uv, normalPoints);
-
-	if (loaded)
-	{
-		nPoints = (int)points.size();
-
-		createBuffers();
-	}
-
-#ifdef GUINITY_DEBUG
-	nCount++;
-#endif
-}
-
-void Mesh::createBuffers()
-{
-	vbo = 0;
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, nPoints * 3 *sizeof(float), &points[0], GL_STATIC_DRAW);
-
-
-	if (!colorPoints.empty())
-	{
-		cbo = 0;
-		glGenBuffers(1, &cbo);
-		glBindBuffer(GL_ARRAY_BUFFER, cbo);
-		glBufferData(GL_ARRAY_BUFFER, nPoints * 3 * sizeof(float), &colorPoints[0], GL_STATIC_DRAW);
-	}
-
-	if (!normalPoints.empty())
-	{
-		nbo = 0;
-		glGenBuffers(1, &nbo);
-		glBindBuffer(GL_ARRAY_BUFFER, nbo);
-		glBufferData(GL_ARRAY_BUFFER, nPoints * 3 * sizeof(float), &normalPoints[0], GL_STATIC_DRAW);
-	}
+	nPoints = meshVertices.size();
 
 	vao = 0;
 	glGenVertexArrays(1, &vao);
 	glBindVertexArray(vao);
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
 
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	
-	if(!colorPoints.empty())
-	{
-		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, cbo);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	}
-	if (!normalPoints.empty())
-	{
-		glEnableVertexAttribArray(2);
-		glBindBuffer(GL_ARRAY_BUFFER, nbo);
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	}
+	mvbo = 0;
+	glGenBuffers(1, &mvbo);
+	glBindBuffer(GL_ARRAY_BUFFER, mvbo);
+	glBufferData(GL_ARRAY_BUFFER, meshVertices.size() * sizeof(MeshVertex), &meshVertices[0], GL_STATIC_DRAW);
 
+	ibo = 0;
+	glGenBuffers(1, &ibo);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles.size() * sizeof(unsigned short), &triangles[0], GL_STATIC_DRAW);
 
-	calculateBounds();
+	calculateBounds3();
 }
-
-
-void Mesh::createBuffers2()
-{
-	vbo = 0;
-	glGenBuffers(1, &vbo);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	glBufferData(GL_ARRAY_BUFFER, nPoints * sizeof(float) * 3, &indices[0], GL_STATIC_DRAW);
-
-	if (!triangles.empty())
-	{
-		ibo = 0;
-		glGenBuffers(1, &ibo);
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles.size() * sizeof(unsigned int), &triangles[0], GL_STATIC_DRAW);
-	}
-
-	if (!colorPoints.empty())
-	{
-		cbo = 0;
-		glGenBuffers(1, &cbo);
-		glBindBuffer(GL_ARRAY_BUFFER, cbo);
-		glBufferData(GL_ARRAY_BUFFER, nPoints * 3 * sizeof(float), &colorPoints[0], GL_STATIC_DRAW);
-	}
-
-	if (!normalPoints.empty())
-	{
-		nbo = 0;
-		glGenBuffers(1, &nbo);
-		glBindBuffer(GL_ARRAY_BUFFER, nbo);
-		glBufferData(GL_ARRAY_BUFFER, nPoints * 3 * sizeof(float), &normalPoints[0], GL_STATIC_DRAW);
-	}
-
-	vao = 0;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
-	glEnableVertexAttribArray(0);
-	glBindBuffer(GL_ARRAY_BUFFER, vbo);
-	//glbinde
-	//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-
-	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-	if (!colorPoints.empty())
-	{
-		glEnableVertexAttribArray(1);
-		glBindBuffer(GL_ARRAY_BUFFER, cbo);
-		glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	}
-	if (!normalPoints.empty())
-	{
-		glEnableVertexAttribArray(2);
-		glBindBuffer(GL_ARRAY_BUFFER, nbo);
-		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-	}
-
-
-	calculateBounds2();
-}
-
 
 Mesh::~Mesh()
 {
-	glDeleteBuffers(1, &vbo);
-	if (!normalPoints.empty())
+	//glDeleteBuffers(1, &vbo);
+	//if (!normalPoints.empty())
+	//{
+	//	glDeleteBuffers(1, &nbo);
+	//}
+	//if (!colorPoints.empty())
+	//{
+	//	glDeleteBuffers(1, &cbo);
+	//}
+	if (!triangles.empty())
 	{
-		glDeleteBuffers(1, &nbo);
+		glDeleteBuffers(1, &ibo);
 	}
-	if (!colorPoints.empty())
+	if (!meshVertices.empty())
 	{
-		glDeleteBuffers(1, &cbo);
+		glDeleteBuffers(1, &mvbo);
 	}
 	glDeleteVertexArrays(1, &vao);
 
@@ -271,62 +319,96 @@ Mesh::~Mesh()
 }
 
 
+//
+//void Mesh::calculateBounds()
+//{
+//	float minX, minY, minZ, maxX, maxY, maxZ;
+//
+//	minX = points[0].x;
+//	minY = points[0].y;
+//	minZ = points[0].z;
+//
+//	maxX = points[0].x;
+//	maxY = points[0].y;
+//	maxZ = points[0].z;
+//
+//	for (int i = 1; i < nPoints; i++)
+//	{
+//		minX = std::fminf(minX, points[i].x);
+//		minY = std::fminf(minY, points[i].y);
+//		minZ = std::fminf(minZ, points[i].z);
+//
+//		maxX = std::fmaxf(maxX, points[i].x);
+//		maxY = std::fmaxf(maxY, points[i].y);
+//		maxZ = std::fmaxf(maxZ, points[i].z);
+//
+//	}
+//
+//	boundsMin = glm::vec3(minX, minY, minZ);
+//	boundsMax = glm::vec3(maxX, maxY, maxZ);
+//}
+//
+//
+//void Mesh::calculateBounds2()
+//{
+//	float minX, minY, minZ, maxX, maxY, maxZ;
+//
+//	minX = indices[0].x;
+//	minY = indices[0].y;
+//	minZ = indices[0].z;
+//
+//	maxX = indices[0].x;
+//	maxY = indices[0].y;
+//	maxZ = indices[0].z;
+//
+//	for (int i = 1; i < nPoints; i++)
+//	{
+//		minX = std::fminf(minX, indices[i].x);
+//		minY = std::fminf(minY, indices[i].y);
+//		minZ = std::fminf(minZ, indices[i].z);
+//
+//		maxX = std::fmaxf(maxX, indices[i].x);
+//		maxY = std::fmaxf(maxY, indices[i].y);
+//		maxZ = std::fmaxf(maxZ, indices[i].z);
+//
+//	}
+//
+//	boundsMin = glm::vec3(minX, minY, minZ);
+//	boundsMax = glm::vec3(maxX, maxY, maxZ);
+//}
 
-void Mesh::calculateBounds()
+
+void Mesh::calculateBounds3()
 {
 	float minX, minY, minZ, maxX, maxY, maxZ;
 
-	minX = points[0].x;
-	minY = points[0].y;
-	minZ = points[0].z;
+	minX = meshVertices[0].position.x;
+	minY = meshVertices[0].position.y;
+	minZ = meshVertices[0].position.z;
 
-	maxX = points[0].x;
-	maxY = points[0].y;
-	maxZ = points[0].z;
+	maxX = meshVertices[0].position.x;
+	maxY = meshVertices[0].position.y;
+	maxZ = meshVertices[0].position.z;
+
+	glm::vec3 sumPoints = meshVertices[0].position;
 
 	for (int i = 1; i < nPoints; i++)
 	{
-		minX = std::fminf(minX, points[i].x);
-		minY = std::fminf(minY, points[i].y);
-		minZ = std::fminf(minZ, points[i].z);
+		minX = std::fminf(minX, meshVertices[i].position.x);
+		minY = std::fminf(minY, meshVertices[i].position.y);
+		minZ = std::fminf(minZ, meshVertices[i].position.z);
 
-		maxX = std::fmaxf(maxX, points[i].x);
-		maxY = std::fmaxf(maxY, points[i].y);
-		maxZ = std::fmaxf(maxZ, points[i].z);
+		maxX = std::fmaxf(maxX, meshVertices[i].position.x);
+		maxY = std::fmaxf(maxY, meshVertices[i].position.y);
+		maxZ = std::fmaxf(maxZ, meshVertices[i].position.z);
+
+		sumPoints += meshVertices[i].position;
 
 	}
 
 	boundsMin = glm::vec3(minX, minY, minZ);
 	boundsMax = glm::vec3(maxX, maxY, maxZ);
-}
-
-
-void Mesh::calculateBounds2()
-{
-	float minX, minY, minZ, maxX, maxY, maxZ;
-
-	minX = indices[0].x;
-	minY = indices[0].y;
-	minZ = indices[0].z;
-
-	maxX = indices[0].x;
-	maxY = indices[0].y;
-	maxZ = indices[0].z;
-
-	for (int i = 1; i < nPoints; i++)
-	{
-		minX = std::fminf(minX, indices[i].x);
-		minY = std::fminf(minY, indices[i].y);
-		minZ = std::fminf(minZ, indices[i].z);
-
-		maxX = std::fmaxf(maxX, indices[i].x);
-		maxY = std::fmaxf(maxY, indices[i].y);
-		maxZ = std::fmaxf(maxZ, indices[i].z);
-
-	}
-
-	boundsMin = glm::vec3(minX, minY, minZ);
-	boundsMax = glm::vec3(maxX, maxY, maxZ);
+	avgCenter = sumPoints * (1.0f / nPoints);
 }
 
 //void Mesh::calculateBounds()

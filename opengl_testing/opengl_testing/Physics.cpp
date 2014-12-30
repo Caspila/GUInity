@@ -11,6 +11,7 @@
 #include "MeshFilter.hpp"
 #include "RigidStatic.hpp"
 #include <PxPhysicsAPI.h>
+#include "PhysXAllocatorCallback.h"
 
 PhysXEventCallback* Physics::physxEventCallback;
 PxPhysics* Physics::gPhysicsSDK;
@@ -158,9 +159,13 @@ PxShape* Physics::createBoxCollider(shared_ptr<Actor> actor)
 	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
 	shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
 
+	PxVec3 center(0, 0, 0);
 	PxVec3 boxSize(0.5f, 0.5f, 0.5f);
 	if (meshFilter)
-		boxSize = getBoxSize(actor,meshFilter);
+	{
+		boxSize = getBoxSize(actor, meshFilter);
+		center = PxVec3(glmVec3ToPhysXVec3( meshFilter->mesh->avgCenter));
+	}
 
 	PxShape* shape = nullptr;
 	if (rigidBody)
@@ -179,6 +184,8 @@ PxShape* Physics::createBoxCollider(shared_ptr<Actor> actor)
 			
 	}
 
+	shape->setLocalPose(PxTransform(center, PxQuat::createIdentity()));
+
 	return shape;
 }
 
@@ -188,9 +195,14 @@ PxShape* Physics::createSphereCollider(shared_ptr<Actor> actor)
 	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
 	shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
 
+	PxVec3 center(0,0,0);
 	float radius = 0.5f;// PxVec3 boxSize(0.5f, 0.5f, 0.5f);
 	if (meshFilter)
+	{
 		radius = getSphereSize(actor, meshFilter);
+
+		center = PxVec3(glmVec3ToPhysXVec3(meshFilter->mesh->avgCenter));
+	}
 
 	PxShape* shape = nullptr;
 	if (rigidBody)
@@ -208,6 +220,9 @@ PxShape* Physics::createSphereCollider(shared_ptr<Actor> actor)
 			shape = rigidStatic->physxRigidStatic->createShape(PxSphereGeometry(radius), *defaultPhysicsMaterial);
 			shape->userData = (void*)actor.get();
 		}
+
+
+	shape->setLocalPose(PxTransform(center, PxQuat::createIdentity()));
 
 	return shape;
 }
@@ -246,22 +261,69 @@ PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
 
 	//desc.points.
 
+
 	PxVec3* mMeshVertices = new physx::PxVec3[mesh->nPoints];
 	for (int i = 0; i < mesh->nPoints; i++)
 	{
-		mMeshVertices[0] = PxVec3(mesh->points[i].x, mesh->points[i].y, mesh->points[i].z);
+		mMeshVertices[i] = PxVec3(mesh->meshVertices[i].position.x, mesh->meshVertices[i].position.y, mesh->meshVertices[i].position.z);
 	}
-	PxConvexMeshDesc convexDesc;
-	convexDesc.points.count = mesh->nPoints;
-	convexDesc.points.stride = sizeof(PxVec3);
-	convexDesc.points.data = mMeshVertices;
+	PxU32* triangles = new PxU32[mesh->triangles.size()];
+	for (int i = 0; i < mesh->triangles.size(); i++)
+	{
+		triangles[i] = mesh->triangles[i];
+	}
 
+	PxSimpleTriangleMesh triangleMesh;
+	//desc.
+	//PxSimpleTriangleMesh triangleMesh;
+	triangleMesh.points.count = mesh->nPoints;
+	triangleMesh.points.stride = sizeof(PxVec3);
+	triangleMesh.points.data = mMeshVertices;
+
+	triangleMesh.triangles.count = mesh->triangles.size();
+	triangleMesh.triangles.stride = 3*sizeof(PxU32);
+	triangleMesh.triangles.data = triangles;
+
+	//triangleMesh.flags = PxMeshFlag::eFLIPNORMALS;
+
+	bool ok = triangleMesh.isValid();
+
+
+	PhysXAllocatorCallback callback;
 
 	PxCooking *cooking = PxCreateCooking(PX_PHYSICS_VERSION, PxGetFoundation(), PxCookingParams(PxTolerancesScale()));
 
+	//PxPhysicsInsertionCallback
+
+	//cooking->createTriangleMesh(triangleMeshDesc,pxdefaultinser)
+
+	PxU32 nbVertices, nbIndices, nbPolygons ;
+	PxU32 *indices ;
+	PxHullPolygon *polygons;
+	PxVec3 *vertices;
+
+	
+
+	//cooking->cre
+	//cooking->createTriangleMesh()
+	bool status = cooking->computeHullPolygons(triangleMesh, PxDefaultAllocator(), nbVertices, vertices, nbIndices, indices, nbPolygons, polygons);
+
+	PxConvexMeshDesc convexDesc;
+	convexDesc.points.count = nbVertices;
+	convexDesc.points.stride = sizeof(PxVec3);
+	convexDesc.points.data = vertices;
+	
+	convexDesc.indices.count = nbIndices;
+	convexDesc.indices.stride = sizeof(PxU32);
+	convexDesc.indices.data = indices;
+
+	convexDesc.polygons.count = nbPolygons;
+	convexDesc.polygons.stride = sizeof(PxHullPolygon);
+	convexDesc.polygons.data = polygons;
+
 	PxDefaultMemoryOutputStream output;
 	
-	bool status = cooking->cookConvexMesh(convexDesc, output);
+	status = cooking->cookConvexMesh(convexDesc, output);
 	
 	PxDefaultMemoryInputData input(output.getData(), output.getSize());
 	physx::PxConvexMesh* convexMesh = gPhysicsSDK->createConvexMesh(input);
@@ -276,21 +338,22 @@ PxShape* Physics::createMeshCollider(shared_ptr<Actor> actor)
 	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
 	shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
 
+	PxConvexMeshGeometry geo(getPxConvexMesh(meshFilter->mesh));
 	PxShape* shape = nullptr;
 	if (rigidBody)
 	{
-		PxConvexMeshGeometry geo(getPxConvexMesh(meshFilter->mesh));
-		rigidBody->physxRigidBody->createShape(geo, *defaultPhysicsMaterial);
+		
+		shape = rigidBody->physxRigidBody->createShape(geo, *defaultPhysicsMaterial);
 	
 	}
 	else
 	{
 
-		//shared_ptr<RigidStatic> rigidStatic = actor->GetComponent<RigidStatic>();
-		//if (!rigidStatic)
-		//	rigidStatic = actor->AddComponent<RigidStatic>();
+		shared_ptr<RigidStatic> rigidStatic = actor->GetComponent<RigidStatic>();
+		if (!rigidStatic)
+			rigidStatic = actor->AddComponent<RigidStatic>();
 		//
-		//shape = rigidStatic->physxRigidStatic->createShape(PxCapsuleGeometry(0.5f, 0.5f), *defaultPhysicsMaterial);
+		shape = rigidStatic->physxRigidStatic->createShape(geo, *defaultPhysicsMaterial);
 		//shape->userData = (void*)actor.get();
 	}
 

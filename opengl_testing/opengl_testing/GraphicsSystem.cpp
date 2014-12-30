@@ -224,9 +224,7 @@ void GraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<MeshR
 
 	for (int i = 0; i < renderers.size(); i++)
 	{
-		shared_ptr<MeshRenderer> meshRenderer = renderers[i];// .lock();
-		//if (!meshRenderer)
-		//	continue;
+		shared_ptr<MeshRenderer> meshRenderer = renderers[i];
 
 		shared_ptr<Actor> actor = meshRenderer->getActor();
 
@@ -256,12 +254,27 @@ void GraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<MeshR
 		}
 
 		glBindVertexArray(meshFilter->mesh->vao);
-		//glBindVertexArray(meshFilter->mesh->nbo);
-		//glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshFilter->mesh->ibo);
+
+		glEnableVertexAttribArray(0);
+		glBindBuffer(GL_ARRAY_BUFFER, meshFilter->mesh->mvbo);
+		
+		//Vertex
+		glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(0));
+		
+		int beginNormal = sizeof(glm::vec3) + sizeof(glm::vec2);
+		
+		//Normal	
+		glEnableVertexAttribArray(2);
+		glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginNormal));
+
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshFilter->mesh->ibo);
 
 		// draw points 0-3 from the currently bound VAO with current in-use shader
-		glDrawArrays(GL_TRIANGLES, 0, meshFilter->mesh->nPoints);
-		//glDrawElements(GL_TRIANGLES, meshFilter->mesh->triangles.size(), GL_UNSIGNED_SHORT, (void*)0);
+		glDrawElements(GL_TRIANGLES, meshFilter->mesh->triangles.size(), GL_UNSIGNED_SHORT, NULL);
+
+		glDisableVertexAttribArray(0);
+		glDisableVertexAttribArray(2);
+
 	}
 
 }

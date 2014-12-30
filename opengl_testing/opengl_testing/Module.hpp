@@ -28,3 +28,5 @@
 
 using namespace std;
 
+
+string CommonData(string file);

@@ -23,7 +23,6 @@ BoxCollider::~BoxCollider()
 
 void BoxCollider::init()
 {
-
 	shape = Physics::createBoxCollider(getActor());
 }
 

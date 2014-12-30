@@ -54,6 +54,9 @@ void Game::update(float deltaSeconds)
 	GraphicsSystem::getInstance().clear();
 
 	GraphicsSystem::getInstance().render(world->cameras[0],world->meshRenderers,world->lights);
+	//GraphicsSystem::getInstance().render(world->cameras[0], );
+	GraphicsSystem::getInstance().render(world->cameras[0], world->physicsScene->getRenderBuffer(), glm::vec3(1, 1, 1));
+
 //	GraphicsSystem::getInstance().render(camera, world.lights);
 	
 	GraphicsSystem::getInstance().swap();

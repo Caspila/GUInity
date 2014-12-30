@@ -66,7 +66,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common;C:\dev\lua-5.1\include;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;$(IncludePath)</IncludePath>
+    <IncludePath>C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common;C:\dev\lua-5.1\include;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;C:\Program Files\Autodesk\FBX\FBX SDK\2015.1\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common;C:\dev\lua-5.1\include;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;$(IncludePath)</IncludePath>
@@ -80,8 +80,8 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\dev\glfw-3.0.4\bin\src\Release;C:\dev\glew-1.11.0\lib\Release\Win32;C:\dev\box2d-v2.3.1\Box2D\Build\vs2013\bin\x32\Debug;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Lib\win32;C:\dev\lua-5.1;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\lib</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32.lib;Box2D.lib;%(AdditionalDependencies);lua52.lib;lua51.lib;fmodL64_vc.lib;fmodL_vc.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\glfw-3.0.4\bin\src\Release;C:\dev\glew-1.11.0\lib\Release\Win32;C:\dev\box2d-v2.3.1\Box2D\Build\vs2013\bin\x32\Debug;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Lib\win32;C:\dev\lua-5.1;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\lib;C:\Program Files\Autodesk\FBX\FBX SDK\2015.1\lib\vs2013\x86\debug</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32.lib;Box2D.lib;%(AdditionalDependencies);lua52.lib;lua51.lib;fmodL64_vc.lib;fmodL_vc.lib;libfbxsdk.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -149,13 +149,17 @@
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCollider.cpp" />
     <ClCompile Include="MeshFilter.cpp" />
+    <ClCompile Include="MeshImporter.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
+    <ClCompile Include="Module.cpp" />
     <ClCompile Include="MoveHandle.cpp" />
     <ClCompile Include="MoveTool.cpp" />
     <ClCompile Include="Observer.cpp" />
     <ClCompile Include="Physics.cpp" />
     <ClCompile Include="PhysicsMaterial.cpp" />
+    <ClCompile Include="PhysXAllocatorCallback.cpp" />
     <ClCompile Include="PhysXEventCallback.cpp" />
+    <ClCompile Include="PhysXInsertionCallback.cpp" />
     <ClCompile Include="PlayerScript.cpp" />
     <ClCompile Include="print.cpp" />
     <ClCompile Include="Ray.cpp" />
@@ -197,6 +201,7 @@
     <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="MeshCollider.hpp" />
     <ClInclude Include="MeshFilter.hpp" />
+    <ClInclude Include="MeshImporter.hpp" />
     <ClInclude Include="MeshRenderer.hpp" />
     <ClInclude Include="Module.hpp" />
     <ClInclude Include="MoveHandle.hpp" />
@@ -204,7 +209,9 @@
     <ClInclude Include="Observer.hpp" />
     <ClInclude Include="Physics.hpp" />
     <ClInclude Include="PhysicsMaterial.hpp" />
+    <ClInclude Include="PhysXAllocatorCallback.h" />
     <ClInclude Include="PhysXEventCallback.hpp" />
+    <ClInclude Include="PhysXInsertionCallback.h" />
     <ClInclude Include="PlayerScript.hpp" />
     <ClInclude Include="PointerHolder.hpp" />
     <ClInclude Include="print.hpp" />

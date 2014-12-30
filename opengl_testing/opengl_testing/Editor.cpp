@@ -43,10 +43,10 @@ void Editor::init()
 	cameraComponent = cameraActor->AddComponent<Camera>();
 	cameraActor->AddComponent<EditorCameraControl>();
 
-	//moveHandles = Factory::CreateEditorActor("MoveHandles");
-	//moveHandles->AddComponent<MoveTool>();
-	rotateHandles = Factory::CreateEditorActor("RotateHandles");
-	rotateHandles->AddComponent<RotateTool>();
+	moveHandles = Factory::CreateEditorActor("MoveHandles");
+	moveHandles->AddComponent<MoveTool>();
+	//rotateHandles = Factory::CreateEditorActor("RotateHandles");
+	//rotateHandles->AddComponent<RotateTool>();
 /*
 	shared_ptr<Actor> rightHandle = Factory::CreateEditorActor("MoveRightHandle");
 	shared_ptr<SphereCollider> collider = rightHandle->AddComponent<SphereCollider>();
