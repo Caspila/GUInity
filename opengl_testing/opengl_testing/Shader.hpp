@@ -6,23 +6,28 @@
 #include <map>
 #include <glm/glm.hpp>
 #include "Holder.hpp"
+#include "Asset.hpp"
 
-class Shader
+class Shader : public Asset
 #ifdef GUINITY_DEBUG
-	:public StaticCounter<Shader>
+	,public StaticCounter<Shader>
 #endif
 {
 public:
-	Shader(const char * vertex_file_path, const char * fragment_file_path);
+    Shader();
+	Shader(string vertex_file_path, string fragment_file_path);
 	~Shader();
 
+    string vsFilename;
+    string fsFilename;
+    
 	//vector<string> floatParam;
 	//vector<string> vec3Params;
 
 	map<string, ShaderParamType> params;
 	map<string, GLuint> paramID;
 
-	void LoadShaders(const char * vertex_file_path, const char * fragment_file_path);
+	void LoadShaders();
 	void checkLine(const string& Line);
 	void createUniformLocation();
 	GLuint programID;

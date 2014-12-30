@@ -109,8 +109,10 @@ void Mesh::addTriangle(int vertexIndex)
 //	triangles.push_back(v3);
 //}
 
-void Mesh::scale(float f)
+void Mesh::setScaleFactor(float f)
 {
+    scaleFactor = f;
+    
 	for (auto &x : meshVertices)
 		x.position *= f;
 
@@ -153,7 +155,7 @@ Mesh::Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangl
 {
 	mvbo = vao = ibo = 0;
 
-	this->nPoints = nPoints;
+	//this->nPoints = nPoints;
 
 	for (int i = 0; i < nPoints; i++)
 	{
@@ -270,7 +272,7 @@ Mesh::Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangl
 
 void Mesh::createBuffers3()
 {
-	nPoints = meshVertices.size();
+	//nPoints = meshVertices.size();
 
 	vao = 0;
 	glGenVertexArrays(1, &vao);
@@ -392,7 +394,7 @@ void Mesh::calculateBounds3()
 
 	glm::vec3 sumPoints = meshVertices[0].position;
 
-	for (int i = 1; i < nPoints; i++)
+	for (int i = 1; i < meshVertices.size(); i++)
 	{
 		minX = std::fminf(minX, meshVertices[i].position.x);
 		minY = std::fminf(minY, meshVertices[i].position.y);
@@ -408,7 +410,7 @@ void Mesh::calculateBounds3()
 
 	boundsMin = glm::vec3(minX, minY, minZ);
 	boundsMax = glm::vec3(maxX, maxY, maxZ);
-	avgCenter = sumPoints * (1.0f / nPoints);
+	avgCenter = sumPoints * (1.0f / meshVertices.size());
 }
 
 //void Mesh::calculateBounds()

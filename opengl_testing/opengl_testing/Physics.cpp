@@ -262,8 +262,8 @@ PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
 	//desc.points.
 
 
-	PxVec3* mMeshVertices = new physx::PxVec3[mesh->nPoints];
-	for (int i = 0; i < mesh->nPoints; i++)
+	PxVec3* mMeshVertices = new physx::PxVec3[mesh->meshVertices.size()];
+	for (int i = 0; i < mesh->meshVertices.size(); i++)
 	{
 		mMeshVertices[i] = PxVec3(mesh->meshVertices[i].position.x, mesh->meshVertices[i].position.y, mesh->meshVertices[i].position.z);
 	}
@@ -276,7 +276,7 @@ PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
 	PxSimpleTriangleMesh triangleMesh;
 	//desc.
 	//PxSimpleTriangleMesh triangleMesh;
-	triangleMesh.points.count = mesh->nPoints;
+	triangleMesh.points.count = mesh->meshVertices.size();
 	triangleMesh.points.stride = sizeof(PxVec3);
 	triangleMesh.points.data = mMeshVertices;
 

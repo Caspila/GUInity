@@ -40,12 +40,14 @@
 #include "Game.hpp"
 #include "MeshCollider.hpp"
 #include "MeshImporter.hpp"
+#include "AssetDatabase.hpp"
 
 #include <fmod.hpp>
 #include <fmod_common.h>
 #include <fmod_errors.h>
 #include <fbxsdk.h>
 #include "EditorCameraControl.hpp"
+#include "Serialization.hpp"
 
 //-------Loading PhysX libraries----------]
 #ifdef _DEBUG
@@ -67,9 +69,10 @@ using namespace fbxsdk_2015_1;
 enum EngineMode {editor, game};
 
 
-
 int main() {
 
+    
+    
 	int notOK = GraphicsSystem::getInstance().init();
 	if (notOK)
 		return 1;
@@ -101,211 +104,60 @@ int main() {
 	result = system->playSound(sound1, 0, false, &channel);
 	//ERRCHECK(result);
 	
-	MeshImporter meshImporter;
-	meshImporter.init();
-	shared_ptr<Mesh> fbxMesh = meshImporter.importFbxMesh("box.fbx");
-	fbxMesh->scale(0.1f);
-
-	shared_ptr<Mesh> objMesh = meshImporter.importObjMesh("sphere.obj");
-	
-
-
-	Physics physics;
+    Physics physics;
 	physics.init();
-
+    
 	EngineMode engineMode = EngineMode::editor;
-
+    
 	shared_ptr<Editor> editor = make_shared<Editor>();
 	editor->init();
-
+    
 	shared_ptr<Game> game = make_shared<Game>();
 	game->init();
 
+    AssetDatabase::init();
 
-	float pointsTriangle[] = {
-		0.0f, 0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f
-	};
-	float colorTriangle[] =
-	{
-		1.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 0.0f, 1.0f,
-	};
-	float normalTriangle[] =
-	{
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-	};
-
-	float pointsQuad[] = {
-		-0.5f, -0.5f, 0.0f,
-		0.5f, 0.5f, 0.0f,
-		-0.5f, 0.5f, 0.0f,
-		-0.5f, -0.5f, 0.0f,
-		0.5f, -0.5f, 0.0f,
-		0.5f, 0.5f, 0.0f
-	};
-	float colorQuad[] =
-	{
-		0.0f, 0.0f, 1.0f,
-		0.0f, 1.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		0.0f, 0.0f, 1.0f,
-		1.0f, 0.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-	};
-	float normalQuad[] =
-	{
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-	};
-	float pointsCube[] = {
-		// botom	
-		-0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f, -0.5f,
-		-0.5f, -0.5f, 0.5f,
-		0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f, 0.5f,
-		-0.5f, -0.5f, 0.5f,
-
-		// top	
-		-0.5f, 0.5f, -0.5f,
-		-0.5f, 0.5f, 0.5f,
-		0.5f, 0.5f, -0.5f,
-		0.5f, 0.5f, -0.5f,
-		-0.5f, 0.5f, 0.5f,
-		0.5f, 0.5f, 0.5f,
-
-		// front	
-		-0.5f, -0.5f, 0.5f,
-		0.5f, -0.5f, 0.5f,
-		-0.5f, 0.5f, 0.5f,
-		0.5f, -0.5f, 0.5f,
-		0.5f, 0.5f, 0.5f,
-		-0.5f, 0.5f, 0.5f,
-
-		// back	
-		-0.5f, -0.5f, -0.5f,
-		-0.5f, 0.5f, -0.5f,
-		0.5f, -0.5f, -0.5f,
-		0.5f, -0.5f, -0.5f,
-		-0.5f, 0.5f, -0.5f,
-		0.5f, 0.5f, -0.5f,
-
-		// left	
-		-0.5f, -0.5f, 0.5f,
-		-0.5f, 0.5f, -0.5f,
-		-0.5f, -0.5f, -0.5f,
-		-0.5f, -0.5f, 0.5f,
-		-0.5f, 0.5f, 0.5f,
-		-0.5f, 0.5f, -0.5f,
-
-		//right	
-		0.5f, -0.5f, 0.5f,
-		0.5f, -0.5f, -0.5f,
-		0.5f, 0.5f, -0.5f,
-		0.5f, -0.5f, 0.5f,
-		0.5f, 0.5f, -0.5f,
-		0.5f, 0.5f, 0.5f
-
-	};
-	float normalCube[] = {
-		0.0f, -1.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
-		0.0f, -1.0f, 0.0f,
-
-		0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-		0.0f, 1.0f, 0.0f,
-
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-		0.0f, 0.0f, 1.0f,
-
-		0.0f, 0.0f, -1.0f,
-		0.0f, 0.0f, -1.0f,
-		0.0f, 0.0f, -1.0f,
-		0.0f, 0.0f, -1.0f,
-		0.0f, 0.0f, -1.0f,
-		0.0f, 0.0f, -1.0f,
-
-		-1.0f, 0.0f, 0.0f,
-		-1.0f, 0.0f, 0.0f,
-		-1.0f, 0.0f, 0.0f,
-		-1.0f, 0.0f, 0.0f,
-		-1.0f, 0.0f, 0.0f,
-		-1.0f, 0.0f, 0.0f,
-
-		1.0f, 0.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-		1.0f, 0.0f, 0.0f,
-
-	};
-
-	float quadNormal[] =
-	{
-		0.0f, 0.0f, 1.0f, //0
-		0.0f, 0.0f, 1.0f, //1
-		0.0f, 0.0f, 1.0f, //2
-		0.0f, 0.0f, 1.0f, //3
-	};
-
-	float quadIndex[] =
-	{
-		-0.5f, -0.5f, 0,  //0
-		-0.5f, 0.5f, 0,   //1
-		0.5f, 0.5f, 0,    //2
-		0.5f, -0.5f, 0    //3
-	};
+	shared_ptr<Mesh> fbxMesh = AssetDatabase::createMeshFromFBX("box.fbx");
+	fbxMesh->setScaleFactor(0.1f);
     
-	unsigned int quadTriangles[] =
-	{
-		0,1,3,
-		1,2,3
-	};
-
-    string vsDataPath = DATA_PATH;
-    string fsDataPath = DATA_PATH;
-    
-	//shared_ptr<Shader> s = make_shared<Shader>(vsDataPath.append("vs.vs").c_str(), fsDataPath.append("fs.fragmentshader").c_str());//"/Users/guilherme_cunha/Dev/GITHUB/GUInity/data/vsLight.vs", "/Users/guilherme_cunha/Dev/GITHUB/GUInity/data/fsLight.fragmentshader");
-
-	shared_ptr<Shader> s = make_shared<Shader>(vsDataPath.append("vsLight.vs").c_str(),fsDataPath.append("fsLight.fragmentshader").c_str());//"/Users/guilherme_cunha/Dev/GITHUB/GUInity/data/vsLight.vs", "/Users/guilherme_cunha/Dev/GITHUB/GUInity/data/fsLight.fragmentshader");
+	shared_ptr<Mesh> objMesh = AssetDatabase::createMeshFromOBJ("sphere.obj");
 	
-	shared_ptr<Material> m = make_shared<Material>(s);
-	//m->setParamVec3("difuse", glm::vec3(1, 0, 0));
 
-	shared_ptr<Material> m2 = make_shared<Material>(s);
-	//m2->setParamVec3("difuse", glm::vec3(0, 1, 0));
+    
+    // create and open a character archive for output
+    std::ofstream ofs(CommonData("filename"));
+    
+    
+    // save data to archive
+    {
+        boost::archive::binary_oarchive oa(ofs);
+        // write class instance to archive
+        oa << *objMesh.get();
+    	// archive and stream closed when destructors are called
+    }
+    
+    //shared_ptr<Mesh> objMesh2;
+    Mesh obj2;
+    // ... some time later restore the class instance to its orginal state
+    //gps_position newg;
+    {
+        // create and open an archive for input
+        std::ifstream ifs(CommonData("filename"));
+        boost::archive::binary_iarchive ia(ifs);
+        // read class state from archive
+        ia >> obj2;
+        // archive and stream closed when destructors are called
+    }
+    
+    shared_ptr<Mesh> objMesh2 = make_shared<Mesh>(obj2);
+    //objMesh2.reset(&obj2);
+    //objMesh2->createBuffers3();
+    
+	
+	//shared_ptr<Shader> s = make_shared<Shader>(CommonData("vsLight.vs").c_str(),CommonData("fsLight.fragmentshader").c_str());
+    shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsLight.fragmentshader"));
 
-	shared_ptr<Material> m3 = make_shared<Material>(s);
-	//m3->setParamVec3("difuse", glm::vec3(0, 0, 1));
-
-	string meshDataPath = DATA_PATH;
-
-	//shared_ptr<Mesh> sphereMesh = make_shared<Mesh>(meshDataPath.append("sphere.obj").c_str());
-	//shared_ptr<Mesh> triangleMesh = make_shared<Mesh>(pointsTriangle,3,colorTriangle,normalTriangle);
-	//shared_ptr<Mesh> quadMesh = make_shared<Mesh>(pointsQuad, 6, colorQuad, normalQuad);
-	//shared_ptr<Mesh> quadMesh = make_shared<Mesh>(quadIndex, quadTriangles, quadNormal, 4, 6);
-	//shared_ptr<Mesh> cubeMesh = make_shared<Mesh>(pointsCube, 36, nullptr,normalCube);
+    shared_ptr<Material> m = AssetDatabase::createMaterial(s);
 
 	shared_ptr<Actor> fbxTest = Factory::CreateActor("FBXTest");// , meshRenderer1);
 	fbxTest->transform->setPosition(glm::vec3(0, 0, 0));
@@ -315,7 +167,7 @@ int main() {
 	shared_ptr<MeshFilter> meshFilter = fbxTest->AddComponent<MeshFilter>();
 	//meshFilter->mesh = quadMesh;
 	//meshFilter->mesh = fbxMesh;
-	meshFilter->mesh = fbxMesh;
+	meshFilter->mesh = objMesh2;
 	shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
 	meshRenderer->material = m;
 	//shared_ptr<RigidBody> rigidBody = fbxTest->AddComponent<RigidBody>();

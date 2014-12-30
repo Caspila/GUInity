@@ -1,9 +1,21 @@
 #include "Shader.hpp"
 #include <sstream>
 
-Shader::Shader(const char * vertex_file_path, const char * fragment_file_path)
+Shader::Shader()
 {
-	LoadShaders(vertex_file_path, fragment_file_path);
+    
+#ifdef GUINITY_DEBUG
+	nCount++;
+#endif
+}
+
+Shader::Shader(string vertex_file_path, string fragment_file_path)
+{
+    
+    vsFilename = vertex_file_path;
+    fsFilename = fragment_file_path;
+    
+	LoadShaders();
 #ifdef GUINITY_DEBUG
 	nCount++;
 #endif
@@ -45,7 +57,7 @@ std::vector<std::string> split(const std::string &s, char delim) {
 
 
 
-void Shader::LoadShaders(const char * vertex_file_path, const char * fragment_file_path){
+void Shader::LoadShaders(){
 
 	// Create the shaders
 	GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
@@ -53,7 +65,7 @@ void Shader::LoadShaders(const char * vertex_file_path, const char * fragment_fi
 
 	// Read the Vertex Shader code from the file
 	std::string VertexShaderCode;
-	std::ifstream VertexShaderStream(vertex_file_path, std::ios::in);
+	std::ifstream VertexShaderStream(vsFilename, std::ios::in);
 	if (VertexShaderStream.is_open())
 	{
 		std::string Line = "";
@@ -69,7 +81,7 @@ void Shader::LoadShaders(const char * vertex_file_path, const char * fragment_fi
 
 	// Read the Fragment Shader code from the file
 	std::string FragmentShaderCode;
-	std::ifstream FragmentShaderStream(fragment_file_path, std::ios::in);
+	std::ifstream FragmentShaderStream(fsFilename, std::ios::in);
 	if (FragmentShaderStream.is_open()){
 		std::string Line = "";
 		while (getline(FragmentShaderStream, Line))
@@ -86,7 +98,7 @@ void Shader::LoadShaders(const char * vertex_file_path, const char * fragment_fi
 	int InfoLogLength;
 
 	// Compile Vertex Shader
-	printf("Compiling shader : %s\n", vertex_file_path);
+	printf("Compiling shader : %s\n", vsFilename.c_str());
 	char const * VertexSourcePointer = VertexShaderCode.c_str();
 	glShaderSource(VertexShaderID, 1, &VertexSourcePointer, NULL);
 	glCompileShader(VertexShaderID);
@@ -99,7 +111,7 @@ void Shader::LoadShaders(const char * vertex_file_path, const char * fragment_fi
 	fprintf(stdout, "%s\n", &VertexShaderErrorMessage[0]);
 
 	// Compile Fragment Shader
-	printf("Compiling shader : %s\n", fragment_file_path);
+	printf("Compiling shader : %s\n", fsFilename.c_str());
 	char const * FragmentSourcePointer = FragmentShaderCode.c_str();
 	glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer, NULL);
 	glCompileShader(FragmentShaderID);

@@ -82,6 +82,9 @@
 		46FFC22C1A523C7400FCFAC4 /* libfmod.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46FFC22B1A523C7400FCFAC4 /* libfmod.dylib */; };
 		46FFC22E1A523C8900FCFAC4 /* libfbxsdk.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46FFC22D1A523C8900FCFAC4 /* libfbxsdk.dylib */; };
 		46FFC22F1A5243CB00FCFAC4 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FFC22B1A523C7400FCFAC4 /* libfmod.dylib */; };
+		46FFC2311A52880100FCFAC4 /* libboost_serialization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FFC2301A52880100FCFAC4 /* libboost_serialization.a */; };
+		46FFC2351A52886500FCFAC4 /* libboost_serialization.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */; };
+		46FFC2481A52AB9D00FCFAC4 /* AssetDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46FFC2421A52AB9D00FCFAC4 /* AssetDatabase.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -91,6 +94,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				46FFC2351A52886500FCFAC4 /* libboost_serialization.dylib in CopyFiles */,
 				46FFC22E1A523C8900FCFAC4 /* libfbxsdk.dylib in CopyFiles */,
 				46FFC22C1A523C7400FCFAC4 /* libfmod.dylib in CopyFiles */,
 				464D8B0B1A4A56B9007B0CDD /* libGLEW.1.11.0.dylib in CopyFiles */,
@@ -287,9 +291,16 @@
 		46FFC20D1A5237A200FCFAC4 /* Subject.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Subject.cpp; path = ../opengl_testing/opengl_testing/Subject.cpp; sourceTree = "<group>"; };
 		46FFC20E1A5237A200FCFAC4 /* Subject.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Subject.hpp; path = ../opengl_testing/opengl_testing/Subject.hpp; sourceTree = "<group>"; };
 		46FFC2271A523C2200FCFAC4 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = "../../../FMOD Programmers API/api/lowlevel/lib/libfmod.dylib"; sourceTree = "<group>"; };
-		46FFC2291A523C3D00FCFAC4 /* libfbxsdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfbxsdk.a; path = "../../../../../../Applications/Autodesk/FBX SDK/2015.1/lib/clang/debug/libfbxsdk.a"; sourceTree = "<group>"; };
+		46FFC2291A523C3D00FCFAC4 /* libfbxsdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfbxsdk.a; path = "/Applications/Autodesk/FBX SDK/2015.1/lib/clang/debug/libfbxsdk.a"; sourceTree = "<absolute>"; };
 		46FFC22B1A523C7400FCFAC4 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = "../../../FMOD Programmers API/api/lowlevel/lib/libfmod.dylib"; sourceTree = "<group>"; };
-		46FFC22D1A523C8900FCFAC4 /* libfbxsdk.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfbxsdk.dylib; path = "../../../../../../Applications/Autodesk/FBX SDK/2015.1/lib/clang/debug/libfbxsdk.dylib"; sourceTree = "<group>"; };
+		46FFC22D1A523C8900FCFAC4 /* libfbxsdk.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfbxsdk.dylib; path = "/Applications/Autodesk/FBX SDK/2015.1/lib/clang/debug/libfbxsdk.dylib"; sourceTree = "<absolute>"; };
+		46FFC2301A52880100FCFAC4 /* libboost_serialization.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_serialization.a; path = ../../../boost_1_57_0/stage/lib/libboost_serialization.a; sourceTree = "<group>"; };
+		46FFC2321A52884900FCFAC4 /* libboost_serialization.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_serialization.dylib; path = ../../../boost_1_57_0/stage/lib/libboost_serialization.dylib; sourceTree = "<group>"; };
+		46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_serialization.dylib; path = ../../../boost_1_57_0/stage/lib/libboost_serialization.dylib; sourceTree = "<group>"; };
+		46FFC2411A52AB9D00FCFAC4 /* Asset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Asset.hpp; path = ../opengl_testing/opengl_testing/Asset.hpp; sourceTree = "<group>"; };
+		46FFC2421A52AB9D00FCFAC4 /* AssetDatabase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AssetDatabase.cpp; path = ../opengl_testing/opengl_testing/AssetDatabase.cpp; sourceTree = "<group>"; };
+		46FFC2431A52AB9D00FCFAC4 /* AssetDatabase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AssetDatabase.hpp; path = ../opengl_testing/opengl_testing/AssetDatabase.hpp; sourceTree = "<group>"; };
+		46FFC2461A52AB9D00FCFAC4 /* Serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Serialization.hpp; path = ../opengl_testing/opengl_testing/Serialization.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -297,6 +308,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46FFC2311A52880100FCFAC4 /* libboost_serialization.a in Frameworks */,
 				46FFC22F1A5243CB00FCFAC4 /* libfmod.dylib in Frameworks */,
 				46FFC22A1A523C3D00FCFAC4 /* libfbxsdk.a in Frameworks */,
 				464D8AF81A4A5598007B0CDD /* libLowLevel.a in Frameworks */,
@@ -327,6 +339,9 @@
 		464D8A861A4A5336007B0CDD /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				46FFC2411A52AB9D00FCFAC4 /* Asset.hpp */,
+				46FFC2431A52AB9D00FCFAC4 /* AssetDatabase.hpp */,
+				46FFC2461A52AB9D00FCFAC4 /* Serialization.hpp */,
 				46FFC1DF1A5237A200FCFAC4 /* BoxCollider.hpp */,
 				46FFC1E11A5237A200FCFAC4 /* CapsuleCollider.hpp */,
 				46FFC1E31A5237A200FCFAC4 /* Collider.hpp */,
@@ -434,6 +449,7 @@
 				464D88A21A4A48AA007B0CDD /* Actor.cpp */,
 				464D88A61A4A48AA007B0CDD /* Camera.cpp */,
 				464D88A81A4A48AA007B0CDD /* Component.cpp */,
+				46FFC2421A52AB9D00FCFAC4 /* AssetDatabase.cpp */,
 				464D88AA1A4A48AA007B0CDD /* Factory.cpp */,
 			);
 			name = Source;
@@ -456,6 +472,29 @@
 		464D8A891A4A53A4007B0CDD /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */,
+				46FFC2321A52884900FCFAC4 /* libboost_serialization.dylib */,
+				46FFC2301A52880100FCFAC4 /* libboost_serialization.a */,
+				46FFC22D1A523C8900FCFAC4 /* libfbxsdk.dylib */,
+				46FFC22B1A523C7400FCFAC4 /* libfmod.dylib */,
+				46FFC2291A523C3D00FCFAC4 /* libfbxsdk.a */,
+				46FFC2271A523C2200FCFAC4 /* libfmod.dylib */,
+				464D8B091A4A56B9007B0CDD /* libGLEW.1.11.0.dylib */,
+				464D8B0A1A4A56B9007B0CDD /* libGLEWmx.1.11.0.dylib */,
+				464D8B041A4A566D007B0CDD /* libGLEW.1.11.0.dylib */,
+				464D8B051A4A566D007B0CDD /* libGLEWmx.1.11.0.dylib */,
+				464D8AEC1A4A5598007B0CDD /* libLowLevel.a */,
+				464D8AED1A4A5598007B0CDD /* libLowLevelCloth.a */,
+				464D8AEE1A4A5598007B0CDD /* libPhysX3.a */,
+				464D8AEF1A4A5598007B0CDD /* libPhysX3Common.a */,
+				464D8AF01A4A5598007B0CDD /* libPhysX3Cooking.a */,
+				464D8AF11A4A5598007B0CDD /* libPhysX3Extensions.a */,
+				464D8AF21A4A5598007B0CDD /* libPhysX3Vehicle.a */,
+				464D8AF31A4A5598007B0CDD /* libPhysXProfileSDK.a */,
+				464D8AF41A4A5598007B0CDD /* libPvdRuntime.a */,
+				464D8AF51A4A5598007B0CDD /* libPxTask.a */,
+				464D8AF61A4A5598007B0CDD /* libSceneQuery.a */,
+				464D8AF71A4A5598007B0CDD /* libSimulationController.a */,
 				464D8AEA1A4A5526007B0CDD /* Cocoa.framework */,
 				464D8AE81A4A54BB007B0CDD /* libglfw3.a */,
 				464D8AE61A4A5487007B0CDD /* CoreVideo.framework */,
@@ -512,26 +551,6 @@
 		4694EE2E1A4A3A16001E8C48 = {
 			isa = PBXGroup;
 			children = (
-				46FFC22D1A523C8900FCFAC4 /* libfbxsdk.dylib */,
-				46FFC22B1A523C7400FCFAC4 /* libfmod.dylib */,
-				46FFC2291A523C3D00FCFAC4 /* libfbxsdk.a */,
-				46FFC2271A523C2200FCFAC4 /* libfmod.dylib */,
-				464D8B091A4A56B9007B0CDD /* libGLEW.1.11.0.dylib */,
-				464D8B0A1A4A56B9007B0CDD /* libGLEWmx.1.11.0.dylib */,
-				464D8B041A4A566D007B0CDD /* libGLEW.1.11.0.dylib */,
-				464D8B051A4A566D007B0CDD /* libGLEWmx.1.11.0.dylib */,
-				464D8AEC1A4A5598007B0CDD /* libLowLevel.a */,
-				464D8AED1A4A5598007B0CDD /* libLowLevelCloth.a */,
-				464D8AEE1A4A5598007B0CDD /* libPhysX3.a */,
-				464D8AEF1A4A5598007B0CDD /* libPhysX3Common.a */,
-				464D8AF01A4A5598007B0CDD /* libPhysX3Cooking.a */,
-				464D8AF11A4A5598007B0CDD /* libPhysX3Extensions.a */,
-				464D8AF21A4A5598007B0CDD /* libPhysX3Vehicle.a */,
-				464D8AF31A4A5598007B0CDD /* libPhysXProfileSDK.a */,
-				464D8AF41A4A5598007B0CDD /* libPvdRuntime.a */,
-				464D8AF51A4A5598007B0CDD /* libPxTask.a */,
-				464D8AF61A4A5598007B0CDD /* libSceneQuery.a */,
-				464D8AF71A4A5598007B0CDD /* libSimulationController.a */,
 				464D8A891A4A53A4007B0CDD /* Libs */,
 				464D8A881A4A5346007B0CDD /* Content */,
 				464D8A871A4A5342007B0CDD /* Source */,
@@ -620,6 +639,7 @@
 				46FFC2231A5237A200FCFAC4 /* RotateHandle.cpp in Sources */,
 				46FFC2201A5237A200FCFAC4 /* PhysXInsertionCallback.cpp in Sources */,
 				46FFC2191A5237A200FCFAC4 /* MeshFilter.cpp in Sources */,
+				46FFC2481A52AB9D00FCFAC4 /* AssetDatabase.cpp in Sources */,
 				464D88F11A4A48AA007B0CDD /* PlayerScript.cpp in Sources */,
 				464D88F51A4A48AA007B0CDD /* ScriptComponent.cpp in Sources */,
 				46FFC21D1A5237A200FCFAC4 /* MoveTool.cpp in Sources */,
@@ -754,6 +774,7 @@
 					/Users/guilherme_cunha/Dev/glm,
 					"\"/Users/guilherme_cunha/Dev/FMOD Programmers API/api/lowlevel/inc\"",
 					"\"/Applications/Autodesk/FBX SDK/2015.1/include\"",
+					/Users/guilherme_cunha/Dev/boost_1_57_0,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
@@ -761,6 +782,7 @@
 					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Lib/osx64",
 					"\"/Users/guilherme_cunha/Dev/FMOD Programmers API/api/lowlevel/lib\"",
 					"\"$(SYSTEM_APPS_DIR)/Autodesk/FBX SDK/2015.1/lib/clang/debug\"",
+					/Users/guilherme_cunha/Dev/boost_1_57_0/stage/lib,
 				);
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -788,6 +810,7 @@
 					/Users/guilherme_cunha/Dev/glm,
 					"\"/Users/guilherme_cunha/Dev/FMOD Programmers API/api/lowlevel/inc\"",
 					"\"/Applications/Autodesk/FBX SDK/2015.1/include\"",
+					/Users/guilherme_cunha/Dev/boost_1_57_0,
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
@@ -795,6 +818,7 @@
 					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Lib/osx64",
 					"\"/Users/guilherme_cunha/Dev/FMOD Programmers API/api/lowlevel/lib\"",
 					"\"$(SYSTEM_APPS_DIR)/Autodesk/FBX SDK/2015.1/lib/clang/debug\"",
+					/Users/guilherme_cunha/Dev/boost_1_57_0/stage/lib,
 				);
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -7,13 +7,14 @@
 #include <memory>
 #include <map>
 #include "Holder.hpp"
+#include "Asset.hpp"
 //#include "AnyClass.h"
 
 class Shader;
 
-class Material
+class Material : public Asset
 #ifdef GUINITY_DEBUG
-	: public StaticCounter<Material>
+    ,public StaticCounter<Material>
 #endif
 {	
 public:
