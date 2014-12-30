@@ -6,48 +6,16 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Mesh.cpp"
-            timestampString = "441079566.471296"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "22"
-            endingLineNumber = "22"
-            landmarkName = "loadOBJ(const char* path, std::vector &lt;glm::vec3&gt;&amp; out_vertices, std::vector &lt;glm::vec2&gt;&amp; out_uvs, std::vector &lt;glm::vec3&gt;&amp; out_normals)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/main.cpp"
-            timestampString = "441084188.698171"
+            filePath = "../opengl_testing/opengl_testing/GraphicsSystem.cpp"
+            timestampString = "441599999.749225"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "241"
-            endingLineNumber = "241"
-            landmarkName = "main()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Shader.cpp"
-            timestampString = "441080025.680342"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "49"
-            endingLineNumber = "49"
-            landmarkName = "Shader::LoadShaders(const char * vertex_file_path, const char * fragment_file_path)"
+            startingLineNumber = "223"
+            endingLineNumber = "223"
+            landmarkName = "GraphicsSystem::render(shared_ptr&lt;Camera&gt; camera, vector &lt; shared_ptr&lt;MeshRenderer&gt;&gt;&amp; renderers, vector&lt;shared_ptr&lt;Light&gt;&gt;&amp; lights)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

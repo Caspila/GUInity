@@ -12,6 +12,8 @@ Shader::Shader(const char * vertex_file_path, const char * fragment_file_path)
 
 Shader::~Shader()
 {
+    glDeleteProgram(programID);
+    
 #ifdef GUINITY_DEBUG
 	nCount--;
 	cout << "Shader destroyed (" << nCount << " remaining)" << endl;

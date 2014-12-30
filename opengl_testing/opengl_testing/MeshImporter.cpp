@@ -223,7 +223,7 @@ bool loadOBJ(const char* path, std::vector <glm::vec3>& out_vertices, std::vecto
 template<typename T>
 bool MeshImporter::findVertex(std::map<T, unsigned short>& vertexMap, T& v, unsigned short& index)
 {
-	std::map<T, unsigned short>::iterator it = vertexMap.find(v);
+	typename std::map<T, unsigned short>::iterator it = vertexMap.find(v);
 	if (it == vertexMap.end()){
 		return false;
 	}

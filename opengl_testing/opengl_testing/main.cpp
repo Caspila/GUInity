@@ -95,102 +95,11 @@ int main() {
 	}
 	FMOD::Channel    *channel = 0;
 	FMOD::Sound *sound1;
-	result = system->createSound("C:/Users/guilherme_cunha/Desktop/music.mp3", FMOD_DEFAULT, 0, &sound1);
+	result = system->createSound(CommonData("mp3test.mp3").c_str(), FMOD_DEFAULT, 0, &sound1);
 	//ERRCHECK(result);
 
-	//result = system->playSound(sound1, 0, false, &channel);
+	result = system->playSound(sound1, 0, false, &channel);
 	//ERRCHECK(result);
-
-	//FbxManager* fbxManager = FbxManager::Create();
-	//FbxIOSettings * ios = FbxIOSettings::Create(fbxManager, IOSROOT);
-	//fbxManager->SetIOSettings(ios);
-	//FbxImporter* lImporter = FbxImporter::Create(fbxManager, "");
-
-	////const char* lFilename = "file.fbx";
-	//string lFilename = CommonData("box.fbx");
-
-	//// Initialize the importer.
-	//bool lImportStatus = lImporter->Initialize(lFilename.c_str(), -1, fbxManager->GetIOSettings());
-	//if (!lImportStatus) {
-	//	printf("Call to FbxImporter::Initialize() failed.\n");
-	//	printf("Error returned: %s\n\n", lImporter->GetStatus().GetErrorString());
-	//	exit(-1);
-	//}
-
-	//// Create a new scene so it can be populated by the imported file.
-	//FbxScene* lScene = FbxScene::Create(fbxManager, "myScene");
-
-	//// Import the contents of the file into the scene.
-	//lImporter->Import(lScene);
-
-	//FbxNode* pNode = lScene->GetRootNode();
-
-	//shared_ptr<Mesh> fbxMesh = make_shared<Mesh>();
-	//if (pNode)
-	//{
-	//	for (int nNode = 0; nNode < pNode->GetChildCount(); nNode++)
-	//	{
-	//		FbxNode* pChildNode = pNode->GetChild(nNode);
-
-	//		// Search for mesh node
-	//		if (pChildNode->GetNodeAttribute())
-	//		{
-	//			if (pChildNode->GetNodeAttribute()->GetAttributeType() == FbxNodeAttribute::eMesh)
-	//			{
-	//				FbxMesh* m_pMesh = (FbxMesh*)pChildNode->GetNodeAttribute();
-
-	//				//int uVertexCount = m_pMesh->GetPolygonCount();
-
-	//				unsigned long uPolyCount = m_pMesh->GetPolygonCount();
-	//				unsigned long uVertexCount = 0;
-	//				unsigned long uVertexNumber = 0;
-
-	//				for (unsigned long uPoly = 0; uPoly < uPolyCount; ++uPoly)
-	//				{
-	//					// Get number of vertices in current poly - is your mesh triangulated?
-	//					uVertexCount = m_pMesh->GetPolygonSize(uPoly);
-
-	//					for (unsigned long uVertex = 0; uVertex < uVertexCount; ++uVertex)
-	//					{
-	//						FbxVector4 fbxVertex, fbxNormal;
-	//						FbxVector2 fbxUV;
-
-	//						getVertexData(m_pMesh, uPoly, uVertex, fbxVertex, fbxNormal, fbxUV);
-
-	//						fbxMesh->addVertex(glm::vec3(fbxVertex.mData[0], fbxVertex.mData[1], fbxVertex.mData[2]),
-	//							glm::vec2(fbxUV.mData[0], fbxUV.mData[1]),
-	//							glm::vec3(fbxNormal.mData[0], fbxNormal.mData[1], fbxNormal.mData[2]));
-
-	//						// etc..
-	//					}
-	//				}
-
-
-	//				for (unsigned long uPoly = 0; uPoly < uPolyCount; ++uPoly)
-	//				{
-	//					// Get number of vertices in current poly - is your mesh triangulated?
-	//					uVertexCount = m_pMesh->GetPolygonSize(uPoly);
-
-	//					for (unsigned long uVertex = 0; uVertex < uVertexCount; ++uVertex)
-	//					{
-	//						FbxVector4 fbxVertex, fbxNormal;
-	//						FbxVector2 fbxUV;
-
-	//						getVertexData(m_pMesh, uPoly, uVertex, fbxVertex, fbxNormal, fbxUV);
-
-	//						fbxMesh->addTriangle(glm::vec3(fbxVertex.mData[0], fbxVertex.mData[1], fbxVertex.mData[2]),
-	//							glm::vec2(fbxUV.mData[0], fbxUV.mData[1]),
-	//							glm::vec3(fbxNormal.mData[0], fbxNormal.mData[1], fbxNormal.mData[2]));
-	//					}
-	//				}
-
-	//				// return here if you only expect one mesh or store them in an array
-	//			}
-	//		}
-	//	}
-	//}
-	//fbxMesh->scale(0.1f);
-	//fbxMesh->createBuffers3();
 	
 	MeshImporter meshImporter;
 	meshImporter.init();
@@ -499,6 +408,7 @@ int main() {
 
 		Input::updateInputState();
 
+        
 		switch (engineMode)
 		{
 		case EngineMode::editor:

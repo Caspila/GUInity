@@ -30,7 +30,7 @@ public:
 	//Mesh(const char* fileName);
 	//Mesh(float *points, int nPoints, float* colorPoints, float* normalPoints);
 	//Mesh(float* indices, unsigned int *triangles, float* normalPoints, int nPoints, int nTriangles);
-	Mesh::Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangles, int nPoints, int nTriangles);
+	Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangles, int nPoints, int nTriangles);
 	~Mesh();
 
 	//float *points,*colorPoints,  *normalPoints;

@@ -325,9 +325,10 @@ void GraphicsSystem::render(shared_ptr<Camera> camera,const physx::PxRenderBuffe
 
 	glDrawArrays(GL_LINES, 0, 2 * rb.getNbLines());
 
-
-    
     glBindVertexArray(0); // Unbind our Vertex Array Object
+
+    glDeleteBuffers(1, &vbo);
+	glDeleteVertexArrays(1, &vao);
     
 	delete []points;
 }
@@ -370,6 +371,8 @@ void GraphicsSystem::render(shared_ptr<Camera> camera, const Ray& r, const glm::
 
 	glDrawArrays(GL_LINES, 0, 2);
 
+    
+    
 }
 
 void GraphicsSystem::clear()

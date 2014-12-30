@@ -303,10 +303,11 @@ PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
 	PxVec3 *vertices;
 
 	
-
+    PxDefaultAllocator defaultAllocator;
+    
 	//cooking->cre
 	//cooking->createTriangleMesh()
-	bool status = cooking->computeHullPolygons(triangleMesh, PxDefaultAllocator(), nbVertices, vertices, nbIndices, indices, nbPolygons, polygons);
+	bool status = cooking->computeHullPolygons(triangleMesh, defaultAllocator, nbVertices, vertices, nbIndices, indices, nbPolygons, polygons);
 
 	PxConvexMeshDesc convexDesc;
 	convexDesc.points.count = nbVertices;
