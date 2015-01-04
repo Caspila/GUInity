@@ -43,11 +43,6 @@ public:
 
 	weak_ptr<Actor> actor;
 
-	// HOW TO REMOVE THIS POINTER?!
-	// Should never release cause this is taken care by PhysX
-	// PxRigidBody* rigidBody;
-
-
 
 	void setActor(shared_ptr<Actor> actor);
 	//void setRigidBody(PxRigidBody* rigidBody);

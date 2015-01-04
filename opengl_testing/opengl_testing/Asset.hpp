@@ -10,12 +10,23 @@
 
 #include <iostream>
 
+
+#include <boost/serialization/serialization.hpp>
+#include <boost/serialization/export.hpp>
+
+
 class Asset
 {
 public:
+    Asset(){}
+    virtual ~Asset(){}
+    
     unsigned int assetID;
     
     void setAssetID(unsigned int newAssetID) { assetID = newAssetID;}
     unsigned int getAssetID() { return assetID;}
+    
+    
+    
+    
 };
-

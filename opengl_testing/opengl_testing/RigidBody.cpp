@@ -40,6 +40,11 @@ void RigidBody::setKinematic(bool isKinematic)
 	physxRigidBody->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, isKinematic);
 }
 
+bool RigidBody::getKinematic()
+{
+    return physxRigidBody->getRigidBodyFlags() & (PxRigidBodyFlag::eKINEMATIC);
+}
+
 void RigidBody::setActive(bool isActive)
 {
 	physxRigidBody->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, !isActive);

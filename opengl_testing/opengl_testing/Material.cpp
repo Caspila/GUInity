@@ -60,6 +60,12 @@ Material::~Material()
 	
 }
 
+
+void Material::setShader(shared_ptr<Shader> shader)
+{
+    this->shader = shader;
+}
+
 GLuint Material::getShaderProgram()
 {
 	return shader.get()->programID;

@@ -16,5 +16,9 @@ public:
 
 	static shared_ptr<Actor> CreateActor(string name);
 	static shared_ptr<Actor> CreateEditorActor(string name);
+    
+    static void notifyNewActorCreated(Actor& actor);
+    
+    static void CreateReferenceActor(shared_ptr<Actor> realActor);
 };
 

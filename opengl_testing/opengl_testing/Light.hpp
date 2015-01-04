@@ -4,7 +4,7 @@
 #include "Subject.hpp"
 #include "Component.hpp"
 
-class Light : public Component, public Subject<Light>, public enable_shared_from_this<Light>
+class Light : public Component, public Subject<Light>
 #ifdef GUINITY_DEBUG
 	, public StaticCounter<Light>
 #endif

@@ -85,6 +85,7 @@
 		46FFC2311A52880100FCFAC4 /* libboost_serialization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FFC2301A52880100FCFAC4 /* libboost_serialization.a */; };
 		46FFC2351A52886500FCFAC4 /* libboost_serialization.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */; };
 		46FFC2481A52AB9D00FCFAC4 /* AssetDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46FFC2421A52AB9D00FCFAC4 /* AssetDatabase.cpp */; };
+		46FFC24A1A5334FC00FCFAC4 /* Asset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46FFC2491A5334FC00FCFAC4 /* Asset.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -301,6 +302,8 @@
 		46FFC2421A52AB9D00FCFAC4 /* AssetDatabase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AssetDatabase.cpp; path = ../opengl_testing/opengl_testing/AssetDatabase.cpp; sourceTree = "<group>"; };
 		46FFC2431A52AB9D00FCFAC4 /* AssetDatabase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AssetDatabase.hpp; path = ../opengl_testing/opengl_testing/AssetDatabase.hpp; sourceTree = "<group>"; };
 		46FFC2461A52AB9D00FCFAC4 /* Serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Serialization.hpp; path = ../opengl_testing/opengl_testing/Serialization.hpp; sourceTree = "<group>"; };
+		46FFC2491A5334FC00FCFAC4 /* Asset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Asset.cpp; sourceTree = "<group>"; };
+		46FFC24C1A59251A00FCFAC4 /* Serialization2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Serialization2.hpp; path = ../opengl_testing/opengl_testing/Serialization2.hpp; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,8 +343,10 @@
 			isa = PBXGroup;
 			children = (
 				46FFC2411A52AB9D00FCFAC4 /* Asset.hpp */,
-				46FFC2431A52AB9D00FCFAC4 /* AssetDatabase.hpp */,
+				464D88BE1A4A48AA007B0CDD /* Mesh.hpp */,
 				46FFC2461A52AB9D00FCFAC4 /* Serialization.hpp */,
+				46FFC24C1A59251A00FCFAC4 /* Serialization2.hpp */,
+				46FFC2431A52AB9D00FCFAC4 /* AssetDatabase.hpp */,
 				46FFC1DF1A5237A200FCFAC4 /* BoxCollider.hpp */,
 				46FFC1E11A5237A200FCFAC4 /* CapsuleCollider.hpp */,
 				46FFC1E31A5237A200FCFAC4 /* Collider.hpp */,
@@ -379,7 +384,6 @@
 				464D88B71A4A48AA007B0CDD /* Light.hpp */,
 				464D88BA1A4A48AA007B0CDD /* Material.hpp */,
 				464D88BC1A4A48AA007B0CDD /* Math.hpp */,
-				464D88BE1A4A48AA007B0CDD /* Mesh.hpp */,
 				464D88C01A4A48AA007B0CDD /* MeshRenderer.hpp */,
 				464D88C11A4A48AA007B0CDD /* Module.hpp */,
 				464D88C51A4A48AA007B0CDD /* Physics.hpp */,
@@ -451,6 +455,7 @@
 				464D88A81A4A48AA007B0CDD /* Component.cpp */,
 				46FFC2421A52AB9D00FCFAC4 /* AssetDatabase.cpp */,
 				464D88AA1A4A48AA007B0CDD /* Factory.cpp */,
+				46FFC2491A5334FC00FCFAC4 /* Asset.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -648,6 +653,7 @@
 				464D88F21A4A48AA007B0CDD /* print.cpp in Sources */,
 				464D88E81A4A48AA007B0CDD /* Light.cpp in Sources */,
 				46FFC2171A5237A200FCFAC4 /* IncreaseColliderScript.cpp in Sources */,
+				46FFC24A1A5334FC00FCFAC4 /* Asset.cpp in Sources */,
 				46FFC21A1A5237A200FCFAC4 /* MeshImporter.cpp in Sources */,
 				464D88EF1A4A48AA007B0CDD /* PhysicsMaterial.cpp in Sources */,
 				46FFC21F1A5237A200FCFAC4 /* PhysXAllocatorCallback.cpp in Sources */,
@@ -764,6 +770,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 					"_DEBUG=1",
+					GUINITY_DEBUG,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

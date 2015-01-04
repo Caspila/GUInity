@@ -18,6 +18,9 @@ class Material : public Asset
 #endif
 {	
 public:
+    Material() {}
+    
+    
 	shared_ptr<Shader> shader;
 
 	GLuint getShaderProgram();
@@ -28,9 +31,13 @@ public:
 	bool paramExists(string paramName);
 	void setParamVec3(string paramName, glm::vec3 paramValue);
 	void setParamFloat(string paramName, float paramValue);
-
+    
+    void setShader(shared_ptr<Shader> shader);
+    
+    
 	Material(shared_ptr<Shader> s);
-	~Material();
+    
+	virtual ~Material();
 
 };
 

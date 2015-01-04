@@ -39,14 +39,28 @@
 
 #include <iostream>
 
-//Extra to make shared_from_this available inside the saving code
-//This works by asking the archive to handle (and therefore create) a shared_ptr for the data
-//before the main serialization code runs.
-#define ALLOW_SHARED_THIS(type) \
-template<class Archive> inline void load_construct_data(Archive &ar, type *obj, const unsigned int file_version) { \
-shared_ptr<type> sharedPtr; \
-::new(obj)type();/* create instance */ \
-ar.reset(sharedPtr, obj); /* Tell the archive to start managing a shared_ptr */ \
+
+struct TransformDescription
+{
+    glm::vec3 position, scale;
+    glm::quat rotationQuat;
+};
+
+struct ActorDescription
+{
+    string name;
+    bool isActive;
+    TransformDescription transform;
+};
+
+TransformDescription getTransformDescription(Transform& t)
+{
+    return TransformDescription(t.position,t.scale,t.rotationQuat);
+}
+
+TransformDescription getActorDescription(Actor& actor)
+{
+    return ActorDescription(actor.name,actor.isActive,getTransformDescription(actor.transform));
 }
 
 namespace boost {
@@ -232,18 +246,6 @@ namespace boost {
             
             ar & a.transform;
             
-            
-            //BOOST_SERIALIZATION_NVP(a.components);
-            
-            ar & a.components;
-            
-            ar & a.parent;
-            
-            ar & a.children;
-            
-            a.initComponents();
-            //actor.notifyNewActorCreated();
-            //Factory::CreateReferenceActor(a);
         }
         template<class Archive>
         void save(Archive & ar, const Actor & a, const unsigned int version)
@@ -358,6 +360,30 @@ namespace boost {
             ar & world.newActors;
             //boost::serialization::split_free(ar, rigidBody, version);
         }
+        
+        template<class Archive>
+        void serialize(Archive & ar, ActorDescription & actorDescription, const unsigned int version)
+        {
+            ar & actorDescription.name;
+            
+            ar & actorDescription.isActive;
+            
+            ar & actorDescription.transformDescription;
+        }
+
+        template<class Archive>
+        void serialize(Archive & ar, TransformDescription & transformDescription, const unsigned int version)
+        {
+            
+            ar & transformDescription.position;
+            
+            ar & transformDescription.scale;
+            
+            ar & transformDescription.rotationQuat;
+            //boost::serialization::split_free(ar, rigidBody, version);
+        }
+        
+        
 //        template<class Archive>
 //        void save(Archive & ar, const RigidBody & rigidBody, const unsigned int version)
 //        {

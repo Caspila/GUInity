@@ -16,6 +16,7 @@ class Actor : public std::enable_shared_from_this<Actor>
 {
 
 public:
+    Actor() {}
 	Actor(string name);// , shared_ptr<MeshRenderer> meshRenderer);
 	virtual ~Actor();
 
@@ -46,6 +47,8 @@ public:
 
 	bool editorFlag;
 
+    void initComponents();
+    
 	template <typename T>
 	shared_ptr<T> AddComponent()
 	{

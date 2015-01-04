@@ -7,7 +7,7 @@ using namespace physx;
 
 class Actor;
 
-class EditorCollider : public Subject<EditorCollider>, public enable_shared_from_this<EditorCollider>,
+class EditorCollider : public Subject<EditorCollider>,
 	public Component
 {
 public:

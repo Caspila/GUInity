@@ -13,7 +13,7 @@ class Transform;
 using namespace std;
 
 
-class Camera : public Component, public Subject<Camera>, public enable_shared_from_this<Camera>
+class Camera : public Component, public Subject<Camera>
 #ifdef GUINITY_DEBUG
 	, public StaticCounter<Camera>
 #endif

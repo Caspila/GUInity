@@ -5,7 +5,7 @@
 using namespace physx;
 
 
-class RigidStatic : public Subject<RigidStatic>, public enable_shared_from_this<RigidStatic>,
+class RigidStatic : public Subject<RigidStatic>,
 	public Component
 {
 public:

@@ -4,7 +4,7 @@
 
 class Actor;
 
-class Component
+class Component : public enable_shared_from_this<Component>
 //#ifdef GUINITY_DEBUG
 //	:public StaticCounter<Component>
 //#endif

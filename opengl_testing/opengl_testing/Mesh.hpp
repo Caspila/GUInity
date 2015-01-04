@@ -1,11 +1,17 @@
 #pragma once
 
+#ifndef MESH_HPP
+#define MESH_HPP
+
 //#include "Material.h"
 #include "Module.hpp"
 //#include "StaticCounter.h"
 #include <vector>
 #include <glm/common.hpp>
 #include "Asset.hpp"
+
+#include <boost/serialization/serialization.hpp>
+#include <boost/serialization/export.hpp>
 
 struct MeshVertex
 {
@@ -27,11 +33,9 @@ class Mesh : public Asset
 
 public:
 	Mesh();
-
 	Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangles, int nPoints, int nTriangles);
-	~Mesh();
-
-
+	
+    virtual ~Mesh();
     
 	vector<unsigned short> triangles;
 
@@ -56,4 +60,12 @@ public:
 	void calculateBounds3();
 	
 	glm::vec3 boundsMin, boundsMax, avgCenter;
+
+    
 };
+
+//BOOST_CLASS_EXPORT_KEY(Mesh);
+
+
+#endif
+

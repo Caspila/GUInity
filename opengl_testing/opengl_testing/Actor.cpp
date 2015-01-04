@@ -113,6 +113,14 @@ void Actor::setActive(bool isActive)
 
 }
 
+void Actor::initComponents()
+{
+  	for (auto& x : components)
+	{
+		x->init();
+	}
+}
+
 
 shared_ptr<Actor> Actor::getParent()
 {

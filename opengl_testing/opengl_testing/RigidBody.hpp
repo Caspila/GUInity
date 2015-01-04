@@ -7,7 +7,7 @@
 
 using namespace physx;
 
-class RigidBody : public Subject<RigidBody>, public enable_shared_from_this<RigidBody>,
+class RigidBody : public Subject<RigidBody>,
 	public Component
 
 #ifdef GUINITY_DEBUG
@@ -23,9 +23,11 @@ public:
 	virtual void setActive(bool isActive) override;
 
 	PxRigidBody* physxRigidBody;
-
+    
 	void setKinematic(bool isKinematic);
 
+    bool getKinematic();
+    
 	bool isStatic;
 
 };

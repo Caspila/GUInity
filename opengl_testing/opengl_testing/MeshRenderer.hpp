@@ -10,7 +10,7 @@ class Mesh;
 class Material;
 class MeshFilter;
 
-class MeshRenderer : public Component, public Subject<MeshRenderer>, public std::enable_shared_from_this<MeshRenderer>
+class MeshRenderer : public Component, public Subject<MeshRenderer>
 #ifdef GUINITY_DEBUG
 	, public StaticCounter<MeshRenderer>
 #endif
@@ -21,7 +21,9 @@ public:
 
 	weak_ptr<MeshFilter> meshFilter;
 	shared_ptr<Material> material;
-
+    
+    
+    void setMaterial(shared_ptr<Material> material);
 	virtual void init() override;
 
 };

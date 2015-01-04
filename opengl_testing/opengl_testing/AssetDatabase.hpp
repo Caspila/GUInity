@@ -22,12 +22,10 @@ class AssetDatabase
 {
     static MeshImporter meshImporter;
 
-    
+public:
     static unsigned int currentID;
     
     static std::map<unsigned int,shared_ptr<Asset>> idToAsset;
-    
-public:
     
     static void init();
     static void shutdown();

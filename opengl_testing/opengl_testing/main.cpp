@@ -7,6 +7,8 @@
 #include <iostream>
 #include <fstream>
 
+#include "Serialization.hpp"
+
 #include "Material.hpp"
 #include <vector>
 #include "Actor.hpp"
@@ -47,7 +49,7 @@
 #include <fmod_errors.h>
 #include <fbxsdk.h>
 #include "EditorCameraControl.hpp"
-#include "Serialization.hpp"
+
 
 //-------Loading PhysX libraries----------]
 #ifdef _DEBUG
@@ -68,6 +70,17 @@ using namespace fbxsdk_2015_1;
 
 enum EngineMode {editor, game};
 
+
+
+
+BOOST_CLASS_EXPORT_GUID(Asset, "Asset")
+BOOST_CLASS_EXPORT_GUID(Mesh, "Mesh")
+BOOST_CLASS_EXPORT_GUID(Material, "Material")
+BOOST_CLASS_EXPORT_GUID(Shader, "Shader")
+BOOST_CLASS_EXPORT_GUID(Component, "Component")
+BOOST_CLASS_EXPORT_GUID(RigidBody, "RigidBody")
+BOOST_CLASS_EXPORT_GUID(MeshFilter, "MeshFilter")
+BOOST_CLASS_EXPORT_GUID(MeshRenderer, "MeshRenderer")
 
 int main() {
 
@@ -117,62 +130,115 @@ int main() {
 
     AssetDatabase::init();
 
-	shared_ptr<Mesh> fbxMesh = AssetDatabase::createMeshFromFBX("box.fbx");
-	fbxMesh->setScaleFactor(0.1f);
     
-	shared_ptr<Mesh> objMesh = AssetDatabase::createMeshFromOBJ("sphere.obj");
-	
+//	shared_ptr<Mesh> fbxMesh = AssetDatabase::createMeshFromFBX("box.fbx");
+//	fbxMesh->setScaleFactor(0.1f);
+//    
+//    shared_ptr<Asset> objMesh = AssetDatabase::createMeshFromOBJ("sphere.obj");
+//
+//    
+//    // create and open a character archive for output
+//    std::ofstream ofs(CommonData("filename"));
+//    
+//    shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsLight.fragmentshader"));
+//    
+//    shared_ptr<Material> m = AssetDatabase::createMaterial(s);
+//    
+//     shared_ptr<Actor> fbxTest = Factory::CreateActor("FBXTest");// , meshRenderer1);
+//     fbxTest->transform->setPosition(glm::vec3(0, 0, 0));
+//     fbxTest->transform->setRotationQuat(glm::quat(glm::vec3(-90 * Math::Deg2Radian, 0, 0)));
+//
+//    
+//    shared_ptr<MeshFilter> meshFilter = fbxTest->AddComponent<MeshFilter>();
+//    meshFilter->mesh = dynamic_pointer_cast<Mesh>(objMesh);
+//    shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
+//    meshRenderer->material = m;
+//    
+//    fbxTest = nullptr;
+//	
+//    
+// //   shared_ptr<World> testWorld = game->world;
+//    
+// //   shared_ptr<RigidBody> rigidBody = fbxTest->AddComponent<RigidBody>();
+//    // save data to archive
+//    {
+//        boost::archive::text_oarchive oa(ofs);
+//        // write class instance to archive
+//        oa & AssetDatabase::idToAsset;
+//        oa & AssetDatabase::currentID;
+//        
+//        //oa & rigidBody;
+//        //oa & fbxTest;
+////        oa & fbxTest->components;
+//        oa & game->world;
+//    	// archive and stream closed when destructors are called
+//    }
+//  //  exit(0);
+    
 
     
-    // create and open a character archive for output
-    std::ofstream ofs(CommonData("filename"));
     
     
-    // save data to archive
-    {
-        boost::archive::binary_oarchive oa(ofs);
-        // write class instance to archive
-        oa << *objMesh.get();
-    	// archive and stream closed when destructors are called
-    }
-    
-    //shared_ptr<Mesh> objMesh2;
-    Mesh obj2;
-    // ... some time later restore the class instance to its orginal state
-    //gps_position newg;
+    //Actor x;
+    shared_ptr<Actor> fbxTest;
     {
         // create and open an archive for input
-        std::ifstream ifs(CommonData("filename"));
-        boost::archive::binary_iarchive ia(ifs);
+        std::ifstream ifs(CommonData("filename"),std::fstream::binary | std::fstream::in);
+        boost::archive::text_iarchive ia(ifs);
         // read class state from archive
-        ia >> obj2;
+        //ia >> objLoad;
+        ia & AssetDatabase::idToAsset;
+        ia & AssetDatabase::currentID;
+    //    ia & testWorld;
+        //ia & fbxTest;
+        //ia & x;
+        //ia & testWorld;
+        
+        ia & game->world;
+//        fbxTest = make_shared<<#class _Tp#>>(<#_Args &&__args...#>)
+        
+//        fbxTest->initComponents();
         // archive and stream closed when destructors are called
     }
     
-    shared_ptr<Mesh> objMesh2 = make_shared<Mesh>(obj2);
-    //objMesh2.reset(&obj2);
-    //objMesh2->createBuffers3();
+ //   shared_ptr<World> testWorld =  game->world;
     
-	
-	//shared_ptr<Shader> s = make_shared<Shader>(CommonData("vsLight.vs").c_str(),CommonData("fsLight.fragmentshader").c_str());
-    shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsLight.fragmentshader"));
+    
+    	shared_ptr<Asset> objMesh = dynamic_pointer_cast<Mesh>(AssetDatabase::idToAsset[1]);///AssetDatabase::createMeshFromOBJ("sphere.obj");
 
-    shared_ptr<Material> m = AssetDatabase::createMaterial(s);
+      shared_ptr<Shader> s = dynamic_pointer_cast<Shader>(AssetDatabase::idToAsset[2]);///
+    
+    shared_ptr<Material> m = dynamic_pointer_cast<Material>(AssetDatabase::idToAsset[3]);///
+    
+    
+//    shared_ptr<MeshFilter> meshFilter = fbxTest->AddComponent<MeshFilter>();
+//    meshFilter->mesh = dynamic_pointer_cast<Mesh>(objMesh);
+//    shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
+//    meshRenderer->material = m;
+    
+  //  shared_ptr<Mesh> fbxMesh = dynamic_pointer_cast<Mesh>(AssetDatabase::idToAsset[0]);//AssetDatabase::createMeshFromFBX("box.fbx");
+//	fbxMesh->setScaleFactor(0.1f);
+    
+//	shared_ptr<Asset> objMesh = dynamic_pointer_cast<Mesh>(AssetDatabase::idToAsset[1]);///AssetDatabase::createMeshFromOBJ("sphere.obj");
+    
+  //  shared_ptr<Shader> s = dynamic_pointer_cast<Shader>(AssetDatabase::idToAsset[2]);///
+    
+    //shared_ptr<Material> m = dynamic_pointer_cast<Material>(AssetDatabase::idToAsset[3]);///
 
-	shared_ptr<Actor> fbxTest = Factory::CreateActor("FBXTest");// , meshRenderer1);
-	fbxTest->transform->setPosition(glm::vec3(0, 0, 0));
-	fbxTest->transform->setRotationQuat(glm::quat(glm::vec3(-90 * Math::Deg2Radian, 0, 0)));
-	//fbxTest->transform->setScale(glm::vec3(0.1, 0.1, 0.1));
-
-	shared_ptr<MeshFilter> meshFilter = fbxTest->AddComponent<MeshFilter>();
+    
+    
+    
+//    shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
+//	meshRenderer->material = m;
+    
+	//shared_ptr<MeshFilter> meshFilter = fbxTest->AddComponent<MeshFilter>();
 	//meshFilter->mesh = quadMesh;
 	//meshFilter->mesh = fbxMesh;
-	meshFilter->mesh = objMesh2;
-	shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
-	meshRenderer->material = m;
+
+
 	//shared_ptr<RigidBody> rigidBody = fbxTest->AddComponent<RigidBody>();
 	//shared_ptr<MeshCollider> meshCol = fbxTest->AddComponent<MeshCollider>();
-	shared_ptr<BoxCollider> meshCol = fbxTest->AddComponent<BoxCollider>();
+	//shared_ptr<BoxCollider> meshCol = fbxTest->AddComponent<BoxCollider>();
 
 	
 	//rigidBody->setKinematic(true);
