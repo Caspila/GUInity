@@ -132,3 +132,10 @@ void Actor::setEditorFlag(bool isEditor)
 {
 	editorFlag = isEditor;
 }
+
+void Actor::addComponent(shared_ptr<Component> component)
+{
+    component->setActor(shared_from_this());
+    components.push_back(component);
+    component->init();
+}

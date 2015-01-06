@@ -2,6 +2,7 @@
 #include <PxPhysicsAPI.h>
 #include "Ray.hpp"
 #include "PhysXEventCallback.hpp"
+#include "Enums.hpp"
 
 
 class Actor;
@@ -40,10 +41,22 @@ public:
 
 	//static PxRigidStatic* createRigidStatic(shared_ptr<Actor> actor);
 	static PxRigidDynamic* createRigidDynamic(shared_ptr<Actor> actor);
-	static PxShape* createBoxCollider(shared_ptr<Actor> actor);
+    
+	static PxShape* createBoxCollider(glm::vec3 halfExtent,glm::vec3 center, shared_ptr<Actor> actor);
+	static PxShape* createBoxCollider(PxVec3 halfExtent,PxVec3 center, shared_ptr<Actor> actor);
+    static PxShape* createBoxCollider(shared_ptr<Actor> actor);
+    
+    
+    static PxShape* createSphereCollider(float radius, glm::vec3 center, shared_ptr<Actor> actor);
+    static PxShape* createSphereCollider(float radius, PxVec3 center, shared_ptr<Actor> actor);
 	static PxShape* createSphereCollider(shared_ptr<Actor> actor);
+    
+    static void setCapsuleOrientation(PxShape* shape,RotateAxis orientation);
+    static PxShape* createCapsuleCollider(float radius, float halfHeight, RotateAxis orientation, glm::vec3 center, shared_ptr<Actor> actor);
+    static PxShape* createCapsuleCollider(float radius, float halfHeight, RotateAxis orientation, PxVec3 center, shared_ptr<Actor> actor);
 	static PxShape* createCapsuleCollider(shared_ptr<Actor> actor);
-	static PxShape* createMeshCollider(shared_ptr<Actor> actor);
+	
+    static PxShape* createMeshCollider(shared_ptr<Actor> actor);
 	static PxConvexMesh* getPxConvexMesh(shared_ptr<Mesh> mesh);
 
 	static PxScene* createPhysicsScene();

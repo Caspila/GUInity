@@ -24,3 +24,4 @@ void MeshCollider::init()
 	shape = Physics::createMeshCollider(getActor());
 }
 
+

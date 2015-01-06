@@ -152,3 +152,27 @@ void Camera::tick(float deltaSecods)
 {
 	computeModelViewMatrix();
 }
+
+shared_ptr<ComponentDescription> Camera::getComponentDescription()
+{
+    
+    float nearClipPlane, farClipPlane;
+	float fov;
+	float ratio;
+
+    return make_shared<CameraDescription>(nearClipPlane,farClipPlane,fov,ratio);
+    
+}
+
+
+ void Camera::deserialize(shared_ptr<ComponentDescription> desc)
+{
+    
+    shared_ptr< CameraDescription> cameraDesc = dynamic_pointer_cast<CameraDescription>(desc);
+    
+    nearClipPlane = cameraDesc->nearClipPlane;
+    farClipPlane = cameraDesc->farClipPlane;
+    ratio = cameraDesc->ratio;
+    fov = cameraDesc->fov;
+    
+}

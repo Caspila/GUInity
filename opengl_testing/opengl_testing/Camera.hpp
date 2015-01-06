@@ -46,6 +46,12 @@ public:
 	virtual void init() override;
 	virtual void awake() override;
 	virtual void tick(float deltaSecods) override;
+    
+    virtual shared_ptr<ComponentDescription> getComponentDescription();
+    virtual shared_ptr<Component> clone() { shared_ptr<Camera> compClone = make_shared<Camera>();return compClone;};
+    
+    virtual void deserialize(shared_ptr<ComponentDescription> desc);
+    
 
 private:
 

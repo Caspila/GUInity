@@ -27,3 +27,13 @@ void RigidStatic::tick(float deltaSeconds)
 
 	physxRigidStatic->setGlobalPose(transformToPhysXTransform(actor->transform));
 }
+
+shared_ptr<ComponentDescription> RigidStatic::getComponentDescription()
+{
+    return make_shared<RigidStaticDescription>();
+}
+
+void RigidStatic::deserialize(shared_ptr<ComponentDescription> desc)
+{
+    
+}

@@ -86,6 +86,8 @@
 		46FFC2351A52886500FCFAC4 /* libboost_serialization.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */; };
 		46FFC2481A52AB9D00FCFAC4 /* AssetDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46FFC2421A52AB9D00FCFAC4 /* AssetDatabase.cpp */; };
 		46FFC24A1A5334FC00FCFAC4 /* Asset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46FFC2491A5334FC00FCFAC4 /* Asset.cpp */; };
+		46FFC24F1A5927B600FCFAC4 /* Serialization2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46FFC24D1A5927B600FCFAC4 /* Serialization2.cpp */; };
+		46FFC2521A5930DD00FCFAC4 /* SerializationStructs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46FFC2501A5930DD00FCFAC4 /* SerializationStructs.cpp */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -304,6 +306,9 @@
 		46FFC2461A52AB9D00FCFAC4 /* Serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Serialization.hpp; path = ../opengl_testing/opengl_testing/Serialization.hpp; sourceTree = "<group>"; };
 		46FFC2491A5334FC00FCFAC4 /* Asset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Asset.cpp; sourceTree = "<group>"; };
 		46FFC24C1A59251A00FCFAC4 /* Serialization2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Serialization2.hpp; path = ../opengl_testing/opengl_testing/Serialization2.hpp; sourceTree = "<group>"; };
+		46FFC24D1A5927B600FCFAC4 /* Serialization2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Serialization2.cpp; sourceTree = "<group>"; };
+		46FFC2501A5930DD00FCFAC4 /* SerializationStructs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = SerializationStructs.cpp; sourceTree = "<group>"; };
+		46FFC2511A5930DD00FCFAC4 /* SerializationStructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SerializationStructs.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -346,6 +351,7 @@
 				464D88BE1A4A48AA007B0CDD /* Mesh.hpp */,
 				46FFC2461A52AB9D00FCFAC4 /* Serialization.hpp */,
 				46FFC24C1A59251A00FCFAC4 /* Serialization2.hpp */,
+				46FFC24D1A5927B600FCFAC4 /* Serialization2.cpp */,
 				46FFC2431A52AB9D00FCFAC4 /* AssetDatabase.hpp */,
 				46FFC1DF1A5237A200FCFAC4 /* BoxCollider.hpp */,
 				46FFC1E11A5237A200FCFAC4 /* CapsuleCollider.hpp */,
@@ -398,6 +404,8 @@
 				464D88DB1A4A48AA007B0CDD /* Transform.hpp */,
 				464D88E01A4A48AA007B0CDD /* World.hpp */,
 				464D88CF1A4A48AA007B0CDD /* Ray.hpp */,
+				46FFC2501A5930DD00FCFAC4 /* SerializationStructs.cpp */,
+				46FFC2511A5930DD00FCFAC4 /* SerializationStructs.h */,
 			);
 			name = Header;
 			sourceTree = "<group>";
@@ -636,6 +644,7 @@
 				464D88F81A4A48AA007B0CDD /* Time.cpp in Sources */,
 				46FFC21E1A5237A200FCFAC4 /* Observer.cpp in Sources */,
 				464D88F71A4A48AA007B0CDD /* StaticCounter.cpp in Sources */,
+				46FFC24F1A5927B600FCFAC4 /* Serialization2.cpp in Sources */,
 				464D88E41A4A48AA007B0CDD /* Factory.cpp in Sources */,
 				464D88E61A4A48AA007B0CDD /* Holder.cpp in Sources */,
 				46FFC21C1A5237A200FCFAC4 /* MoveHandle.cpp in Sources */,
@@ -675,6 +684,7 @@
 				46FFC2261A5237A200FCFAC4 /* Subject.cpp in Sources */,
 				46FFC2181A5237A200FCFAC4 /* MeshCollider.cpp in Sources */,
 				46FFC2151A5237A200FCFAC4 /* EditorCollider.cpp in Sources */,
+				46FFC2521A5930DD00FCFAC4 /* SerializationStructs.cpp in Sources */,
 				464D88E51A4A48AA007B0CDD /* GraphicsSystem.cpp in Sources */,
 				46FFC2251A5237A200FCFAC4 /* SphereCollider.cpp in Sources */,
 				464D88E31A4A48AA007B0CDD /* Component.cpp in Sources */,

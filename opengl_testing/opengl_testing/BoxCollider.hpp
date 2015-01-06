@@ -9,15 +9,17 @@ class BoxCollider : public Collider
 {
 public:
 	BoxCollider();
+    
+    BoxCollider(PxVec3 halfExtent, PxVec3 center = PxVec3(0,0,0));
 	virtual ~BoxCollider();
-
-
-	//virtual void awake();
-	//virtual void tick(float deltaSecods);
+    
+    PxVec3 halfExtent;
+    
 	virtual void init();
-
-	//void setTrigger(bool isTrigger);
-	//
-	//PxShape* shape;
+    
+    virtual shared_ptr<ComponentDescription> getComponentDescription() ;
+    virtual shared_ptr<Component> clone() { shared_ptr<BoxCollider> compClone = make_shared<BoxCollider>(halfExtent,center);return compClone;};
+    
+    virtual void deserialize(shared_ptr<ComponentDescription> desc);
 };
 

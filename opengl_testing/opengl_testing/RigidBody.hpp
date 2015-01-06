@@ -28,7 +28,11 @@ public:
 
     bool getKinematic();
     
-	bool isStatic;
+    
+    virtual shared_ptr<ComponentDescription> getComponentDescription();
+    virtual shared_ptr<Component> clone() { shared_ptr<RigidBody> compClone = make_shared<RigidBody>();return compClone;};
+    
+    virtual void deserialize(shared_ptr<ComponentDescription> desc);
 
 };
 

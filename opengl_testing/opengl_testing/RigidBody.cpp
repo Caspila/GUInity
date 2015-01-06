@@ -49,3 +49,14 @@ void RigidBody::setActive(bool isActive)
 {
 	physxRigidBody->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, !isActive);
 }
+
+
+shared_ptr<ComponentDescription> RigidBody::getComponentDescription()
+{
+    return make_shared<RigidBodyDescription>(getKinematic());
+}
+
+void RigidBody::deserialize(shared_ptr<ComponentDescription> desc)
+{
+    
+}

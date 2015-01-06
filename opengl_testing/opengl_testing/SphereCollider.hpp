@@ -11,16 +11,16 @@ class SphereCollider :
 {
 public:
 	SphereCollider();
+    SphereCollider(float radius, PxVec3 center);
 	virtual~SphereCollider();
 	
+    float radius;
 
-	//virtual void awake();
-	//virtual void tick(float deltaSecods);
 	virtual void init();
-	//
-	//
-	//void setTrigger(bool isTrigger);
-	//
-	//PxShape* shape;
+	
+    virtual shared_ptr<ComponentDescription> getComponentDescription() ;
+    virtual shared_ptr<Component> clone() { shared_ptr<SphereCollider> compClone = make_shared<SphereCollider>(radius,center);return compClone;};
+    
+    virtual void deserialize(shared_ptr<ComponentDescription> desc);
 };
 

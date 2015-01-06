@@ -9,29 +9,13 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/main.cpp"
-            timestampString = "441885041.881321"
+            filePath = "../opengl_testing/opengl_testing/Factory.cpp"
+            timestampString = "442228864.750186"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "219"
-            endingLineNumber = "219"
-            landmarkName = "main()"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/World.cpp"
-            timestampString = "441884733.200305"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "168"
-            endingLineNumber = "168"
-            landmarkName = "World::shutdown()"
+            startingLineNumber = "86"
+            endingLineNumber = "86"
+            landmarkName = "Factory::CreateReferenceActor(shared_ptr&lt;Actor&gt; realActor)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
@@ -41,30 +25,46 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/World.cpp"
-            timestampString = "441884734.309019"
+            filePath = "../opengl_testing/opengl_testing/Factory.cpp"
+            timestampString = "442228933.804291"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "171"
-            endingLineNumber = "171"
-            landmarkName = "World::shutdown()"
+            startingLineNumber = "85"
+            endingLineNumber = "85"
+            landmarkName = "Factory::CreateReferenceActor(shared_ptr&lt;Actor&gt; realActor)"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            shouldBeEnabled = "Yes"
+            shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Serialization.hpp"
-            timestampString = "441885661.58178"
+            filePath = "../opengl_testing/opengl_testing/Factory.cpp"
+            timestampString = "442229347.202498"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "357"
-            endingLineNumber = "357"
-            landmarkName = "serialize(Archive &amp; ar, World &amp; world, const unsigned int version)"
-            landmarkType = "7">
+            startingLineNumber = "44"
+            endingLineNumber = "44"
+            landmarkName = "Factory::DeserializeComponents(shared_ptr&lt;Actor&gt; actor, vector&lt;shared_ptr&lt;ComponentDescription&gt;&gt; compDescs)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../opengl_testing/opengl_testing/Factory.cpp"
+            timestampString = "442231926.00729"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "43"
+            endingLineNumber = "43"
+            landmarkName = "Factory::DeserializeComponents(shared_ptr&lt;Actor&gt; actor, vector&lt;shared_ptr&lt;ComponentDescription&gt;&gt; compDescs)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

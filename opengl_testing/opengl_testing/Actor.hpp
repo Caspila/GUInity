@@ -5,6 +5,7 @@
 #include "ScriptComponent.hpp"
 #include "Transform.hpp"
 #include "RigidBody.hpp"
+#include "SerializationStructs.h"
 
 class Actor;
 class MeshRenderer;
@@ -48,6 +49,8 @@ public:
 	bool editorFlag;
 
     void initComponents();
+    
+    void addComponent(shared_ptr<Component> component);
     
 	template <typename T>
 	shared_ptr<T> AddComponent()

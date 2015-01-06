@@ -16,6 +16,11 @@ public:
 	virtual void tick(float deltaSecods) override;
 
 	PxRigidDynamic* physxRigidStatic;
+    
+    virtual shared_ptr<ComponentDescription> getComponentDescription();
+    virtual shared_ptr<Component> clone() { shared_ptr<RigidStatic> compClone = make_shared<RigidStatic>();return compClone;};
+    
+    virtual void deserialize(shared_ptr<ComponentDescription> desc);
 
 };
 

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Module.hpp"
+#include "SerializationStructs.h"
 
 class Actor;
 
@@ -24,6 +25,11 @@ public:
 	shared_ptr<Actor> getActor();
 	void setActor(weak_ptr<Actor> actor);
 
+    virtual shared_ptr<ComponentDescription> getComponentDescription() { return make_shared<ComponentDescription>();};
+    virtual shared_ptr<Component> clone() { shared_ptr<Component> compClone = make_shared<Component>();return compClone;};
+    
+    virtual void deserialize(shared_ptr<ComponentDescription> desc) {};
+    
 #ifdef GUINITY_DEBUG
 	static int count;
 #endif

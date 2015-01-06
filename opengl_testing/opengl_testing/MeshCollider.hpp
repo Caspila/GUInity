@@ -11,5 +11,6 @@ public:
 	virtual ~MeshCollider();
 
 	virtual void init();
+
 };
 

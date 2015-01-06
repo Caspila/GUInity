@@ -13,6 +13,14 @@ Light::Light()
 #endif
 }
 
+Light::Light(glm::vec3 c) : color {c}
+{
+	   
+#ifdef GUINITY_DEBUG
+	nCount++;
+#endif
+}
+
 
 Light::~Light()
 {
@@ -27,4 +35,17 @@ Light::~Light()
 void Light::init()
 {
 	Light::notify(ComponentEventType::NewLight, shared_from_this(), getActor()->editorFlag);
+}
+
+
+shared_ptr<ComponentDescription> Light::getComponentDescription()
+{
+    return make_shared<LightDescription>(color);
+}
+
+void Light::deserialize(shared_ptr<ComponentDescription> desc)
+{
+    shared_ptr<LightDescription> lightDesc = dynamic_pointer_cast<LightDescription>(desc);
+    
+    color = lightDesc->color;
 }

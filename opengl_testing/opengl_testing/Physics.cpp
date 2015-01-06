@@ -154,9 +154,38 @@ float getSphereSize(shared_ptr<Actor> actor, shared_ptr<MeshFilter> meshFilter)
 	return radius;
 }
 
+
+PxShape* Physics::createBoxCollider(glm::vec3 halfExtent, glm::vec3 center, shared_ptr<Actor> actor)
+{
+    return createBoxCollider(glmVec3ToPhysXVec3(halfExtent),glmVec3ToPhysXVec3(center),actor);
+}
+PxShape* Physics::createBoxCollider(PxVec3 halfExtent, PxVec3 center, shared_ptr<Actor> actor)
+{
+    
+	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
+    
+    PxShape* shape = nullptr;
+	if (rigidBody)
+	{
+		shape = rigidBody->physxRigidBody->createShape(PxBoxGeometry(halfExtent), *defaultPhysicsMaterial);
+	}
+	else
+	{
+		shared_ptr<RigidStatic> rigidStatic = actor->GetComponent<RigidStatic>();
+		if (!rigidStatic)
+			rigidStatic = actor->AddComponent<RigidStatic>();
+        
+        shape = rigidStatic->physxRigidStatic->createShape(PxBoxGeometry(halfExtent), *defaultPhysicsMaterial);
+        shape->userData = (void*)actor.get();
+        
+	}
+	shape->setLocalPose(PxTransform(center, PxQuat::createIdentity()));
+    
+	return shape;
+}
+
 PxShape* Physics::createBoxCollider(shared_ptr<Actor> actor)
 {
-	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
 	shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
 
 	PxVec3 center(0, 0, 0);
@@ -167,25 +196,41 @@ PxShape* Physics::createBoxCollider(shared_ptr<Actor> actor)
 		center = PxVec3(glmVec3ToPhysXVec3( meshFilter->mesh->avgCenter));
 	}
 
+    return createBoxCollider(boxSize,center,actor);
+    
+	
+}
+
+
+PxShape* Physics::createSphereCollider(float radius, glm::vec3 center, shared_ptr<Actor> actor)
+{
+    return createSphereCollider(radius,glmVec3ToPhysXVec3(center),actor);
+}
+
+PxShape* Physics::createSphereCollider(float radius, PxVec3 center, shared_ptr<Actor> actor)
+{
+	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
+	
 	PxShape* shape = nullptr;
 	if (rigidBody)
 	{
-
-		shape = rigidBody->physxRigidBody->createShape(PxBoxGeometry(boxSize), *defaultPhysicsMaterial);
+        
+		shape = rigidBody->physxRigidBody->createShape(PxSphereGeometry(radius), *defaultPhysicsMaterial);
 	}
 	else
 	{
+        
 		shared_ptr<RigidStatic> rigidStatic = actor->GetComponent<RigidStatic>();
 		if (!rigidStatic)
 			rigidStatic = actor->AddComponent<RigidStatic>();
-
-			shape = rigidStatic->physxRigidStatic->createShape(PxBoxGeometry(boxSize), *defaultPhysicsMaterial);
-			shape->userData = (void*)actor.get();
-			
-	}
-
+        
+        shape = rigidStatic->physxRigidStatic->createShape(PxSphereGeometry(radius), *defaultPhysicsMaterial);
+        shape->userData = (void*)actor.get();
+    }
+    
+    
 	shape->setLocalPose(PxTransform(center, PxQuat::createIdentity()));
-
+    
 	return shape;
 }
 
@@ -203,44 +248,89 @@ PxShape* Physics::createSphereCollider(shared_ptr<Actor> actor)
 
 		center = PxVec3(glmVec3ToPhysXVec3(meshFilter->mesh->avgCenter));
 	}
-
-	PxShape* shape = nullptr;
-	if (rigidBody)
-	{
-
-		shape = rigidBody->physxRigidBody->createShape(PxSphereGeometry(radius), *defaultPhysicsMaterial);
-	}
-	else
-	{
-
-		shared_ptr<RigidStatic> rigidStatic = actor->GetComponent<RigidStatic>();
-		if (!rigidStatic)
-			rigidStatic = actor->AddComponent<RigidStatic>();
-
-			shape = rigidStatic->physxRigidStatic->createShape(PxSphereGeometry(radius), *defaultPhysicsMaterial);
-			shape->userData = (void*)actor.get();
-		}
-
-
-	shape->setLocalPose(PxTransform(center, PxQuat::createIdentity()));
-
-	return shape;
+    return createSphereCollider(radius, center, actor);
 }
 
 
-PxShape* Physics::createCapsuleCollider(shared_ptr<Actor> actor)
+void getCapsuleGeometry(shared_ptr<Actor>actor,shared_ptr<MeshFilter>meshFilter,float &radius,float &halfHeight,RotateAxis&orientation)
+{
+    PxVec3 boxSize(meshFilter->mesh->boundsMax.x - meshFilter->mesh->boundsMin.x,
+                   meshFilter->mesh->boundsMax.y - meshFilter->mesh->boundsMin.y,
+                   meshFilter->mesh->boundsMax.z - meshFilter->mesh->boundsMin.z);
+	
+    boxSize = boxSize / 2;
+	
+    boxSize.x = std::fmaxf(boxSize.x, 0.001f);
+    boxSize.y = std::fmaxf(boxSize.y, 0.001f);
+    boxSize.z = std::fmaxf(boxSize.z, 0.001f);
+	
+    boxSize.x *= actor->transform->scale.x;
+    boxSize.y *= actor->transform->scale.y;
+    boxSize.z *= actor->transform->scale.z;
+    
+    bool maxX, maxY, maxZ;
+    maxX = maxY = maxZ = false;
+    if(boxSize.x > boxSize.y && boxSize.x > boxSize.z)
+        maxX = true;
+    else if(boxSize.y > boxSize.x && boxSize.y > boxSize.z)
+        maxY = true;
+    else if(boxSize.z > boxSize.y && boxSize.z > boxSize.x)
+        maxZ = true;
+    
+    if(maxX)
+    {
+        orientation = RotateAxis::x;
+        halfHeight = boxSize.x / 2;
+        radius = boxSize.y/2;
+    }
+    else if(maxY)
+    {
+        orientation = RotateAxis::y;
+        halfHeight = boxSize.y / 2;
+        radius = boxSize.x/2;
+    }
+    else if(maxZ)
+    {
+        orientation = RotateAxis::z;
+        halfHeight = boxSize.z / 2;
+        radius = boxSize.y/2;
+    }
+    
+    
+}
+
+void Physics::setCapsuleOrientation(PxShape* shape,RotateAxis orientation)
+{
+	PxTransform transform = shape->getLocalPose();
+	switch (orientation)
+	{
+        case x:
+            shape->setLocalPose(PxTransform(transform.p, PxQuat::createIdentity()));
+            break;
+        case z:
+            shape->setLocalPose(PxTransform(transform.p, PxQuat(Math::Deg2Radian * 90, PxVec3(0,1,0))));
+            break;
+        case y:
+            shape->setLocalPose(PxTransform(transform.p, PxQuat(Math::Deg2Radian * 90, PxVec3(0, 0, 1))));
+            break;
+        default:
+            break;
+	}
+}
+
+PxShape* Physics::createCapsuleCollider(float radius, float halfHeight, RotateAxis orientation, glm::vec3 center, shared_ptr<Actor> actor)
+{
+    return createCapsuleCollider(radius,halfHeight,orientation,glmVec3ToPhysXVec3(center),actor);
+}
+
+PxShape* Physics::createCapsuleCollider(float radius, float halfHeight, RotateAxis orientation, PxVec3 center, shared_ptr<Actor> actor)
 {
 	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
-	//shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
-	//
-	//float radius = 0.5f;// PxVec3 boxSize(0.5f, 0.5f, 0.5f);
-	//if (meshFilter)
-	//	radius = getSphereSize(actor, meshFilter);
-
-	PxShape* shape = nullptr;
+	
+    PxShape* shape = nullptr;
 	if (rigidBody)
 	{
-		shape = rigidBody->physxRigidBody->createShape(PxCapsuleGeometry(0.5f,0.5f), *defaultPhysicsMaterial);
+		shape = rigidBody->physxRigidBody->createShape(PxCapsuleGeometry(radius,halfHeight), *defaultPhysicsMaterial);
 	}
 	else
 	{
@@ -248,12 +338,36 @@ PxShape* Physics::createCapsuleCollider(shared_ptr<Actor> actor)
 		shared_ptr<RigidStatic> rigidStatic = actor->GetComponent<RigidStatic>();
 		if (!rigidStatic)
 			rigidStatic = actor->AddComponent<RigidStatic>();
-
-		shape = rigidStatic->physxRigidStatic->createShape(PxCapsuleGeometry(0.5f, 0.5f), *defaultPhysicsMaterial);
+        
+		shape = rigidStatic->physxRigidStatic->createShape(PxCapsuleGeometry(radius,halfHeight), *defaultPhysicsMaterial);
 		shape->userData = (void*)actor.get();
 	}
-
+    
+    setCapsuleOrientation(shape,orientation);
+    
 	return shape;
+}
+
+
+PxShape* Physics::createCapsuleCollider(shared_ptr<Actor> actor)
+{
+	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
+
+    shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
+    
+	PxVec3 center(0,0,0);
+	float radius = 0.5f;// PxVec3 boxSize(0.5f, 0.5f, 0.5f);
+    float halfHeight = 0.5f;
+    RotateAxis orientation = RotateAxis::x;
+	
+    if (meshFilter)
+	{
+        getCapsuleGeometry(actor,meshFilter,radius,halfHeight,orientation);
+		radius = getSphereSize(actor, meshFilter);
+        
+		center = PxVec3(glmVec3ToPhysXVec3(meshFilter->mesh->avgCenter));
+	}
+    return  createCapsuleCollider(radius, halfHeight,orientation, center, actor);
 }
 
 PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)

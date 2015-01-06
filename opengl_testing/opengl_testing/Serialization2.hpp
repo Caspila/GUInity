@@ -20,48 +20,22 @@
 #include <boost/serialization/serialization.hpp>
 #include <boost/serialization/shared_ptr.hpp>
 #include <boost/serialization/weak_ptr.hpp>
+#include <boost/serialization/unique_ptr.hpp>
 #include <boost/serialization/shared_ptr_helper.hpp>
 #include <boost/serialization/shared_ptr_132.hpp>
+
 //#include <boost/serialization/
+#include "AssetDatabase.hpp"
 #include "Actor.hpp"
-#include "Component.hpp"
 #include "Transform.hpp"
 #include "Mesh.hpp"
-#include "MeshFilter.hpp"
-#include "MeshRenderer.hpp"
 #include "Shader.hpp"
 #include "Material.hpp"
-#include "AssetDatabase.hpp"
-#include "Factory.hpp"
-#include "RigidBody.hpp"
-#include "World.hpp"
 #include <memory>
 
 #include <iostream>
 
 
-struct TransformDescription
-{
-    glm::vec3 position, scale;
-    glm::quat rotationQuat;
-};
-
-struct ActorDescription
-{
-    string name;
-    bool isActive;
-    TransformDescription transform;
-};
-
-TransformDescription getTransformDescription(Transform& t)
-{
-    return TransformDescription(t.position,t.scale,t.rotationQuat);
-}
-
-TransformDescription getActorDescription(Actor& actor)
-{
-    return ActorDescription(actor.name,actor.isActive,getTransformDescription(actor.transform));
-}
 
 namespace boost {
     namespace serialization {
@@ -120,6 +94,14 @@ namespace boost {
             
         }
         
+        template<class Archive>
+        void serialize(Archive & ar, PxVec3 & v, const unsigned int version)
+        {
+            ar & v.x;
+            ar & v.y;
+            ar & v.z;
+            
+        }
         template<class Archive>
         void serialize(Archive & ar, glm::vec3 & v, const unsigned int version)
         {
@@ -181,24 +163,6 @@ namespace boost {
             boost::serialization::split_free(ar, shader, version);
         }
         
-        template<class Archive>
-        void save(Archive & ar, const AssetDatabase & assetDB, const unsigned int version)
-        {
-            ar & assetDB.currentID;
-            ar & assetDB.idToAsset;
-        }
-        template<class Archive>
-        void load(Archive & ar, AssetDatabase & assetDB, const unsigned int version)
-        {
-            ar & assetDB.currentID;
-            ar & assetDB.idToAsset;
-        }
-        
-        template <class Archive>
-        void serialize(Archive & ar, AssetDatabase & assetDB, const unsigned int version)
-        {
-            boost::serialization::split_free(ar, assetDB, version);
-        }
         
         template<class Archive>
         void save(Archive & ar, const Material & mat, const unsigned int version)
@@ -226,149 +190,16 @@ namespace boost {
             boost::serialization::split_free(ar, mat, version);
         }
 
-        
-        
-        
-        template<class Archive>
-        void serialize(Archive & ar, Component & c, const unsigned int version)
-        {
-            ar & c.actor;
-        }
-        
-        template<class Archive>
-        void load(Archive & ar, Actor & a, const unsigned int version)
-        {
-            ar & a.isActive;
-            
-            ar & a.editorFlag;
-            
-            ar & a.name;
-            
-            ar & a.transform;
-            
-        }
-        template<class Archive>
-        void save(Archive & ar, const Actor & a, const unsigned int version)
-        {
-            ar & a.isActive;
-            
-            ar & a.editorFlag;
-            
-            ar & a.name;
-            
-            ar & a.transform;
-            
-            //BOOST_SERIALIZATION_NVP(a.components);
-            
-            ar & a.components;
-            
-            ar & a.parent;
-            
-            ar & a.children;
-            
-        }
-        template<class Archive>
-        void serialize(Archive & ar, Actor & a, const unsigned int version)
-        {
-            boost::serialization::split_free(ar, a, version);
-            
-        }
-        
-        template<class Archive>
-        void serialize(Archive & ar, MeshFilter & mFilter, const unsigned int version)
-        {
-            boost::serialization::split_free(ar, mFilter, version);
-            
-        }
-        template<class Archive>
-        void save(Archive & ar, const MeshFilter & mFilter, const unsigned int version)
-        {
-            ar & boost::serialization::base_object<Component>(mFilter);
-            ar & mFilter.mesh->assetID;
-            
-        }
-        template<class Archive>
-        void load(Archive & ar, MeshFilter & mFilter, const unsigned int version)
-        {
-            ar & boost::serialization::base_object<Component>(mFilter);
-            
-            unsigned int assetID;
-            
-            ar & assetID;
-            
-            mFilter.setMesh(dynamic_pointer_cast<Mesh>(AssetDatabase::idToAsset[assetID]));
-        }
-        
-        template<class Archive>
-        void serialize(Archive & ar, MeshRenderer & mRenderer, const unsigned int version)
-        {
-            boost::serialization::split_free(ar, mRenderer, version);
-        }
-        template<class Archive>
-        void save(Archive & ar, const MeshRenderer & mRenderer, const unsigned int version)
-        {
-            ar & boost::serialization::base_object<Component>(mRenderer);
-            
-            ar & mRenderer.material;
-            
-            //std::shared_ptr<Material> myMat =mRenderer.material;
-            
-            //cout << myMat->assetID;
-            
-            //ar & mRenderer.material->assetID;
-            //ar & mFilter.mesh->assetID;
-            
-        }
-        template<class Archive>
-        void load(Archive & ar, MeshRenderer & mRenderer, const unsigned int version)
-        {
-            ar & boost::serialization::base_object<Component>(mRenderer);
-            
-            ar & mRenderer.material;
-            
-//            unsigned int materialID;
-//            
-//            ar & materialID;
-//            
-//            mRenderer.setMaterial(dynamic_pointer_cast<Material>(AssetDatabase::idToAsset[materialID]));
-        }
-        
-        
-        template<class Archive>
-        void serialize(Archive & ar, Transform & transform, const unsigned int version)
-        {
-            ar & transform.actor;
-            ar & transform.position;
-            ar & transform.rotationQuat;
-            ar & transform.scale;
-        }
-        
-        
-        template<class Archive>
-        void serialize(Archive & ar, RigidBody & rigidBody, const unsigned int version)
-        {
-            
-            ar & boost::serialization::base_object<Component>(rigidBody);
-            //boost::serialization::split_free(ar, rigidBody, version);
-        }
-        
-        template<class Archive>
-        void serialize(Archive & ar, World & world, const unsigned int version)
-        {
-            
-            ar & world.actors;
-            ar & world.newActors;
-            //boost::serialization::split_free(ar, rigidBody, version);
-        }
-        
         template<class Archive>
         void serialize(Archive & ar, ActorDescription & actorDescription, const unsigned int version)
         {
             ar & actorDescription.name;
             
+            ar & actorDescription.editorFlag;
+            
             ar & actorDescription.isActive;
             
-            ar & actorDescription.transformDescription;
+            ar & actorDescription.transform;
         }
 
         template<class Archive>
@@ -383,8 +214,82 @@ namespace boost {
             //boost::serialization::split_free(ar, rigidBody, version);
         }
         
+        template<class Archive>
+        void serialize(Archive & ar, ComponentDescription & componentDescription, const unsigned int version)
+        {
+            ar & componentDescription.type;
+        }
         
-//        template<class Archive>
+        template<class Archive>
+        void serialize(Archive & ar, MeshFilterDescription & meshFilterDesc, const unsigned int version)
+        {
+            
+            ar & boost::serialization::base_object<ComponentDescription>(meshFilterDesc);
+            ar & meshFilterDesc.meshID;
+        }
+
+        
+        template<class Archive>
+        void serialize(Archive & ar, MeshRendererDescription & meshRendererDesc, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<ComponentDescription>(meshRendererDesc);
+            ar & meshRendererDesc.materialID;
+        }
+        template<class Archive>
+        void serialize(Archive & ar, CameraDescription & cameraDesc, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<ComponentDescription>(cameraDesc);
+            ar & cameraDesc.nearClipPlane;
+            ar & cameraDesc.farClipPlane;
+             ar & cameraDesc.ratio;
+             ar & cameraDesc.fov;
+        }
+        template<class Archive>
+        void serialize(Archive & ar, LightDescription & lightDesc, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<ComponentDescription>(lightDesc);
+            ar & lightDesc.color;
+
+        }
+        template<class Archive>
+        void serialize(Archive & ar, RigidBodyDescription & rigidBodyDesc, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<ComponentDescription>(rigidBodyDesc);
+            ar & rigidBodyDesc.isKinematic;
+           
+        }
+        template<class Archive>
+        void serialize(Archive & ar, RigidStaticDescription & rigidStaticDesc, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<ComponentDescription>(rigidStaticDesc);
+        }
+        
+        template<class Archive>
+        void serialize(Archive & ar, ColliderDescription & col, const unsigned int version)
+        {
+            ar & col.center;
+        }
+        template<class Archive>
+        void serialize(Archive & ar, BoxColliderDescription & boxColDesc, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<ComponentDescription>(boxColDesc);
+            ar & boxColDesc.halfExtent;
+        }
+        template<class Archive>
+        void serialize(Archive & ar, SphereColliderDescription & sphereColDesc, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<ComponentDescription>(sphereColDesc);
+            ar & sphereColDesc.radius;
+        }
+        template<class Archive>
+        void serialize(Archive & ar, CapsuleColliderDescription & capsuleColDesc, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<ComponentDescription>(capsuleColDesc);
+            ar & capsuleColDesc.halfHeight;
+            ar & capsuleColDesc.radius;
+        }
+        
+   //        template<class Archive>
 //        void save(Archive & ar, const RigidBody & rigidBody, const unsigned int version)
 //        {
 //            ar & boost::serialization::base_object<Component>(rigidBody);
