@@ -141,15 +141,15 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
 
 	cameraComponent->computeModelViewMatrix();
 
-	GraphicsSystem::getInstance().clear();
+	GraphicsSystem::getInstance()->clear();
 
 	//GraphicsSystem::getInstance().render(cameraComponent, world->meshRenderers, world->lights);
 
-	GraphicsSystem::getInstance().render(cameraComponent, gameWorld->meshRenderers, gameWorld->lights);
+	GraphicsSystem::getInstance()->render(cameraComponent, gameWorld->meshRenderers, gameWorld->lights);
 
-	GraphicsSystem::getInstance().render(cameraComponent, world->physicsScene->getRenderBuffer(), glm::vec3(1, 1, 1));
+	GraphicsSystem::getInstance()->render(cameraComponent, world->physicsScene->getRenderBuffer(), glm::vec3(1, 1, 1));
 
-	GraphicsSystem::getInstance().swap();
+	GraphicsSystem::getInstance()->swap();
 
 	//cameraActor->tick(deltaSeconds);
 }

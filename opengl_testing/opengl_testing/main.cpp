@@ -70,9 +70,6 @@ using namespace fbxsdk_2015_1;
 
 enum EngineMode {editor, game};
 
-
-
-
 BOOST_CLASS_EXPORT_GUID(Asset, "Asset")
 BOOST_CLASS_EXPORT_GUID(Mesh, "Mesh")
 BOOST_CLASS_EXPORT_GUID(Material, "Material")
@@ -94,15 +91,33 @@ BOOST_CLASS_EXPORT_GUID(SphereColliderDescription, "SphereColliderDescription")
 BOOST_CLASS_EXPORT_GUID(CapsuleColliderDescription, "CapsuleColliderDescription")
 
 
-int main() {
+//#include "mainwindow.h"
+#include <QApplication>
+#include <qsurfaceformat.h>
 
-    
-    
-	int notOK = GraphicsSystem::getInstance().init();
+int main(int argc, char *argv[]) {
+
+
+//    QApplication a(argc, argv);
+//    MainWindow w;
+//    w.show();
+//
+//    return a.exec();
+//
+//    cout << "oaskdoaksdoaksdoask" << endl;
+//    
+
+    QGuiApplication app(argc, argv);
+
+
+	int notOK = GraphicsSystem::getInstance()->init();
 	if (notOK)
 		return 1;
 
-	Input input(GraphicsSystem::getInstance().window);
+//    app.exec();
+    //return app.exec();
+
+	Input input(GraphicsSystem::getInstance()->window);
 
 
 	FMOD_RESULT result;
@@ -142,12 +157,10 @@ int main() {
 
     AssetDatabase::init();
 
-    
 	shared_ptr<Mesh> fbxMesh = AssetDatabase::createMeshFromFBX("box.fbx");
 	fbxMesh->setScaleFactor(0.1f);
     
     shared_ptr<Asset> objMesh = AssetDatabase::createMeshFromOBJ("sphere.obj");
-
     
     // create and open a character archive for output
     std::ofstream ofs(CommonData("filename"));
@@ -352,7 +365,7 @@ int main() {
 	//world->awake();
 
 	//int cont = 0;
-	while (!glfwWindowShouldClose(GraphicsSystem::getInstance().window.get())) {
+	while (!glfwWindowShouldClose(GraphicsSystem::getInstance()->window.get())) {
 		Time::frameStart();
 
 		Input::updateInputState();
@@ -388,9 +401,8 @@ int main() {
 
 
 	// close GL context and any other GLFW resources
-	GraphicsSystem::getInstance().shutdown();
+	GraphicsSystem::getInstance()->shutdown();
 
 
 	return 0;
 }	
- 

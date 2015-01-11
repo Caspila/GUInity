@@ -51,15 +51,15 @@ void Game::update(float deltaSeconds)
 	Physics::tickScene(world->physicsScene);
 	Physics::updateActorsTransform(world->physicsScene);
 
-	GraphicsSystem::getInstance().clear();
+	GraphicsSystem::getInstance()->clear();
 
-	GraphicsSystem::getInstance().render(world->cameras[0],world->meshRenderers,world->lights);
+	GraphicsSystem::getInstance()->render(world->cameras[0],world->meshRenderers,world->lights);
 	//GraphicsSystem::getInstance().render(world->cameras[0], );
-	GraphicsSystem::getInstance().render(world->cameras[0], world->physicsScene->getRenderBuffer(), glm::vec3(1, 1, 1));
+	GraphicsSystem::getInstance()->render(world->cameras[0], world->physicsScene->getRenderBuffer(), glm::vec3(1, 1, 1));
 
 //	GraphicsSystem::getInstance().render(camera, world.lights);
 	
-	GraphicsSystem::getInstance().swap();
+	GraphicsSystem::getInstance()->swap();
 }
 
 //void Game::onNotify(EventType type, shared_ptr<Component> component, bool isEditor)

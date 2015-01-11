@@ -20,7 +20,8 @@
 // linux
 #elif __APPLE__
 
-#define DATA_PATH "../../../../../../data/"
+//#define DATA_PATH "../../../../../../data/"
+#define DATA_PATH "/Users/guilherme_cunha/Dev/GITHUB/GUInity/data/"
 // Mac OS, not sure if this is covered by __posix__ and/or __unix__ though...
 #endif
 #endif

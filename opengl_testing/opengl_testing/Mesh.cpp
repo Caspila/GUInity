@@ -1,6 +1,7 @@
 #include "Mesh.hpp"
 #include <math.h>
 #include <glm/geometric.hpp>
+#include "GraphicsSystem.hpp"
 
 
 // Code from http://www.opengl-tutorial.org/beginners-tutorials/tutorial-7-model-loading/
@@ -75,13 +76,16 @@ void Mesh::setScaleFactor(float f)
 
 	if (mvbo != 0)
 	{
-		glDeleteBuffers(1, &mvbo);
+        GraphicsSystem::getInstance()->deleteBuffer(1,mvbo);
+        //glDeleteBuffers(1, &mvbo);
 		mvbo = 0;
 	}
 
-	glGenBuffers(1, &mvbo);
-	glBindBuffer(GL_ARRAY_BUFFER, mvbo);
-	glBufferData(GL_ARRAY_BUFFER, meshVertices.size() * sizeof(MeshVertex), &meshVertices[0], GL_STATIC_DRAW);
+    GraphicsSystem::getInstance()->generateBuffer(1,mvbo,GL_ARRAY_BUFFER,meshVertices.size() * sizeof(MeshVertex),&meshVertices[0],GL_STATIC_DRAW);
+
+//	glGenBuffers(1, &mvbo);
+//	glBindBuffer(GL_ARRAY_BUFFER, mvbo);
+//	glBufferData(GL_ARRAY_BUFFER, meshVertices.size() * sizeof(MeshVertex), &meshVertices[0], GL_STATIC_DRAW);
 
 	boundsMin *= f;
 	boundsMax *= f;
@@ -94,18 +98,21 @@ void Mesh::createBuffers3()
 	//nPoints = meshVertices.size();
 
 	vao = 0;
-	glGenVertexArrays(1, &vao);
-	glBindVertexArray(vao);
+    GraphicsSystem::getInstance()->generateVertexArrays(1,vao);
+//    glGenVertexArrays(1, &vao);
+//	glBindVertexArray(vao);
 
 	mvbo = 0;
-	glGenBuffers(1, &mvbo);
-	glBindBuffer(GL_ARRAY_BUFFER, mvbo);
-	glBufferData(GL_ARRAY_BUFFER, meshVertices.size() * sizeof(MeshVertex), &meshVertices[0], GL_STATIC_DRAW);
+    GraphicsSystem::getInstance()->generateBuffer(1,mvbo,GL_ARRAY_BUFFER,meshVertices.size() * sizeof(MeshVertex),&meshVertices[0],GL_STATIC_DRAW);
+//	glGenBuffers(1, &mvbo);
+//  glBindBuffer(GL_ARRAY_BUFFER, mvbo);
+//	glBufferData(GL_ARRAY_BUFFER, meshVertices.size() * sizeof(MeshVertex), &meshVertices[0], GL_STATIC_DRAW);
 
 	ibo = 0;
-	glGenBuffers(1, &ibo);
-	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles.size() * sizeof(unsigned short), &triangles[0], GL_STATIC_DRAW);
+    GraphicsSystem::getInstance()->generateBuffer(1,ibo,GL_ELEMENT_ARRAY_BUFFER,triangles.size() * sizeof(unsigned short),&triangles[0],GL_STATIC_DRAW);
+//	glGenBuffers(1, &ibo);
+//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
+//	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles.size() * sizeof(unsigned short), &triangles[0], GL_STATIC_DRAW);
 
 	calculateBounds3();
 }

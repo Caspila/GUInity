@@ -20,13 +20,13 @@ void RotateHandle::setAxis(RotateAxis axis)
 
 	switch (axis)
 	{
-	case x:
+        case RotateAxis::x:
 		rotationAxis = glm::vec3(1, 0, 0);
 		break;
-	case y:
+        case RotateAxis::y:
 		rotationAxis = glm::vec3(0, 1, 0);
 		break;
-	case z:
+        case RotateAxis::z:
 		rotationAxis = glm::vec3(0, 0, 1);
 		break;
 	default:

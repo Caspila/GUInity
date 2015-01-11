@@ -131,12 +131,28 @@ shared_ptr<Actor> World::getSharedPtrActor(Actor* actor)
 
 void World::awake()
 {
-	isAwake = false;
-	for (auto& a : actors)
-	{
-		a->awake();
-	}
-	isAwake = true;
+//	isAwake = false;
+//	for (auto& a : actors)
+//	{
+//		a->awake();
+//	}
+//	isAwake = true;
+
+    awake(0,actors.size());
+    
+}
+
+void World::awake(unsigned long start, unsigned long end)
+{
+    if(start == end)
+        return;
+    
+    for(unsigned long i = start; i < end; i++)
+    {
+        actors[i]->awake();
+    }
+
+    awake(end,actors.size());
 }
 
 void World::tick(float deltaTime)
@@ -215,18 +231,36 @@ void World::onNotify(ComponentEventType type, shared_ptr<Component> component, b
 
 void World::onNotify(ActorEventType type, shared_ptr<Actor> actor, bool isEditor)
 {
-	if (this->isEditor != isEditor)
-		return;
-
-	switch (type)
+    if (this->isEditor != isEditor)
+        return;
+	
+    switch (type)
 	{
-	case NewActor:
-		if (isAwake)
-			addActor(actor);
-		else
-			addActorDelayed(actor);
-		break;
-	default:
-		break;
+        case NewActor:
+            if(isAwake)
+                addActorDelayed(actor);
+            else
+                addActor(actor);
+            break;
+        default:
+            break;
 	}
+    
+    
+
+    
+//	if (this->isEditor != isEditor)
+//		return;
+//
+//	switch (type)
+//	{
+//	case NewActor:
+//		if (isAwake)
+//			addActor(actor);
+//		else
+//			addActorDelayed(actor);
+//		break;
+//	default:
+//		break;
+//	}
 }

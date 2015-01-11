@@ -29,6 +29,7 @@ public:
 	void addLight(shared_ptr<Light> light);
 	
 	std::vector<shared_ptr<Actor>> actors;
+    
 	void addActor(shared_ptr<Actor> actor);
 	void addActorDelayed(shared_ptr<Actor> actor);
 	void removeActor(shared_ptr<Actor> actor);
@@ -42,6 +43,7 @@ public:
 	bool isAwake;
 
 	void awake();
+    void awake(unsigned long start, unsigned long end);
 	void tick(float deltaTime);
 	void shutdown();
 

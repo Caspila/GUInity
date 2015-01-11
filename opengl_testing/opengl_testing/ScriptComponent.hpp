@@ -2,6 +2,8 @@
 #include "Module.hpp"
 //#include "Script.hpp"
 #include "Component.hpp"
+#include "ReflectionTest.h"
+
 class Actor;
 //class Script;
 
@@ -31,6 +33,10 @@ public:
 	virtual void onCollision(Actor* actor) {};
 	virtual void onTrigger(Actor* actor) {};
 
+    
+    int x;
+    
+    
 private:
 	//ScriptComponent();
 };

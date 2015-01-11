@@ -10,6 +10,7 @@
 //#include "Light.h"
 #include "Ray.hpp"
 #include "World.hpp"
+//#include "GLFWGraphicsSystem.hpp"
 
 class Camera;
 class Actor;
@@ -17,6 +18,7 @@ class Light;
 class Shader;
 class Material;
 class MeshRenderer;
+class GLFWGraphicsSystem;
 
 using namespace physx;
 
@@ -27,14 +29,23 @@ class GraphicsSystem
 {
 
 public:
-	static GraphicsSystem& getInstance()
-	{
-		static GraphicsSystem instance; // Guaranteed to be destroyed.
-		// Instantiated on first use.
-		return instance;
-	}
+//	static GraphicsSystem& getInstance()
+//	{
+//		static GraphicsSystem instance; // Guaranteed to be destroyed.
+//		// Instantiated on first use.
+//		return instance;
+//	}
 
-private:
+    static GraphicsSystem* getInstance();
+//    {
+//        static GraphicsSystem* instance; // Guaranteed to be destroyed.
+//        if(instance == nullptr)
+//            instance = new GLFWGraphicsSystem();
+//        // Instantiated on first use.
+//        return instance;
+//    }
+
+public:
 	GraphicsSystem() {};                   // Constructor? (the {} brackets) are needed here.
 	// Dont forget to declare these two. You want to make sure they
 	// are unaccessable otherwise you may accidently get copies of
@@ -43,24 +54,39 @@ private:
 	void operator=(GraphicsSystem const&); // Don't implement
 public:
 	//GraphicsSystem();
-	~GraphicsSystem();
+	virtual ~GraphicsSystem();
 
-	int init();
-	void shutdown();
+    virtual int init() = 0;
+    virtual void shutdown() = 0;
+    virtual void swap() = 0;
+    virtual void clear() = 0;
 
 	shared_ptr<GLFWwindow> window;
 
-	void render(shared_ptr<Camera> camera, vector < shared_ptr<Actor>> actors, vector < shared_ptr<Light>> lights);
-	void render(shared_ptr<Camera> camera, const  physx::PxRenderBuffer& rb, const glm::vec3& color);
-	void render(shared_ptr<Camera> camera, const Ray& r, const glm::vec3& color);
-	//void render(shared_ptr<Camera> camera, vector < shared_ptr<Light>> lights);
-	void render(shared_ptr<Camera> camera, vector < shared_ptr<MeshRenderer>>& renderers, vector<shared_ptr<Light>>& lights);
+    virtual GLint uniform(const GLuint shaderProgram, const GLchar* uniformName) = 0;
 
-	void clear();	
-	void swap();
+    virtual void createDebugShader()= 0;
 
+    //virtual void render(shared_ptr<Camera> camera, vector < shared_ptr<Actor>> actors, vector < shared_ptr<Light>> lights)=0;
+    virtual void render(shared_ptr<Camera> camera, const  physx::PxRenderBuffer& rb, const glm::vec3& color)=0;
+    virtual void render(shared_ptr<Camera> camera, vector < shared_ptr<MeshRenderer>>& renderers, vector<shared_ptr<Light>>& lights)=0;
 
-	void createDebugShader();
+    virtual GLuint generateVertexArrays(const GLuint size, GLuint& vao) = 0;
+
+    virtual GLuint generateBuffer(const GLuint size, GLuint& bo, GLenum type, int dataSize, void *dataPointer, GLenum drawType) =0;
+    //GraphicsSystem::getInstance()->generateBuffer(1,mvbo,GL_ARRAY_BUFFER,meshVertices.size() * sizeof(MeshVertex),&meshVertices[0],GL_STATIC_DRAW);
+
+    virtual GLuint createShader(GLenum shaderType) = 0;
+    virtual void compileShader(GLuint shaderID, GLuint size,const char* dataPointer) = 0;// VertexShaderID,1,&VertexSourcePointer,NULL);
+
+    virtual GLuint createShaderProgram() = 0;
+    virtual void attachAndLinkShader(GLuint ProgramID,GLuint VertexShaderID,GLuint FragmentShaderID) = 0;
+    virtual void deleteShader(GLuint shaderID) = 0;
+
+    virtual void deleteBuffer(GLuint size,GLuint &bo) = 0;
+
+    virtual GLint getUniformLocation(GLuint programID,const char* name) = 0;
+
 	shared_ptr<Shader> debugShader;
 	shared_ptr<Material> debugMaterial;
     
