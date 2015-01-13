@@ -12,6 +12,7 @@ using namespace physx;
 
 class Camera;
 class Actor;
+class UIWidget;
 
 class Editor : public enable_shared_from_this<Editor>
 {
@@ -44,5 +45,6 @@ public:
 	static shared_ptr<Actor> moveHandles;
 
 	static shared_ptr<Actor> rotateHandles;
+    static shared_ptr<UIWidget> uiWidgetTest;
 };
 

@@ -1,0 +1,13 @@
+#version 400
+uniform vec4 diffuseColor ;
+
+
+uniform sampler2D myTextureSampler ;
+
+in vec2 UV;
+
+out vec4 color ;
+void main(){
+    //color = diffuseColor;
+    color = texture( myTextureSampler, UV ).rgba * diffuseColor;
+}

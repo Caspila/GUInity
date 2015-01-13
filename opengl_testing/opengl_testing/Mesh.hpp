@@ -13,6 +13,8 @@
 #include <boost/serialization/serialization.hpp>
 #include <boost/serialization/export.hpp>
 
+class QOpenGLVertexArrayObject;
+
 struct MeshVertex
 {
 	glm::vec3 position;
@@ -34,7 +36,9 @@ class Mesh : public Asset
 public:
 	Mesh();
 	Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangles, int nPoints, int nTriangles);
-	
+	Mesh(vector<MeshVertex> vertex, vector<unsigned short> triangles);
+    
+    
     virtual ~Mesh();
     
 	vector<unsigned short> triangles;
@@ -61,6 +65,7 @@ public:
 	
 	glm::vec3 boundsMin, boundsMax, avgCenter;
 
+    QOpenGLVertexArrayObject* QTvao;
     
 };
 

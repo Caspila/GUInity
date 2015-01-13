@@ -12,6 +12,8 @@
 #include <qopenglvertexarrayobject.h>
 #include <qopenglbuffer.h>
 #include <QOpenGLShader>
+#include <QThread>
+#include <qwidget.h>
 
 QTGraphicsSystem::QTGraphicsSystem()
 {
@@ -23,9 +25,14 @@ QTGraphicsSystem::~QTGraphicsSystem()
 
 }
 
+void QTGraphicsSystem::setGraphicsParent(QWindow *parent)
+{
+   setParent(parent);
+}
 
 int QTGraphicsSystem::init()
 {
+
     setSurfaceType(OpenGLSurface);
 
     QSurfaceFormat fmt;
@@ -33,8 +40,10 @@ int QTGraphicsSystem::init()
     fmt.setMinorVersion(2);
     fmt.setProfile(QSurfaceFormat::CoreProfile); //whatever this is
 
+    this->setBaseSize(QSize(640,480));
     this->setFormat(fmt);
     create();
+
 
     m_context = new QOpenGLContext(0);
     m_context->setFormat(fmt);
@@ -65,6 +74,10 @@ int QTGraphicsSystem::init()
 
 
 
+    show();
+
+
+
     return 0;
 
 }
@@ -76,6 +89,7 @@ int QTGraphicsSystem::init()
  void QTGraphicsSystem::swap()
 {
      m_context->swapBuffers(this);
+     //m_context->functions()->glswa
 }
 
 void QTGraphicsSystem::createDebugShader()
@@ -149,7 +163,9 @@ void QTGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<Mes
             glUniform3fv(meshRenderer->material->shader->paramID["lightIntensity"], 1, &light->color[0]);
         }
 
-        glBindVertexArray(meshFilter->mesh->vao);
+        //glBindVertexArray(meshFilter->mesh->vao);
+        meshFilter->mesh->QTvao->bind();
+
 
         glEnableVertexAttribArray(0);
         glBindBuffer(GL_ARRAY_BUFFER, meshFilter->mesh->mvbo);
@@ -178,56 +194,56 @@ void QTGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<Mes
 
 void QTGraphicsSystem::render(shared_ptr<Camera> camera,const physx::PxRenderBuffer& rb,const glm::vec3& color)
 {
-    float *points = new float[rb.getNbLines() * 6];
+//    float *points = new float[rb.getNbLines() * 6];
 
-    for (PxU32 i = 0; i < rb.getNbLines(); i++)
-    {
+//    for (PxU32 i = 0; i < rb.getNbLines(); i++)
+//    {
 
-        const PxDebugLine& line = rb.getLines()[i];
-        // render the line
+//        const PxDebugLine& line = rb.getLines()[i];
+//        // render the line
 
-        points[i * 6] = line.pos0.x;
-        points[i * 6+1] = line.pos0.y;
-        points[i * 6+2] = line.pos0.z;
-        points[i * 6+3] = line.pos1.x;
-        points[i * 6+4] = line.pos1.y;
-        points[i * 6+5] = line.pos1.z;
-
-
-    }
-
-    GLuint vbo = 0;
-    glGenBuffers(1, &vbo);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glBufferData(GL_ARRAY_BUFFER, 6 * rb.getNbLines() * sizeof(float), points, GL_STATIC_DRAW);
-
-    GLuint vao = 0;
-    glGenVertexArrays(1, &vao);
-    glBindVertexArray(vao);
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
+//        points[i * 6] = line.pos0.x;
+//        points[i * 6+1] = line.pos0.y;
+//        points[i * 6+2] = line.pos0.z;
+//        points[i * 6+3] = line.pos1.x;
+//        points[i * 6+4] = line.pos1.y;
+//        points[i * 6+5] = line.pos1.z;
 
 
-    glLinkProgram(debugMaterial->getShaderProgram());
-    glUseProgram(debugMaterial->getShaderProgram());
+//    }
 
-    glBindVertexArray(vao);
+//    GLuint vbo = 0;
+//    glGenBuffers(1, &vbo);
+//    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+//    glBufferData(GL_ARRAY_BUFFER, 6 * rb.getNbLines() * sizeof(float), points, GL_STATIC_DRAW);
 
-    glUniform3fv(debugMaterial->shader->paramID["difuse"], 1, &color[0]);
+//    GLuint vao = 0;
+//    glGenVertexArrays(1, &vao);
+//    glBindVertexArray(vao);
+//    glEnableVertexAttribArray(0);
+//    glBindBuffer(GL_ARRAY_BUFFER, vbo);
+//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
 
-    glm::mat4 transformMatrix = camera->MVPMatrix;// *actor->transform->getModelMatrix();
 
-    glUniformMatrix4fv(debugMaterial->shader->paramID["MVP"], 1, GL_FALSE, &transformMatrix[0][0]);
+//    glLinkProgram(debugMaterial->getShaderProgram());
+//    glUseProgram(debugMaterial->getShaderProgram());
 
-    glDrawArrays(GL_LINES, 0, 2 * rb.getNbLines());
+//    glBindVertexArray(vao);
 
-    glBindVertexArray(0); // Unbind our Vertex Array Object
+//    glUniform3fv(debugMaterial->shader->paramID["difuse"], 1, &color[0]);
 
-    glDeleteBuffers(1, &vbo);
-    glDeleteVertexArrays(1, &vao);
+//    glm::mat4 transformMatrix = camera->MVPMatrix;// *actor->transform->getModelMatrix();
 
-    delete []points;
+//    glUniformMatrix4fv(debugMaterial->shader->paramID["MVP"], 1, GL_FALSE, &transformMatrix[0][0]);
+
+//    glDrawArrays(GL_LINES, 0, 2 * rb.getNbLines());
+
+//    glBindVertexArray(0); // Unbind our Vertex Array Object
+
+//    glDeleteBuffers(1, &vbo);
+//    glDeleteVertexArrays(1, &vao);
+
+//    delete []points;
 }
 
 
@@ -278,7 +294,7 @@ GLint QTGraphicsSystem::getUniformLocation(GLuint programID,const char* name)
 
 //}
 
-GLuint QTGraphicsSystem::generateVertexArrays(const GLuint id, GLuint& vao)
+QOpenGLVertexArrayObject* QTGraphicsSystem::generateVertexArrays(const GLuint id, GLuint& vao)
 {
     //QOpenGLVertexArrayObject
       // glGenVertexArrays(id, &vao);
@@ -290,6 +306,7 @@ GLuint QTGraphicsSystem::generateVertexArrays(const GLuint id, GLuint& vao)
     m_vao1->bind();
     vao = m_vao1->objectId();
 
+    return m_vao1;
 //    m_context->functions()->glGenVertexArrays(id, &vao);
 //    m_context->functions()->glBindVertexArray(vao);
 

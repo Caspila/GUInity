@@ -53,6 +53,13 @@
 		464D8B031A4A5598007B0CDD /* libSimulationController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF71A4A5598007B0CDD /* libSimulationController.a */; };
 		464D8B0B1A4A56B9007B0CDD /* libGLEW.1.11.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 464D8B091A4A56B9007B0CDD /* libGLEW.1.11.0.dylib */; };
 		464D8B0C1A4A56B9007B0CDD /* libGLEWmx.1.11.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 464D8B0A1A4A56B9007B0CDD /* libGLEWmx.1.11.0.dylib */; };
+		466138DB1A648D3F00AB9D02 /* UIWidget.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466138D91A648D3F00AB9D02 /* UIWidget.cpp */; };
+		466138DE1A64A49E00AB9D02 /* UIContainer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466138DC1A64A49E00AB9D02 /* UIContainer.cpp */; };
+		466138E11A64A58900AB9D02 /* UIButton.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466138DF1A64A58900AB9D02 /* UIButton.cpp */; };
+		466138E41A64AC7700AB9D02 /* UILayout.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466138E21A64AC7700AB9D02 /* UILayout.cpp */; };
+		466138E91A64CF9000AB9D02 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 466138E51A64CF4D00AB9D02 /* libpng16.a */; };
+		466138EB1A64CFA800AB9D02 /* libpng16.16.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 466138EA1A64CFA800AB9D02 /* libpng16.16.dylib */; };
+		466138EE1A64D43D00AB9D02 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466138EC1A64D43D00AB9D02 /* Texture.cpp */; };
 		468B50BA1A61E0E900CD58A5 /* Asset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468B50B21A61E0E900CD58A5 /* Asset.cpp */; };
 		468B50BB1A61E0E900CD58A5 /* ReflectionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468B50B51A61E0E900CD58A5 /* ReflectionTest.cpp */; };
 		468B50BC1A61E0E900CD58A5 /* Serialization2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468B50B71A61E0E900CD58A5 /* Serialization2.cpp */; };
@@ -99,6 +106,7 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				466138EB1A64CFA800AB9D02 /* libpng16.16.dylib in CopyFiles */,
 				468B50C51A61E5E300CD58A5 /* libfmod.dylib in CopyFiles */,
 				468B50BF1A61E54B00CD58A5 /* libfbxsdk.dylib in CopyFiles */,
 				46FFC2351A52886500FCFAC4 /* libboost_serialization.dylib in CopyFiles */,
@@ -244,6 +252,19 @@
 		464D8B111A4A5A66007B0CDD /* vs.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = vs.vs; path = ../data/vs.vs; sourceTree = "<group>"; };
 		464D8B121A4A5A66007B0CDD /* vsLight.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = vsLight.vs; path = ../data/vsLight.vs; sourceTree = "<group>"; };
 		464D8B131A4A5A66007B0CDD /* vsNoMVP.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = vsNoMVP.vs; path = ../data/vsNoMVP.vs; sourceTree = "<group>"; };
+		466138D91A648D3F00AB9D02 /* UIWidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UIWidget.cpp; path = ../opengl_testing/opengl_testing/UIWidget.cpp; sourceTree = "<group>"; };
+		466138DA1A648D3F00AB9D02 /* UIWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIWidget.h; path = ../opengl_testing/opengl_testing/UIWidget.h; sourceTree = "<group>"; };
+		466138DC1A64A49E00AB9D02 /* UIContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UIContainer.cpp; path = ../opengl_testing/opengl_testing/UIContainer.cpp; sourceTree = "<group>"; };
+		466138DD1A64A49E00AB9D02 /* UIContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIContainer.h; path = ../opengl_testing/opengl_testing/UIContainer.h; sourceTree = "<group>"; };
+		466138DF1A64A58900AB9D02 /* UIButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UIButton.cpp; path = ../opengl_testing/opengl_testing/UIButton.cpp; sourceTree = "<group>"; };
+		466138E01A64A58900AB9D02 /* UIButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIButton.h; path = ../opengl_testing/opengl_testing/UIButton.h; sourceTree = "<group>"; };
+		466138E21A64AC7700AB9D02 /* UILayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UILayout.cpp; path = ../opengl_testing/opengl_testing/UILayout.cpp; sourceTree = "<group>"; };
+		466138E31A64AC7700AB9D02 /* UILayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UILayout.h; path = ../opengl_testing/opengl_testing/UILayout.h; sourceTree = "<group>"; };
+		466138E51A64CF4D00AB9D02 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = "../../../libpng-1.6.16/build/lib/libpng16.a"; sourceTree = "<group>"; };
+		466138E71A64CF6100AB9D02 /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = "../../../libpng-1.6.16/build/lib/libpng16.16.dylib"; sourceTree = "<group>"; };
+		466138EA1A64CFA800AB9D02 /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = "../../../libpng-1.6.16/build/lib/libpng16.16.dylib"; sourceTree = "<group>"; };
+		466138EC1A64D43D00AB9D02 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Texture.cpp; path = ../opengl_testing/opengl_testing/Texture.cpp; sourceTree = "<group>"; };
+		466138ED1A64D43D00AB9D02 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Texture.h; path = ../opengl_testing/opengl_testing/Texture.h; sourceTree = "<group>"; };
 		468B50B21A61E0E900CD58A5 /* Asset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Asset.cpp; path = ../opengl_testing/opengl_testing/Asset.cpp; sourceTree = "<group>"; };
 		468B50B51A61E0E900CD58A5 /* ReflectionTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReflectionTest.cpp; path = ../opengl_testing/opengl_testing/ReflectionTest.cpp; sourceTree = "<group>"; };
 		468B50B61A61E0E900CD58A5 /* ReflectionTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionTest.h; path = ../opengl_testing/opengl_testing/ReflectionTest.h; sourceTree = "<group>"; };
@@ -326,6 +347,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				466138E91A64CF9000AB9D02 /* libpng16.a in Frameworks */,
 				468B50C31A61E5CC00CD58A5 /* libfmod.dylib in Frameworks */,
 				468B50C11A61E56700CD58A5 /* libfbxsdk.a in Frameworks */,
 				46FFC2311A52880100FCFAC4 /* libboost_serialization.a in Frameworks */,
@@ -478,6 +500,16 @@
 				46FFC2421A52AB9D00FCFAC4 /* AssetDatabase.cpp */,
 				464D88AA1A4A48AA007B0CDD /* Factory.cpp */,
 				468B50C91A61FD2600CD58A5 /* GLFWGraphicsSystem.cpp */,
+				466138D91A648D3F00AB9D02 /* UIWidget.cpp */,
+				466138DA1A648D3F00AB9D02 /* UIWidget.h */,
+				466138DC1A64A49E00AB9D02 /* UIContainer.cpp */,
+				466138E21A64AC7700AB9D02 /* UILayout.cpp */,
+				466138E31A64AC7700AB9D02 /* UILayout.h */,
+				466138DD1A64A49E00AB9D02 /* UIContainer.h */,
+				466138DF1A64A58900AB9D02 /* UIButton.cpp */,
+				466138E01A64A58900AB9D02 /* UIButton.h */,
+				466138EC1A64D43D00AB9D02 /* Texture.cpp */,
+				466138ED1A64D43D00AB9D02 /* Texture.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -578,6 +610,9 @@
 		4694EE2E1A4A3A16001E8C48 = {
 			isa = PBXGroup;
 			children = (
+				466138EA1A64CFA800AB9D02 /* libpng16.16.dylib */,
+				466138E71A64CF6100AB9D02 /* libpng16.16.dylib */,
+				466138E51A64CF4D00AB9D02 /* libpng16.a */,
 				468B50C41A61E5E300CD58A5 /* libfmod.dylib */,
 				468B50C21A61E5CC00CD58A5 /* libfmod.dylib */,
 				468B50C01A61E56700CD58A5 /* libfbxsdk.a */,
@@ -662,6 +697,7 @@
 				464D88F81A4A48AA007B0CDD /* Time.cpp in Sources */,
 				46FFC21E1A5237A200FCFAC4 /* Observer.cpp in Sources */,
 				464D88F71A4A48AA007B0CDD /* StaticCounter.cpp in Sources */,
+				466138E11A64A58900AB9D02 /* UIButton.cpp in Sources */,
 				464D88E41A4A48AA007B0CDD /* Factory.cpp in Sources */,
 				464D88E61A4A48AA007B0CDD /* Holder.cpp in Sources */,
 				46FFC21C1A5237A200FCFAC4 /* MoveHandle.cpp in Sources */,
@@ -682,6 +718,7 @@
 				464D88E81A4A48AA007B0CDD /* Light.cpp in Sources */,
 				46FFC2171A5237A200FCFAC4 /* IncreaseColliderScript.cpp in Sources */,
 				468B50BA1A61E0E900CD58A5 /* Asset.cpp in Sources */,
+				466138DB1A648D3F00AB9D02 /* UIWidget.cpp in Sources */,
 				46FFC21A1A5237A200FCFAC4 /* MeshImporter.cpp in Sources */,
 				464D88EF1A4A48AA007B0CDD /* PhysicsMaterial.cpp in Sources */,
 				46FFC21F1A5237A200FCFAC4 /* PhysXAllocatorCallback.cpp in Sources */,
@@ -702,9 +739,11 @@
 				46FFC20F1A5237A200FCFAC4 /* BoxCollider.cpp in Sources */,
 				468B50BB1A61E0E900CD58A5 /* ReflectionTest.cpp in Sources */,
 				464D88EC1A4A48AA007B0CDD /* Mesh.cpp in Sources */,
+				466138EE1A64D43D00AB9D02 /* Texture.cpp in Sources */,
 				46FFC2261A5237A200FCFAC4 /* Subject.cpp in Sources */,
 				46FFC2181A5237A200FCFAC4 /* MeshCollider.cpp in Sources */,
 				46FFC2151A5237A200FCFAC4 /* EditorCollider.cpp in Sources */,
+				466138DE1A64A49E00AB9D02 /* UIContainer.cpp in Sources */,
 				464D88E51A4A48AA007B0CDD /* GraphicsSystem.cpp in Sources */,
 				46FFC2251A5237A200FCFAC4 /* SphereCollider.cpp in Sources */,
 				464D88E31A4A48AA007B0CDD /* Component.cpp in Sources */,
@@ -712,6 +751,7 @@
 				464D88F61A4A48AA007B0CDD /* Shader.cpp in Sources */,
 				464D88EB1A4A48AA007B0CDD /* Math.cpp in Sources */,
 				464D88EA1A4A48AA007B0CDD /* Material.cpp in Sources */,
+				466138E41A64AC7700AB9D02 /* UILayout.cpp in Sources */,
 				46FFC2221A5237A200FCFAC4 /* RigidStatic.cpp in Sources */,
 				464D88E11A4A48AA007B0CDD /* Actor.cpp in Sources */,
 			);
@@ -812,6 +852,7 @@
 					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/inc,
 					/Applications/Autodesk/FBX_SDK/2015.1/include,
 					/Users/guilherme_cunha/Dev/boost_1_57_0,
+					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/include",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
@@ -820,6 +861,7 @@
 					/Users/guilherme_cunha/Dev/boost_1_57_0/stage/lib,
 					"$(SYSTEM_APPS_DIR)/Autodesk/FBX_SDK/2015.1/lib/clang/debug",
 					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/lib,
+					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib",
 				);
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -848,6 +890,7 @@
 					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/inc,
 					/Applications/Autodesk/FBX_SDK/2015.1/include,
 					/Users/guilherme_cunha/Dev/boost_1_57_0,
+					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/include",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
@@ -856,6 +899,7 @@
 					/Users/guilherme_cunha/Dev/boost_1_57_0/stage/lib,
 					"$(SYSTEM_APPS_DIR)/Autodesk/FBX_SDK/2015.1/lib/clang/debug",
 					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/lib,
+					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib",
 				);
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";

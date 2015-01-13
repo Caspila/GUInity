@@ -16,8 +16,9 @@ GraphicsSystem* GraphicsSystem::getInstance()
 {
     static GraphicsSystem* instance; // Guaranteed to be destroyed.
     if(instance == nullptr)
-        instance = new QTGraphicsSystem();//GLFWGraphicsSystem();
-        //instance = new GLFWGraphicsSystem();
+        instance = new GLFWGraphicsSystem();
+    //instance = new QTGraphicsSystem();//GLFWGraphicsSystem();
+        
     // Instantiated on first use.
     return instance;
 }

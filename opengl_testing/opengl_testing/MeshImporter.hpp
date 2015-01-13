@@ -39,6 +39,7 @@ public:
 	shared_ptr<Mesh> importFbxMesh(string filename);
 	shared_ptr<Mesh> importObjMesh(string filename);
 
+
 	void getVertexData(FbxMesh* m_pMesh, int uPoly, int uVertex, FbxVector4& fbxVertex, FbxVector4&  fbxNormal, FbxVector2& fbxUV);
 
 	template<typename T>

@@ -5,13 +5,9 @@ uniform float ambientLightIntensity ;
 uniform mat4 model ;
 uniform vec3 lightPos ;
 uniform vec3 lightIntensity ;
-uniform sampler2D myTextureSampler;
-
 
 in vec3 fragVert;
 in vec3 fragNormal;
-in vec2 UV;
-
 
 out vec4 finalColor;
 
@@ -40,8 +36,5 @@ void main(){
 
     finalColor = vec4(brightness * lightIntensity + ambientLight , 1);
 	//finalColor = vec4(finalColor.xyz + +ambientLight,1);
-	//finalColor = vec4(1,1,1,1);
-
-    finalColor = finalColor * vec4(texture( myTextureSampler, UV ).rgb,1);
-    //finalColor = vec4(texture( myTextureSampler, UV ).rgb,1);
+	finalColor = vec4(1,1,1,1);
 }

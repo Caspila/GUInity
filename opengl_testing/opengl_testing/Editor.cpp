@@ -11,7 +11,9 @@
 #include "EditorCollider.hpp"
 #include "MoveTool.hpp"
 #include "RotateTool.hpp"
-
+#include "Mesh.hpp"
+#include "UIButton.h"
+#include "print.hpp"
 
 //PxScene* Editor::physicsScene;
 shared_ptr<Actor> Editor::cameraActor;
@@ -20,6 +22,7 @@ shared_ptr<Actor> Editor::currentSelectedActor;
 shared_ptr<Actor> Editor::moveHandles;
 shared_ptr<Actor> Editor::rotateHandles;
 shared_ptr<World> Editor::world;
+shared_ptr<UIWidget> Editor::uiWidgetTest;
 //vector<shared_ptr<Actor>>  Editor::editorActors;
 
 Editor::Editor()
@@ -28,6 +31,16 @@ Editor::Editor()
 
 Editor::~Editor()
 {
+}
+
+void callBack()
+{
+    cout << "Button1 pressed!"<< endl;
+}
+
+void callBack2()
+{
+    cout << "Button2 pressed!"<< endl;
 }
 
 void Editor::init()
@@ -45,6 +58,33 @@ void Editor::init()
 
 	moveHandles = Factory::CreateEditorActor("MoveHandles");
 	moveHandles->AddComponent<MoveTool>();
+    
+    shared_ptr<UIWidget> baseContainer = make_shared<UIWidget>();
+    baseContainer->mesh = dynamic_pointer_cast<Mesh>(AssetDatabase::idToAsset[0]);
+    //baseContainer->color = glm::vec4(0.5,0,0,1);
+    baseContainer->setBounds(0, 0, 0, 0);
+    UIWidget::depthToWidgetVector[0].push_back(baseContainer);
+    
+    
+    shared_ptr<UIButton> button = make_shared<UIButton>();
+    button->clickFunction = callBack;
+    uiWidgetTest = dynamic_pointer_cast<UIWidget>(button);//make_shared<UIButton>();
+    uiWidgetTest->mesh = dynamic_pointer_cast<Mesh>(AssetDatabase::idToAsset[0]);
+    uiWidgetTest->setBounds(0, 0, 100, 100);
+    uiWidgetTest->color = glm::vec4(0.5,0,0,0.5);
+    baseContainer->addWidget(button);
+
+    
+    button = make_shared<UIButton>();
+    button->clickFunction = callBack2;
+    uiWidgetTest = dynamic_pointer_cast<UIWidget>(button);//make_shared<UIButton>();
+    uiWidgetTest->mesh = dynamic_pointer_cast<Mesh>(AssetDatabase::idToAsset[0]);
+    uiWidgetTest->setBounds(0, 0, 100, 100);
+    //uiWidgetTest->color = glm::vec4(0.5,0,0,1);
+    baseContainer->addWidget(button);
+    
+    uiWidgetTest = baseContainer;
+    
 	//rotateHandles = Factory::CreateEditorActor("RotateHandles");
 	//rotateHandles->AddComponent<RotateTool>();
 /*
@@ -107,8 +147,75 @@ void Editor::shutdown()
 //	moveHandles.reset();
 }
 
+bool isInside(glm::vec2 mousePos, glm::vec4 bounds)
+{
+    if(mousePos.x > bounds.x && mousePos.x < bounds.z && mousePos.y > bounds.y && mousePos.y < bounds.w)
+        return true;
+    return false;
+}
+
+// Gets the most inner widget based on a pos, usually mouse position
+shared_ptr<UIWidget> findMostInner(glm::vec2 pos, shared_ptr<UIWidget> currentWidget)
+{
+    if(isInside(pos, currentWidget->bounds))
+    {
+        if(currentWidget->children.size()==0)
+            return currentWidget;
+        else
+        {
+        for(auto&x : currentWidget->children)
+        {
+            shared_ptr<UIWidget> childrenLock = x.lock();
+            if (childrenLock)
+            {
+                shared_ptr<UIWidget> mostInner = findMostInner(pos, childrenLock);
+                //if(!mostInner)
+                //    return currentWidget;
+                //else
+                if(mostInner)
+                    return findMostInner(pos, mostInner);
+            }
+            
+            else
+            {
+                cerr << "Could not lock UIWidget children weak_ptr. It was probably deleted before but not removed from the list." << endl;
+                
+                return nullptr;
+            }
+
+        }
+            return currentWidget;
+        }
+    }
+    return nullptr;
+}
+
+shared_ptr<UIWidget> lastWidget;
+
 void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
 {
+    //shared_ptr<UIButton> button = dynamic_pointer_cast<UIButton>(uiWidgetTest);
+    
+    shared_ptr<UIWidget> mostInner = findMostInner(Input::mousePos,uiWidgetTest);
+    cout << Input::mousePos << endl;
+//    if(isInside(Input::mousePos,mostInner->bounds))
+    if(mostInner)
+    {
+        if(lastWidget!=mostInner)
+        {
+            if(lastWidget!=nullptr)
+                lastWidget->hoverOffFunction();
+            
+            mostInner->hoverOnFunction();
+            
+            lastWidget = mostInner;
+        }
+        //shared_ptr<UIButton> button = dynamic_pointer_cast<UIButton>(mostInner);
+        //if(button)
+            //button->callBackFunction();
+        //    button->hoverOnFunction();
+    }
+    
 	Ray r = cameraComponent->screenPointToRay(Input::mousePos);
 
 	PxRaycastBuffer hitCallback;
@@ -147,7 +254,10 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
 
 	GraphicsSystem::getInstance()->render(cameraComponent, gameWorld->meshRenderers, gameWorld->lights);
 
-	GraphicsSystem::getInstance()->render(cameraComponent, world->physicsScene->getRenderBuffer(), glm::vec3(1, 1, 1));
+	GraphicsSystem::getInstance()->render(cameraComponent, world->physicsScene->getRenderBuffer(), glm::vec4(1, 1, 1,1));
+    
+    //GraphicsSystem::getInstance()->renderGUI(uiWidgetTest,1);
+    GraphicsSystem::getInstance()->renderGUI(UIWidget::depthToWidgetVector[1]);
 
 	GraphicsSystem::getInstance()->swap();
 

@@ -13,10 +13,13 @@
 #include "MeshImporter.hpp"
 #include <map>
 #include "Asset.hpp"
+#include "Mesh.hpp"
 
 class Shader;
 class Material;
 class Shader;
+class Texture;
+
 
 class AssetDatabase
 {
@@ -35,6 +38,10 @@ public:
     static shared_ptr<Mesh> createMeshFromFBX(string filename);
     static shared_ptr<Mesh> createMeshFromOBJ(string filename);
     static shared_ptr<Mesh> createMesh();
+    static shared_ptr<Mesh> createMesh(vector<MeshVertex> vertex, vector<unsigned short> triangles);
+    static shared_ptr<Texture> createTexture(string filename);
+    
+  
     
     template <typename T>
     static void assignCurrentID(T asset);

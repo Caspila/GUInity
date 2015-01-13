@@ -2,7 +2,7 @@
 #include <math.h>
 #include <glm/geometric.hpp>
 #include "GraphicsSystem.hpp"
-
+//#include <qopenglvertexarrayobject.h>
 
 // Code from http://www.opengl-tutorial.org/beginners-tutorials/tutorial-7-model-loading/
 
@@ -21,6 +21,29 @@ Mesh::Mesh() : Asset()
 
 }
 
+Mesh::Mesh(vector<MeshVertex> vertex, vector<unsigned short> triangles)
+{
+    
+    mvbo = vao = ibo = 0;
+    
+//    for (int i = 0; i < vertex.size(); i++)
+//	{
+//		this->meshVertices.push_back(vertex[i]);
+//	}
+//    for (int i = 0; i < triangles.size(); i++)
+//	{
+//		this->triangles.push_back(triangles[i]);
+//	}
+    
+    meshVertices = std::move(vertex);
+    this->triangles = std::move(triangles);
+    
+#ifdef GUINITY_DEBUG
+	nCount++;
+#endif
+    
+    createBuffers3();
+}
 
 Mesh::Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangles, int nPoints, int nTriangles) : Asset()
 {
@@ -99,6 +122,7 @@ void Mesh::createBuffers3()
 
 	vao = 0;
     GraphicsSystem::getInstance()->generateVertexArrays(1,vao);
+//    QTvao =
 //    glGenVertexArrays(1, &vao);
 //	glBindVertexArray(vao);
 
@@ -122,13 +146,17 @@ Mesh::~Mesh()
 
 	if (!triangles.empty())
 	{
-		glDeleteBuffers(1, &ibo);
+        GraphicsSystem::getInstance()->deleteBuffer(1,ibo);
+//		glDeleteBuffers(1, &ibo);
 	}
 	if (!meshVertices.empty())
 	{
-		glDeleteBuffers(1, &mvbo);
+
+        GraphicsSystem::getInstance()->deleteBuffer(1,ibo);
+//		glDeleteBuffers(1, &mvbo);
 	}
-	glDeleteVertexArrays(1, &vao);
+    //GraphicsSystem::getInstance()->deleteVertexArrays(1,ibo);
+    //glDeleteVertexArrays(1, &vao);
 
 
 #ifdef GUINITY_DEBUG

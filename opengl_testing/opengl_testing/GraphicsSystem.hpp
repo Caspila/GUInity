@@ -10,8 +10,8 @@
 //#include "Light.h"
 #include "Ray.hpp"
 #include "World.hpp"
+#include <glm/glm.hpp>
 //#include "GLFWGraphicsSystem.hpp"
-
 class Camera;
 class Actor;
 class Light;
@@ -19,6 +19,9 @@ class Shader;
 class Material;
 class MeshRenderer;
 class GLFWGraphicsSystem;
+class QOpenGLVertexArrayObject;
+class UIWidget;
+struct MeshVertex;
 
 using namespace physx;
 
@@ -60,6 +63,7 @@ public:
     virtual void shutdown() = 0;
     virtual void swap() = 0;
     virtual void clear() = 0;
+//    virtual void setGraphicsParent(QWindow *parent) = 0;
 
 	shared_ptr<GLFWwindow> window;
 
@@ -68,12 +72,12 @@ public:
     virtual void createDebugShader()= 0;
 
     //virtual void render(shared_ptr<Camera> camera, vector < shared_ptr<Actor>> actors, vector < shared_ptr<Light>> lights)=0;
-    virtual void render(shared_ptr<Camera> camera, const  physx::PxRenderBuffer& rb, const glm::vec3& color)=0;
+    virtual void render(shared_ptr<Camera> camera, const  physx::PxRenderBuffer& rb, const glm::vec4& color)=0;
     virtual void render(shared_ptr<Camera> camera, vector < shared_ptr<MeshRenderer>>& renderers, vector<shared_ptr<Light>>& lights)=0;
 
-    virtual GLuint generateVertexArrays(const GLuint size, GLuint& vao) = 0;
+    virtual void generateVertexArrays(const GLuint size, GLuint& vao) = 0;
 
-    virtual GLuint generateBuffer(const GLuint size, GLuint& bo, GLenum type, int dataSize, void *dataPointer, GLenum drawType) =0;
+    virtual void generateBuffer(const GLuint size, GLuint& bo, GLenum type, int dataSize, void *dataPointer, GLenum drawType) =0;
     //GraphicsSystem::getInstance()->generateBuffer(1,mvbo,GL_ARRAY_BUFFER,meshVertices.size() * sizeof(MeshVertex),&meshVertices[0],GL_STATIC_DRAW);
 
     virtual GLuint createShader(GLenum shaderType) = 0;
@@ -87,8 +91,18 @@ public:
 
     virtual GLint getUniformLocation(GLuint programID,const char* name) = 0;
 
+    //virtual void renderGUI(MeshVertex* meshVertex, int nVertex) = 0;
+    //virtual void renderGUI(shared_ptr<UIWidget> uiWidget, int nWidgets) = 0;
+        virtual void renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector) = 0;
+    
 	shared_ptr<Shader> debugShader;
 	shared_ptr<Material> debugMaterial;
+
+    shared_ptr<Shader> guiShader;
+	shared_ptr<Material> guiMaterial;
+    
+    glm::mat4 GUIMatrix;
+
     
 	//vector<weak_ptr<MeshRenderer>> allMeshRenderer;
     

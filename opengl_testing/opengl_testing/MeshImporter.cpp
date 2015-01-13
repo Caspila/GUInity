@@ -39,6 +39,15 @@ void MeshImporter::getVertexData(FbxMesh* m_pMesh, int uPoly, int uVertex, FbxVe
 	fbxVertex = m_pMesh->GetControlPointAt(uVertexIndex);
 
 	bool bResult = m_pMesh->GetPolygonVertexNormal(uPoly, uVertex, fbxNormal);
+    
+    FbxStringList UVSetNameList;
+    m_pMesh->GetUVSetNames( UVSetNameList );
+    
+    bool unmapped;
+    
+    bResult = m_pMesh->GetPolygonVertexUV(uPoly, uVertex,UVSetNameList.GetStringAt(0), fbxUV, unmapped);
+
+//    m_pMesh->GetPolygonv
 }
 
 shared_ptr<Mesh> MeshImporter::importFbxMesh(string filename)
@@ -99,7 +108,7 @@ shared_ptr<Mesh> MeshImporter::importFbxMesh(string filename)
 							FbxVector4 fbxVertex, fbxNormal;
 							FbxVector2 fbxUV;
 
-
+                            
 							getVertexData(m_pMesh, uPoly, uVertex, fbxVertex, fbxNormal, fbxUV);
 
 							PackedFBXVertex v;

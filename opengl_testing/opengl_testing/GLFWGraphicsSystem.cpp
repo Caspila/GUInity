@@ -16,6 +16,9 @@
 #include "Light.hpp"
 #include "Material.hpp"
 #include "Shader.hpp"
+#include "UIWidget.h"
+#include "AssetDatabase.hpp"
+#include "Texture.h"
 
 int GLFWGraphicsSystem::init()
 {
@@ -67,15 +70,14 @@ int GLFWGraphicsSystem::init()
 
 void GLFWGraphicsSystem::createDebugShader()
 {
-    //debugShader = make_shared<Shader>("../../../../../../data/vs.vs", "../../../../../../data/fs.fragmentshader");
-
-    string vsDataPath = DATA_PATH;
-    string fsDataPath = DATA_PATH;
-    debugShader = make_shared<Shader>(vsDataPath.append("vs.vs").c_str(),fsDataPath.append("fs.fragmentshader").c_str());
-
-    //debugShader = make_shared<Shader>("/Users/guilherme_cunha/Dev/GITHUB/GUInity/data/vsLight.vs", "/Users/guilherme_cunha/Dev/GITHUB/GUInity/data/fsLight.fragmentshader");
-
+    debugShader = make_shared<Shader>(CommonData("vs.vs").c_str(),CommonData("fs.fragmentshader").c_str());
     debugMaterial = make_shared<Material>(debugShader);
+
+    guiShader = make_shared<Shader>(CommonData("vsOrtho.vs").c_str(),CommonData("fsOrtho.fragmentshader").c_str());
+    guiMaterial = make_shared<Material>(guiShader);
+
+
+    GUIMatrix = glm::ortho(0.0f, 640.0f, 480.0f, 0.0f, -5.0f, 5.0f);
 }
 
 void GLFWGraphicsSystem::clear()
@@ -100,6 +102,62 @@ GLint GLFWGraphicsSystem::uniform(const GLuint shaderProgram, const GLchar* unif
     return uniform;
 }
 
+//void GLFWGraphicsSystem::renderGUI(MeshVertex* meshVertex, int nVertex)
+//void GLFWGraphicsSystem::renderGUI(shared_ptr<UIWidget> uiWidget, int nWidgets)
+void GLFWGraphicsSystem::renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector)
+{
+    
+    GLuint shaderProgram = guiMaterial->getShaderProgram();
+    
+    glLinkProgram(shaderProgram);
+    glUseProgram(shaderProgram);
+    
+    // Get a handle for our "myTextureSampler" uniform
+    GLuint TextureID  = glGetUniformLocation(shaderProgram, "myTextureSampler");
+    shared_ptr<Texture> texture = dynamic_pointer_cast<Texture>(AssetDatabase::idToAsset[1]);
+    
+//    glEnable(GL_BLEND);
+//    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
+    for (int i = 0; i < uiWidgetVector.size(); i++)
+    {
+        shared_ptr<UIWidget> uiWidget = uiWidgetVector[i];
+        
+        glUniformMatrix4fv(uniform(shaderProgram, "model"), 1, GL_FALSE, &uiWidget->getModelMatrix()[0][0]);
+    glUniformMatrix4fv(uniform(shaderProgram, "ortho"), 1, GL_FALSE, &GUIMatrix[0][0]);
+    glUniform4fv(uniform(shaderProgram, "diffuseColor"), 1, &uiWidget->color[0]);
+    
+    glBindVertexArray(uiWidget->mesh->vao);
+    
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, uiWidget->mesh->mvbo);
+    
+        // Bind our texture in Texture Unit 0
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, texture->textureID);
+        // Set our "myTextureSampler" sampler to user Texture Unit 0
+        glUniform1i(TextureID, 0);
+        
+    //Vertex
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(0));
+        
+        int beginUV = sizeof(glm::vec3);
+        
+        //UV
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginUV));
+        
+    
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uiWidget->mesh->ibo);
+    
+    // draw points 0-3 from the currently bound VAO with current in-use shader
+    glDrawElements(GL_TRIANGLES, uiWidget->mesh->triangles.size(), GL_UNSIGNED_SHORT, NULL);
+    
+    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(3);
+    }
+}
+
 void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<MeshRenderer>>& renderers, vector<shared_ptr<Light>>& lights)
 //void GraphicsSystem::render(World& world)
 {
@@ -107,6 +165,9 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 
     camera->computeModelViewMatrix();
 
+        //glEnable(GL_BLEND);
+        //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    
     for (int i = 0; i < renderers.size(); i++)
     {
         shared_ptr<MeshRenderer> meshRenderer = renderers[i];
@@ -129,6 +190,7 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         glUniform3fv(uniform(shaderProgram, "ambientLightColor"), 1, &ambientLightColor[0]);
         glUniform1f(uniform(shaderProgram, "ambientLightIntensity"), ambientLight);
 
+
         glUniformMatrix4fv(uniform(shaderProgram, "camera"), 1, GL_FALSE, &camera->MVPMatrix[0][0]);
         glUniformMatrix4fv(uniform(shaderProgram, "model"), 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
         for (int j = 0; j < lights.size(); j++)
@@ -139,6 +201,8 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
             glUniform3fv(meshRenderer->material->shader->paramID["lightIntensity"], 1, &light->color[0]);
         }
 
+
+        
         glBindVertexArray(meshFilter->mesh->vao);
 
         glEnableVertexAttribArray(0);
@@ -153,6 +217,12 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         glEnableVertexAttribArray(2);
         glVertexAttribPointer(2, 3, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginNormal));
 
+        int beginUV = sizeof(glm::vec3);
+        
+        //UV
+        glEnableVertexAttribArray(3);
+        glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginUV));
+        
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshFilter->mesh->ibo);
 
         // draw points 0-3 from the currently bound VAO with current in-use shader
@@ -160,15 +230,19 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(2);
+        glDisableVertexAttribArray(3);
 
     }
 
 }
 
-void GLFWGraphicsSystem::render(shared_ptr<Camera> camera,const physx::PxRenderBuffer& rb,const glm::vec3& color)
+void GLFWGraphicsSystem::render(shared_ptr<Camera> camera,const physx::PxRenderBuffer& rb,const glm::vec4& color)
 {
     float *points = new float[rb.getNbLines() * 6];
 
+    //glDisable(GL_BLEND);
+    
+    
     for (PxU32 i = 0; i < rb.getNbLines(); i++)
     {
 
@@ -213,6 +287,8 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera,const physx::PxRenderB
 
     glBindVertexArray(0); // Unbind our Vertex Array Object
 
+    glDisableVertexAttribArray(0);
+    
     glDeleteBuffers(1, &vbo);
     glDeleteVertexArrays(1, &vao);
 
@@ -220,13 +296,14 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera,const physx::PxRenderB
 }
 
 
-GLuint GLFWGraphicsSystem::generateVertexArrays(const GLuint id, GLuint& vao)
+void GLFWGraphicsSystem::generateVertexArrays(const GLuint id, GLuint& vao)
 {
     glGenVertexArrays(id, &vao);
     glBindVertexArray(vao);
+
 }
 
-GLuint GLFWGraphicsSystem::generateBuffer(const GLuint size, GLuint& bo, GLenum type, int dataSize, void *dataPointer, GLenum drawType)
+void GLFWGraphicsSystem::generateBuffer(const GLuint size, GLuint& bo, GLenum type, int dataSize, void *dataPointer, GLenum drawType)
 {
     glGenBuffers(size, &bo);
     glBindBuffer(type, bo);
