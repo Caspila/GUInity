@@ -52,6 +52,7 @@
 #include "mainwindow.h"
 #include "Texture.h"
 #include <png.h>
+#include "Math.hpp"
 
 //-------Loading PhysX libraries----------]
 #ifdef _DEBUG
@@ -96,6 +97,7 @@ BOOST_CLASS_EXPORT_GUID(CapsuleColliderDescription, "CapsuleColliderDescription"
 
 
 
+//#define _GLFW_USE_MENUBAR
 //#include "mainwindow.h"
 //#include <QApplication>
 //#include <qsurfaceformat.h>
@@ -103,6 +105,24 @@ BOOST_CLASS_EXPORT_GUID(CapsuleColliderDescription, "CapsuleColliderDescription"
 int main(int argc, char *argv[]) {
 
 
+    
+//    glm::vec3 p1,p2,p3;
+//    
+//    p1 = glm::vec3(1,0,0);
+//    p2 = glm::vec3(0,0,1);
+//    p3 = glm::vec3(0,0,0);
+//    
+//    cout << p1 << " " << p2 << " " << p3 << endl;
+//    
+//
+//    
+//    orderVertexCCW(p1, p2, p3);
+//
+//        cout << p1 << " " << p2 << " " << p3 << endl;
+//
+//        glm::vec3 p4(0,1,0);
+//
+//        cout << isPlaneFacingPoint(Plane(p1,p2,p3), p4) << endl;
     
 //    QApplication app(argc, argv);
 //
@@ -214,22 +234,48 @@ int main(int argc, char *argv[]) {
     quadVertex.push_back(meshVertex);
     
     vector<unsigned short> triangles;
-    triangles.push_back(2);
-    triangles.push_back(1);
     triangles.push_back(0);
-    triangles.push_back(3);
     triangles.push_back(1);
     triangles.push_back(2);
+    triangles.push_back(2);
+    triangles.push_back(1);
+    triangles.push_back(3);
     
     shared_ptr<Mesh> quadMesh = AssetDatabase::createMesh(quadVertex,triangles);
     
     shared_ptr<Texture> texture = AssetDatabase::createTexture(CommonData("button.png"));
 //        read_png_file(CommonData("Crosshair.png").c_str());
     
-    shared_ptr<Mesh> fbxMesh = AssetDatabase::createMeshFromFBX("box.fbx");
-    fbxMesh->setScaleFactor(0.1f);
+    shared_ptr<Mesh> fbxMesh = AssetDatabase::createMeshFromFBX("ecosphere.fbx");
+    //fbxMesh->setScaleFactor(0.2f);
     
-    shared_ptr<Mesh> objMesh = AssetDatabase::createMeshFromOBJ("sphere.obj");
+        shared_ptr<Mesh> objMesh = AssetDatabase::createMeshFromOBJ("sphere.obj");
+    
+    vector<glm::vec3> fbxNonDup = fbxMesh->getNonDuplicateMeshVertex();
+    
+    vector<glm::vec3> hullTest = {
+        glm::vec3(0,0,0), //p0
+        glm::vec3(0,1,0), //p1
+        glm::vec3(1,1,0), //p2
+        glm::vec3(1,0,0), //p3
+        glm::vec3(0,0,1), //p4
+        glm::vec3(1,0,1), //p5
+        glm::vec3(1,1,1), //p6
+        glm::vec3(0,1,1), //p7
+        //glm::vec3(0.5f,2,0.5f), //p8
+        //glm::vec3(0.5f,-1,0.5f), //p9
+        glm::vec3(2.0f,0.5f,0.5f), //p8
+    //    glm::vec3(2,0 ,1)
+    }; //p9
+    
+    vector<int> usedIndex;
+    vector<int> usedTris;
+    
+    convexHull(fbxNonDup, usedIndex, usedTris);
+
+    shared_ptr<Mesh> tryMesh = AssetDatabase::createMesh(fbxNonDup,usedIndex,usedTris);
+    
+
     
     
     shared_ptr<Editor> editor = make_shared<Editor>();
@@ -250,19 +296,43 @@ int main(int argc, char *argv[]) {
     
     shared_ptr<Material> m = AssetDatabase::createMaterial(s);
     
-     shared_ptr<Actor> fbxTest = Factory::CreateActor("FBXTest");// , meshRenderer1);
-    //fbxTest->transform->setScale(glm::vec3(10,10,10));
-     //fbxTest->transform->setPosition(glm::vec3(0, 0, 0));
-     //fbxTest->transform->setRotationQuat(glm::quat(glm::vec3(-90 * Math::Deg2Radian, 0, 0)));
-
+    shared_ptr<Actor> fbxTest;
     
+    fbxTest = Factory::CreateActor("FBXTest");// , meshRenderer1);
+    //fbxTest->transform->setScale(glm::vec3(10,10,10));
+    //fbxTest->transform->setRotationQuat(glm::quat(glm::vec3(-90 * Math::Deg2Radian, 0, 0)));
     shared_ptr<MeshFilter> meshFilter = fbxTest->AddComponent<MeshFilter>();
+
     //meshFilter->mesh = dynamic_pointer_cast<Mesh>(objMesh);
-    meshFilter->mesh = fbxMesh;
+    meshFilter->mesh = tryMesh;
     shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
     meshRenderer->material = m;
-    fbxTest->AddComponent<RigidBody>();
-    fbxTest->AddComponent<BoxCollider>();
+    
+//    int bla = 0;
+//    while(bla == 0)
+//    {
+//     fbxTest = Factory::CreateActor("FBXTest");// , meshRenderer1);
+//    //fbxTest->transform->setScale(glm::vec3(10,10,10));
+//        //fbxTest->transform->setScale(glm::vec3(0.5f,0.5f,0.5f));
+//        fbxTest->transform->setPosition(glm::vec3(0,0,1));
+//     //fbxTest->transform->setRotationQuat(glm::quat(glm::vec3(-90 * Math::Deg2Radian, 0, 0)));
+//        shared_ptr<MeshFilter> meshFilter = fbxTest->AddComponent<MeshFilter>();
+//        //meshFilter->mesh = dynamic_pointer_cast<Mesh>(objMesh);
+//        meshFilter->mesh = objMesh;
+//            shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
+//        meshRenderer->material = m;
+//        
+//        bla++;
+//    }
+    
+//    shared_ptr<MeshFilter> meshFilter = fbxTest->AddComponent<MeshFilter>();
+//    //meshFilter->mesh = dynamic_pointer_cast<Mesh>(objMesh);
+//    meshFilter->mesh = tryMesh;
+//    shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
+//    meshRenderer->material = m;
+    //fbxTest->AddComponent<RigidBody>();
+    //fbxTest->AddComponent<BoxCollider>();
+    //fbxTest->AddComponent<MeshCollider>();
     
     
 //    //fbxTest = nullptr;
@@ -341,7 +411,7 @@ int main(int argc, char *argv[]) {
 	
     shared_ptr<Actor> myCamera = Factory::CreateActor("Camera");// , meshRenderer4);
     myCamera->transform->setPosition(glm::vec3(0, 0, 10));
-    myCamera->transform->setRotationQuat(glm::quat(glm::vec3(0, 180 * Math::Deg2Radian, 0)));
+    myCamera->transform->setRotationQuat(glm::quat(glm::vec3(0, 180 * Deg2Radian, 0)));
     myCamera->AddComponent<Camera>();
     myCamera->AddComponent<EditorCameraControl>();
 

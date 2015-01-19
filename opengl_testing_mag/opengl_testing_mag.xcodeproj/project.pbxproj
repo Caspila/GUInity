@@ -60,6 +60,7 @@
 		466138E91A64CF9000AB9D02 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 466138E51A64CF4D00AB9D02 /* libpng16.a */; };
 		466138EB1A64CFA800AB9D02 /* libpng16.16.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 466138EA1A64CFA800AB9D02 /* libpng16.16.dylib */; };
 		466138EE1A64D43D00AB9D02 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466138EC1A64D43D00AB9D02 /* Texture.cpp */; };
+		466139371A666B2D00AB9D02 /* MathStructs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 466139361A666B2D00AB9D02 /* MathStructs.cpp */; };
 		468B50BA1A61E0E900CD58A5 /* Asset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468B50B21A61E0E900CD58A5 /* Asset.cpp */; };
 		468B50BB1A61E0E900CD58A5 /* ReflectionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468B50B51A61E0E900CD58A5 /* ReflectionTest.cpp */; };
 		468B50BC1A61E0E900CD58A5 /* Serialization2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468B50B71A61E0E900CD58A5 /* Serialization2.cpp */; };
@@ -265,6 +266,8 @@
 		466138EA1A64CFA800AB9D02 /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = "../../../libpng-1.6.16/build/lib/libpng16.16.dylib"; sourceTree = "<group>"; };
 		466138EC1A64D43D00AB9D02 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Texture.cpp; path = ../opengl_testing/opengl_testing/Texture.cpp; sourceTree = "<group>"; };
 		466138ED1A64D43D00AB9D02 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Texture.h; path = ../opengl_testing/opengl_testing/Texture.h; sourceTree = "<group>"; };
+		466139351A6667FE00AB9D02 /* MathStructs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MathStructs.h; path = ../opengl_testing/opengl_testing/MathStructs.h; sourceTree = "<group>"; };
+		466139361A666B2D00AB9D02 /* MathStructs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathStructs.cpp; path = ../opengl_testing/opengl_testing/MathStructs.cpp; sourceTree = "<group>"; };
 		468B50B21A61E0E900CD58A5 /* Asset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Asset.cpp; path = ../opengl_testing/opengl_testing/Asset.cpp; sourceTree = "<group>"; };
 		468B50B51A61E0E900CD58A5 /* ReflectionTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReflectionTest.cpp; path = ../opengl_testing/opengl_testing/ReflectionTest.cpp; sourceTree = "<group>"; };
 		468B50B61A61E0E900CD58A5 /* ReflectionTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionTest.h; path = ../opengl_testing/opengl_testing/ReflectionTest.h; sourceTree = "<group>"; };
@@ -484,6 +487,7 @@
 				464D88BF1A4A48AA007B0CDD /* MeshRenderer.cpp */,
 				464D88C41A4A48AA007B0CDD /* Physics.cpp */,
 				464D88C61A4A48AA007B0CDD /* PhysicsMaterial.cpp */,
+				466139361A666B2D00AB9D02 /* MathStructs.cpp */,
 				464D88C81A4A48AA007B0CDD /* PhysXEventCallback.cpp */,
 				464D88CA1A4A48AA007B0CDD /* PlayerScript.cpp */,
 				464D88CC1A4A48AA007B0CDD /* print.cpp */,
@@ -510,6 +514,7 @@
 				466138E01A64A58900AB9D02 /* UIButton.h */,
 				466138EC1A64D43D00AB9D02 /* Texture.cpp */,
 				466138ED1A64D43D00AB9D02 /* Texture.h */,
+				466139351A6667FE00AB9D02 /* MathStructs.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -726,6 +731,7 @@
 				464D88EE1A4A48AA007B0CDD /* Physics.cpp in Sources */,
 				46FFC2211A5237A200FCFAC4 /* RigidBody.cpp in Sources */,
 				46FFC2101A5237A200FCFAC4 /* CapsuleCollider.cpp in Sources */,
+				466139371A666B2D00AB9D02 /* MathStructs.cpp in Sources */,
 				46FFC21B1A5237A200FCFAC4 /* Module.cpp in Sources */,
 				46FFC2241A5237A200FCFAC4 /* RotateTool.cpp in Sources */,
 				46FFC2121A5237A200FCFAC4 /* Converter.cpp in Sources */,
@@ -841,6 +847,7 @@
 					"$(inherited)",
 					"_DEBUG=1",
 					GUINITY_DEBUG,
+					_GLFW_USE_MENUBAR,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",

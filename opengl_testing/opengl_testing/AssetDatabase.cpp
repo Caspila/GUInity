@@ -79,6 +79,14 @@ shared_ptr<Material> AssetDatabase::createMaterial(shared_ptr<Shader> shader)
     return mesh;
 }
 
+shared_ptr<Mesh> AssetDatabase::createMesh(vector<glm::vec3> vertices,vector<int> usedIndex,vector<int> usedTris)
+{
+    shared_ptr<Mesh> mesh = make_shared<Mesh>(vertices,usedIndex,usedTris);
+    assignCurrentID(mesh);
+    
+    return mesh;
+}
+
 
 int myX, myY;
 

@@ -2,6 +2,7 @@
 #include <math.h>
 #include <glm/geometric.hpp>
 #include "GraphicsSystem.hpp"
+#include <map>
 //#include <qopenglvertexarrayobject.h>
 
 // Code from http://www.opengl-tutorial.org/beginners-tutorials/tutorial-7-model-loading/
@@ -44,6 +45,30 @@ Mesh::Mesh(vector<MeshVertex> vertex, vector<unsigned short> triangles)
     
     createBuffers3();
 }
+
+Mesh::Mesh(vector<glm::vec3> vertices,vector<int> usedIndex,vector<int> usedTris)
+{
+   	mvbo = vao = ibo = 0;
+
+    for (int i = 0; i < usedIndex.size(); i++)
+	{
+		meshVertices.push_back(MeshVertex(vertices[i],glm::vec2(0,0),glm::vec3(0,0,0)));
+	}
+
+    for (int i = 0; i < usedTris.size(); i++)
+	{
+        triangles.push_back(usedTris[i]);
+	}
+    
+#ifdef GUINITY_DEBUG
+    nCount++;
+#endif
+                               
+                               
+    createBuffers3();
+    
+}
+
 
 Mesh::Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangles, int nPoints, int nTriangles) : Asset()
 {
@@ -200,3 +225,32 @@ void Mesh::calculateBounds3()
 	avgCenter = sumPoints * (1.0f / meshVertices.size());
 }
 
+vector<glm::vec3> Mesh::getNonDuplicateMeshVertex()
+{
+//    map<MeshVertex,int> vertexMapping;
+//    vector<glm::vec3> result;
+    
+//    for (auto &vertice : meshVertices)
+//    {
+//        glm::vec3 pos =vertice.position;
+//        
+//        if(find(vertexMapping.begin(),vertexMapping.end(),pos) != vertexMapping.end())
+//        //map<glm::vec3,int>::iterator it = vertexMapping.find(pos);
+//        
+////        if(it == vertexMapping.end())
+//            vertexMapping[pos] = 0;
+//    }
+   
+    vector<glm::vec3> result;
+    
+    for (auto &vertice : meshVertices)
+    {
+        glm::vec3 pos =vertice.position;
+        
+        if(find(result.begin(),result.end(),pos) == result.end())
+            result.push_back(pos);
+    }
+
+    
+    return result;
+}

@@ -1,5 +1,6 @@
 #include "Physics.hpp"
 #include <math.h>
+#include "Math.hpp"
 #include "Transform.hpp"
 #include "MeshRenderer.hpp"
 #include "Mesh.hpp"
@@ -308,10 +309,10 @@ void Physics::setCapsuleOrientation(PxShape* shape,RotateAxis orientation)
             shape->setLocalPose(PxTransform(transform.p, PxQuat::createIdentity()));
             break;
         case z:
-            shape->setLocalPose(PxTransform(transform.p, PxQuat(Math::Deg2Radian * 90, PxVec3(0,1,0))));
+            shape->setLocalPose(PxTransform(transform.p, PxQuat(Deg2Radian * 90, PxVec3(0,1,0))));
             break;
         case y:
-            shape->setLocalPose(PxTransform(transform.p, PxQuat(Math::Deg2Radian * 90, PxVec3(0, 0, 1))));
+            shape->setLocalPose(PxTransform(transform.p, PxQuat(Deg2Radian * 90, PxVec3(0, 0, 1))));
             break;
         default:
             break;
@@ -374,8 +375,15 @@ PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
 {
 
 	//desc.points.
+//    vector<glm::vec3> nonDupVertex = mesh->getNonDuplicateMeshVertex();
+//
+//	PxVec3* mMeshVertices = new physx::PxVec3[nonDupVertex.size()];
+//	for (int i = 0; i < nonDupVertex.size(); i++)
+//	{
+//		mMeshVertices[i] = PxVec3(nonDupVertex[i].position.x, nonDupVertex[i].position.y, mesh->meshVertices[i].position.z);
+//	}
 
-
+    
 	PxVec3* mMeshVertices = new physx::PxVec3[mesh->meshVertices.size()];
 	for (int i = 0; i < mesh->meshVertices.size(); i++)
 	{

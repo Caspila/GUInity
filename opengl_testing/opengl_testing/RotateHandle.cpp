@@ -4,6 +4,7 @@
 #include "Editor.hpp"
 #include "print.hpp"
 #include "CapsuleCollider.hpp"
+#include "Math.hpp"
 
 RotateHandle::RotateHandle()
 {
@@ -84,8 +85,8 @@ void RotateHandle::tick(float deltaSeconds)
 			glm::vec3 newWorldPos = Editor::cameraComponent->screenPointToWorld(Input::mousePos);
 			glm::vec3 oldWorldPos = Editor::cameraComponent->screenPointToWorld(Input::mousePos - Input::mouseDelta);
 
-			glm::vec3 newWorldProj = Math::projectOnPlane(newWorldPos - point1, p);
-			glm::vec3 oldWorldProj = Math::projectOnPlane(oldWorldPos - point1, p);
+			glm::vec3 newWorldProj = projectOnPlane(newWorldPos - point1, p);
+			glm::vec3 oldWorldProj = projectOnPlane(oldWorldPos - point1, p);
 
 			glm::vec3 mouseWorldDir = newWorldPos - oldWorldPos;
 			mouseWorldDir = glm::normalize(mouseWorldDir);
@@ -127,7 +128,7 @@ void RotateHandle::tick(float deltaSeconds)
 			//eulerAngles.z += (dot - lastDot) * 100 * deltaSeconds;
 			//
 			//float f = Math::sgn(dot - lastDot);
-			float f = Math::sgn(dot);
+			float f = sgn(dot);
 			cout << "f" << f << endl;
 
 			currentActor->transform->rotationQuat = glm::angleAxis(f * deltaSeconds, rotationAxis) * currentActor->transform->rotationQuat;

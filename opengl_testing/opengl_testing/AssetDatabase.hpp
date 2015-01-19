@@ -38,6 +38,9 @@ public:
     static shared_ptr<Mesh> createMeshFromFBX(string filename);
     static shared_ptr<Mesh> createMeshFromOBJ(string filename);
     static shared_ptr<Mesh> createMesh();
+    
+    static shared_ptr<Mesh> createMesh(vector<glm::vec3> vertices,vector<int> usedIndex,vector<int> usedTris);
+    
     static shared_ptr<Mesh> createMesh(vector<MeshVertex> vertex, vector<unsigned short> triangles);
     static shared_ptr<Texture> createTexture(string filename);
     
