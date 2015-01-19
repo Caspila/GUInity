@@ -9,78 +9,14 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/main.cpp"
-            timestampString = "443249044.751728"
+            filePath = "../opengl_testing/opengl_testing/Physics.cpp"
+            timestampString = "443347044.364113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "276"
-            endingLineNumber = "276"
-            landmarkName = "main(int argc, char *argv[])"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Math.cpp"
-            timestampString = "443261333.580249"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "593"
-            endingLineNumber = "593"
-            landmarkName = "getCenterFor(vector&lt;glm::vec3&gt; vertices, vector&lt;MeshTriangleEdge&gt; edges)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Math.cpp"
-            timestampString = "443261333.580249"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "602"
-            endingLineNumber = "602"
-            landmarkName = "getCenterFor(vector&lt;glm::vec3&gt; vertices, vector&lt;MeshTriangleEdge&gt; edges)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Math.cpp"
-            timestampString = "443261333.580249"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "601"
-            endingLineNumber = "601"
-            landmarkName = "getCenterFor(vector&lt;glm::vec3&gt; vertices, vector&lt;MeshTriangleEdge&gt; edges)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/main.cpp"
-            timestampString = "443249044.751728"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "274"
-            endingLineNumber = "274"
-            landmarkName = "main(int argc, char *argv[])"
-            landmarkType = "7">
+            startingLineNumber = "451"
+            endingLineNumber = "451"
+            landmarkName = "Physics::getPxConvexMesh(shared_ptr&lt;Mesh&gt; mesh)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -89,142 +25,14 @@
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Math.cpp"
-            timestampString = "443261333.580249"
+            filePath = "../opengl_testing/opengl_testing/Physics.cpp"
+            timestampString = "443347044.364113"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "922"
-            endingLineNumber = "922"
-            landmarkName = "convexHull(vector&lt;glm::vec3&gt;&amp; vertices, vector&lt;int&gt;&amp; usedIndex, vector&lt;int&gt;&amp; triangles)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Math.cpp"
-            timestampString = "443261333.580249"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "879"
-            endingLineNumber = "879"
-            landmarkName = "convexHull(vector&lt;glm::vec3&gt;&amp; vertices, vector&lt;int&gt;&amp; usedIndex, vector&lt;int&gt;&amp; triangles)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Math.cpp"
-            timestampString = "443261333.580249"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "932"
-            endingLineNumber = "932"
-            landmarkName = "convexHull(vector&lt;glm::vec3&gt;&amp; vertices, vector&lt;int&gt;&amp; usedIndex, vector&lt;int&gt;&amp; triangles)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Math.cpp"
-            timestampString = "443261333.580249"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "927"
-            endingLineNumber = "927"
-            landmarkName = "convexHull(vector&lt;glm::vec3&gt;&amp; vertices, vector&lt;int&gt;&amp; usedIndex, vector&lt;int&gt;&amp; triangles)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Math.cpp"
-            timestampString = "443261333.580249"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "930"
-            endingLineNumber = "930"
-            landmarkName = "convexHull(vector&lt;glm::vec3&gt;&amp; vertices, vector&lt;int&gt;&amp; usedIndex, vector&lt;int&gt;&amp; triangles)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Math.cpp"
-            timestampString = "443261333.580249"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "484"
-            endingLineNumber = "484"
-            landmarkName = "getNonSharedEdges(vector&lt;weak_ptr&lt;MeshTriangle&gt;&gt; adjacentTriangles,shared_ptr&lt;MeshTriangle&gt; triangle)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Math.cpp"
-            timestampString = "443261333.580249"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "948"
-            endingLineNumber = "948"
-            landmarkName = "convexHull(vector&lt;glm::vec3&gt;&amp; vertices, vector&lt;int&gt;&amp; usedIndex, vector&lt;int&gt;&amp; triangles)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Math.cpp"
-            timestampString = "443261333.580249"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "863"
-            endingLineNumber = "863"
-            landmarkName = "convexHull(vector&lt;glm::vec3&gt;&amp; vertices, vector&lt;int&gt;&amp; usedIndex, vector&lt;int&gt;&amp; triangles)"
-            landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../opengl_testing/opengl_testing/Math.cpp"
-            timestampString = "443261333.580249"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "770"
-            endingLineNumber = "770"
-            landmarkName = "getInitialTetrahedron(vector&lt;glm::vec3&gt; vertices, int&amp; i1, int&amp; i2, int&amp; i3, int&amp; i4)"
-            landmarkType = "7">
+            startingLineNumber = "455"
+            endingLineNumber = "455"
+            landmarkName = "Physics::getPxConvexMesh(shared_ptr&lt;Mesh&gt; mesh)"
+            landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

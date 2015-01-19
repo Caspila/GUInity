@@ -13,6 +13,8 @@
 #include "RigidStatic.hpp"
 #include <PxPhysicsAPI.h>
 #include "PhysXAllocatorCallback.h"
+#include <PxToolkit.h>
+
 
 PhysXEventCallback* Physics::physxEventCallback;
 PxPhysics* Physics::gPhysicsSDK;
@@ -383,17 +385,37 @@ PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
 //		mMeshVertices[i] = PxVec3(nonDupVertex[i].position.x, nonDupVertex[i].position.y, mesh->meshVertices[i].position.z);
 //	}
 
+//    vector<glm::vec3> vertexNoDup = mesh->getNonDuplicateMeshVertex();
+//    vector<int> usedIndexes;
+//    vector<int> tris;
+//    
+//    convexHull(vertexNoDup, usedIndexes, tris);
+//    
+//    	PxVec3* mMeshVertices = new physx::PxVec3[usedIndexes.size()];
+//    	for (int i = 0; i < usedIndexes.size(); i++)
+//    	{
+//            mMeshVertices[i] = glmVec3ToPhysXVec3(vertexNoDup[usedIndexes[i]]);
+//            
+//    		//mMeshVertices[i] = PxVec3(mesh->meshVertices[i].position.x, mesh->meshVertices[i].position.y, mesh->meshVertices[i].position.z);
+//    	}
+//    	PxU32* triangles = new PxU32[mesh->triangles.size()];
+//    	for (int i = 0; i < tris.size(); i++)
+//    	{
+//    		triangles[i] = tris[i];
+//    	}
+    
+    
     
 	PxVec3* mMeshVertices = new physx::PxVec3[mesh->meshVertices.size()];
 	for (int i = 0; i < mesh->meshVertices.size(); i++)
 	{
 		mMeshVertices[i] = PxVec3(mesh->meshVertices[i].position.x, mesh->meshVertices[i].position.y, mesh->meshVertices[i].position.z);
 	}
-	PxU32* triangles = new PxU32[mesh->triangles.size()];
-	for (int i = 0; i < mesh->triangles.size(); i++)
-	{
-		triangles[i] = mesh->triangles[i];
-	}
+//	PxU32* triangles = new PxU32[mesh->triangles.size()];
+//	for (int i = 0; i < mesh->triangles.size(); i++)
+//	{
+//		triangles[i] = mesh->triangles[i];
+//	}
 
 	PxSimpleTriangleMesh triangleMesh;
 	//desc.
@@ -402,20 +424,50 @@ PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
 	triangleMesh.points.stride = sizeof(PxVec3);
 	triangleMesh.points.data = mMeshVertices;
 
-	triangleMesh.triangles.count = mesh->triangles.size();
-	triangleMesh.triangles.stride = 3*sizeof(PxU32);
-	triangleMesh.triangles.data = triangles;
+//	triangleMesh.triangles.count = mesh->triangles.size();
+//	triangleMesh.triangles.stride = 3*sizeof(PxU32);
+//	triangleMesh.triangles.data = triangles;
 
+//	PxSimpleTriangleMesh triangleMesh;
+//	//desc.
+//	//PxSimpleTriangleMesh triangleMesh;
+//	triangleMesh.points.count = usedIndexes.size();
+//	triangleMesh.points.stride = sizeof(PxVec3);
+//	triangleMesh.points.data = mMeshVertices;
+//    
+//	triangleMesh.triangles.count = tris.size();
+//	triangleMesh.triangles.stride = 3*sizeof(PxU32);
+//	triangleMesh.triangles.data = triangles;
+    
 	//triangleMesh.flags = PxMeshFlag::eFLIPNORMALS;
 
 	bool ok = triangleMesh.isValid();
 
 
-	PhysXAllocatorCallback callback;
+//	PhysXAllocatorCallback callback;
 
+
+    
+
+    
 	PxCooking *cooking = PxCreateCooking(PX_PHYSICS_VERSION, PxGetFoundation(), PxCookingParams(PxTolerancesScale()));
 
-	//PxPhysicsInsertionCallback
+//    physx::PxConvexMesh* convexMesh2 = PxToolkit::createConvexMesh(*gPhysicsSDK, *cooking, mMeshVertices, usedIndexes.size(), PxConvexFlag::eCOMPUTE_CONVEX);
+    physx::PxConvexMesh* convexMesh2 = PxToolkit::createConvexMesh(*gPhysicsSDK, *cooking, mMeshVertices, mesh->meshVertices.size(),  PxConvexFlag::eCOMPUTE_CONVEX);
+    
+
+    if(convexMesh2 == nullptr)
+    {
+        convexMesh2 = PxToolkit::createConvexMesh(*gPhysicsSDK, *cooking, mMeshVertices, mesh->meshVertices.size(),  PxConvexFlag::eINFLATE_CONVEX | PxConvexFlag::eCOMPUTE_CONVEX);
+        
+    }
+    
+    cooking->release();
+    delete []mMeshVertices;
+    
+    return convexMesh2;
+	
+    //PxPhysicsInsertionCallback
 
 	//cooking->createTriangleMesh(triangleMeshDesc,pxdefaultinser)
 
@@ -461,6 +513,13 @@ PxShape* Physics::createMeshCollider(shared_ptr<Actor> actor)
 	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
 	shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
 
+    if(!meshFilter)
+    {
+        cerr << "Trying to add a MeshCollider to an actor that has no MeshFilter" << endl;
+        
+        return nullptr;
+    }
+    
 	PxConvexMeshGeometry geo(getPxConvexMesh(meshFilter->mesh));
 	PxShape* shape = nullptr;
 	if (rigidBody)

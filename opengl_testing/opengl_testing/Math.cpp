@@ -443,25 +443,28 @@ bool isSharedEdge(int i1, int i2, shared_ptr<MeshTriangle> triangle, int& edge)
 
 bool isSharedEdge(int i1, int i2, shared_ptr<MeshTriangle> triangle)
 {
-    if ( (i1 == triangle->i1 && i2 == triangle->i2)
-        
-    ||(i1 == triangle->i2 && i2 == triangle->i3)
-      
-    || (i1 == triangle->i3 && i2 == triangle->i1))
-        return true;
-      
-    
-    
-    if(   (i1 == triangle->i2 && i2 == triangle->i1)
-
-||(i1 == triangle->i3 && i2 == triangle->i2)
-
-  ||(i1 == triangle->i1 && i2 == triangle->i3))
-        return true;
-    
-    
-    
-    return false;
+    int edge = 0;
+    return isSharedEdge(i1,i2,triangle,edge);
+//    
+//    if ( (i1 == triangle->i1 && i2 == triangle->i2)
+//        
+//    ||(i1 == triangle->i2 && i2 == triangle->i3)
+//      
+//    || (i1 == triangle->i3 && i2 == triangle->i1))
+//        return true;
+//      
+//    
+//    
+//    if(   (i1 == triangle->i2 && i2 == triangle->i1)
+//
+//||(i1 == triangle->i3 && i2 == triangle->i2)
+//
+//  ||(i1 == triangle->i1 && i2 == triangle->i3))
+//        return true;
+//    
+//    
+//    
+//    return false;
 }
 
 vector<MeshTriangleEdge> getNonSharedEdges(vector<weak_ptr<MeshTriangle>> adjacentTriangles,shared_ptr<MeshTriangle> triangle)
@@ -807,17 +810,19 @@ void adjustAdjacent(vector<weak_ptr<MeshTriangle>> newFaces)
         
         for(int j = 0; j < newFaces.size(); j++)
         {
+            if(i == j)
+                continue;
+            
             shared_ptr<MeshTriangle> faceLock2 = newFaces[j].lock();
             if(!faceLock2)
                 continue;
 
-            int edge;
             
-            if(isSharedEdge(faceLock->i1, faceLock->i2, faceLock2,edge))
+            if(isSharedEdge(faceLock->i1, faceLock->i2, faceLock2))
                 faceLock->adjacentFaces.push_back(faceLock2);
-            if(isSharedEdge(faceLock->i2, faceLock->i3, faceLock2,edge))
+            if(isSharedEdge(faceLock->i2, faceLock->i3, faceLock2))
                 faceLock->adjacentFaces.push_back(faceLock2);
-            if(isSharedEdge(faceLock->i3, faceLock->i1, faceLock2,edge))
+            if(isSharedEdge(faceLock->i3, faceLock->i1, faceLock2))
                 faceLock->adjacentFaces.push_back(faceLock2);
 
         }
@@ -852,13 +857,39 @@ vector<weak_ptr<MeshTriangle>> getAdjacent(shared_ptr<MeshTriangle> triangle, ve
     return result;
 }
 
+      vector<int> getAllFacingPoints(vector<weak_ptr<MeshTriangle>>facingTriangles,shared_ptr<MeshTriangle> currentTriangle)
+{
+    vector<int> result;
+    
+    for (int i = 0; i < facingTriangles.size(); i++) {
+        shared_ptr<MeshTriangle> face = facingTriangles[i].lock();
+        if(!face)
+            continue;
+        
+        for (int j = 0; j < face->frontFacingPoints.size(); j++) {
+            result.push_back(face->frontFacingPoints[j]);
+        }
+        
+        //face->frontFacingPoints.clear();
+    }
+    
+    for (int j = 0; j < currentTriangle->frontFacingPoints.size(); j++) {
+        result.push_back(currentTriangle->frontFacingPoints[j]);
+        
+        //currentTriangle->frontFacingPoints.clear();
+    }
+    
+    return result;
+}
+
 void convexHull(vector<glm::vec3>& vertices, vector<int>& usedIndex, vector<int>& triangles)
 {
     
     
-        vector<shared_ptr<MeshTriangle>> faces;
-        stack<weak_ptr<MeshTriangle>> faceStack;
-            bool* verticeAssigned = new bool[vertices.size()];
+    vector<shared_ptr<MeshTriangle>> faces;
+    stack<weak_ptr<MeshTriangle>> faceStack;
+    bool* verticeAssigned = new bool[vertices.size()];
+    
     for(int i = 0; i < vertices.size();i++)
     {
         verticeAssigned[i] = false;
@@ -888,11 +919,16 @@ void convexHull(vector<glm::vec3>& vertices, vector<int>& usedIndex, vector<int>
     shared_ptr<MeshTriangle> tri2 = createMeshTriangle(vertices, i2,i3,i4,center);
     shared_ptr<MeshTriangle> tri3 = createMeshTriangle(vertices, i3,i1,i4,center);
 
+        faces.push_back(base); //0
+        faces.push_back(tri1); //1
+        faces.push_back(tri2); //2
+        faces.push_back(tri3); //3
+        
         for(int faceI = 0; faceI < faces.size(); faceI++)
         {
             shared_ptr<MeshTriangle> face = faces[faceI];
             
-            for (int pointI=0;vertices.size(); pointI++) {
+            for (int pointI=0; pointI < vertices.size(); pointI++) {
                 if(verticeAssigned[pointI])
                     continue;
                 
@@ -904,20 +940,20 @@ void convexHull(vector<glm::vec3>& vertices, vector<int>& usedIndex, vector<int>
             }
             
         }
-    //assignPointsToFace(vertices,base);
-    //assignPointsToFace(vertices,tri1);
-    //assignPointsToFace(vertices,tri2);
-    //assignPointsToFace(vertices,tri3);
+        
+        
+        
+//    assignPointsToFace(vertices,base);
+//    assignPointsToFace(vertices,tri1);
+//    assignPointsToFace(vertices,tri2);
+//    assignPointsToFace(vertices,tri3);
     
     base->adjacentFaces = {tri1,tri2,tri3};
     tri1->adjacentFaces = {base,tri2,tri3};
     tri2->adjacentFaces = {tri1,base,tri3};
     tri3->adjacentFaces = {tri1,tri2,base};
 
-    faces.push_back(base); //0
-    faces.push_back(tri1); //1
-    faces.push_back(tri2); //2
-    faces.push_back(tri3); //3
+
         
     faceStack.push(base);
     faceStack.push(tri1);
@@ -929,7 +965,7 @@ void convexHull(vector<glm::vec3>& vertices, vector<int>& usedIndex, vector<int>
     
     while(!faceStack.empty())
     {
-        cout <<faceStack.size() << endl;
+        cout <<faceStack.size() << " items in the stack."<<endl;
         
         shared_ptr<MeshTriangle> currentTriangle = faceStack.top().lock();
         faceStack.pop();
@@ -938,6 +974,8 @@ void convexHull(vector<glm::vec3>& vertices, vector<int>& usedIndex, vector<int>
         {
             continue;
         }
+        
+        cout<< "X Popped triangle: " << currentTriangle->i1 << "," << currentTriangle->i2 << "," << currentTriangle->i3 << endl;
         
 
         int farPointIndex;
@@ -949,8 +987,16 @@ void convexHull(vector<glm::vec3>& vertices, vector<int>& usedIndex, vector<int>
         
         vector<weak_ptr<MeshTriangle>> facingTriangles = currentTriangle->getAdjacentFacingTriangles(farPoint);
         
+
         
         vector<MeshTriangleEdge> edges = getNonSharedEdges(facingTriangles,currentTriangle);
+
+        vector<int> allFacingPoints = getAllFacingPoints(facingTriangles,currentTriangle);
+        
+        for(int i = 0; i < allFacingPoints.size(); i++)
+        {
+            verticeAssigned[allFacingPoints[i]] = false;
+        }
         
         glm::vec3 newCenter = getCenterFor(vertices,edges);
         
@@ -959,10 +1005,7 @@ void convexHull(vector<glm::vec3>& vertices, vector<int>& usedIndex, vector<int>
         //    cout << "Weird, edges should not be empty" << endl;
         //    continue;
         //}
-        if(contains(faces, currentTriangle))
-        faces.erase(find(faces.begin(),faces.end(),currentTriangle));
 
-                    cout<< "X Deleted triangle: " << currentTriangle->i1 << "," << currentTriangle->i2 << "," << currentTriangle->i3 << endl;
         
         vector<weak_ptr<MeshTriangle>> newFaces;
         
@@ -977,15 +1020,9 @@ void convexHull(vector<glm::vec3>& vertices, vector<int>& usedIndex, vector<int>
                 continue;
             }
             
-            // TODO VEC 0,0,0!!!!!!!
-            
-            
             shared_ptr<MeshTriangle> newTriangle = createMeshTriangle(vertices, farPointIndex,i1,i2,newCenter);
 
-
-
-            
-            assignPointsToFaceFromSubset(vertices,currentTriangle->frontFacingPoints,newTriangle);
+            //assignPointsToFaceFromSubset(vertices,currentTriangle->frontFacingPoints,newTriangle);
             
 //            assignPointsToFace(vertices,newTriangle);
             
@@ -1002,9 +1039,7 @@ void convexHull(vector<glm::vec3>& vertices, vector<int>& usedIndex, vector<int>
             }
             }
             
-            if(oldTriangle)
-                if(contains(faces, oldTriangle))
-            faces.erase(find(faces.begin(),faces.end(),oldTriangle));
+
 
             faces.push_back(newTriangle);
             faceStack.push(newTriangle);
@@ -1012,7 +1047,64 @@ void convexHull(vector<glm::vec3>& vertices, vector<int>& usedIndex, vector<int>
             newFaces.push_back(newTriangle);
         }
 
-        //adjustAdjacent(newFaces);
+        for(int i = 0; i < facingTriangles.size(); i++)
+        {
+            shared_ptr<MeshTriangle> meshTri = facingTriangles[i].lock();
+            
+            if(meshTri)
+                if(contains(faces, meshTri))
+                {
+                    faces.erase(find(faces.begin(),faces.end(),meshTri));
+                    cout<< "X Deleted triangle: " << meshTri->i1 << "," << meshTri->i2 << "," << meshTri->i3 << endl;
+                }
+        }
+        if(contains(faces, currentTriangle))
+        {
+            faces.erase(find(faces.begin(),faces.end(),currentTriangle));
+            
+            cout<< "X Deleted triangle: " << currentTriangle->i1 << "," << currentTriangle->i2 << "," << currentTriangle->i3 << endl;
+        }
+        
+        adjustAdjacent(newFaces);
+
+        for(int faceI = 0; faceI < newFaces.size(); faceI++)
+        {
+            shared_ptr<MeshTriangle> face = newFaces[faceI].lock();
+
+            if(!face)
+                continue;
+            
+            for (int pointI=0; pointI < allFacingPoints.size(); pointI++) {
+                
+                int index = allFacingPoints[pointI];
+                if(verticeAssigned[index])
+                    continue;
+                
+                if(isPlaneFacingPoint(face->p, vertices[index]))
+                {
+                    face->frontFacingPoints.push_back(index);
+                    verticeAssigned[index] = true;
+                }
+            }
+            
+        }
+        for(int faceI = 0; faceI < newFaces.size(); faceI++)
+        {
+            shared_ptr<MeshTriangle> face = newFaces[faceI].lock();
+            
+            if(!face)
+                continue;
+            
+            cout<< "Adjacents to: " << face->i1 << "," << face->i2 << "," << face->i3 << endl;
+            
+            for (int z = 0; z < face->adjacentFaces.size(); z++) {
+                shared_ptr<MeshTriangle> face2 = face->adjacentFaces[z].lock();
+                
+                if(!face2)
+                    continue;
+                            cout <<"->"<< face2->i1 << "," << face2->i2 << "," << face2->i3 << endl;
+            }
+        }
         
     }
     

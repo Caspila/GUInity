@@ -198,7 +198,7 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
     //shared_ptr<UIButton> button = dynamic_pointer_cast<UIButton>(uiWidgetTest);
     
     shared_ptr<UIWidget> mostInner = findMostInner(Input::mousePos,uiWidgetTest);
-    cout << Input::mousePos << endl;
+//    cout << Input::mousePos << endl;
 //    if(isInside(Input::mousePos,mostInner->bounds))
     if(mostInner)
     {

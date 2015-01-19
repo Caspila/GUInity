@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		46389E071A6CEF5A000B0DEB /* PxTkBmpLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46389E021A6CEF5A000B0DEB /* PxTkBmpLoader.cpp */; };
+		46389E081A6CEF5A000B0DEB /* PxTkFPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46389E031A6CEF5A000B0DEB /* PxTkFPS.cpp */; };
+		46389E091A6CEF5A000B0DEB /* PxTkMatrixUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46389E041A6CEF5A000B0DEB /* PxTkMatrixUtils.cpp */; };
+		46389E0A1A6CEF5A000B0DEB /* PxTkRandom.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46389E051A6CEF5A000B0DEB /* PxTkRandom.cpp */; };
+		46389E0B1A6CEF5A000B0DEB /* PxTkStream.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46389E061A6CEF5A000B0DEB /* PxTkStream.cpp */; };
+		46389E0D1A6CF71E000B0DEB /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46389E0C1A6CF71E000B0DEB /* libboost_filesystem.a */; };
+		46389E0F1A6CF738000B0DEB /* libboost_filesystem.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46389E0E1A6CF738000B0DEB /* libboost_filesystem.dylib */; };
+		46389E111A6CF752000B0DEB /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46389E101A6CF752000B0DEB /* libboost_system.a */; };
+		46389E131A6CF767000B0DEB /* libboost_system.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46389E121A6CF767000B0DEB /* libboost_system.dylib */; };
 		464D88E11A4A48AA007B0CDD /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 464D88A21A4A48AA007B0CDD /* Actor.cpp */; };
 		464D88E21A4A48AA007B0CDD /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 464D88A61A4A48AA007B0CDD /* Camera.cpp */; };
 		464D88E31A4A48AA007B0CDD /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 464D88A81A4A48AA007B0CDD /* Component.cpp */; };
@@ -107,6 +116,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 6;
 			files = (
+				46389E131A6CF767000B0DEB /* libboost_system.dylib in CopyFiles */,
+				46389E0F1A6CF738000B0DEB /* libboost_filesystem.dylib in CopyFiles */,
 				466138EB1A64CFA800AB9D02 /* libpng16.16.dylib in CopyFiles */,
 				468B50C51A61E5E300CD58A5 /* libfmod.dylib in CopyFiles */,
 				468B50BF1A61E54B00CD58A5 /* libfbxsdk.dylib in CopyFiles */,
@@ -129,6 +140,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		46389E021A6CEF5A000B0DEB /* PxTkBmpLoader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PxTkBmpLoader.cpp; path = "../../../physx-3.3.1_osx_sdk_core/Samples/PxToolkit/src/PxTkBmpLoader.cpp"; sourceTree = "<group>"; };
+		46389E031A6CEF5A000B0DEB /* PxTkFPS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PxTkFPS.cpp; path = "../../../physx-3.3.1_osx_sdk_core/Samples/PxToolkit/src/PxTkFPS.cpp"; sourceTree = "<group>"; };
+		46389E041A6CEF5A000B0DEB /* PxTkMatrixUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PxTkMatrixUtils.cpp; path = "../../../physx-3.3.1_osx_sdk_core/Samples/PxToolkit/src/PxTkMatrixUtils.cpp"; sourceTree = "<group>"; };
+		46389E051A6CEF5A000B0DEB /* PxTkRandom.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PxTkRandom.cpp; path = "../../../physx-3.3.1_osx_sdk_core/Samples/PxToolkit/src/PxTkRandom.cpp"; sourceTree = "<group>"; };
+		46389E061A6CEF5A000B0DEB /* PxTkStream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PxTkStream.cpp; path = "../../../physx-3.3.1_osx_sdk_core/Samples/PxToolkit/src/PxTkStream.cpp"; sourceTree = "<group>"; };
+		46389E0C1A6CF71E000B0DEB /* libboost_filesystem.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_filesystem.a; path = ../../../boost_1_57_0/stage/lib/libboost_filesystem.a; sourceTree = "<group>"; };
+		46389E0E1A6CF738000B0DEB /* libboost_filesystem.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_filesystem.dylib; path = ../../../boost_1_57_0/stage/lib/libboost_filesystem.dylib; sourceTree = "<group>"; };
+		46389E101A6CF752000B0DEB /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../../../boost_1_57_0/stage/lib/libboost_system.a; sourceTree = "<group>"; };
+		46389E121A6CF767000B0DEB /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = ../../../boost_1_57_0/stage/lib/libboost_system.dylib; sourceTree = "<group>"; };
 		464D88A21A4A48AA007B0CDD /* Actor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Actor.cpp; path = ../opengl_testing/opengl_testing/Actor.cpp; sourceTree = "<group>"; };
 		464D88A31A4A48AA007B0CDD /* Actor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Actor.hpp; path = ../opengl_testing/opengl_testing/Actor.hpp; sourceTree = "<group>"; };
 		464D88A41A4A48AA007B0CDD /* AnyClass.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AnyClass.hpp; path = ../opengl_testing/opengl_testing/AnyClass.hpp; sourceTree = "<group>"; };
@@ -350,6 +370,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46389E111A6CF752000B0DEB /* libboost_system.a in Frameworks */,
+				46389E0D1A6CF71E000B0DEB /* libboost_filesystem.a in Frameworks */,
 				466138E91A64CF9000AB9D02 /* libpng16.a in Frameworks */,
 				468B50C31A61E5CC00CD58A5 /* libfmod.dylib in Frameworks */,
 				468B50C11A61E56700CD58A5 /* libfbxsdk.a in Frameworks */,
@@ -615,6 +637,15 @@
 		4694EE2E1A4A3A16001E8C48 = {
 			isa = PBXGroup;
 			children = (
+				46389E121A6CF767000B0DEB /* libboost_system.dylib */,
+				46389E101A6CF752000B0DEB /* libboost_system.a */,
+				46389E0E1A6CF738000B0DEB /* libboost_filesystem.dylib */,
+				46389E0C1A6CF71E000B0DEB /* libboost_filesystem.a */,
+				46389E021A6CEF5A000B0DEB /* PxTkBmpLoader.cpp */,
+				46389E031A6CEF5A000B0DEB /* PxTkFPS.cpp */,
+				46389E041A6CEF5A000B0DEB /* PxTkMatrixUtils.cpp */,
+				46389E051A6CEF5A000B0DEB /* PxTkRandom.cpp */,
+				46389E061A6CEF5A000B0DEB /* PxTkStream.cpp */,
 				466138EA1A64CFA800AB9D02 /* libpng16.16.dylib */,
 				466138E71A64CF6100AB9D02 /* libpng16.16.dylib */,
 				466138E51A64CF4D00AB9D02 /* libpng16.a */,
@@ -699,6 +730,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				46389E071A6CEF5A000B0DEB /* PxTkBmpLoader.cpp in Sources */,
+				46389E081A6CEF5A000B0DEB /* PxTkFPS.cpp in Sources */,
+				46389E091A6CEF5A000B0DEB /* PxTkMatrixUtils.cpp in Sources */,
+				46389E0A1A6CEF5A000B0DEB /* PxTkRandom.cpp in Sources */,
+				46389E0B1A6CEF5A000B0DEB /* PxTkStream.cpp in Sources */,
 				464D88F81A4A48AA007B0CDD /* Time.cpp in Sources */,
 				46FFC21E1A5237A200FCFAC4 /* Observer.cpp in Sources */,
 				464D88F71A4A48AA007B0CDD /* StaticCounter.cpp in Sources */,
@@ -860,6 +896,9 @@
 					/Applications/Autodesk/FBX_SDK/2015.1/include,
 					/Users/guilherme_cunha/Dev/boost_1_57_0,
 					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Samples/PxToolkit/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Source/foundation/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include/foundation",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
@@ -898,6 +937,9 @@
 					/Applications/Autodesk/FBX_SDK/2015.1/include,
 					/Users/guilherme_cunha/Dev/boost_1_57_0,
 					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Samples/PxToolkit/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Source/foundation/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include/foundation",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
