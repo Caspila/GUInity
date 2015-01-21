@@ -14,7 +14,7 @@ Mesh::Mesh() : Asset()
 {
     
 	 mvbo = vao  = ibo = 0;
-
+        scaleFactor = 1;
 
 #ifdef GUINITY_DEBUG
 	nCount++;
@@ -26,6 +26,7 @@ Mesh::Mesh(vector<MeshVertex> vertex, vector<unsigned short> triangles)
 {
     
     mvbo = vao = ibo = 0;
+        scaleFactor = 1;
     
 //    for (int i = 0; i < vertex.size(); i++)
 //	{
@@ -49,6 +50,7 @@ Mesh::Mesh(vector<MeshVertex> vertex, vector<unsigned short> triangles)
 Mesh::Mesh(vector<glm::vec3> vertices,vector<int> usedIndex,vector<int> usedTris)
 {
    	mvbo = vao = ibo = 0;
+        scaleFactor = 1;
 
     for (int i = 0; i < usedIndex.size(); i++)
 	{
@@ -73,6 +75,7 @@ Mesh::Mesh(vector<glm::vec3> vertices,vector<int> usedIndex,vector<int> usedTris
 Mesh::Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangles, int nPoints, int nTriangles) : Asset()
 {
 	mvbo = vao = ibo = 0;
+    scaleFactor = 1;
     
 	//this->nPoints = nPoints;
     

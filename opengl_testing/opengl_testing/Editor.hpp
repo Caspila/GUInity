@@ -46,5 +46,7 @@ public:
 
 	static shared_ptr<Actor> rotateHandles;
     static shared_ptr<UIWidget> uiWidgetTest;
+    
+    static TransformMode transformMode;
 };
 

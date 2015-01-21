@@ -17,3 +17,5 @@ glm::vec3 PhysXVec3ToglmVec3(const PxVec3& vec3);
 glm::quat PhysXQuatToglmQuat(const PxQuat& quat);
 
 PxTransform transformToPhysXTransform(const shared_ptr<Transform>& transform);
+
+PxMat44 glmMat4ToPhysxMat4(const glm::mat4& mat4);

@@ -32,7 +32,9 @@ void RigidBody::tick(float deltaSeconds)
 
 	shared_ptr<Actor> actor = getActor();
 
-	physxRigidBody->setGlobalPose(transformToPhysXTransform(actor->transform));
+    
+//	physxRigidBody->setGlobalPose(transformToPhysXTransform(actor->transform));
+    	physxRigidBody->setGlobalPose(PxTransform(glmMat4ToPhysxMat4(actor->transform->getModelMatrix())));
 }
 
 void RigidBody::setKinematic(bool isKinematic)
@@ -47,7 +49,12 @@ bool RigidBody::getKinematic()
 
 void RigidBody::setActive(bool isActive)
 {
+//    cout << "Disabled RigidBody" << endl;
+    
+    physxRigidBody->setActorFlag(PxActorFlag::eVISUALIZATION, isActive);
 	physxRigidBody->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, !isActive);
+
+    
 }
 
 

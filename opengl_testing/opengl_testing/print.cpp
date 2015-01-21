@@ -45,6 +45,16 @@ ostream& operator<<(ostream& os, const glm::quat& quat)
 	return os;
 }
 
+void printVertex(const glm::vec3& vec3)
+{
+    cout << '(' << vec3.x << ',' << vec3.y << ',' << vec3.z << ')';
+}
+void printVertex(const glm::vec2& vec2)
+{
+    cout << '(' << vec2.x << ',' << vec2.y << ')';
+}
+
+
 //PxVec3 glmVec3ToPhysXVec3(const glm::vec3& vec3)
 //{
 //	return PxVec3(vec3.x, vec3.y, vec3.z);

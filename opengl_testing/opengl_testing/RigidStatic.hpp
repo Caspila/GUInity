@@ -14,6 +14,7 @@ public:
 
 	virtual void init() override;
 	virtual void tick(float deltaSecods) override;
+    virtual void setActive(bool isActive) override;
 
 	PxRigidDynamic* physxRigidStatic;
     

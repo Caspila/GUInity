@@ -98,17 +98,22 @@ void RotateHandle::tick(float deltaSeconds)
 			//float dot = glm::dot(newWorldProj, oldWorldProj);
 
 			glm::vec3 dirAxis;
+            //glm::vec3 dotAxis;
+            
 
 			switch (axis)
 			{
 			case RotateAxis::z:
+//                    dotAxis = -currentActor->transform->getRight();
 				dirAxis = currentActor->transform->getUp();
 				break;
 			case RotateAxis::y:
 				dirAxis = currentActor->transform->getForward();
+//                    dotAxis = currentActor->transform->getUp();
 				break;
 			case RotateAxis::x:
 				dirAxis = currentActor->transform->getRight();
+//                    dotAxis = -currentActor->transform->getRight();
 				break;
 			default:
 				break;
@@ -129,10 +134,12 @@ void RotateHandle::tick(float deltaSeconds)
 			//
 			//float f = Math::sgn(dot - lastDot);
 			float f = sgn(dot);
-			cout << "f" << f << endl;
+//			cout << "f" << f << endl;
 
-			currentActor->transform->rotationQuat = glm::angleAxis(f * deltaSeconds, rotationAxis) * currentActor->transform->rotationQuat;
+//			currentActor->transform->rotationQuat = glm::angleAxis(f * deltaSeconds, rotationAxis) * currentActor->transform->rotationQuat;
 
+            currentActor->transform->rotationQuat = glm::angleAxis(f * deltaSeconds, dirAxis) * currentActor->transform->rotationQuat;
+            
 
 			lastDot = dot;
 
@@ -171,7 +178,7 @@ void RotateHandle::tick(float deltaSeconds)
 
 			//cout << "dotDekta: " << delta << endl;
 
-			////cout << "Mouse click on ME!" << getActor()->name << endl;
+//            cout << "Mouse click on ME!" << getActor()->name << endl;
 
 			////if (mouseDelta.x > 0)
 			////	cout << "Move" << endl;

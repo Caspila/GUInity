@@ -51,6 +51,8 @@ void BoxCollider::init()
         shape = Physics::createBoxCollider(halfExtent,center,getActor());
     }
     
+
+    
 	//shape = halfExtent == glm::vec3(0,0,0) ? Physics::createBoxCollider(getActor()) : ;
 }
 

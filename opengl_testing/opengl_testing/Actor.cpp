@@ -13,6 +13,8 @@ Actor::Actor(string name)// , shared_ptr<MeshRenderer> meshRenderer	)
 
 	this->name = name;
 
+    isActive = true;
+    
 #ifdef GUINITY_DEBUG
 	nCount++;
 #endif
@@ -38,6 +40,11 @@ void Actor::awake()
 
 void Actor::tick(float deltaSeconds)
 {
+    if(!isActive)
+    {
+//        cout << name << " actor is not active!" << endl;
+        return;
+    }
 	for (int i = 0; i < components.size(); i++)
 	{
 		shared_ptr<Component> component = components[i];
@@ -95,10 +102,14 @@ void Actor::addChildren(shared_ptr<Actor> children)
 {
 	this->children.push_back(children);
 	children->setParent(shared_from_this());
+    
+    children->setActive(isActive);
 }
 
 void Actor::setActive(bool isActive)
 {
+    this->isActive = isActive;
+    
 	for (auto& x : components)
 	{
 		x->setActive(isActive);

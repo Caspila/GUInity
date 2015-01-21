@@ -24,6 +24,7 @@ shared_ptr<Actor> Editor::moveHandles;
 shared_ptr<Actor> Editor::rotateHandles;
 shared_ptr<World> Editor::world;
 shared_ptr<UIWidget> Editor::uiWidgetTest;
+TransformMode Editor::transformMode;
 //vector<shared_ptr<Actor>>  Editor::editorActors;
 
 Editor::Editor()
@@ -46,6 +47,8 @@ void callBack2()
 
 void Editor::init()
 {
+    transformMode = TransformMode::none;
+    
 	world = make_shared<World>();
 
 	world->init();
@@ -59,6 +62,8 @@ void Editor::init()
 
 	moveHandles = Factory::CreateEditorActor("MoveHandles");
 	moveHandles->AddComponent<MoveTool>();
+    
+    moveHandles->setActive(false);
     
     shared_ptr<UIWidget> baseContainer = make_shared<UIWidget>();
     baseContainer->mesh = dynamic_pointer_cast<Mesh>(AssetDatabase::idToAsset[0]);
@@ -86,8 +91,10 @@ void Editor::init()
     
     uiWidgetTest = baseContainer;
     
-	//rotateHandles = Factory::CreateEditorActor("RotateHandles");
-	//rotateHandles->AddComponent<RotateTool>();
+	rotateHandles = Factory::CreateEditorActor("RotateHandles");
+	rotateHandles->AddComponent<RotateTool>();
+    
+    rotateHandles->setActive(false);
 /*
 	shared_ptr<Actor> rightHandle = Factory::CreateEditorActor("MoveRightHandle");
 	shared_ptr<SphereCollider> collider = rightHandle->AddComponent<SphereCollider>();
@@ -195,6 +202,8 @@ shared_ptr<UIWidget> lastWidget;
 
 void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
 {
+    //rotateHandles->setActive(false);
+    
     //shared_ptr<UIButton> button = dynamic_pointer_cast<UIButton>(uiWidgetTest);
     
     shared_ptr<UIWidget> mostInner = findMostInner(Input::mousePos,uiWidgetTest);
@@ -230,7 +239,8 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
 			if (clickedActor)
 			{
 				shared_ptr<EditorCollider> editorCollider = clickedActor->GetComponent<EditorCollider>();
-				if (editorCollider)
+				
+                if (editorCollider)
 					currentSelectedActor = editorCollider->gameActor.lock();
 				//else
 				//	currentSelectedActor = nullptr;
@@ -238,6 +248,49 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
 			
 			
 		}
+        else
+            currentSelectedActor = nullptr;
+    
+    
+    if(Input::getKeyPressed(GLFW_KEY_Q))
+    {
+        transformMode = TransformMode::move;
+    } else
+        if(Input::getKeyPressed(GLFW_KEY_W))
+        {
+            transformMode = TransformMode::rotate;
+        }
+
+
+    
+    if(currentSelectedActor!=nullptr)
+    {
+        switch (transformMode) {
+            case TransformMode::none:
+                rotateHandles->setActive(false);
+                moveHandles->setActive(false);
+                break;
+            case TransformMode::move:
+                rotateHandles->setActive(false);
+                moveHandles->setActive(true);
+                break;
+            case TransformMode::rotate:
+                                rotateHandles->setActive(true);
+                moveHandles->setActive(false);
+                break;
+            case TransformMode::scale:
+                
+                break;
+                
+            default:
+                break;
+        }
+    }
+    else
+    {
+        moveHandles->setActive(false);
+        rotateHandles->setActive(false);
+    }
 
 	//moveHandles->setActive(currentSelectedActor != nullptr);
 	

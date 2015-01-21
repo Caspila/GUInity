@@ -14,6 +14,7 @@
 #include <map>
 #include "Asset.hpp"
 #include "Mesh.hpp"
+#include <boost/crc.hpp>
 
 class Shader;
 class Material;
@@ -25,16 +26,21 @@ class AssetDatabase
 {
     static MeshImporter meshImporter;
 
+    //static int getCRC(string filename);
+    
 public:
     static unsigned int currentID;
     
     static std::map<unsigned int,shared_ptr<Asset>> idToAsset;
+    static std::map<string,shared_ptr<Asset>> nameToAsset;
     
     static void init();
     static void shutdown();
+    static void loadAllMetaFiles();
+    static void loadFile(string fullPath);
     
-    static shared_ptr<Shader> createShader(string vsFilename, string fsFilename);
-    static shared_ptr<Material> createMaterial(shared_ptr<Shader> shader);
+    static shared_ptr<Shader> createShader(string name, string vsFilename, string fsFilename);
+    static shared_ptr<Material> createMaterial(string name, shared_ptr<Shader> shader);
     static shared_ptr<Mesh> createMeshFromFBX(string filename);
     static shared_ptr<Mesh> createMeshFromOBJ(string filename);
     static shared_ptr<Mesh> createMesh();
@@ -44,8 +50,15 @@ public:
     static shared_ptr<Mesh> createMesh(vector<MeshVertex> vertex, vector<unsigned short> triangles);
     static shared_ptr<Texture> createTexture(string filename);
     
-  
+    static shared_ptr<Asset> getAsset(string filename);
     
+    
+//    template <typename T>
+//    static void assignCurrentID(T asset);
+//    template <typename T>
+//    static void assignName(T asset, string name);
+    template <typename T>
+    static void assignCurrentID(T asset, string name);
     template <typename T>
     static void assignCurrentID(T asset);
     

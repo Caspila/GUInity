@@ -74,11 +74,18 @@ glm::mat4 Transform::getModelMatrix()
 {
 	shared_ptr<Actor> actorLock = actor.lock();
 	shared_ptr<Actor> parentLock = actorLock->parent.lock();
-	if (parentLock == nullptr)
-		return glm::translate(position) * glm::scale(scale) * (glm::mat4)(rotationQuat);// *glm::quat(glm::vec3(0, 180 * Math::Deg2Radian, 0)));
+    
+    if (parentLock == nullptr)
+		return glm::translate(position) * (glm::mat4)(rotationQuat) * glm::scale(scale) ;
+    
+	else return  parentLock->transform->getModelMatrix() * glm::translate(position) *  (glm::mat4)(rotationQuat) * glm::scale(scale);
 
-	//else return  actorLock->transform->getModelMatrix() * glm::translate(position) * glm::scale(scale) * (glm::mat4)(rotationQuat);
-	else return  parentLock->transform->getModelMatrix() * glm::translate(position) * glm::scale(scale) * (glm::mat4)(rotationQuat);
+    
+    
+//	if (parentLock == nullptr)
+//		return glm::translate(position) * glm::scale(scale) * (glm::mat4)(rotationQuat);
+//
+//	else return  parentLock->transform->getModelMatrix() * glm::translate(position) * glm::scale(scale) * (glm::mat4)(rotationQuat);
 }
 
 glm::mat4 Transform::getPosRotMatrix()
@@ -89,7 +96,7 @@ glm::mat4 Transform::getPosRotMatrix()
 		return glm::translate(position) * (glm::mat4)(rotationQuat);// *glm::quat(glm::vec3(0, 180 * Math::Deg2Radian, 0)));
 
 	//else return  actorLock->transform->getPosRotMatrix() * glm::translate(position) * glm::scale(scale) * (glm::mat4)(rotationQuat);
-	else return  parentLock->transform->getPosRotMatrix() * glm::translate(position) * glm::scale(scale) * (glm::mat4)(rotationQuat);
+	else return  parentLock->transform->getPosRotMatrix() * glm::translate(position) * (glm::mat4)(rotationQuat);
 }
 
 void Transform::updateTransform(const PxTransform& transform)

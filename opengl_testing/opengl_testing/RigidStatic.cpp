@@ -25,7 +25,8 @@ void RigidStatic::tick(float deltaSeconds)
 {
 	shared_ptr<Actor> actor = getActor();
 
-	physxRigidStatic->setGlobalPose(transformToPhysXTransform(actor->transform));
+//	physxRigidStatic->setGlobalPose(transformToPhysXTransform(actor->transform));
+        	physxRigidStatic->setGlobalPose(PxTransform(glmMat4ToPhysxMat4(actor->transform->getPosRotMatrix())));
 }
 
 shared_ptr<ComponentDescription> RigidStatic::getComponentDescription()
@@ -35,5 +36,15 @@ shared_ptr<ComponentDescription> RigidStatic::getComponentDescription()
 
 void RigidStatic::deserialize(shared_ptr<ComponentDescription> desc)
 {
+    
+}
+
+void RigidStatic::setActive(bool isActive)
+{
+     physxRigidStatic->setActorFlag(PxActorFlag::eVISUALIZATION, isActive);
+	physxRigidStatic->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, !isActive);
+   
+    
+//        cout << "Disabled RigidStatic" << isActive<< endl;
     
 }

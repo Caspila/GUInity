@@ -32,6 +32,7 @@
 #include "Shader.hpp"
 #include "Material.hpp"
 #include <memory>
+#include "print.hpp"
 
 #include <iostream>
 
@@ -60,30 +61,53 @@ namespace boost {
             boost::serialization::split_free(ar, asset, version);
             
         }
+
         
         template<class Archive>
         void load(Archive & ar, Mesh & mesh, const unsigned int version)
         {
-                        ar & boost::serialization::base_object<Asset>(mesh);
-            ar & mesh.triangles;
-            ar & mesh.meshVertices;
-            ar & mesh.scaleFactor;
-            ar & mesh.boundsMin;
-            ar & mesh.boundsMax;
-            ar & mesh.avgCenter;
+
             
+                   // int myCont = 0;
+            ar & boost::serialization::base_object<Asset>(mesh);
+//            cout << "loaded base_object" << endl;
+//            ar & mesh.triangles;
+////            cout << "loaded triangles" << endl;
+//            ar & mesh.meshVertices;
+////                        cout << "loaded meshVertices" << endl;
+//            ar & mesh.scaleFactor;
+////                        cout << "loaded scaleFactor" << endl;
+//            ar & mesh.boundsMin;
+////                        cout << "loaded boundsMin" << endl;
+//            ar & mesh.boundsMax;
+////                        cout << "loaded boundsMax" << endl;
+//            ar & mesh.avgCenter;
+////                        cout << "loaded avgCenter" << endl;
+            
+
             mesh.createBuffers3();
         }
         template<class Archive>
         void save(Archive & ar,const Mesh & mesh, const unsigned int version)
         {
-                        ar & boost::serialization::base_object<Asset>(mesh);
-            ar & mesh.triangles;
-            ar & mesh.meshVertices;
-            ar & mesh.scaleFactor;
-            ar & mesh.boundsMin;
-            ar & mesh.boundsMax;
-            ar & mesh.avgCenter;
+//            for(int i = 0; i < mesh.meshVertices.size(); i++)
+//            {
+//                cout << i << endl;
+//                                printVertex(mesh.meshVertices[i].position);
+//                                                printVertex(mesh.meshVertices[i].uv);
+//                printVertex(mesh.meshVertices[i].normal);
+//                cout << endl;
+//                //std::cout << mesh.meshVertices[i].normal << endl;
+//            }
+            
+            ar & boost::serialization::base_object<Asset>(mesh);
+//            ar & mesh.triangles;
+//            ar & mesh.meshVertices;
+//            cout << "END SAVE MESH" << endl;
+//            ar & mesh.scaleFactor;
+//            ar & mesh.boundsMin;
+//            ar & mesh.boundsMax;
+//            ar & mesh.avgCenter;
         }
         template <class Archive>
         void serialize(Archive & ar, Mesh & mesh, const unsigned int version)
@@ -97,18 +121,20 @@ namespace boost {
         template<class Archive>
         void serialize(Archive & ar, PxVec3 & v, const unsigned int version)
         {
+
             ar & v.x;
             ar & v.y;
             ar & v.z;
             
         }
+
         template<class Archive>
         void serialize(Archive & ar, glm::vec3 & v, const unsigned int version)
         {
             ar & v.x;
             ar & v.y;
             ar & v.z;
-            
+
         }
         
         template<class Archive>
@@ -124,19 +150,49 @@ namespace boost {
         template<class Archive>
         void serialize(Archive & ar, glm::vec2 & v, const unsigned int version)
         {
+                                    static int myCont = 0;
             ar & v.x;
             ar & v.y;
-            
+            myCont++;
+
+            cout << myCont << endl;
         }
         
         template<class Archive>
-        void serialize(Archive & ar, MeshVertex & mv, const unsigned int version)
+        void save(Archive & ar,const MeshVertex & mv, const unsigned int version)
         {
+  //          string desc = "pos";
+    //        ar & desc;
             ar & mv.position;
+     //       desc = "uv";
+     //       ar & desc;
             ar & mv.uv;
+     //       desc = "normal";
+     //       ar & desc;
             ar & mv.normal;
         }
         
+        template<class Archive>
+        void load(Archive & ar, MeshVertex & mv, const unsigned int version)
+        {
+ //           string desc;
+   //         ar & desc;
+            ar & mv.position;
+     //       ar & desc;
+            ar & mv.uv;
+       //     ar & desc;
+            ar & mv.normal;
+            
+            //MeshVertex m(mv);
+            
+            //std::cout << mv.position.x << " " << mv.position.y << " " << mv.position.z << endl;;// << " " << m.uv << " " << m.normal;
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar, MeshVertex & meshVertex, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, meshVertex, version);
+        }
         
         template<class Archive>
         void save(Archive & ar, const Shader & shader, const unsigned int version)

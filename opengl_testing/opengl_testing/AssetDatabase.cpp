@@ -13,20 +13,150 @@
 #include "Shader.hpp"
 #include "Texture.h"
 #include <png.h>
+#include <boost/filesystem.hpp>
+#include "FSAuxiliar.h"
+#include <boost/archive/text_oarchive.hpp>
+#include "Module.hpp"
+#include "Serialization2.hpp"
 
-unsigned int AssetDatabase::currentID =0;
+unsigned int AssetDatabase::currentID = 0;
 MeshImporter AssetDatabase::meshImporter;
 std::map<unsigned int,shared_ptr<Asset>> AssetDatabase::idToAsset;
+std::map<string,shared_ptr<Asset>> AssetDatabase::nameToAsset;
 
 
+
+//int AssetDatabase::getCRC(string fullPath)
+//{
+//    using namespace boost::filesystem;
+//    
+//    path p(fullPath);
+//    if(exists(p))
+//    {
+//        if(is_regular_file(p))
+//        {
+//            ifstream file(fullPath,ios::in | ios::binary);
+//            
+//            //ifstream::pos_type fileSize = file.tellg();
+//            int fileSize = file_size(p);
+//            char* fileContents = new char[fileSize];
+//            
+//            file.seekg(0, ios::beg);
+//            if(!file.read(fileContents, fileSize))
+//            {
+//                cout << "fail to read" << endl;
+//            }
+//            
+////            boost::crc_basic<16> crc_ccitt1(
+//                boost::crc_basic<32>  crc_ccitt1( 0x1021, 0xFFFF, 0, false, false );
+//                crc_ccitt1.process_bytes( fileContents, fileSize );
+//            
+//            int checkSum = crc_ccitt1.checksum();
+//            cout << checkSum << endl;
+//            return checkSum;
+//        }
+//            
+//    }
+//    cerr << "Error when trying to get CRC for file: "<< fullPath << endl;
+//    return -1;
+//}
+
+void AssetDatabase::loadFile(string fullPath)
+{
+    cout << "Loading desc file: " << fullPath << endl;
+    {
+        std::ifstream ifs(fullPath,std::fstream::binary | std::fstream::in);
+//        if(ifs.good())
+//        {
+//        //    ifs.seekg (0, ifs.end);
+//            cout <<         ifs.tellg() << endl;
+//        }
+
+
+        
+        boost::archive::binary_iarchive ia(ifs);
+        
+        shared_ptr<Asset> asset;
+        ia & asset;
+    }
+}
+
+void createSerializationFile(shared_ptr<Asset> asset,string filename)
+{
+        std::ofstream ofs(filename.append(".desc"),std::fstream::binary | std::fstream::out);
+    {
+
+        
+        boost::archive::binary_oarchive oa(ofs);
+        
+        oa & asset;
+    }
+    ofs.close();
+}
+
+void AssetDatabase::loadAllMetaFiles()
+{
+    vector<path> files = getFilesInDirectory(CommonData(""));
+    
+    for(auto& file : files)
+    {
+        
+        string extension = file.extension().string();
+        string filename = file.filename().string();
+        
+        if(extension == ".desc")
+        {
+            loadFile(filename);
+        }
+     
+        
+    }
+ 
+}
 void AssetDatabase::init()
 {
     meshImporter.init();
+    
+//   loadAllMetaFiles();
+ 
+    cout << idToAsset.size() << endl;
 }
 
 void AssetDatabase::shutdown()
 {
     meshImporter.shutdown();
+}
+
+shared_ptr<Asset> AssetDatabase::getAsset(string filename)
+{
+    map<string,shared_ptr<Asset>>::iterator it;
+    it = nameToAsset.find(filename);
+    if(it!=nameToAsset.end())
+        return nameToAsset[filename];
+    
+
+    
+    return nullptr;
+}
+
+
+
+template <typename T>
+void AssetDatabase::assignCurrentID(T asset, string name)
+{
+    asset->setAssetID(currentID);
+    
+    idToAsset[currentID] = asset;
+    
+    asset->setName(name);
+
+    asset->setCRC(getCRC(CommonData(name)));
+    
+    nameToAsset[name] = asset;
+    
+    createSerializationFile(asset,CommonData(name));
+    
+    currentID++;
 }
 
 template <typename T>
@@ -36,23 +166,38 @@ void AssetDatabase::assignCurrentID(T asset)
     
     idToAsset[currentID] = asset;
     
+    string name = std::to_string(currentID);
+    asset->setName(name);
+    
+    nameToAsset[name] = asset;
+    
     currentID++;
 }
 
+//template <typename T>
+//void AssetDatabase::assignName(T asset, string name)
+//{
+//    asset->setName(name);
+//
+//    nameToAsset[name] = asset;
+//}
 
-shared_ptr<Shader> AssetDatabase::createShader(string vsFilename, string fsFilename)
+
+shared_ptr<Shader> AssetDatabase::createShader(string filename, string vsFilename, string fsFilename)
 {
  
     shared_ptr<Shader> shader = make_shared<Shader>(vsFilename,fsFilename);
-    assignCurrentID(shader);
+    assignCurrentID(shader,filename);
+//    assignName(shader,filename);
     
     return shader;
 }
 
-shared_ptr<Material> AssetDatabase::createMaterial(shared_ptr<Shader> shader)
+shared_ptr<Material> AssetDatabase::createMaterial(string filename, shared_ptr<Shader> shader)
 {
     shared_ptr<Material> material = make_shared<Material>(shader);
-    assignCurrentID(material);
+    assignCurrentID(material,filename);
+//    assignName(material,filename);
     
     return material;
 }
@@ -60,15 +205,19 @@ shared_ptr<Material> AssetDatabase::createMaterial(shared_ptr<Shader> shader)
  shared_ptr<Mesh> AssetDatabase::createMeshFromFBX(string filename)
 {
     shared_ptr<Mesh> mesh = meshImporter.importFbxMesh(filename);
-    assignCurrentID(mesh);
+    assignCurrentID(mesh,filename);
+//    assignName(mesh,filename);
+    
+
     
     return mesh;
 }
  shared_ptr<Mesh> AssetDatabase::createMeshFromOBJ(string filename)
 {
     shared_ptr<Mesh> mesh = meshImporter.importObjMesh(filename);
-    assignCurrentID(mesh);
-    
+    assignCurrentID(mesh,filename);
+//    assignName(mesh,filename);
+
     return mesh;
 }
  shared_ptr<Mesh> AssetDatabase::createMesh(vector<MeshVertex> vertex, vector<unsigned short> triangles)

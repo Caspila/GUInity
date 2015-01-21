@@ -16,6 +16,8 @@ public:
 	virtual void awake() {}
 	virtual void tick(float deltaSecods) {};
 	virtual void init() {};
+    
+    virtual void setActive(bool isActive) override;
 
 	//virtual void setActive(bool isActive);
 	void setTrigger(bool isTrigger);

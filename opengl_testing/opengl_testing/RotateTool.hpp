@@ -9,6 +9,7 @@ public:
 	~RotateTool();
 
 	virtual void awake() override;
+    virtual void tick(float deltaSeconds)override;
 
 	weak_ptr<RotateHandle> x, y, z;
 };

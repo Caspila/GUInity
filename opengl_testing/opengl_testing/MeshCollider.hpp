@@ -11,6 +11,7 @@ public:
 	virtual ~MeshCollider();
 
 	virtual void init();
-
+    virtual void tick(float deltaSeconds) override;
+    
 };
 

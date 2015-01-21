@@ -446,10 +446,6 @@ PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
 
 //	PhysXAllocatorCallback callback;
 
-
-    
-
-    
 	PxCooking *cooking = PxCreateCooking(PX_PHYSICS_VERSION, PxGetFoundation(), PxCookingParams(PxTolerancesScale()));
 
 //    physx::PxConvexMesh* convexMesh2 = PxToolkit::createConvexMesh(*gPhysicsSDK, *cooking, mMeshVertices, usedIndexes.size(), PxConvexFlag::eCOMPUTE_CONVEX);
@@ -616,7 +612,7 @@ PxScene* Physics::createPhysicsScene()
 
 	scene->setSimulationEventCallback(physxEventCallback);
 	scene->setVisualizationParameter(PxVisualizationParameter::eSCALE, 1.0f);
-	scene->setVisualizationParameter(PxVisualizationParameter::eACTOR_AXES, 1.0f);
+	scene->setVisualizationParameter(PxVisualizationParameter::eACTOR_AXES, 2.0f);
 	scene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_SHAPES, 1.0f);
 
 	return scene;

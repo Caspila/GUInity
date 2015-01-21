@@ -27,3 +27,9 @@ void Collider::setQueryOnly(bool queryOnly)
 //{
 //	shape->setFlag(PxShapeFlag::)
 //}
+
+void Collider::setActive(bool isActive)
+{
+    shape->setFlag(PxShapeFlag::eVISUALIZATION, isActive);
+//    shape->set, <#bool value#>
+}

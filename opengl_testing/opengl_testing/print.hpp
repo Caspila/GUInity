@@ -21,3 +21,6 @@ ostream& operator<<(ostream& os, const glm::quat& dt);
 
 ostream& operator<<(ostream& os, const Ray& dt);
 //PxVec3& assign(PxVec3& physxvec3, glm::vec3 const &glmvec3){ return PxVec3(glmvec3.x, glmvec3.y, glmvec3.z); }
+
+void printVertex(const glm::vec3& dt);//mesh.meshVertices[i].normal)
+void printVertex(const glm::vec2& dt);//mesh.meshVertices[i].normal)

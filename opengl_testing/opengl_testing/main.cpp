@@ -55,6 +55,7 @@
 #include "Math.hpp"
 #include <iostream>
 #include <thread>
+#include "RotateOverTime.h"
 
 
 //-------Loading PhysX libraries----------]
@@ -106,22 +107,58 @@ BOOST_CLASS_EXPORT_GUID(CapsuleColliderDescription, "CapsuleColliderDescription"
 //#include <qsurfaceformat.h>
 
 #include <boost/filesystem.hpp>
+
+using namespace std;
 using namespace boost::filesystem;
+
+#include "Module.hpp"
+#include "FSAuxiliar.h"
+
+
 
 void checkFilesOnCommonData(){
 
     while(true)
     {
-        cout << "OI" <<endl;
+//        cout << "OI" <<endl;
+        
+        
+        vector<path> files = getFilesInDirectory(CommonData(""));
+        
+        for(auto& file : files)
+        {
+            
+            
+            string filename = file.filename().string();
+            shared_ptr<Asset> asset =AssetDatabase::getAsset(filename);
+            
+            if(asset)
+            {
+                int crc = getCRC(file.string());
+                
+                if(crc == asset->crc)
+                    cout << "CRC Matches!" << endl;
+                else
+                    cout << "CRC does not match!" << endl;
+            }
+            
+        }
+        
         
 //        path p(CommonData(""));
 //        
 //        if(is_directory(p))
 //        {
-//            copy(directory_iterator(p), directory_iterator(), // directory_iterator::value_type
-//                 ostream_iterator<directory_entry>(cout, "\n")); // is directory_entry, which is
-//            // converted to a path by the
-//            // path stream inserter
+//                      // so we can sort them later
+//            vector<path> vec;             // store paths,
+//            
+//            copy(directory_iterator(p), directory_iterator(), back_inserter(vec));
+//
+//            for(auto& file : vec)
+//            {
+//                int crc = AssetDatabase::getCRC(CommonData(file));
+//            }
+//            
 //        }
     }
     
@@ -132,7 +169,7 @@ void checkFilesOnCommonData(){
 int main(int argc, char *argv[]) {
   
 //    std::thread t1(checkFilesOnCommonData);
-//    t1.join();
+//    t1.detach();
     
     
 //    glm::vec3 p1,p2,p3;
@@ -275,9 +312,11 @@ int main(int argc, char *argv[]) {
     shared_ptr<Texture> texture = AssetDatabase::createTexture(CommonData("button.png"));
 //        read_png_file(CommonData("Crosshair.png").c_str());
     
-    shared_ptr<Mesh> fbxMesh = AssetDatabase::createMeshFromFBX("cylinder.fbx");
-    fbxMesh->setScaleFactor(0.1f);
+   // shared_ptr<Mesh> fbxMesh = AssetDatabase::createMeshFromFBX("cylinder.fbx");
+    //fbxMesh->setScaleFactor(0.1f);
 
+    shared_ptr<Mesh> cylinderMesh = AssetDatabase::createMeshFromFBX("cylinder3.fbx");
+    
     shared_ptr<Mesh> cubeMesh = AssetDatabase::createMeshFromFBX("cubeCenter.fbx");
 
     
@@ -314,39 +353,37 @@ int main(int argc, char *argv[]) {
 //    
 
     
+    shared_ptr<Shader> s = AssetDatabase::createShader("LightShader",CommonData("vsLight.vs"),CommonData("fsLight.fragmentshader"));
+    //shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsNoLight.fragmentshader"));
+    
+    shared_ptr<Material> m = AssetDatabase::createMaterial("DefaultMaterial",s);
+
     
     shared_ptr<Editor> editor = make_shared<Editor>();
     editor->init();
     
     shared_ptr<Game> game = make_shared<Game>();
     game->init();
-
- 
-    
-  
-    
+   
     // create and open a character archive for output
     std::ofstream ofs(CommonData("filename"));
-    
-    shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsLight.fragmentshader"));
-    //shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsNoLight.fragmentshader"));
-    
-    shared_ptr<Material> m = AssetDatabase::createMaterial(s);
+
     
     shared_ptr<Actor> fbxTest;
     
     fbxTest = Factory::CreateActor("FBXTest");// , meshRenderer1);
     //fbxTest->transform->setScale(glm::vec3(10,10,10));
-    fbxTest->transform->setRotationQuat(glm::quat(glm::vec3(45 * Deg2Radian, 45 * Deg2Radian, 45 * Deg2Radian)));
+//    fbxTest->transform->setRotationQuat(glm::quat(glm::vec3(45 * Deg2Radian, 45 * Deg2Radian, 45 * Deg2Radian)));
     shared_ptr<MeshFilter> meshFilter = fbxTest->AddComponent<MeshFilter>();
 
     //meshFilter->mesh = dynamic_pointer_cast<Mesh>(objMesh);
     meshFilter->mesh = objMesh;
     shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
     meshRenderer->material = m;
-//    fbxTest->AddComponent<RigidBody>();
     fbxTest->AddComponent<RigidBody>();
+    //fbxTest->AddComponent<RigidBody>();
     fbxTest->AddComponent<MeshCollider>();
+    fbxTest->AddComponent<RotateOverTime>();
     //fbxTest->AddComponent<SphereCollider>();
 
     
@@ -380,17 +417,21 @@ int main(int argc, char *argv[]) {
 //    fbxTest->AddComponent<BoxCollider>();
 
     shared_ptr<Actor> floor = Factory::CreateActor("Floor");
-    floor->transform->setPosition(glm::vec3(0,-2,0));
-    //floor->transform->setRotationQuat(glm::quat(glm::vec3(90*Deg2Radian,0,0)));
-    floor->transform->setScale(glm::vec3(5,0.1f,5.0f));
+
     
     
     meshFilter = floor->AddComponent<MeshFilter>();
+    floor->transform->setPosition(glm::vec3(0,-2,0));
+    floor->transform->setRotationQuat(glm::quat(glm::vec3(0,0,45*Deg2Radian)));
+    floor->transform->setScale(glm::vec3(5,0.1f,5.0f));
+    
     meshFilter->mesh = cubeMesh;
     meshRenderer = floor->AddComponent<MeshRenderer>();
     meshRenderer->material = m;
     floor->AddComponent<BoxCollider>();
     
+
+//    floor->AddComponent<RotateOverTime>();
 //    floor->AddComponent<RigidSta>();
     
     
