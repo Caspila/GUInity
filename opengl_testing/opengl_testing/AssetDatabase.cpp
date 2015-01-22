@@ -11,10 +11,10 @@
 //#include "Mesh.hpp"
 #include "Material.hpp"
 #include "Shader.hpp"
-#include "Texture.h"
+#include "Texture.hpp"
 #include <png.h>
 #include <boost/filesystem.hpp>
-#include "FSAuxiliar.h"
+#include "FSAuxiliar.hpp"
 #include <boost/archive/text_oarchive.hpp>
 #include "Module.hpp"
 #include "Serialization2.hpp"

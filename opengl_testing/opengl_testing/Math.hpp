@@ -6,7 +6,7 @@
 #include "Module.hpp"
 #include <glm/common.hpp>
 #include <glm/geometric.hpp>
-#include "MathStructs.h"
+#include "MathStructs.hpp"
 #include <vector>
 
 using namespace std;

@@ -13,7 +13,7 @@
 #include <glm/glm.hpp>
 #include "Mesh.hpp"
 #include "Module.hpp"
-#include "UILayout.h"
+#include "UILayout.hpp"
 #include <map>
 
 enum UILayoutType { none, vertical, horizontal };

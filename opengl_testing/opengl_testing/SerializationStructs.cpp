@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Guilherme Cunha. All rights reserved.
 //
 
-#include "SerializationStructs.h"
+#include "SerializationStructs.hpp"
 #include "Transform.hpp"
 #include "Actor.hpp"
 

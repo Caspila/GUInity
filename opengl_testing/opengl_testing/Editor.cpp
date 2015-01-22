@@ -12,9 +12,10 @@
 #include "MoveTool.hpp"
 #include "RotateTool.hpp"
 #include "Mesh.hpp"
-#include "UIButton.h"
+#include "UIButton.hpp"
 #include "print.hpp"
 #include "Math.hpp"
+#include "ScaleTool.hpp"
 
 //PxScene* Editor::physicsScene;
 shared_ptr<Actor> Editor::cameraActor;
@@ -22,6 +23,7 @@ shared_ptr<Camera> Editor::cameraComponent;
 shared_ptr<Actor> Editor::currentSelectedActor;
 shared_ptr<Actor> Editor::moveHandles;
 shared_ptr<Actor> Editor::rotateHandles;
+shared_ptr<Actor> Editor::scaleHandles;
 shared_ptr<World> Editor::world;
 shared_ptr<UIWidget> Editor::uiWidgetTest;
 TransformMode Editor::transformMode;
@@ -65,6 +67,16 @@ void Editor::init()
     
     moveHandles->setActive(false);
     
+    rotateHandles = Factory::CreateEditorActor("RotateHandles");
+	rotateHandles->AddComponent<RotateTool>();
+    
+    rotateHandles->setActive(false);
+    
+    scaleHandles = Factory::CreateEditorActor("ScaleHandles");
+	scaleHandles->AddComponent<ScaleTool>();
+    
+    scaleHandles->setActive(false);
+    
     shared_ptr<UIWidget> baseContainer = make_shared<UIWidget>();
     baseContainer->mesh = dynamic_pointer_cast<Mesh>(AssetDatabase::idToAsset[0]);
     //baseContainer->color = glm::vec4(0.5,0,0,1);
@@ -91,10 +103,7 @@ void Editor::init()
     
     uiWidgetTest = baseContainer;
     
-	rotateHandles = Factory::CreateEditorActor("RotateHandles");
-	rotateHandles->AddComponent<RotateTool>();
-    
-    rotateHandles->setActive(false);
+
 /*
 	shared_ptr<Actor> rightHandle = Factory::CreateEditorActor("MoveRightHandle");
 	shared_ptr<SphereCollider> collider = rightHandle->AddComponent<SphereCollider>();
@@ -242,8 +251,7 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
 				
                 if (editorCollider)
 					currentSelectedActor = editorCollider->gameActor.lock();
-				//else
-				//	currentSelectedActor = nullptr;
+
 			}
 			
 			
@@ -260,6 +268,11 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
         {
             transformMode = TransformMode::rotate;
         }
+        else
+            if(Input::getKeyPressed(GLFW_KEY_E))
+            {
+                transformMode = TransformMode::scale;
+            }
 
 
     
@@ -269,17 +282,22 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
             case TransformMode::none:
                 rotateHandles->setActive(false);
                 moveHandles->setActive(false);
+                scaleHandles->setActive(false);
                 break;
             case TransformMode::move:
                 rotateHandles->setActive(false);
                 moveHandles->setActive(true);
+                scaleHandles->setActive(false);
                 break;
             case TransformMode::rotate:
-                                rotateHandles->setActive(true);
+                rotateHandles->setActive(true);
                 moveHandles->setActive(false);
+                scaleHandles->setActive(false);
                 break;
             case TransformMode::scale:
-                
+                rotateHandles->setActive(false);
+                moveHandles->setActive(false);
+                scaleHandles->setActive(true);
                 break;
                 
             default:
@@ -290,6 +308,7 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
     {
         moveHandles->setActive(false);
         rotateHandles->setActive(false);
+        scaleHandles->setActive(false);
     }
 
 	//moveHandles->setActive(currentSelectedActor != nullptr);

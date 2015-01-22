@@ -7,7 +7,7 @@
 //
 
 #include "ScriptComponent.hpp"
-#include "RotateOverTime.h"
+#include "RotateOverTime.hpp"
 #include "Actor.hpp"
 
 void RotateOverTime::tick(float deltaSeconds)

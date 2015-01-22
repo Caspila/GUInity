@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Guilherme Cunha. All rights reserved.
 //
 
-#include "UIWidget.h"
+#include "UIWidget.hpp"
 #include <glm/glm.hpp>
 #include <glm/gtc/matrix_transform.hpp>
 #include <glm/gtx/transform.hpp>

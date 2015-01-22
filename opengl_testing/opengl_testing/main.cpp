@@ -50,12 +50,13 @@
 #include <fbxsdk.h>
 #include "EditorCameraControl.hpp"
 #include "mainwindow.h"
-#include "Texture.h"
+#include "Texture.hpp"
 #include <png.h>
 #include "Math.hpp"
 #include <iostream>
 #include <thread>
-#include "RotateOverTime.h"
+#include "RotateOverTime.hpp"
+#include "AddForceScript.hpp"
 
 
 //-------Loading PhysX libraries----------]
@@ -112,7 +113,7 @@ using namespace std;
 using namespace boost::filesystem;
 
 #include "Module.hpp"
-#include "FSAuxiliar.h"
+#include "FSAuxiliar.hpp"
 
 
 
@@ -380,10 +381,19 @@ int main(int argc, char *argv[]) {
     meshFilter->mesh = objMesh;
     shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
     meshRenderer->material = m;
-    fbxTest->AddComponent<RigidBody>();
+    shared_ptr<RigidBody> rigidBody = fbxTest->AddComponent<RigidBody>();
+    rigidBody->setMoveEnabled(TransformAxis::y, false);
+//    rigidBody->setMoveEnabled(TransformAxis::z, false);
+//        rigidBody->setMoveEnabled(TransformAxis::x, false);
+    
+//     rigidBody->setRotateEnabled(TransformAxis::x, false);
+//     rigidBody->setRotateEnabled(TransformAxis::y, false);
+//     rigidBody->setRotateEnabled(TransformAxis::z, false);
+    
+    
     //fbxTest->AddComponent<RigidBody>();
-    fbxTest->AddComponent<MeshCollider>();
-    fbxTest->AddComponent<RotateOverTime>();
+    fbxTest->AddComponent<SphereCollider>();
+    fbxTest->AddComponent<AddForceScript>();
     //fbxTest->AddComponent<SphereCollider>();
 
     
@@ -421,7 +431,7 @@ int main(int argc, char *argv[]) {
     
     
     meshFilter = floor->AddComponent<MeshFilter>();
-    floor->transform->setPosition(glm::vec3(0,-2,0));
+    floor->transform->setPosition(glm::vec3(0,-4,0));
     floor->transform->setRotationQuat(glm::quat(glm::vec3(0,0,45*Deg2Radian)));
     floor->transform->setScale(glm::vec3(5,0.1f,5.0f));
     

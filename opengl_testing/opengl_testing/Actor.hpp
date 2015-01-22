@@ -5,7 +5,7 @@
 #include "ScriptComponent.hpp"
 #include "Transform.hpp"
 #include "RigidBody.hpp"
-#include "SerializationStructs.h"
+#include "SerializationStructs.hpp"
 
 class Actor;
 class MeshRenderer;

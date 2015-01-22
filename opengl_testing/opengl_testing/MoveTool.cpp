@@ -3,7 +3,7 @@
 #include "CapsuleCollider.hpp"
 #include "Factory.hpp"
 #include "Editor.hpp"
-#include "RotateOverTime.h"
+#include "RotateOverTime.hpp"
 
 MoveTool::MoveTool()
 {
@@ -93,12 +93,12 @@ void MoveTool::tick(float deltaSeconds)
 	if (!currentActor)
 		return;
     
-    cout << "alsddsla" << endl;
+//    cout << "alsddsla" << endl;
     
 	shared_ptr<Actor> actor = getActor();
 	if (actor)
 	{
-        cout << "Align" << endl;
+//        cout << "Align" << endl;
 		actor->transform->position = currentActor->transform->position;
 		actor->transform->rotationQuat = currentActor->transform->rotationQuat;
 	}

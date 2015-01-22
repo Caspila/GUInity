@@ -1,6 +1,6 @@
 //#include "Math.hpp"
 
-#include "MathStructs.h"
+#include "MathStructs.hpp"
 
 #include <glm/common.hpp>
 #include <glm/gtx/quaternion.hpp>

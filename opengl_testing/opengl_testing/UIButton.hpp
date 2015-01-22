@@ -10,7 +10,7 @@
 #define __opengl_testing_mag__UIButton__
 
 #include <iostream>
-#include "UIWidget.h"
+#include "UIWidget.hpp"
 
 class UIButton : public UIWidget
 {

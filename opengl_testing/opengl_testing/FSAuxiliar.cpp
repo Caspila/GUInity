@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Guilherme Cunha. All rights reserved.
 //
 
-#include "FSAuxiliar.h"
+#include "FSAuxiliar.hpp"
 #include <boost/crc.hpp>
 
 vector<path> getFilesInDirectory(string fullPath)

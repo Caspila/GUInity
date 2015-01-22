@@ -10,7 +10,7 @@
 #define __opengl_testing_mag__UIContainer__
 
 #include <iostream>
-#include "UIWidget.h"
+#include "UIWidget.hpp"
 
 class UIContainer : public UIWidget
 {

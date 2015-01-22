@@ -3,11 +3,13 @@
 #include "Ray.hpp"
 #include "PhysXEventCallback.hpp"
 #include "Enums.hpp"
+#include <map>
 
 
 class Actor;
 class PhysicsMaterial;
 class Mesh;
+
 using namespace physx;
 
 
@@ -35,17 +37,20 @@ public:
 
 	//static PxTransform getActorTransform(shared_ptr<Actor> actor);
 
+    static void applyRigidBodyConstraints(PxScene* scene);
 	static void updateActorsTransform(PxScene* scene);
 	//static void createSphereRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic);
 	//static void createBoxRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic);
 
 	//static PxRigidStatic* createRigidStatic(shared_ptr<Actor> actor);
 	static PxRigidDynamic* createRigidDynamic(shared_ptr<Actor> actor);
+    static PxD6Joint* createD6Joint(shared_ptr<Actor> actor,PxRigidBody* rigidBody);
     
 	static PxShape* createBoxCollider(glm::vec3 halfExtent,glm::vec3 center, shared_ptr<Actor> actor);
 	static PxShape* createBoxCollider(PxVec3 halfExtent,PxVec3 center, shared_ptr<Actor> actor);
     static PxShape* createBoxCollider(shared_ptr<Actor> actor);
     
+
     
     static PxShape* createSphereCollider(float radius, glm::vec3 center, shared_ptr<Actor> actor);
     static PxShape* createSphereCollider(float radius, PxVec3 center, shared_ptr<Actor> actor);
@@ -69,5 +74,9 @@ public:
 	static void shutdown();
 
 	static PxReal myTimestep;
+    
+    static map<shared_ptr<Mesh>,PxConvexMesh*> convexMeshes;
+    
+    static bool convexMeshComputed(shared_ptr<Mesh> mesh);
 };
 

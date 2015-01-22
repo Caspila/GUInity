@@ -85,8 +85,8 @@ void RotateHandle::tick(float deltaSeconds)
 			glm::vec3 newWorldPos = Editor::cameraComponent->screenPointToWorld(Input::mousePos);
 			glm::vec3 oldWorldPos = Editor::cameraComponent->screenPointToWorld(Input::mousePos - Input::mouseDelta);
 
-			glm::vec3 newWorldProj = projectOnPlane(newWorldPos - point1, p);
-			glm::vec3 oldWorldProj = projectOnPlane(oldWorldPos - point1, p);
+//			glm::vec3 newWorldProj = projectOnPlane(newWorldPos - point1, p);
+//			glm::vec3 oldWorldProj = projectOnPlane(oldWorldPos - point1, p);
 
 			glm::vec3 mouseWorldDir = newWorldPos - oldWorldPos;
 			mouseWorldDir = glm::normalize(mouseWorldDir);

@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Guilherme Cunha. All rights reserved.
 //
 
-#include "UIButton.h"
+#include "UIButton.hpp"
 
 
 void UIButton::defaultHoverOn()

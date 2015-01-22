@@ -10,7 +10,7 @@
 #include "EditorCollider.hpp"
 #include "MeshFilter.hpp"
 #include "MeshRenderer.hpp"
-#include "SerializationStructs.h"
+#include "SerializationStructs.hpp"
 #include "Camera.hpp"
 #include "RigidBody.hpp"
 #include "RigidStatic.hpp"

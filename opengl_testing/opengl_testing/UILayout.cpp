@@ -6,8 +6,8 @@
 //  Copyright (c) 2015 Guilherme Cunha. All rights reserved.
 //
 
-#include "UILayout.h"
-#include "UIWidget.h"
+#include "UILayout.hpp"
+#include "UIWidget.hpp"
 
 glm::vec4 UILayout::getPositionFor(shared_ptr<UIWidget> container, shared_ptr<UIWidget> newWidget)
 {

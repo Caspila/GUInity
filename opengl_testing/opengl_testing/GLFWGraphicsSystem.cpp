@@ -16,9 +16,9 @@
 #include "Light.hpp"
 #include "Material.hpp"
 #include "Shader.hpp"
-#include "UIWidget.h"
+#include "UIWidget.hpp"
 #include "AssetDatabase.hpp"
-#include "Texture.h"
+#include "Texture.hpp"
 
 int GLFWGraphicsSystem::init()
 {

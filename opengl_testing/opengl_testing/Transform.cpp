@@ -102,11 +102,47 @@ glm::mat4 Transform::getPosRotMatrix()
 void Transform::updateTransform(const PxTransform& transform)
 {
 	
+    shared_ptr<RigidBody> rigidBody = actor.lock()->GetComponent<RigidBody>();
+    if(!rigidBody)
+    {
+        cerr << "Physics System is trying to update a body that has no RigidBody" << endl;
+    }
+    
+    rigidBody->updateTransform(transform);
+//
+////
+//    glm::vec3 newPos = PhysXVec3ToglmVec3(transform.p);
+//    if(rigidBody->lockMoveX)
+//        newPos.x = position.x;
+//    if(rigidBody->lockMoveY)
+//        newPos.y = position.y;
+//    if(rigidBody->lockMoveZ)
+//        newPos.z = position.z;
+////
+////    
+////    //TODO : find a better way to lock rotation on axes, dealing with quaternion directly
+//    glm::vec3 oldRotEuler = glm::eulerAngles(rotationQuat);
+//    glm::vec3 rotEuler = glm::eulerAngles(PhysXQuatToglmQuat(transform.q));
+//    if(rigidBody->lockRotateX)
+//        rotEuler.x = oldRotEuler.x;
+//    if(rigidBody->lockRotateY)
+//        rotEuler.y = oldRotEuler.y;
+//    if(rigidBody->lockRotateZ)
+//        rotEuler.z = oldRotEuler.z;
+//    
+////
+//    
+//	position = newPos;//PhysXVec3ToglmVec3(transform.p);
+//	rotationQuat = glm::quat(rotEuler);//PhysXQuatToglmQuat(transform.q);
+//
+//        rigidBody->physxRigidBody->setGlobalPose(PxTransform(glmVec3ToPhysXVec3(position),glmQuatToPhysXQuat(rotationQuat)));
+    
+//    position = PhysXVec3ToglmVec3(transform.p);
+//	rotationQuat = PhysXQuatToglmQuat(transform.q);
+//    
 
 
-	position = PhysXVec3ToglmVec3(transform.p);
-	rotationQuat = PhysXQuatToglmQuat(transform.q);
-
+    
 	//cout << "-Physx: " << transform.q << endl;
 	//cout << "-glm: " << rotationQuat << endl;
 

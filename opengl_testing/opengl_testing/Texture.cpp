@@ -6,7 +6,7 @@
 //  Copyright (c) 2015 Guilherme Cunha. All rights reserved.
 //
 
-#include "Texture.h"
+#include "Texture.hpp"
 
 Texture::Texture()
 {

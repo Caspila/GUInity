@@ -43,8 +43,9 @@ public:
 	static shared_ptr<Actor> currentSelectedActor;
 
 	static shared_ptr<Actor> moveHandles;
-
 	static shared_ptr<Actor> rotateHandles;
+    static shared_ptr<Actor> scaleHandles;
+    
     static shared_ptr<UIWidget> uiWidgetTest;
     
     static TransformMode transformMode;

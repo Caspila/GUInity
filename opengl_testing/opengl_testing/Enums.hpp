@@ -1,5 +1,9 @@
 #pragma once
 
+
+enum class TransformAxis {x,y,z};
+
+
 enum RotateAxis {x,y,z};
 
 enum MoveAxis { up, right, forward };

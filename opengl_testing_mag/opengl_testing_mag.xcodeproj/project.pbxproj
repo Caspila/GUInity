@@ -18,6 +18,9 @@
 		46389E131A6CF767000B0DEB /* libboost_system.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46389E121A6CF767000B0DEB /* libboost_system.dylib */; };
 		46389E161A6E28A3000B0DEB /* FSAuxiliar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46389E141A6E28A3000B0DEB /* FSAuxiliar.cpp */; };
 		46389E191A6F4F1C000B0DEB /* RotateOverTime.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46389E171A6F4F1C000B0DEB /* RotateOverTime.cpp */; };
+		46389E1C1A70B252000B0DEB /* AddForceScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46389E1A1A70B252000B0DEB /* AddForceScript.cpp */; };
+		46389E1F1A70F050000B0DEB /* ScaleTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46389E1D1A70F050000B0DEB /* ScaleTool.cpp */; };
+		46389E221A70F063000B0DEB /* ScaleHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46389E201A70F063000B0DEB /* ScaleHandle.cpp */; };
 		464D88E11A4A48AA007B0CDD /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 464D88A21A4A48AA007B0CDD /* Actor.cpp */; };
 		464D88E21A4A48AA007B0CDD /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 464D88A61A4A48AA007B0CDD /* Camera.cpp */; };
 		464D88E31A4A48AA007B0CDD /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 464D88A81A4A48AA007B0CDD /* Component.cpp */; };
@@ -152,9 +155,15 @@
 		46389E101A6CF752000B0DEB /* libboost_system.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_system.a; path = ../../../boost_1_57_0/stage/lib/libboost_system.a; sourceTree = "<group>"; };
 		46389E121A6CF767000B0DEB /* libboost_system.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_system.dylib; path = ../../../boost_1_57_0/stage/lib/libboost_system.dylib; sourceTree = "<group>"; };
 		46389E141A6E28A3000B0DEB /* FSAuxiliar.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = FSAuxiliar.cpp; path = ../opengl_testing/opengl_testing/FSAuxiliar.cpp; sourceTree = "<group>"; };
-		46389E151A6E28A3000B0DEB /* FSAuxiliar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = FSAuxiliar.h; path = ../opengl_testing/opengl_testing/FSAuxiliar.h; sourceTree = "<group>"; };
+		46389E151A6E28A3000B0DEB /* FSAuxiliar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FSAuxiliar.hpp; path = ../opengl_testing/opengl_testing/FSAuxiliar.hpp; sourceTree = "<group>"; };
 		46389E171A6F4F1C000B0DEB /* RotateOverTime.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RotateOverTime.cpp; path = ../opengl_testing/opengl_testing/RotateOverTime.cpp; sourceTree = "<group>"; };
-		46389E181A6F4F1C000B0DEB /* RotateOverTime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RotateOverTime.h; path = ../opengl_testing/opengl_testing/RotateOverTime.h; sourceTree = "<group>"; };
+		46389E181A6F4F1C000B0DEB /* RotateOverTime.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RotateOverTime.hpp; path = ../opengl_testing/opengl_testing/RotateOverTime.hpp; sourceTree = "<group>"; };
+		46389E1A1A70B252000B0DEB /* AddForceScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AddForceScript.cpp; path = ../opengl_testing/opengl_testing/AddForceScript.cpp; sourceTree = "<group>"; };
+		46389E1B1A70B252000B0DEB /* AddForceScript.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AddForceScript.hpp; path = ../opengl_testing/opengl_testing/AddForceScript.hpp; sourceTree = "<group>"; };
+		46389E1D1A70F050000B0DEB /* ScaleTool.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScaleTool.cpp; path = ../opengl_testing/opengl_testing/ScaleTool.cpp; sourceTree = "<group>"; };
+		46389E1E1A70F050000B0DEB /* ScaleTool.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ScaleTool.hpp; path = ../opengl_testing/opengl_testing/ScaleTool.hpp; sourceTree = "<group>"; };
+		46389E201A70F063000B0DEB /* ScaleHandle.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ScaleHandle.cpp; path = ../opengl_testing/opengl_testing/ScaleHandle.cpp; sourceTree = "<group>"; };
+		46389E211A70F063000B0DEB /* ScaleHandle.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = ScaleHandle.hpp; path = ../opengl_testing/opengl_testing/ScaleHandle.hpp; sourceTree = "<group>"; };
 		464D88A21A4A48AA007B0CDD /* Actor.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Actor.cpp; path = ../opengl_testing/opengl_testing/Actor.cpp; sourceTree = "<group>"; };
 		464D88A31A4A48AA007B0CDD /* Actor.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Actor.hpp; path = ../opengl_testing/opengl_testing/Actor.hpp; sourceTree = "<group>"; };
 		464D88A41A4A48AA007B0CDD /* AnyClass.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AnyClass.hpp; path = ../opengl_testing/opengl_testing/AnyClass.hpp; sourceTree = "<group>"; };
@@ -280,26 +289,26 @@
 		464D8B121A4A5A66007B0CDD /* vsLight.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = vsLight.vs; path = ../data/vsLight.vs; sourceTree = "<group>"; };
 		464D8B131A4A5A66007B0CDD /* vsNoMVP.vs */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.glsl; name = vsNoMVP.vs; path = ../data/vsNoMVP.vs; sourceTree = "<group>"; };
 		466138D91A648D3F00AB9D02 /* UIWidget.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UIWidget.cpp; path = ../opengl_testing/opengl_testing/UIWidget.cpp; sourceTree = "<group>"; };
-		466138DA1A648D3F00AB9D02 /* UIWidget.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIWidget.h; path = ../opengl_testing/opengl_testing/UIWidget.h; sourceTree = "<group>"; };
+		466138DA1A648D3F00AB9D02 /* UIWidget.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UIWidget.hpp; path = ../opengl_testing/opengl_testing/UIWidget.hpp; sourceTree = "<group>"; };
 		466138DC1A64A49E00AB9D02 /* UIContainer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UIContainer.cpp; path = ../opengl_testing/opengl_testing/UIContainer.cpp; sourceTree = "<group>"; };
-		466138DD1A64A49E00AB9D02 /* UIContainer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIContainer.h; path = ../opengl_testing/opengl_testing/UIContainer.h; sourceTree = "<group>"; };
+		466138DD1A64A49E00AB9D02 /* UIContainer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UIContainer.hpp; path = ../opengl_testing/opengl_testing/UIContainer.hpp; sourceTree = "<group>"; };
 		466138DF1A64A58900AB9D02 /* UIButton.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UIButton.cpp; path = ../opengl_testing/opengl_testing/UIButton.cpp; sourceTree = "<group>"; };
-		466138E01A64A58900AB9D02 /* UIButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UIButton.h; path = ../opengl_testing/opengl_testing/UIButton.h; sourceTree = "<group>"; };
+		466138E01A64A58900AB9D02 /* UIButton.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UIButton.hpp; path = ../opengl_testing/opengl_testing/UIButton.hpp; sourceTree = "<group>"; };
 		466138E21A64AC7700AB9D02 /* UILayout.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = UILayout.cpp; path = ../opengl_testing/opengl_testing/UILayout.cpp; sourceTree = "<group>"; };
-		466138E31A64AC7700AB9D02 /* UILayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = UILayout.h; path = ../opengl_testing/opengl_testing/UILayout.h; sourceTree = "<group>"; };
+		466138E31A64AC7700AB9D02 /* UILayout.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = UILayout.hpp; path = ../opengl_testing/opengl_testing/UILayout.hpp; sourceTree = "<group>"; };
 		466138E51A64CF4D00AB9D02 /* libpng16.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libpng16.a; path = "../../../libpng-1.6.16/build/lib/libpng16.a"; sourceTree = "<group>"; };
 		466138E71A64CF6100AB9D02 /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = "../../../libpng-1.6.16/build/lib/libpng16.16.dylib"; sourceTree = "<group>"; };
 		466138EA1A64CFA800AB9D02 /* libpng16.16.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libpng16.16.dylib; path = "../../../libpng-1.6.16/build/lib/libpng16.16.dylib"; sourceTree = "<group>"; };
 		466138EC1A64D43D00AB9D02 /* Texture.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Texture.cpp; path = ../opengl_testing/opengl_testing/Texture.cpp; sourceTree = "<group>"; };
-		466138ED1A64D43D00AB9D02 /* Texture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Texture.h; path = ../opengl_testing/opengl_testing/Texture.h; sourceTree = "<group>"; };
-		466139351A6667FE00AB9D02 /* MathStructs.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = MathStructs.h; path = ../opengl_testing/opengl_testing/MathStructs.h; sourceTree = "<group>"; };
+		466138ED1A64D43D00AB9D02 /* Texture.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Texture.hpp; path = ../opengl_testing/opengl_testing/Texture.hpp; sourceTree = "<group>"; };
+		466139351A6667FE00AB9D02 /* MathStructs.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = MathStructs.hpp; path = ../opengl_testing/opengl_testing/MathStructs.hpp; sourceTree = "<group>"; };
 		466139361A666B2D00AB9D02 /* MathStructs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MathStructs.cpp; path = ../opengl_testing/opengl_testing/MathStructs.cpp; sourceTree = "<group>"; };
 		468B50B21A61E0E900CD58A5 /* Asset.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Asset.cpp; path = ../opengl_testing/opengl_testing/Asset.cpp; sourceTree = "<group>"; };
 		468B50B51A61E0E900CD58A5 /* ReflectionTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReflectionTest.cpp; path = ../opengl_testing/opengl_testing/ReflectionTest.cpp; sourceTree = "<group>"; };
 		468B50B61A61E0E900CD58A5 /* ReflectionTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionTest.h; path = ../opengl_testing/opengl_testing/ReflectionTest.h; sourceTree = "<group>"; };
 		468B50B71A61E0E900CD58A5 /* Serialization2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Serialization2.cpp; path = ../opengl_testing/opengl_testing/Serialization2.cpp; sourceTree = "<group>"; };
 		468B50B81A61E0E900CD58A5 /* SerializationStructs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SerializationStructs.cpp; path = ../opengl_testing/opengl_testing/SerializationStructs.cpp; sourceTree = "<group>"; };
-		468B50B91A61E0E900CD58A5 /* SerializationStructs.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SerializationStructs.h; path = ../opengl_testing/opengl_testing/SerializationStructs.h; sourceTree = "<group>"; };
+		468B50B91A61E0E900CD58A5 /* SerializationStructs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SerializationStructs.hpp; path = ../opengl_testing/opengl_testing/SerializationStructs.hpp; sourceTree = "<group>"; };
 		468B50BE1A61E54B00CD58A5 /* libfbxsdk.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfbxsdk.dylib; path = ../../../../../../Applications/Autodesk/FBX_SDK/2015.1/lib/clang/debug/libfbxsdk.dylib; sourceTree = "<group>"; };
 		468B50C01A61E56700CD58A5 /* libfbxsdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfbxsdk.a; path = ../../../../../../Applications/Autodesk/FBX_SDK/2015.1/lib/clang/debug/libfbxsdk.a; sourceTree = "<group>"; };
 		468B50C21A61E5CC00CD58A5 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = ../../../FMOD_Programmers_API/api/lowlevel/lib/libfmod.dylib; sourceTree = "<group>"; };
@@ -410,8 +419,15 @@
 		464D8A861A4A5336007B0CDD /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				466138DA1A648D3F00AB9D02 /* UIWidget.hpp */,
+				466138E31A64AC7700AB9D02 /* UILayout.hpp */,
+				466138DD1A64A49E00AB9D02 /* UIContainer.hpp */,
+				466138E01A64A58900AB9D02 /* UIButton.hpp */,
+				466138ED1A64D43D00AB9D02 /* Texture.hpp */,
+				466139351A6667FE00AB9D02 /* MathStructs.hpp */,
+				46389E181A6F4F1C000B0DEB /* RotateOverTime.hpp */,
 				468B50B61A61E0E900CD58A5 /* ReflectionTest.h */,
-				468B50B91A61E0E900CD58A5 /* SerializationStructs.h */,
+				468B50B91A61E0E900CD58A5 /* SerializationStructs.hpp */,
 				46FFC2411A52AB9D00FCFAC4 /* Asset.hpp */,
 				464D88BE1A4A48AA007B0CDD /* Mesh.hpp */,
 				46FFC2461A52AB9D00FCFAC4 /* Serialization.hpp */,
@@ -469,8 +485,10 @@
 				464D88DB1A4A48AA007B0CDD /* Transform.hpp */,
 				464D88E01A4A48AA007B0CDD /* World.hpp */,
 				464D88CF1A4A48AA007B0CDD /* Ray.hpp */,
-				46389E141A6E28A3000B0DEB /* FSAuxiliar.cpp */,
-				46389E151A6E28A3000B0DEB /* FSAuxiliar.h */,
+				46389E151A6E28A3000B0DEB /* FSAuxiliar.hpp */,
+				46389E1B1A70B252000B0DEB /* AddForceScript.hpp */,
+				46389E1E1A70F050000B0DEB /* ScaleTool.hpp */,
+				46389E211A70F063000B0DEB /* ScaleHandle.hpp */,
 			);
 			name = Header;
 			sourceTree = "<group>";
@@ -528,6 +546,10 @@
 				464D88D81A4A48AA007B0CDD /* Time.cpp */,
 				464D88DA1A4A48AA007B0CDD /* Transform.cpp */,
 				464D88DF1A4A48AA007B0CDD /* World.cpp */,
+				46389E141A6E28A3000B0DEB /* FSAuxiliar.cpp */,
+				46389E1A1A70B252000B0DEB /* AddForceScript.cpp */,
+				46389E1D1A70F050000B0DEB /* ScaleTool.cpp */,
+				46389E201A70F063000B0DEB /* ScaleHandle.cpp */,
 				464D88A21A4A48AA007B0CDD /* Actor.cpp */,
 				464D88A61A4A48AA007B0CDD /* Camera.cpp */,
 				464D88A81A4A48AA007B0CDD /* Component.cpp */,
@@ -535,18 +557,11 @@
 				464D88AA1A4A48AA007B0CDD /* Factory.cpp */,
 				468B50C91A61FD2600CD58A5 /* GLFWGraphicsSystem.cpp */,
 				466138D91A648D3F00AB9D02 /* UIWidget.cpp */,
-				466138DA1A648D3F00AB9D02 /* UIWidget.h */,
 				466138DC1A64A49E00AB9D02 /* UIContainer.cpp */,
 				466138E21A64AC7700AB9D02 /* UILayout.cpp */,
-				466138E31A64AC7700AB9D02 /* UILayout.h */,
-				466138DD1A64A49E00AB9D02 /* UIContainer.h */,
 				466138DF1A64A58900AB9D02 /* UIButton.cpp */,
-				466138E01A64A58900AB9D02 /* UIButton.h */,
 				466138EC1A64D43D00AB9D02 /* Texture.cpp */,
-				466138ED1A64D43D00AB9D02 /* Texture.h */,
-				466139351A6667FE00AB9D02 /* MathStructs.h */,
 				46389E171A6F4F1C000B0DEB /* RotateOverTime.cpp */,
-				46389E181A6F4F1C000B0DEB /* RotateOverTime.h */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -743,6 +758,7 @@
 				46389E071A6CEF5A000B0DEB /* PxTkBmpLoader.cpp in Sources */,
 				46389E081A6CEF5A000B0DEB /* PxTkFPS.cpp in Sources */,
 				46389E091A6CEF5A000B0DEB /* PxTkMatrixUtils.cpp in Sources */,
+				46389E1C1A70B252000B0DEB /* AddForceScript.cpp in Sources */,
 				46389E0A1A6CEF5A000B0DEB /* PxTkRandom.cpp in Sources */,
 				46389E0B1A6CEF5A000B0DEB /* PxTkStream.cpp in Sources */,
 				464D88F81A4A48AA007B0CDD /* Time.cpp in Sources */,
@@ -780,6 +796,7 @@
 				46FFC2101A5237A200FCFAC4 /* CapsuleCollider.cpp in Sources */,
 				466139371A666B2D00AB9D02 /* MathStructs.cpp in Sources */,
 				46FFC21B1A5237A200FCFAC4 /* Module.cpp in Sources */,
+				46389E221A70F063000B0DEB /* ScaleHandle.cpp in Sources */,
 				46FFC2241A5237A200FCFAC4 /* RotateTool.cpp in Sources */,
 				46FFC2121A5237A200FCFAC4 /* Converter.cpp in Sources */,
 				46FFC2111A5237A200FCFAC4 /* Collider.cpp in Sources */,
@@ -801,6 +818,7 @@
 				464D88E51A4A48AA007B0CDD /* GraphicsSystem.cpp in Sources */,
 				46FFC2251A5237A200FCFAC4 /* SphereCollider.cpp in Sources */,
 				464D88E31A4A48AA007B0CDD /* Component.cpp in Sources */,
+				46389E1F1A70F050000B0DEB /* ScaleTool.cpp in Sources */,
 				464D88F91A4A48AA007B0CDD /* Transform.cpp in Sources */,
 				464D88F61A4A48AA007B0CDD /* Shader.cpp in Sources */,
 				464D88EB1A4A48AA007B0CDD /* Math.cpp in Sources */,

@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Module.hpp"
-#include "SerializationStructs.h"
+#include "SerializationStructs.hpp"
 
 class Actor;
 
