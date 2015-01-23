@@ -20,7 +20,7 @@ class Shader;
 class Material;
 class Shader;
 class Texture;
-
+class Font;
 
 class AssetDatabase
 {
@@ -50,6 +50,8 @@ public:
     static shared_ptr<Mesh> createMesh(vector<MeshVertex> vertex, vector<unsigned short> triangles);
     static shared_ptr<Texture> createTexture(string filename);
     
+	static shared_ptr<Font> createFont(string filename, int fontSize);
+
     static shared_ptr<Asset> getAsset(string filename);
     
     

@@ -18,6 +18,9 @@
 #include <boost/archive/text_oarchive.hpp>
 #include "Module.hpp"
 #include "Serialization2.hpp"
+#include "Font.hpp"
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 unsigned int AssetDatabase::currentID = 0;
 MeshImporter AssetDatabase::meshImporter;
@@ -154,7 +157,7 @@ void AssetDatabase::assignCurrentID(T asset, string name)
     
     nameToAsset[name] = asset;
     
-    createSerializationFile(asset,CommonData(name));
+//    createSerializationFile(asset,CommonData(name));
     
     currentID++;
 }
@@ -454,4 +457,271 @@ shared_ptr<Texture> AssetDatabase::createTexture(string filename)
     texture->init();
     
     return texture;
+}
+
+
+int writeImage(const char* filename, int width, int height, unsigned char *buffer, char* title)
+{
+	int code = 0;
+	FILE *fp;
+	png_structp png_ptr = NULL;
+	png_infop info_ptr = NULL;
+	png_bytep row = NULL;
+
+	// Open file for writing (binary mode)
+	fp = fopen(filename, "wb");
+	if (fp == NULL) {
+		fprintf(stderr, "Could not open file %s for writing\n", filename);
+		code = 1;
+		goto finalise;
+	}
+	// Initialize write structure
+	png_ptr = png_create_write_struct(PNG_LIBPNG_VER_STRING, NULL, NULL, NULL);
+	if (png_ptr == NULL) {
+		fprintf(stderr, "Could not allocate write struct\n");
+		code = 1;
+		goto finalise;
+	}
+
+	// Initialize info structure
+	info_ptr = png_create_info_struct(png_ptr);
+	if (info_ptr == NULL) {
+		fprintf(stderr, "Could not allocate info struct\n");
+		code = 1;
+		goto finalise;
+	}
+	// Setup Exception handling
+	if (setjmp(png_jmpbuf(png_ptr))) {
+		fprintf(stderr, "Error during png creation\n");
+		code = 1;
+		goto finalise;
+	}
+	png_init_io(png_ptr, fp);
+
+	// Write header (8 bit colour depth)
+	png_set_IHDR(png_ptr, info_ptr, width, height,
+		8, PNG_COLOR_TYPE_RGBA, PNG_INTERLACE_NONE,
+		PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
+
+	// Set title
+	if (title != NULL) {
+		png_text title_text;
+		title_text.compression = PNG_TEXT_COMPRESSION_NONE;
+		title_text.key = "Title";
+		title_text.text = title;
+		png_set_text(png_ptr, info_ptr, &title_text, 1);
+	}
+
+	png_write_info(png_ptr, info_ptr);
+
+	// Allocate memory for one row (3 bytes per pixel - RGB)
+	//row = (png_bytep)malloc(3 * width * sizeof(png_byte));
+	row = (png_bytep)malloc(4 * width * sizeof(png_byte));
+
+	// Write image data
+	int x, y;
+	for (y = 0; y<height; y++) {
+		for (x = 0; x<width; x++) {
+			//setRGB(&(row[x * 3]), buffer[y*width + x]);
+			//cout << buffer[y*width + x] << endl;
+			//row[x * 3] = buffer[y*width + x];
+			float value = buffer[y*width + x] > 0 ? 255 : 0;
+			float alpha = buffer[y*width + x];
+			row[x * 4 + 0] = value;
+			row[x * 4 + 1] = value;
+			row[x * 4 + 2] = value;
+			row[x * 4 + 3] = alpha;
+			//row[x * 4] = buffer[y*width + x];
+			//cout << x * 4 << endl;
+			//cout << y*width + x<< endl;
+			//cout << endl << endl;
+			//row[x * 3 + 1] = 0;
+		}
+		png_write_row(png_ptr, row);
+	}
+
+	// End write
+	png_write_end(png_ptr, NULL);
+finalise:
+	if (fp != NULL) fclose(fp);
+	if (info_ptr != NULL) png_free_data(png_ptr, info_ptr, PNG_FREE_ALL, -1);
+	if (png_ptr != NULL) png_destroy_write_struct(&png_ptr, (png_infopp)NULL);
+	if (row != NULL) free(row);
+
+	return code;
+}
+
+
+void getWidthHeightForAlphabet(FT_Face face, string alphabet, int& width, int& height)
+{
+	width = 0;
+	for (int i = 0; i < alphabet.size(); i++)
+	{
+		FT_UInt  glyph_index;
+
+
+		/* retrieve glyph index from character code */
+		glyph_index = FT_Get_Char_Index(face, alphabet[i]);
+
+		/* load glyph image into the slot (erase previous one) */
+		FT_Error error = FT_Load_Glyph(face, glyph_index, FT_LOAD_DEFAULT);
+		if (error)
+		{
+			cout << error << endl;
+			continue;  /* ignore errors */
+		}
+		/* convert to an anti-aliased bitmap */
+		error = FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
+
+		width += face->glyph->bitmap.width + face->glyph->bitmap_left;
+		height = max(height, face->glyph->bitmap.rows + face->glyph->bitmap_top);
+	}
+}
+
+void addGlyphToBuffer(FT_Face& face, char letter, unsigned char* buffer, int bufferWidth, int bufferHeight, int xOffset, int yOffset, int& outGlyphWidth, int& outGlyphHeight)
+{
+	FT_UInt  glyph_index;
+
+
+	/* retrieve glyph index from character code */
+	glyph_index = FT_Get_Char_Index(face, letter);
+
+	/* load glyph image into the slot (erase previous one) */
+	FT_Error error = FT_Load_Glyph(face, glyph_index, FT_LOAD_DEFAULT);
+	if (error)
+	{
+		//cout << error << endl;
+		//continue;  /* ignore errors */
+	}
+	/* convert to an anti-aliased bitmap */
+	error = FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
+
+	//int offset = yOffset * bufferWidth + xOffset;
+	//int width = face->glyph->bitmap.width;
+	//int height = face->glyph->bitmap.rows;
+
+	//outGlyphWidth = width + face->glyph->bitmap_left;
+	//outGlyphHeight = height + face->glyph->bitmap_top;
+
+	//int xI, yI;
+	//for (yI = 0; yI<height; yI++) {
+	////for (yI = height- 1; yI >= 0; yI--) {
+	//	for (xI = 0; xI<width; xI++) {
+
+	//		int bufferIndex = offset + (yI + face->glyph->bitmap_top)*bufferWidth + (xI + face->glyph->bitmap_left);
+	//		int bitmapIndex = yI *width + xI;
+
+	//		buffer[bufferIndex] = face->glyph->bitmap.buffer[bitmapIndex];
+	//	}
+	//}
+
+	int offset = (bufferHeight - 1) * bufferWidth + xOffset;
+	int width = face->glyph->bitmap.width;
+	int height = face->glyph->bitmap.rows;
+
+	outGlyphWidth = width + face->glyph->bitmap_left;
+	outGlyphHeight = height + face->glyph->bitmap_top;
+
+	int xI, yI;
+	//for (yI = 0; yI<height; yI++) {
+	for (yI = height - 1; yI >= 0; yI--) {
+		for (xI = 0; xI<width; xI++) {
+
+			int bufferIndex = offset - (height - yI)*bufferWidth + //y
+				(xI + face->glyph->bitmap_left); //x
+			int bitmapIndex = yI *width + xI;
+
+			buffer[bufferIndex] = face->glyph->bitmap.buffer[bitmapIndex];
+		}
+	}
+
+
+}
+
+
+map<char, LetterFontUV> createFontTexture(FT_Face& face, string filename)
+{
+	map<char, LetterFontUV> charUVMap;
+
+	int width, height;
+	string alphabet = "abcd";
+	getWidthHeightForAlphabet(face, alphabet, width, height);
+
+	int xOffset, yOffset;
+	xOffset = yOffset = 0;
+	unsigned char* buffer = new unsigned char[width*height];
+	for (int i = 0; i < width*height; i++)
+	{
+		buffer[i] = 0;
+	}
+
+	for (int i = 0; i < alphabet.size(); i++)
+	{
+		int outGlyphWidth, outGlyphHeight;
+		addGlyphToBuffer(face, alphabet[i], buffer, width, height, xOffset, yOffset, outGlyphWidth, outGlyphHeight);
+		charUVMap[alphabet[i]] = LetterFontUV(glm::vec2(xOffset / (float)width, 0), glm::vec2((xOffset + outGlyphWidth) / (float)width, 1));
+		xOffset += outGlyphWidth;
+	}
+
+	writeImage(filename.c_str(), width, height, buffer, "blabla");
+
+	delete[] buffer;
+
+	return charUVMap;
+}
+
+shared_ptr<Font> AssetDatabase::createFont(string filename, int fontSize)
+{
+	FT_Library  library;
+
+	FT_Error error = FT_Init_FreeType(&library);
+	if (error)
+	{
+		//	... an error occurred during library initialization ...
+		cout << "Erro" << endl;
+	}
+
+	FT_Face     face;      /* handle to face object */
+	error = FT_New_Face(library, filename.c_str(),
+		0,
+		&face);
+	if (error == FT_Err_Unknown_File_Format)
+	{
+
+	}
+	else if (error)
+	{
+	}
+	else
+	{
+		cout << "Loaded OK" << endl;
+	}
+
+	//error = FT_Set_Char_Size(
+	//	face,    /* handle to face object           */
+	//	0,       /* char_width in 1/64th of points  */
+	//	16 * 64,   /* char_height in 1/64th of points */
+	//	300,     /* horizontal device resolution    */
+	//	300);   /* vertical device resolution      */
+
+	error = FT_Set_Pixel_Sizes(
+		face,   /* handle to face object */
+		0,      /* pixel_width           */
+		fontSize);   /* pixel_height */
+
+	string alphabet = "abcdefg";
+
+	string textureName = filename;
+	textureName.append("texture.png");
+
+	map<char, LetterFontUV> charUVMap = createFontTexture(face, textureName);
+
+	shared_ptr<Texture> texture = createTexture(textureName);
+
+	shared_ptr<Font> font = make_shared<Font>(texture,charUVMap,fontSize);
+	assignCurrentID(font,filename);
+
+	return font;
+
+	//TODO how to cleanup freetype library?
 }

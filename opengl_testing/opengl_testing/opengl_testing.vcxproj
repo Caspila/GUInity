@@ -66,7 +66,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common;C:\dev\lua-5.1\include;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;C:\Program Files\Autodesk\FBX\FBX SDK\2015.1\include;$(IncludePath)</IncludePath>
+    <IncludePath>c:\dev\boost_1_57_0;C:\dev\lpng1616;C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common;C:\dev\lua-5.1\include;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;C:\Program Files\Autodesk\FBX\FBX SDK\2015.1\include;C:\dev\freetype-2.4.0\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common;C:\dev\lua-5.1\include;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;$(IncludePath)</IncludePath>
@@ -80,8 +80,8 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\dev\glfw-3.0.4\bin\src\Release;C:\dev\glew-1.11.0\lib\Release\Win32;C:\dev\box2d-v2.3.1\Box2D\Build\vs2013\bin\x32\Debug;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Lib\win32;C:\dev\lua-5.1;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\lib;C:\Program Files\Autodesk\FBX\FBX SDK\2015.1\lib\vs2013\x86\debug</AdditionalLibraryDirectories>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32.lib;Box2D.lib;%(AdditionalDependencies);lua52.lib;lua51.lib;fmodL64_vc.lib;fmodL_vc.lib;libfbxsdk.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\dev\glfw-3.0.4\bin\src\Release;C:\dev\glew-1.11.0\lib\Release\Win32;C:\dev\box2d-v2.3.1\Box2D\Build\vs2013\bin\x32\Debug;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Lib\win32;C:\dev\lua-5.1;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\lib;C:\Program Files\Autodesk\FBX\FBX SDK\2015.1\lib\vs2013\x86\debug;C:\dev\lpng1616\projects\vstudio\DebugLibrary;c:\dev\boost_1_57_0\stage\lib;C:\dev\freetype-2.4.0\objs\win32\vc2008</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glfw3.lib;opengl32.lib;glew32.lib;Box2D.lib;%(AdditionalDependencies);lua52.lib;lua51.lib;fmodL64_vc.lib;fmodL_vc.lib;libfbxsdk.lib;libboost_filesystem-vc120-mt-gd-1_57.lib;libboost_serialization-vc120-mt-gd-1_57.lib;zlib.lib;libpng16.lib;freetype240MT_D.lib</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -127,6 +127,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Actor.cpp" />
+    <ClCompile Include="AddForceScript.cpp" />
+    <ClCompile Include="Asset.cpp" />
+    <ClCompile Include="AssetDatabase.cpp" />
     <ClCompile Include="BoxCollider.cpp" />
     <ClCompile Include="Camera.cpp" />
     <ClCompile Include="CapsuleCollider.cpp" />
@@ -137,15 +140,21 @@
     <ClCompile Include="EditorCameraControl.cpp" />
     <ClCompile Include="EditorCollider.cpp" />
     <ClCompile Include="Factory.cpp" />
+    <ClCompile Include="Font.cpp" />
+    <ClCompile Include="FontRenderer.cpp" />
+    <ClCompile Include="FSAuxiliar.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GLFWGraphicsSystem.cpp" />
     <ClCompile Include="GraphicsSystem.cpp" />
     <ClCompile Include="Holder.cpp" />
     <ClCompile Include="IncreaseColliderScript.cpp" />
     <ClCompile Include="Input.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="mainwindow.cpp" />
     <ClCompile Include="Material.cpp" />
     <ClCompile Include="Math.cpp" />
+    <ClCompile Include="MathStructs.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCollider.cpp" />
     <ClCompile Include="MeshFilter.cpp" />
@@ -162,23 +171,40 @@
     <ClCompile Include="PhysXInsertionCallback.cpp" />
     <ClCompile Include="PlayerScript.cpp" />
     <ClCompile Include="print.cpp" />
+    <ClCompile Include="QTGraphicsSystem.cpp" />
     <ClCompile Include="Ray.cpp" />
+    <ClCompile Include="ReflectionTest.cpp" />
+    <ClCompile Include="Renderer.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="RigidStatic.cpp" />
     <ClCompile Include="RotateHandle.cpp" />
+    <ClCompile Include="RotateOverTime.cpp" />
     <ClCompile Include="RotateTool.cpp" />
+    <ClCompile Include="ScaleHandle.cpp" />
+    <ClCompile Include="ScaleTool.cpp" />
     <ClCompile Include="ScriptComponent.cpp" />
+    <ClCompile Include="Serialization2.cpp" />
+    <ClCompile Include="SerializationStructs.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="SphereCollider.cpp" />
     <ClCompile Include="StaticCounter.cpp" />
     <ClCompile Include="Subject.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />
     <ClCompile Include="Transform.cpp" />
+    <ClCompile Include="UIButton.cpp" />
+    <ClCompile Include="UIContainer.cpp" />
+    <ClCompile Include="UILayout.cpp" />
+    <ClCompile Include="UIWidget.cpp" />
     <ClCompile Include="World.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Actor.hpp" />
+    <ClInclude Include="AddForceScript.hpp" />
     <ClInclude Include="AnyClass.hpp" />
+    <ClInclude Include="Asset.hpp" />
+    <ClInclude Include="AssetDatabase.hpp" />
+    <ClInclude Include="Bounds.h" />
     <ClInclude Include="BoxCollider.hpp" />
     <ClInclude Include="Camera.hpp" />
     <ClInclude Include="CapsuleCollider.hpp" />
@@ -190,14 +216,20 @@
     <ClInclude Include="EditorCollider.hpp" />
     <ClInclude Include="Enums.hpp" />
     <ClInclude Include="Factory.hpp" />
+    <ClInclude Include="Font.hpp" />
+    <ClInclude Include="FontRenderer.hpp" />
+    <ClInclude Include="FSAuxiliar.hpp" />
     <ClInclude Include="Game.hpp" />
+    <ClInclude Include="GLFWGraphicsSystem.hpp" />
     <ClInclude Include="GraphicsSystem.hpp" />
     <ClInclude Include="IncreaseColliderScript.hpp" />
     <ClInclude Include="Light.hpp" />
+    <ClInclude Include="mainwindow.h" />
     <ClInclude Include="Math.hpp" />
     <ClInclude Include="Holder.hpp" />
     <ClInclude Include="Input.hpp" />
     <ClInclude Include="Material.hpp" />
+    <ClInclude Include="MathStructs.hpp" />
     <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="MeshCollider.hpp" />
     <ClInclude Include="MeshFilter.hpp" />
@@ -215,18 +247,32 @@
     <ClInclude Include="PlayerScript.hpp" />
     <ClInclude Include="PointerHolder.hpp" />
     <ClInclude Include="print.hpp" />
+    <ClInclude Include="QTGraphicsSystem.hpp" />
     <ClInclude Include="Ray.hpp" />
+    <ClInclude Include="ReflectionTest.h" />
+    <ClInclude Include="Renderer.hpp" />
     <ClInclude Include="RigidBody.hpp" />
     <ClInclude Include="RigidStatic.hpp" />
     <ClInclude Include="RotateHandle.hpp" />
+    <ClInclude Include="RotateOverTime.hpp" />
     <ClInclude Include="RotateTool.hpp" />
+    <ClInclude Include="ScaleHandle.hpp" />
+    <ClInclude Include="ScaleTool.hpp" />
     <ClInclude Include="ScriptComponent.hpp" />
+    <ClInclude Include="Serialization.hpp" />
+    <ClInclude Include="Serialization2.hpp" />
+    <ClInclude Include="SerializationStructs.hpp" />
     <ClInclude Include="Shader.hpp" />
     <ClInclude Include="SphereCollider.hpp" />
     <ClInclude Include="StaticCounter.hpp" />
     <ClInclude Include="Subject.hpp" />
+    <ClInclude Include="Texture.hpp" />
     <ClInclude Include="Time.hpp" />
     <ClInclude Include="Transform.hpp" />
+    <ClInclude Include="UIButton.hpp" />
+    <ClInclude Include="UIContainer.hpp" />
+    <ClInclude Include="UILayout.hpp" />
+    <ClInclude Include="UIWidget.hpp" />
     <ClInclude Include="World.hpp" />
   </ItemGroup>
   <ItemGroup>

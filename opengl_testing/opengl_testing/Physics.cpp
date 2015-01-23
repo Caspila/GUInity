@@ -13,7 +13,7 @@
 #include "RigidStatic.hpp"
 #include <PxPhysicsAPI.h>
 #include "PhysXAllocatorCallback.h"
-#include <PxToolkit.h>
+//#include <PxToolkit.h>
 #include <PxConstraint.h>
 #include <PxConstraintDesc.h>
 
@@ -572,6 +572,8 @@ PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
     
     convexMeshes[mesh] = convexMesh;
 	
+	cooking->release();
+
 	return convexMesh;
 
 	//PxU32* mMeshFaces = new physx::PxU32[mIndexCount];

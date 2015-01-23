@@ -37,7 +37,7 @@ using namespace std;
 //float Deg2Radian = 0.0174532925f;
 //float Radian2Deg = 57.2957795f;
 
-class MeshTriangle;
+struct MeshTriangle;
 
 #define Radian2Deg 57.2957795f
 #define Deg2Radian 0.0174532925f
@@ -69,6 +69,6 @@ template <typename T> static int sgn(T val) {
     return (T(0) < val) - (val < T(0));
 }
 
-void convexHull(vector<glm::vec3>& vertices, vector<int>& usedIndex, vector<int>& triangles);
+//void convexHull(vector<glm::vec3>& vertices, vector<int>& usedIndex, vector<int>& triangles);
 
 #endif

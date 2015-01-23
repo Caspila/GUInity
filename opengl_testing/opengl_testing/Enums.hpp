@@ -12,7 +12,7 @@ enum MoveMode { global, pivot };
 
 enum ActorEventType{  NewActor, RemovedActor};
 
-enum ComponentEventType{ NewMeshRenderer, NewCamera, NewLight, NewRigidBody, NewRigidStatic, NewEditorCollider, RemovedRenderer, RemovedCamera, RemovedLight, RemovedRigidBody, RemovedRigidStatic };
+enum ComponentEventType{ NewMeshRenderer, NewCamera, NewLight, NewRigidBody, NewRigidStatic, NewEditorCollider, NewFontRenderer, RemovedRenderer, RemovedCamera, RemovedLight, RemovedRigidBody, RemovedRigidStatic ,RemovedFontRenderer};
 
 enum EngineMode {editor, game};
 
