@@ -5,7 +5,7 @@ uniform float ambientLightIntensity ;
 uniform mat4 model ;
 uniform vec3 lightPos ;
 uniform vec3 lightIntensity ;
-uniform sampler2D myTextureSampler;
+uniform sampler2D myTextureSampler ;
 
 
 in vec3 fragVert;

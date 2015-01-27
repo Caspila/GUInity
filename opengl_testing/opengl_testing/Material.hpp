@@ -11,6 +11,7 @@
 //#include "AnyClass.h"
 
 class Shader;
+class Texture;
 
 class Material : public Asset
 #ifdef GUINITY_DEBUG
@@ -31,7 +32,11 @@ public:
 	bool paramExists(string paramName);
 	void setParamVec3(string paramName, glm::vec3 paramValue);
 	void setParamFloat(string paramName, float paramValue);
+	void setParamTexture(string paramName, shared_ptr<Texture> paramValue);
     
+	shared_ptr<Texture> getTextureParam();
+
+
     void setShader(shared_ptr<Shader> shader);
     
     

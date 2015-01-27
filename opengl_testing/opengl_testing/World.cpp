@@ -5,7 +5,7 @@
 #include "Factory.hpp"
 #include "Physics.hpp"
 #include "RigidStatic.hpp"
-#include "FontRenderer.hpp"
+#include "FontMesh.hpp"
 #include "EditorCollider.hpp"
 
 //#define _ITERATOR_DEBUG_LEVEL 1
@@ -35,7 +35,7 @@ void World::registerObserverAsGame()
 	RigidBody::addObserver(shared_from_this());
 	RigidStatic::addObserver(shared_from_this());
 	MeshRenderer::addObserver(shared_from_this());
-	FontRenderer::addObserver(shared_from_this());
+	//FontRenderer::addObserver(shared_from_this());
 	Factory::addObserver(shared_from_this());
 }
 

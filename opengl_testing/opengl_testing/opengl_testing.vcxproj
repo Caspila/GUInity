@@ -141,7 +141,7 @@
     <ClCompile Include="EditorCollider.cpp" />
     <ClCompile Include="Factory.cpp" />
     <ClCompile Include="Font.cpp" />
-    <ClCompile Include="FontRenderer.cpp" />
+    <ClCompile Include="FontMesh.cpp" />
     <ClCompile Include="FSAuxiliar.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GLFWGraphicsSystem.cpp" />
@@ -157,6 +157,7 @@
     <ClCompile Include="MathStructs.cpp" />
     <ClCompile Include="Mesh.cpp" />
     <ClCompile Include="MeshCollider.cpp" />
+    <ClCompile Include="MeshComponent.cpp" />
     <ClCompile Include="MeshFilter.cpp" />
     <ClCompile Include="MeshImporter.cpp" />
     <ClCompile Include="MeshRenderer.cpp" />
@@ -217,7 +218,7 @@
     <ClInclude Include="Enums.hpp" />
     <ClInclude Include="Factory.hpp" />
     <ClInclude Include="Font.hpp" />
-    <ClInclude Include="FontRenderer.hpp" />
+    <ClInclude Include="FontMesh.hpp" />
     <ClInclude Include="FSAuxiliar.hpp" />
     <ClInclude Include="Game.hpp" />
     <ClInclude Include="GLFWGraphicsSystem.hpp" />
@@ -232,6 +233,7 @@
     <ClInclude Include="MathStructs.hpp" />
     <ClInclude Include="Mesh.hpp" />
     <ClInclude Include="MeshCollider.hpp" />
+    <ClInclude Include="MeshComponent.hpp" />
     <ClInclude Include="MeshFilter.hpp" />
     <ClInclude Include="MeshImporter.hpp" />
     <ClInclude Include="MeshRenderer.hpp" />

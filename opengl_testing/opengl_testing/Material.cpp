@@ -17,15 +17,15 @@ Material::Material(shared_ptr<Shader> shader)
 
 	for (; it != shader->params.end(); it++)
 	{
-		if (it->second == FLOAT)
+		if (it->second == TEXTURE)
 		{
-			params.insert(std::pair<string, Holder>(it->first, Holder(FLOAT, 1)));
+			params.insert(std::pair<string, Holder>(it->first, Holder(TEXTURE, nullptr)));
 		}
-		else if (it->second == VEC3)
+		/*else if (it->second == VEC3)
 		{
 			params.insert(std::pair<string, Holder>(it->first, Holder(VEC3, glm::vec3())));
 
-		}
+		}*/
 
 	}
 
@@ -115,4 +115,30 @@ void Material::setParamFloat(string paramName, float paramValue)
 
 	else
 		cerr << "Material error: " << paramName << " does not exist" << endl;
+}
+
+void Material::setParamTexture(string paramName, shared_ptr<Texture> paramValue)
+{
+
+	auto found = params.find(paramName);
+	if (found != params.end())
+		params[paramName] = Holder(TEXTURE, paramValue);
+
+	else
+		cerr << "Material error: " << paramName << " does not exist" << endl;
+}
+
+shared_ptr<Texture> Material::getTextureParam()
+{
+	auto it = params.begin();
+
+	while (it != params.end())
+	{
+		if (it->second.isTexture())
+		{
+			return it->second.operator std::weak_ptr<Texture>().lock();
+		}
+	}
+
+	return nullptr;
 }

@@ -178,9 +178,15 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 
         shared_ptr<Actor> actor = meshRenderer->getActor();
 
-        shared_ptr<MeshFilter> meshFilter = meshRenderer->meshFilter.lock();
+        /*shared_ptr<MeshFilter> meshFilter = meshRenderer->meshFilter.lock();
         if (!meshFilter)
             continue;
+*/
+
+		shared_ptr<MeshComponent> meshComponent = meshRenderer->meshComponent.lock();
+		if (!meshComponent)
+			continue;
+
 
         GLuint shaderProgram = meshRenderer->material->getShaderProgram();
 
@@ -201,16 +207,43 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         {
             shared_ptr<Light> light = lights[j];
 
-            glUniform3fv(meshRenderer->material->shader->paramID["lightPos"], 1, &light->getActor()->transform->position[0]);
-            glUniform3fv(meshRenderer->material->shader->paramID["lightIntensity"], 1, &light->color[0]);
+            /*glUniform3fv(meshRenderer->material->shader->paramID["lightPos"], 1, &light->getActor()->transform->position[0]);
+            glUniform3fv(meshRenderer->material->shader->paramID["lightIntensity"], 1, &light->color[0]);*/
+
+			glUniform3fv(uniform(shaderProgram, "lightPos"), 1, &light->getActor()->transform->position[0]);
+			glUniform3fv(uniform(shaderProgram, "lightIntensity"), 1, &light->color[0]);
         }
 
+		shared_ptr<Texture> texture = meshRenderer->material->getTextureParam();
+		if (texture)
+		{
+			//glEnable(GL_TEXTURE);
+			//glActiveTexture(GL_TEXTURE0);
+			//glUniform1i(texture->textureID, 0);
+			//glBindTexture(GL_TEXTURE_2D, Texture);
+			//glUniform1i(texture->textureID, 0);
+
+			//glactivete
+
+			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->width, texture->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)texture->data);
+
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+		}
+		else
+		{
+			//glDisable(GL_TEXTURE);
+			//glActiveTexture(GL_TEXTURE0);
+			//glUniform1i(texture->textureID, 0);
+			//glDisable(GL_TEXTURE0);
+
+		}
 
         
-        glBindVertexArray(meshFilter->mesh->vao);
+		glBindVertexArray(meshComponent->mesh->vao);
 
         glEnableVertexAttribArray(0);
-        glBindBuffer(GL_ARRAY_BUFFER, meshFilter->mesh->mvbo);
+		glBindBuffer(GL_ARRAY_BUFFER, meshComponent->mesh->mvbo);
 
         //Vertex
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(0));
@@ -227,14 +260,15 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         glEnableVertexAttribArray(3);
         glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginUV));
         
-        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshFilter->mesh->ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshComponent->mesh->ibo);
 
         // draw points 0-3 from the currently bound VAO with current in-use shader
-        glDrawElements(GL_TRIANGLES, meshFilter->mesh->triangles.size(), GL_UNSIGNED_SHORT, NULL);
+		glDrawElements(GL_TRIANGLES, meshComponent->mesh->triangles.size(), GL_UNSIGNED_SHORT, NULL);
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(2);
         glDisableVertexAttribArray(3);
+
 
     }
 
@@ -281,11 +315,14 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera,const physx::PxRenderB
 
     glBindVertexArray(vao);
 
-    glUniform3fv(debugMaterial->shader->paramID["difuse"], 1, &color[0]);
+	
+    /*glUniform3fv(debugMaterial->shader->paramID["difuse"], 1, &color[0]);*/
+	glUniform3fv(getUniformLocation(debugMaterial->getShaderProgram(), "difuse") , 1, &color[0]);
 
     glm::mat4 transformMatrix = camera->MVPMatrix;// *actor->transform->getModelMatrix();
 
-    glUniformMatrix4fv(debugMaterial->shader->paramID["MVP"], 1, GL_FALSE, &transformMatrix[0][0]);
+	glUniformMatrix4fv(getUniformLocation(debugMaterial->getShaderProgram(), "MVP"), 1, GL_FALSE, &transformMatrix[0][0]);
+    //glUniformMatrix4fv(debugMaterial->shader->paramID["MVP"], 1, GL_FALSE, &transformMatrix[0][0]);
 
     glDrawArrays(GL_LINES, 0, 2 * rb.getNbLines());
 

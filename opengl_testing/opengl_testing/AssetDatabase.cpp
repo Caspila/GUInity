@@ -644,7 +644,8 @@ map<char, LetterFontUV> createFontTexture(FT_Face& face, string filename)
 	map<char, LetterFontUV> charUVMap;
 
 	int width, height;
-	string alphabet = "abcd";
+	//string alphabet = "abcd";
+	string alphabet = "abcdefghijklmnopqrstuvxyzw0123456789!?,./\[]{};':\"";
 	getWidthHeightForAlphabet(face, alphabet, width, height);
 
 	int xOffset, yOffset;
@@ -659,7 +660,7 @@ map<char, LetterFontUV> createFontTexture(FT_Face& face, string filename)
 	{
 		int outGlyphWidth, outGlyphHeight;
 		addGlyphToBuffer(face, alphabet[i], buffer, width, height, xOffset, yOffset, outGlyphWidth, outGlyphHeight);
-		charUVMap[alphabet[i]] = LetterFontUV(glm::vec2(xOffset / (float)width, 0), glm::vec2((xOffset + outGlyphWidth) / (float)width, 1));
+		charUVMap[alphabet[i]] = LetterFontUV(glm::vec2(xOffset / (float)width, 0), glm::vec2((xOffset + outGlyphWidth) / (float)width, 1), (float)outGlyphWidth / outGlyphHeight);
 		xOffset += outGlyphWidth;
 	}
 
@@ -709,7 +710,7 @@ shared_ptr<Font> AssetDatabase::createFont(string filename, int fontSize)
 		0,      /* pixel_width           */
 		fontSize);   /* pixel_height */
 
-	string alphabet = "abcdefg";
+	// string alphabet = "abcdefghijklmnopqrstuvxyzw0123456789!?";
 
 	string textureName = filename;
 	textureName.append("texture.png");

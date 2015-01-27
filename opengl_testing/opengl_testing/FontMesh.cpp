@@ -1,46 +1,47 @@
-#include "FontRenderer.hpp"
+#include "FontMesh.hpp"
 #include "Mesh.hpp"
 #include "Font.hpp"
 #include "Actor.hpp"
 
-FontRenderer::FontRenderer()
+FontMesh::FontMesh()
 {
-#ifdef GUINITY_DEBUG
-	nCount++;
-#endif
+//#ifdef GUINITY_DEBUG
+//	nCount++;
+//#endif
 }
 
 
-FontRenderer::~FontRenderer()
+FontMesh::~FontMesh()
 {
-#ifdef GUINITY_DEBUG
-	nCount--;
-	cout << "FontRenderer destroyed (" << nCount << " remaining)" << endl;
-#endif
+//#ifdef GUINITY_DEBUG
+//	nCount--;
+//	cout << "FontRenderer destroyed (" << nCount << " remaining)" << endl;
+//#endif
 }
 
 
-void FontRenderer::init()
-{
-	FontRenderer::notify(ComponentEventType::NewFontRenderer, shared_from_this(), getActor()->editorFlag);
-}
+//void FontRenderer::init()
+//{
+//	FontRenderer::notify(ComponentEventType::NewFontRenderer, shared_from_this(), getActor()->editorFlag);
+//}
 
 
-void FontRenderer::setFont(shared_ptr<Font> font)
+void FontMesh::setFont(shared_ptr<Font> font)
 {
 	this->font = font;
 }
 
-void FontRenderer::setText(string text)
+void FontMesh::setText(string text)
 {
 	this->text = text;
 
 	createMesh();
 }
 
-void FontRenderer::createMesh()
+void FontMesh::createMesh()
 {
-	shared_ptr<Mesh> mesh = make_shared<Mesh>();
+	//shared_ptr<Mesh> mesh = make_shared<Mesh>();
+	mesh = make_shared<Mesh>();
 
 	float letterWidth = 0.5f;
 	float letterHeight = 0.5f;
@@ -53,6 +54,9 @@ void FontRenderer::createMesh()
 		char c = text[i];
 
 		LetterFontUV letterUV = font->charUVMap[c];
+
+		//letterWidth = letterHeight *1/letterUV.ratio;
+		letterWidth = letterHeight * letterUV.ratio;
 
 		int i0, i1, i2, i3;
 		glm::vec3 p0, p1, p2, p3;
@@ -75,17 +79,19 @@ void FontRenderer::createMesh()
 		mesh->addTriangle(i * 4+1);
 		mesh->addTriangle(i * 4+2);
 
+
+		xOffset += letterWidth;
 	}
 
 	mesh->createBuffers3();
 }
 
-shared_ptr<ComponentDescription> FontRenderer::getComponentDescription()
+shared_ptr<ComponentDescription> FontMesh::getComponentDescription()
 {
 	return nullptr;
 }
 
-void FontRenderer::deserialize(shared_ptr<ComponentDescription> desc)
+void FontMesh::deserialize(shared_ptr<ComponentDescription> desc)
 {
 
 }

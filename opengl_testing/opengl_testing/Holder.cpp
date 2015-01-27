@@ -8,10 +8,17 @@ Holder::Holder()
 Holder::Holder(ShaderParamType type, float val)
 {
 	this->type_ = type;
-	impl_.float_ = val;
+	floatValue = val;
 }
 Holder::Holder(ShaderParamType type, glm::vec3 val)
 {
 	this->type_ = type;
-	impl_.vec3_ = val;
+	vec3Value = val;
+
+}
+
+Holder::Holder(ShaderParamType type, shared_ptr<Texture> val)
+{
+	this->type_ = type;
+	texValue = val;
 }

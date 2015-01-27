@@ -9,16 +9,19 @@ class Texture;
 struct LetterFontUV
 {
 	glm::vec2 bottomLeft, topRight;
+	float ratio;
 
 	LetterFontUV()
 	{
 
 	}
-	LetterFontUV(glm::vec2 botLeft, glm::vec2 topRight)
+	LetterFontUV(glm::vec2 botLeft, glm::vec2 topRight, float ratio)
 	{
 		this->bottomLeft = botLeft;
 		this->topRight = topRight;
+		this->ratio = ratio;
 	}
+	
 
 };
 

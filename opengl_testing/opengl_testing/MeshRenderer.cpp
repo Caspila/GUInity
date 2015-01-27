@@ -28,7 +28,7 @@ MeshRenderer::~MeshRenderer()
 void MeshRenderer::init()
 {
 
-	this->meshFilter = getActor()->GetComponent<MeshFilter>();
+	this->meshComponent = getActor()->GetComponent<MeshComponent>();
 
 //	GraphicsSystem::getInstance().allMeshRenderer.push_back(shared_from_this());
 

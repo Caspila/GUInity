@@ -3,12 +3,14 @@
 #include "Module.hpp"
 #include "Component.hpp"
 #include "Subject.hpp"
+
 //#include "Mesh.h"
 //#include "Material.h"
 
 class Mesh;
 class Material;
 class MeshFilter;
+class MeshComponent;
 
 class MeshRenderer : public Component, public Subject<MeshRenderer>
 #ifdef GUINITY_DEBUG
@@ -19,7 +21,7 @@ public:
 	MeshRenderer();//shared_ptr<Mesh> mesh, shared_ptr<Material> m);
 	~MeshRenderer();
 
-	weak_ptr<MeshFilter> meshFilter;
+	weak_ptr<MeshComponent> meshComponent;
 	shared_ptr<Material> material;
     
     

@@ -24,6 +24,7 @@
 //#include <Box2D\Box2D.h>
 #include <PxPhysicsAPI.h>
 #include <PxQueryReport.h>
+#include "FontMesh.hpp"
 
 #include "print.hpp"
 #include "Factory.hpp"
@@ -803,8 +804,10 @@ int main(int argc, char *argv[]) {
 		shared_ptr<Shader> s = AssetDatabase::createShader("LightShader", CommonData("vsLight.vs"), CommonData("fsLight.fragmentshader"));
 		//shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsNoLight.fragmentshader"));
 
-		shared_ptr<Material> m = AssetDatabase::createMaterial("DefaultMaterial", s);
-
+		shared_ptr<Material> defaultMaterial = AssetDatabase::createMaterial("DefaultMaterial", s);
+		defaultMaterial->setParamTexture("myTextureSampler", texture);
+		shared_ptr<Material> fontMaterial = AssetDatabase::createMaterial("FontMaterial", s);
+		fontMaterial->setParamTexture("myTextureSampler", font->fontTexture);
 
 		shared_ptr<Editor> editor = make_shared<Editor>();
 		editor->init();
@@ -826,7 +829,7 @@ int main(int argc, char *argv[]) {
 		//meshFilter->mesh = dynamic_pointer_cast<Mesh>(objMesh);
 		meshFilter->mesh = objMesh;
 		shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
-		meshRenderer->material = m;
+		meshRenderer->material = defaultMaterial;
 		shared_ptr<RigidBody> rigidBody = fbxTest->AddComponent<RigidBody>();
 		//rigidBody->setMoveEnabled(TransformAxis::y, false);
 		//    rigidBody->setMoveEnabled(TransformAxis::z, false);
@@ -841,6 +844,15 @@ int main(int argc, char *argv[]) {
 		fbxTest->AddComponent<SphereCollider>();
 		fbxTest->AddComponent<AddForceScript>();
 		//fbxTest->AddComponent<SphereCollider>();
+
+
+
+		shared_ptr<Actor> fontTest = Factory::CreateActor("FontTest");// , meshRenderer1);
+		shared_ptr<FontMesh> fontMesh = fontTest->AddComponent<FontMesh>();
+		fontMesh->setFont(font);
+		fontMesh->setText("opa,blz?");
+		meshRenderer = fontTest->AddComponent<MeshRenderer>();
+		meshRenderer->setMaterial(fontMaterial);
 
 
 		//    int bla = 0;
@@ -881,7 +893,7 @@ int main(int argc, char *argv[]) {
 
 		meshFilter->mesh = cubeMesh;
 		meshRenderer = floor->AddComponent<MeshRenderer>();
-		meshRenderer->material = m;
+		meshRenderer->material = defaultMaterial;
 		floor->AddComponent<BoxCollider>();
 
 

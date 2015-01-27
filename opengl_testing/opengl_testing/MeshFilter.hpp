@@ -2,7 +2,7 @@
 #include "ScriptComponent.hpp"
 #include "Component.hpp"
 #include <PxPhysicsAPI.h>
-
+#include "MeshComponent.hpp"
 
 
 using namespace physx;
@@ -10,16 +10,16 @@ using namespace physx;
 class Mesh;
 
 class MeshFilter :
-	public Component
-#ifdef GUINITY_DEBUG
-	, public StaticCounter<MeshFilter>
-#endif
+	public MeshComponent
+//#ifdef GUINITY_DEBUG
+//	, public StaticCounter<MeshFilter>
+//#endif
 {
 public:
 	MeshFilter();
-	~MeshFilter();
+	virtual ~MeshFilter();
 
-	void setMesh(shared_ptr<Mesh> mesh);
+	/*void setMesh(shared_ptr<Mesh> mesh);
 
 	shared_ptr<Mesh> mesh;
     
@@ -35,7 +35,7 @@ public:
     
     void getSphereSize(shared_ptr<Actor> actor, float& radius, PxVec3& center);
 
-    void getCapsuleGeometry(shared_ptr<Actor>actor,float &radius,float &halfHeight,RotateAxis&orientation, PxVec3& center);
+    void getCapsuleGeometry(shared_ptr<Actor>actor,float &radius,float &halfHeight,RotateAxis&orientation, PxVec3& center);*/
 
     
 };
