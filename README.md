@@ -1,6 +1,7 @@
 # GUInity
 
-GUInity is a 3D component-based Game Engine. It's personal project started by myself, Guilherme Cunha.
+GUInity is a 3D component-based game engine. It's a personal project started by myself, Guilherme Cunha.
+
 My objectives with GUInity are:
 - Study and practice C++ in a large project. It's also a way of learning new C++11 concepts.
 - Get a better understanding about how game engines work under the hood
@@ -9,9 +10,9 @@ My objectives with GUInity are:
 
 # Name
 
-I chose GUInity because it summarizes well what I'm trying to do:
-- GUI stands for Gui-lherme not for Graphical User Interface. It's mine!
-- nity stands for Unity. It's the engine I have the most experience and the one that I'm basing on for a lot of design decisions.
+I chose the name GUInity because it summarizes well what I'm trying to do:
+- GUI stands for Gui-lherme not for Graphical User Interface. It's mine! My precious!
+- nity stands for Unity. It's the engine I have the most experience and the one that I'm using as a base for a lot of design decisions.
 
 # Dependencies
 
@@ -24,7 +25,7 @@ Please note that even though I'm developing the engine from scratch, I'm also us
 -FBX SDK (2015.1) -> Library to handle .fbx model files
 -FMOD Studio (1.05.02) -> Library to handle sound
 
-Also, please note that due to different licenses for the libraries, I'm not providing any of them in this repository. The benefit is that the repository is very compact.
+Also, please note that due to possible licensing issues for the libraries, I'm not providing any of them in this repository. The benefit is that the repository is very compact.
 
 
 
