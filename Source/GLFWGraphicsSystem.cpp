@@ -218,17 +218,18 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 		if (texture)
 		{
 			//glEnable(GL_TEXTURE);
-			//glActiveTexture(GL_TEXTURE0);
-			//glUniform1i(texture->textureID, 0);
+			glActiveTexture(GL_TEXTURE0);
+			glBindTexture(GL_TEXTURE_2D, texture->textureID);
+			glUniform1i(uniform(shaderProgram, "myTextureSampler"), 0);
 			//glBindTexture(GL_TEXTURE_2D, Texture);
 			//glUniform1i(texture->textureID, 0);
 
 			//glactivete
 
-			glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->width, texture->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)texture->data);
+			/*glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->width, texture->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)texture->data);
 
 			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);*/
 		}
 		else
 		{

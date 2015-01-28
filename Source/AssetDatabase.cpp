@@ -645,7 +645,7 @@ map<char, LetterFontUV> createFontTexture(FT_Face& face, string filename)
 
 	int width, height;
 	//string alphabet = "abcd";
-	string alphabet = "abcdefghijklmnopqrstuvxyzw0123456789!?,./\[]{};':\"";
+	string alphabet = "bpabcdefghjklmnopqrstuvxyzw0123456789!?,./\[]{};':\"";
 	getWidthHeightForAlphabet(face, alphabet, width, height);
 
 	int xOffset, yOffset;
