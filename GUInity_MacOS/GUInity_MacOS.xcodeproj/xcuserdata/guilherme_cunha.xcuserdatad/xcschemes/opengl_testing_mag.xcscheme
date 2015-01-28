@@ -20,6 +20,20 @@
                ReferencedContainer = "container:opengl_testing_mag.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "4694EE361A4A3A16001E8C48"
+               BuildableName = "GUInity_Editor"
+               BlueprintName = "GUInity_Editor"
+               ReferencedContainer = "container:GUInity_MacOS.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction

@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:opengl_testing_mag.xcodeproj">
+      location = "self:GUInity_MacOS.xcodeproj">
    </FileRef>
 </Workspace>
