@@ -15,12 +15,18 @@
 #include "Asset.hpp"
 #include "Mesh.hpp"
 #include <boost/crc.hpp>
+//
+//#include <boost/filesystem.hpp>
+//
+//using namespace std;
+//using namespace boost::filesystem;
 
 class Shader;
 class Material;
 class Shader;
 class Texture;
 class Font;
+class Sound;
 
 class AssetDatabase
 {
@@ -45,6 +51,8 @@ public:
     static shared_ptr<Mesh> createMeshFromOBJ(string filename);
     static shared_ptr<Mesh> createMesh();
     
+	static shared_ptr<Sound> createSound(string filename);
+
     static shared_ptr<Mesh> createMesh(vector<glm::vec3> vertices,vector<int> usedIndex,vector<int> usedTris);
     
     static shared_ptr<Mesh> createMesh(vector<MeshVertex> vertex, vector<unsigned short> triangles);
@@ -54,6 +62,7 @@ public:
 
     static shared_ptr<Asset> getAsset(string filename);
     
+	static shared_ptr<Asset> tryLoadAsset(string file, string extension);
     
 //    template <typename T>
 //    static void assignCurrentID(T asset);

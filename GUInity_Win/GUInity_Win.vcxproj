@@ -67,7 +67,7 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <IncludePath>c:\dev\boost_1_57_0;C:\dev\lpng1616;C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common;C:\dev\lua-5.1\include;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;C:\Program Files\Autodesk\FBX\FBX SDK\2015.1\include;C:\dev\freetype-2.4.0\include;$(IncludePath)</IncludePath>
+    <IncludePath>c:\dev\boost_1_57_0;C:\dev\lpng1616;C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common;C:\dev\lua-5.1\include;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;C:\Program Files\Autodesk\FBX\FBX SDK\2015.1\include;C:\dev\freetype-2.4.0\include;../Source/;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>C:\dev\box2d-v2.3.1\Box2D;C:\dev\glfw-3.0.4\include;C:\dev\glew-1.11.0\include;C:\dev\glm;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include;C:\dev\physX\PhysX-3.3.1_PC_SDK_Core\Include\common;C:\dev\lua-5.1\include;C:\dev\LuaJIT-2.0.3\src;C:\Program Files (x86)\FMOD SoundSystem\FMOD Studio API Windows\api\lowlevel\inc;$(IncludePath)</IncludePath>
@@ -188,6 +188,8 @@
     <ClCompile Include="..\Source\Serialization2.cpp" />
     <ClCompile Include="..\Source\SerializationStructs.cpp" />
     <ClCompile Include="..\Source\Shader.cpp" />
+    <ClCompile Include="..\Source\Sound.cpp" />
+    <ClCompile Include="..\Source\SoundSystem.cpp" />
     <ClCompile Include="..\Source\SphereCollider.cpp" />
     <ClCompile Include="..\Source\StaticCounter.cpp" />
     <ClCompile Include="..\Source\Subject.cpp" />
@@ -266,6 +268,8 @@
     <ClInclude Include="..\Source\Serialization2.hpp" />
     <ClInclude Include="..\Source\SerializationStructs.hpp" />
     <ClInclude Include="..\Source\Shader.hpp" />
+    <ClInclude Include="..\Source\Sound.hpp" />
+    <ClInclude Include="..\Source\SoundSystem.hpp" />
     <ClInclude Include="..\Source\SphereCollider.hpp" />
     <ClInclude Include="..\Source\StaticCounter.hpp" />
     <ClInclude Include="..\Source\Subject.hpp" />
@@ -277,6 +281,7 @@
     <ClInclude Include="..\Source\UILayout.hpp" />
     <ClInclude Include="..\Source\UIWidget.hpp" />
     <ClInclude Include="..\Source\World.hpp" />
+    <ClInclude Include="Sound.hpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

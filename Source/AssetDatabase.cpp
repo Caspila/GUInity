@@ -19,6 +19,7 @@
 #include "Module.hpp"
 #include "Serialization2.hpp"
 #include "Font.hpp"
+#include "Sound.hpp"
 #include <ft2build.h>
 #include FT_FREETYPE_H
 
@@ -238,7 +239,31 @@ shared_ptr<Mesh> AssetDatabase::createMesh(vector<glm::vec3> vertices,vector<int
     
     return mesh;
 }
+//static shared_ptr<Asset> tryLoadAsset(path p);
+shared_ptr<Asset> AssetDatabase::tryLoadAsset(string file, string extension)
+{
+	if (extension.compare(".fbx")==0)
+		cout << "Load fbx: " << file << endl;
+	else if (extension.compare(".png")==0)
+		cout << "Load png: " << file << endl;
+	else if (extension.compare(".obj")==0)
+		cout << "Load obj: " << file << endl;
+	else if (extension.compare(".mp3")==0)
+		cout << "Load mp3: " << file << endl;
+	else if (extension.compare(".ttf")==0)
+		cout << "Load ttf: " << file << endl;
 
+	return nullptr;
+
+}
+
+shared_ptr<Sound> AssetDatabase::createSound(string filename)
+{
+	shared_ptr<Sound> sound = make_shared<Sound>(filename);
+	assignCurrentID(sound, filename);
+
+	return sound;
+}
 
 int myX, myY;
 
