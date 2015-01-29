@@ -35,7 +35,7 @@ Also, please note that due to possible licensing issues for the libraries, I'm n
 
 2- Have an editor to ease the development.
 
-My goal is NOT to create a new and better Unity, but to understand how they were able to develop it. Unity has grown a lot over the last few years, they've been obviously been doing something right. This also supports some of my decisions, for example, I think it was very smart of them to use well tested and optimized libraries to handle critical portions of their engine, hence PhysX, FMOD, Beast, ...
+My goal is NOT to create a new and better Unity, but to understand how they were able to develop it. Unity has grown a lot over the last few years, they've been obviously doing something right. Therefore, I think it's a good foundation for a game engine.
 
 # Considerations
 
