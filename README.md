@@ -17,13 +17,13 @@ I chose the name GUInity because it summarizes well what I'm trying to do:
 # Dependencies
 
 Please note that even though I'm developing the engine from scratch, I'm also using a bunch of libraries to aid the development. For the purposes of this project, I've chosen to use, so far, the following libraries:
-- PhysX (3.1.1)  Physics library developed by NVIDIA https://developer.nvidia.com/physx-sdk
-- FreeType (2.4.0)  Free library for font handling fonts http://www.freetype.org/
-- Boost(1.57.0)  I don't believe this set of libraries need any introduction http://www.boost.org/
-- GLFW(3.0.4)  Cross-Platform library for handling window and basic OpenGL configuration http://www.glfw.org/
-- libPNG  Library to handle .png files
-- FBX SDK (2015.1)  Library to handle .fbx model files
-- FMOD Studio (1.05.02)  Library to handle sound
+- PhysX (3.1.1)  Physics library developed by NVIDIA -> https://developer.nvidia.com/physx-sdk
+- FreeType (2.4.0)  Free library for font handling fonts -> http://www.freetype.org/
+- Boost(1.57.0)  I don't believe this set of libraries need any introduction -> http://www.boost.org/
+- GLFW(3.0.4)  Cross-Platform library for handling window and basic OpenGL configuration -> http://www.glfw.org/
+- libPNG  Library to handle .png files -> http://www.libpng.org/pub/png/libpng.html
+- FBX SDK (2015.1)  Library to handle .fbx model files -> http://usa.autodesk.com/adsk/servlet/pc/item?siteID=123112&id=10775847
+- FMOD Studio (1.05.02)  Library to handle sound -> http://www.fmod.org/download/
 
 Also, please note that due to possible licensing issues for the libraries, I'm not providing any of them in this repository. The benefit is that the repository is very compact.
 
