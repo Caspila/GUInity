@@ -260,9 +260,6 @@
     <ClInclude Include="..\Source\AssetDatabase.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\Bounds.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\BoxCollider.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>

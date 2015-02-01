@@ -141,7 +141,7 @@ Ray Camera::screenPointToRay2(glm::vec2 pos)
 
 void Camera::init()
 {
-	Camera::notify(ComponentEventType::NewCamera, shared_from_this(), getActor()->editorFlag);
+	Camera::notify(ComponentEventType::NewCamera, shared_from_this(), getActor()->getEditorFlag());
 }
 
 void Camera::awake()

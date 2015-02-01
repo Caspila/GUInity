@@ -8,34 +8,48 @@ class Font;
 class Mesh;
 class Material;
 
+/**
+	FontMesh is a MeshComponent, meaning that it holds reference to a Mesh.
+	Unlike MeshFilter, that makes reference to a "static" mesh, a file mesh, the FontMesh makes reference to a dynamic mesh, created according
+	to the text it's going to display.
+*/
 class FontMesh :
-	public MeshComponent/*;
-#ifdef GUINITY_DEBUG
-	, public StaticCounter<FontRenderer>, public Subject<FontRenderer>
-#endif*/
+	public MeshComponent
 {
-public:
-	FontMesh();
-	virtual ~FontMesh();
-
-
-	//virtual void init() override;
-
-	void setFont(shared_ptr<Font> font);
-	void setText(string text);
-
+private:
+	/** The Font asset*/
+	shared_ptr<Font> font;
+	/** The text asset*/
+	string text;
+	/** The material used to render the Mesh*/
 	shared_ptr<Material> material;
 
-	//shared_ptr<Mesh> mesh;
-	shared_ptr<Font> font;
-	string text;
+public:
+	/** Default Constructor*/
+	FontMesh();
+	/** Default Destructor. Virtual because it's children class.*/
+	virtual ~FontMesh();
 
+	/** font setter */
+	void setFont(shared_ptr<Font> font);
+	/** font getter */
+	shared_ptr<Font> getFont();
+	
+	/** text setter */
+	void setText(string text);
+	/** text getter */
+	string getText();
+
+	/** create the mesh according to the font and text */
 	void createMesh();
 
-	virtual shared_ptr<ComponentDescription> getComponentDescription() override;
-
+	/** Prototype design pattern*/
 	virtual shared_ptr<Component> clone() override{ shared_ptr<FontMesh> compClone = make_shared<FontMesh>(); return compClone; };
 
+	/** Serialization region*/
+	/** Get a description for the current component*/
+	virtual shared_ptr<ComponentDescription> getComponentDescription() override;
+	/** Deserialize a component description to a collider */
 	void deserialize(shared_ptr<ComponentDescription> desc) override;
 
 

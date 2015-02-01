@@ -7,6 +7,8 @@
 #include "MeshRenderer.hpp"
 #include "Editor.hpp"
 #include "Math.hpp"
+#include "AssetDatabase.hpp"
+#include "Material.hpp"
 
 RotateTool::RotateTool()
 {
@@ -30,7 +32,7 @@ void RotateTool::awake()
     rightHandle->transform->setScale(glm::vec3(1, 1, 0.1f));
     
 	shared_ptr<MeshFilter> meshFilter = rightHandle->AddComponent<MeshFilter>();
-    meshFilter->mesh =cylinderMesh;
+	meshFilter->setMesh(cylinderMesh);
     shared_ptr<MeshRenderer> meshRenderer = rightHandle->AddComponent<MeshRenderer>();
     meshRenderer->material = defaultMat;
     
@@ -48,7 +50,7 @@ void RotateTool::awake()
     forwardHandle->transform->setScale(glm::vec3(1, 1, 0.1f));
     forwardHandle->transform->setRotationQuat(glm::angleAxis(90*Deg2Radian,glm::vec3(0, 1, 0)));
     meshFilter = forwardHandle->AddComponent<MeshFilter>();
-    meshFilter->mesh =cylinderMesh;
+    meshFilter->setMesh(cylinderMesh);
     meshRenderer = forwardHandle->AddComponent<MeshRenderer>();
     meshRenderer->material = defaultMat;
 	collider = forwardHandle->AddComponent<MeshCollider>();
@@ -62,7 +64,7 @@ void RotateTool::awake()
     upHandle->transform->setScale(glm::vec3(1, 1, 0.1f));
 //    upHandle->transform->setRotationQuat(glm::angleAxis(90*Deg2Radian,glm::vec3(1, 0, 0)));
     meshFilter = upHandle->AddComponent<MeshFilter>();
-    meshFilter->mesh =cylinderMesh;
+	meshFilter->setMesh(cylinderMesh);
     meshRenderer = upHandle->AddComponent<MeshRenderer>();
     meshRenderer->material = defaultMat;
    	collider = upHandle->AddComponent<MeshCollider>();

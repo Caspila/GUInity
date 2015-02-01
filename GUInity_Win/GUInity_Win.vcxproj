@@ -208,7 +208,6 @@
     <ClInclude Include="..\Source\AnyClass.hpp" />
     <ClInclude Include="..\Source\Asset.hpp" />
     <ClInclude Include="..\Source\AssetDatabase.hpp" />
-    <ClInclude Include="..\Source\Bounds.h" />
     <ClInclude Include="..\Source\BoxCollider.hpp" />
     <ClInclude Include="..\Source\Camera.hpp" />
     <ClInclude Include="..\Source\CapsuleCollider.hpp" />

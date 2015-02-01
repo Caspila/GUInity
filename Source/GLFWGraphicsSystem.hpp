@@ -7,43 +7,53 @@
 class GLFWGraphicsSystem : public GraphicsSystem
 {
 public:
+	/** Default Destructor */
+	virtual ~GLFWGraphicsSystem() {};
+	/** Default Constructor. Virtual because it inherits from GraphicsSystem */
+	GLFWGraphicsSystem() {};
+
+	/** Initialize the system, create the window and such*/
     virtual int init() override;
+	/** Shutdown the system, destroy window and release any allocated memory*/
     virtual void shutdown() override;
+	/** Swap buffers*/
     virtual void swap() override;
+	/** Clear buffers*/
+	virtual void clear() override;
+	/** create debug shader to display Physics information on the screen*/
     virtual void createDebugShader() override;
-    virtual void clear() override;
+
     
- //   virtual void setGraphicsParent(QWindow *parent) override {};
+	/** Renders Physics information on screen from the camera point of view */
+	virtual void render(shared_ptr<Camera> camera, const  physx::PxRenderBuffer& rb, const glm::vec4& color) override;
+	/** Renders meshes on the screen from the camera point of view */
+	virtual void render(shared_ptr<Camera> camera, vector < shared_ptr<MeshRenderer>>& renderers, vector<shared_ptr<Light>>& lights) override;
+	/** Render Widgets on screen */
+	virtual void renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector)override;
 
-    virtual GLint uniform(const GLuint shaderProgram, const GLchar* uniformName) override;
-
-   // virtual void render(shared_ptr<Camera> camera, vector < shared_ptr<Actor>> actors, vector < shared_ptr<Light>> lights) override;
-    virtual void render(shared_ptr<Camera> camera, const  physx::PxRenderBuffer& rb, const glm::vec4& color) override;
-    virtual void render(shared_ptr<Camera> camera, vector < shared_ptr<MeshRenderer>>& renderers, vector<shared_ptr<Light>>& lights) override;
-
-
+	/** Generates a new Vertex Array - Used for mesh vertice data */
     virtual void generateVertexArrays(const GLuint id, GLuint& vao) override;
-    virtual void generateBuffer(const GLuint id,GLuint& bo,GLenum type,int size,void *dataPointer, GLenum drawType) override;
 
+	/** Generates a new Buffer Array */
+	virtual void generateBuffer(const GLuint id,GLuint& bo,GLenum type,int size,void *dataPointer, GLenum drawType) override;
+	/** Release buffer */
+	virtual void deleteBuffer(GLuint size, GLuint &bo) override;
+
+	/** Creates a new shader */
     virtual GLuint createShader(GLenum shaderType) override;
+	/** Release shader */
+	virtual void deleteShader(GLuint shaderID) override;
+	/** Compile the shader */
     virtual void compileShader(GLuint shaderID, GLuint size,const char* dataPointer) override;
-    
-    //virtual void renderGUI(MeshVertex* meshVertex, int nVertex);
-    //virtual void renderGUI(shared_ptr<UIWidget> uiWidget, int nWidgets) override;
-    virtual void renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector)override;
-
+	/** Merge VertexShader and FragmentShader to one */
+	virtual void attachAndLinkShader(GLuint ProgramID, GLuint VertexShaderID, GLuint FragmentShaderID) override;
+	/** Creates a new shader program */
     virtual GLuint createShaderProgram() override;
 
-    virtual void attachAndLinkShader(GLuint ProgramID,GLuint VertexShaderID,GLuint FragmentShaderID) override;
-    virtual void deleteShader(GLuint shaderID) override;
-    virtual void deleteBuffer(GLuint size,GLuint &bo) override;
+	/** Gets the uniform location for a string in a shader */
+    virtual GLint getUniformLocation(GLuint programID,const char* name) override;
 
-     virtual GLint getUniformLocation(GLuint programID,const char* name) override;
-
-    virtual ~GLFWGraphicsSystem();
-    
-    public:
-    GLFWGraphicsSystem();
+	
 };
 
 #endif // GLFWGRAPHICSYSTEM_H

@@ -9,6 +9,7 @@
 #include "ScriptComponent.hpp"
 #include "RotateOverTime.hpp"
 #include "Actor.hpp"
+#include "Transform.hpp"
 
 void RotateOverTime::tick(float deltaSeconds)
 {

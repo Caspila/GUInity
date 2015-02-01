@@ -3,6 +3,7 @@
 #include "Font.hpp"
 #include "Actor.hpp"
 
+/** Default Constructor*/
 FontMesh::FontMesh()
 {
 //#ifdef GUINITY_DEBUG
@@ -10,7 +11,7 @@ FontMesh::FontMesh()
 //#endif
 }
 
-
+/** Default Destructor. Virtual because it's children class.*/
 FontMesh::~FontMesh()
 {
 //#ifdef GUINITY_DEBUG
@@ -20,27 +21,36 @@ FontMesh::~FontMesh()
 }
 
 
-//void FontRenderer::init()
-//{
-//	FontRenderer::notify(ComponentEventType::NewFontRenderer, shared_from_this(), getActor()->editorFlag);
-//}
 
 
+/** font setter */
 void FontMesh::setFont(shared_ptr<Font> font)
 {
 	this->font = font;
 }
+/** font getter */
+shared_ptr<Font> FontMesh::getFont()
+{
+	return font;
+}
 
+/** text setter */
 void FontMesh::setText(string text)
 {
 	this->text = text;
 
 	createMesh();
 }
+/** text getter */
+string FontMesh::getText()
+{
+	return text;
+}
 
+
+/** create the mesh according to the font and text */
 void FontMesh::createMesh()
 {
-	//shared_ptr<Mesh> mesh = make_shared<Mesh>();
 	mesh = make_shared<Mesh>();
 
 	float letterWidth = 0.5f;
@@ -48,14 +58,12 @@ void FontMesh::createMesh()
 
 	float xOffset = 0;
 
-	//TODO RIGHTMOST VERTEX ARE DUPLICATED
 	for (int i = 0; i < text.size(); i++)
 	{
 		char c = text[i];
 
-		LetterFontUV letterUV = font->charUVMap[c];
+		LetterFontUV letterUV = font->getCharDesc(c);
 
-		//letterWidth = letterHeight *1/letterUV.ratio;
 		letterWidth = letterHeight * letterUV.ratio;
 
 		int i0, i1, i2, i3;
@@ -79,18 +87,17 @@ void FontMesh::createMesh()
 		mesh->addTriangle(i * 4+1);
 		mesh->addTriangle(i * 4+2);
 
-
 		xOffset += letterWidth;
 	}
 
 	mesh->createBuffers3();
 }
-
+/** Get a description for the current component*/
 shared_ptr<ComponentDescription> FontMesh::getComponentDescription()
 {
 	return nullptr;
 }
-
+/** Deserialize a component description to a collider */
 void FontMesh::deserialize(shared_ptr<ComponentDescription> desc)
 {
 

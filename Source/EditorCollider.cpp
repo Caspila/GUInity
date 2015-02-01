@@ -1,6 +1,7 @@
 #include "EditorCollider.hpp"
 #include "Actor.hpp"
 #include "Physics.hpp"
+#include "Transform.hpp"
 
 
 EditorCollider::EditorCollider()
@@ -18,7 +19,7 @@ void EditorCollider::init()
 	physxRigidStatic = Physics::createRigidDynamic(getActor());
 	physxRigidStatic->setRigidDynamicFlag(PxRigidDynamicFlag::eKINEMATIC, true);
 
-	notify(NewEditorCollider, shared_from_this(), getActor()->editorFlag);
+	notify(NewEditorCollider, shared_from_this(), getActor()->getEditorFlag());
 }
 
 void EditorCollider::tick(float deltaSeconds)

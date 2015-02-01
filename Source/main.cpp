@@ -170,7 +170,7 @@ int main(int argc, char *argv[]) {
 		return 1;
     
     
-    Input input(GraphicsSystem::getInstance()->window);
+    Input input(GraphicsSystem::getInstance()->getWindow());
 	
 	
 	SoundSystem::getInstance()->init();
@@ -291,7 +291,7 @@ int main(int argc, char *argv[]) {
 		shared_ptr<Material> defaultMaterial = AssetDatabase::createMaterial("DefaultMaterial", s);
 		defaultMaterial->setParamTexture("myTextureSampler", texture);
 		shared_ptr<Material> fontMaterial = AssetDatabase::createMaterial("FontMaterial", s);
-		fontMaterial->setParamTexture("myTextureSampler", font->fontTexture);
+		fontMaterial->setParamTexture("myTextureSampler", font->getFontTexture());
 
 		shared_ptr<Editor> editor = make_shared<Editor>();
 		editor->init();
@@ -311,7 +311,7 @@ int main(int argc, char *argv[]) {
 		shared_ptr<MeshFilter> meshFilter = fbxTest->AddComponent<MeshFilter>();
 
 		//meshFilter->mesh = dynamic_pointer_cast<Mesh>(objMesh);
-		meshFilter->mesh = objMesh;
+		meshFilter->setMesh(objMesh);
 		shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
 		meshRenderer->material = defaultMaterial;
 		shared_ptr<RigidBody> rigidBody = fbxTest->AddComponent<RigidBody>();
@@ -375,7 +375,7 @@ int main(int argc, char *argv[]) {
 		floor->transform->setRotationQuat(glm::quat(glm::vec3(0, 0, 45 * Deg2Radian)));
 		floor->transform->setScale(glm::vec3(5, 0.1f, 5.0f));
 
-		meshFilter->mesh = cubeMesh;
+		meshFilter->setMesh(cubeMesh);
 		meshRenderer = floor->AddComponent<MeshRenderer>();
 		meshRenderer->material = defaultMaterial;
 		floor->AddComponent<BoxCollider>();
@@ -471,7 +471,7 @@ int main(int argc, char *argv[]) {
     editor->world->awake();
     game->world->awake();
 
-    while (!glfwWindowShouldClose(GraphicsSystem::getInstance()->window.get())) {
+    while (!glfwWindowShouldClose(GraphicsSystem::getInstance()->getWindow().get())) {
         Time::frameStart();
 
         Input::updateInputState();

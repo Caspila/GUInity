@@ -26,17 +26,33 @@ struct LetterFontUV
 };
 
 
+/** Font is an Asset. It holds the information of the font size, the available characters and their UV mapping to the
+	corresponding Texture */
 class Font :
 	public Asset
 {
-public:
-	Font(shared_ptr<Texture> fontTexture, map<char, LetterFontUV> charUVMap, int fontSize);
-	virtual ~Font();
-	
+private:
+	/** The Texture of the font */
 	shared_ptr<Texture> fontTexture;
+	/** The font size */
 	int fontSize;
+	/** The list of available characters and their UV mapping according to the fontTexture */
 	map<char, LetterFontUV> charUVMap;
 
+public:
+	/** Constructor from a Texture, a map of available chars and their UVMapping and the font size.*/
+	Font(shared_ptr<Texture> fontTexture, map<char, LetterFontUV> charUVMap, int fontSize);
+	/** Default Destructor. Virtual cause it's children class */
+	virtual ~Font() {}
+	
+	/** fontTexture getter*/
+	shared_ptr<Texture> getFontTexture();
+	/** fontSize getter*/
+	int getFontSize();
+	/** charUVMap getter*/
+	map<char, LetterFontUV> getCharUVMap();
+	/** Returns the LetterFontUV of a char in this font*/
+	LetterFontUV getCharDesc(char c);
 
 };
 

@@ -4,6 +4,7 @@
 #include "MeshRenderer.hpp"
 #include "Factory.hpp"
 #include "Physics.hpp"
+#include "RigidBody.hpp"
 #include "RigidStatic.hpp"
 #include "FontMesh.hpp"
 #include "EditorCollider.hpp"

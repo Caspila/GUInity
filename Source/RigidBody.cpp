@@ -3,6 +3,7 @@
 #include "Converter.hpp"
 #include "Actor.hpp"
 #include <PxRigidBody.h>
+#include "Transform.hpp"	
 
 RigidBody::RigidBody()
 {
@@ -39,7 +40,7 @@ void RigidBody::init()
     
 //    physxRigidBody->setBaseFlag(PxBaseFlag::, <#bool value#>)
     
-	notify(NewRigidBody, shared_from_this(), getActor()->editorFlag);
+	notify(NewRigidBody, shared_from_this(), getActor()->getEditorFlag());
 }
 
 void RigidBody::tick(float deltaSeconds)

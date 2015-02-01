@@ -68,3 +68,20 @@ void SphereCollider::deserialize(shared_ptr<ComponentDescription> desc)
     this->center = sphereColDesc->center;
     initWithData = true;
 }
+
+float SphereCollider::getRadius()
+{
+	return radius;
+}
+void SphereCollider::setRadius(float newRadius)
+{
+	this->radius = newRadius;
+
+	PxSphereGeometry sphereGeometry;
+	shape->getSphereGeometry(sphereGeometry);
+
+	sphereGeometry.radius = newRadius;
+
+	shape->setGeometry(sphereGeometry);
+
+}

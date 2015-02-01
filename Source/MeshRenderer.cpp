@@ -32,7 +32,7 @@ void MeshRenderer::init()
 
 //	GraphicsSystem::getInstance().allMeshRenderer.push_back(shared_from_this());
 
-	MeshRenderer::notify(ComponentEventType::NewMeshRenderer, shared_from_this(),getActor()->editorFlag);
+	MeshRenderer::notify(ComponentEventType::NewMeshRenderer, shared_from_this(),getActor()->getEditorFlag());
 }
 
 void MeshRenderer::setMaterial(shared_ptr<Material> material)
@@ -42,7 +42,7 @@ void MeshRenderer::setMaterial(shared_ptr<Material> material)
 
 shared_ptr<ComponentDescription> MeshRenderer::getComponentDescription()
 {
-    return make_shared<MeshRendererDescription>(material->assetID);
+    return make_shared<MeshRendererDescription>(material->getAssetID());
 }
 
 void MeshRenderer::deserialize(shared_ptr<ComponentDescription> desc)
@@ -52,6 +52,6 @@ void MeshRenderer::deserialize(shared_ptr<ComponentDescription> desc)
     cout << "MeshRendererDesc material id" << meshRendDesc->materialID << endl;
     
     
-    material = dynamic_pointer_cast<Material>(AssetDatabase::idToAsset[meshRendDesc->materialID]);
+	material = dynamic_pointer_cast<Material>(AssetDatabase::getAsset(meshRendDesc->materialID));
     
 }

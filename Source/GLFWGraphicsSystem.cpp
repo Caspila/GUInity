@@ -20,6 +20,7 @@
 #include "AssetDatabase.hpp"
 #include "Texture.hpp"
 
+/** Initialize the system, create the window and such*/
 int GLFWGraphicsSystem::init()
 {
     if (!glfwInit()) {
@@ -30,8 +31,7 @@ int GLFWGraphicsSystem::init()
     glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-	//window = make_shared<GLFWwindow>(glfwCreateWindow(640, 480, "Hello Triangle", NULL, NULL), glfwDestroyWindow);
-	//window = make_shared<GLFWwindow>(glfwCreateWindow(640, 480, "Hello Triangle", NULL, NULL),NULL);
+
 	window.reset(glfwCreateWindow(640, 480, "Hello Triangle", NULL, NULL), glfwDestroyWindow);
 	if (!window) {
 		fprintf(stderr, "ERROR: could not open window with GLFW3\n");
@@ -57,6 +57,7 @@ int GLFWGraphicsSystem::init()
 	return 0;
 
 }
+/** Shutdown the system, destroy window and release any allocated memory*/
  void GLFWGraphicsSystem::shutdown()
 {
     debugMaterial.reset();
@@ -64,6 +65,7 @@ int GLFWGraphicsSystem::init()
 	glfwTerminate();
 
 }
+ /** Swap buffers*/
  void GLFWGraphicsSystem::swap()
 {
     glfwPollEvents();
@@ -71,7 +73,14 @@ int GLFWGraphicsSystem::init()
     glfwSwapBuffers(window.get());
 
 }
+ /** Clear buffers*/
+ void GLFWGraphicsSystem::clear()
+ {
 
+	 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+ }
+
+ /** create debug shader to display Physics information on the screen*/
 void GLFWGraphicsSystem::createDebugShader()
 {
     debugShader = make_shared<Shader>(CommonData("vs.vs").c_str(),CommonData("fs.fragmentshader").c_str());
@@ -84,30 +93,8 @@ void GLFWGraphicsSystem::createDebugShader()
     GUIMatrix = glm::ortho(0.0f, 640.0f, 480.0f, 0.0f, -5.0f, 5.0f);
 }
 
-void GLFWGraphicsSystem::clear()
-{
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-}
-
- GLFWGraphicsSystem::~GLFWGraphicsSystem() {}
-
-GLFWGraphicsSystem::GLFWGraphicsSystem() {}
-
-
-GLint GLFWGraphicsSystem::uniform(const GLuint shaderProgram, const GLchar* uniformName) {
-    if (!uniformName)
-        throw std::runtime_error("uniformName was NULL");
-
-    GLint uniform = glGetUniformLocation(shaderProgram, uniformName);
-    if (uniform == -1)
-        throw std::runtime_error(std::string("Program uniform not found: ") + uniformName);
-
-    return uniform;
-}
-
-//void GLFWGraphicsSystem::renderGUI(MeshVertex* meshVertex, int nVertex)
-//void GLFWGraphicsSystem::renderGUI(shared_ptr<UIWidget> uiWidget, int nWidgets)
+/** Render Widgets on screen */
 void GLFWGraphicsSystem::renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector)
 {
 //    
@@ -162,6 +149,7 @@ void GLFWGraphicsSystem::renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector)
 //    }
 }
 
+/** Renders meshes on the screen from the camera point of view */
 void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<MeshRenderer>>& renderers, vector<shared_ptr<Light>>& lights)
 //void GraphicsSystem::render(World& world)
 {
@@ -197,12 +185,12 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         float ambientLight = 0.5f;
         glm::vec3 ambientLightColor(1.0, 0.0, 0.0);
 
-        glUniform3fv(uniform(shaderProgram, "ambientLightColor"), 1, &ambientLightColor[0]);
-        glUniform1f(uniform(shaderProgram, "ambientLightIntensity"), ambientLight);
+        glUniform3fv(getUniformLocation(shaderProgram, "ambientLightColor"), 1, &ambientLightColor[0]);
+		glUniform1f(getUniformLocation(shaderProgram, "ambientLightIntensity"), ambientLight);
 
 
-        glUniformMatrix4fv(uniform(shaderProgram, "camera"), 1, GL_FALSE, &camera->MVPMatrix[0][0]);
-        glUniformMatrix4fv(uniform(shaderProgram, "model"), 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
+		glUniformMatrix4fv(getUniformLocation(shaderProgram, "camera"), 1, GL_FALSE, &camera->MVPMatrix[0][0]);
+		glUniformMatrix4fv(getUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
         for (int j = 0; j < lights.size(); j++)
         {
             shared_ptr<Light> light = lights[j];
@@ -210,8 +198,8 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
             /*glUniform3fv(meshRenderer->material->shader->paramID["lightPos"], 1, &light->getActor()->transform->position[0]);
             glUniform3fv(meshRenderer->material->shader->paramID["lightIntensity"], 1, &light->color[0]);*/
 
-			glUniform3fv(uniform(shaderProgram, "lightPos"), 1, &light->getActor()->transform->position[0]);
-			glUniform3fv(uniform(shaderProgram, "lightIntensity"), 1, &light->color[0]);
+			glUniform3fv(getUniformLocation(shaderProgram, "lightPos"), 1, &light->getActor()->transform->position[0]);
+			glUniform3fv(getUniformLocation(shaderProgram, "lightIntensity"), 1, &light->color[0]);
         }
 
 		shared_ptr<Texture> texture = meshRenderer->material->getTextureParam();
@@ -220,7 +208,7 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 			//glEnable(GL_TEXTURE);
 			glActiveTexture(GL_TEXTURE0);
 			glBindTexture(GL_TEXTURE_2D, texture->textureID);
-			glUniform1i(uniform(shaderProgram, "myTextureSampler"), 0);
+			glUniform1i(getUniformLocation(shaderProgram, "myTextureSampler"), 0);
 			//glBindTexture(GL_TEXTURE_2D, Texture);
 			//glUniform1i(texture->textureID, 0);
 
@@ -241,10 +229,10 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 		}
 
         
-		glBindVertexArray(meshComponent->mesh->vao);
+		glBindVertexArray(meshComponent->getMesh()->vao);
 
         glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, meshComponent->mesh->mvbo);
+		glBindBuffer(GL_ARRAY_BUFFER, meshComponent->getMesh()->mvbo);
 
         //Vertex
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(0));
@@ -261,10 +249,10 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         glEnableVertexAttribArray(3);
         glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginUV));
         
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshComponent->mesh->ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshComponent->getMesh()->ibo);
 
         // draw points 0-3 from the currently bound VAO with current in-use shader
-		glDrawElements(GL_TRIANGLES, meshComponent->mesh->triangles.size(), GL_UNSIGNED_SHORT, NULL);
+		glDrawElements(GL_TRIANGLES, meshComponent->getMesh()->triangles.size(), GL_UNSIGNED_SHORT, NULL);
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(2);
@@ -275,6 +263,7 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 
 }
 
+/** Renders Physics information on screen from the camera point of view */
 void GLFWGraphicsSystem::render(shared_ptr<Camera> camera,const physx::PxRenderBuffer& rb,const glm::vec4& color)
 {
     float *points = new float[rb.getNbLines() * 6];
@@ -337,7 +326,7 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera,const physx::PxRenderB
     delete []points;
 }
 
-
+/** Generates a new Vertex Array - Used for mesh vertice data */
 void GLFWGraphicsSystem::generateVertexArrays(const GLuint id, GLuint& vao)
 {
     glGenVertexArrays(id, &vao);
@@ -345,6 +334,7 @@ void GLFWGraphicsSystem::generateVertexArrays(const GLuint id, GLuint& vao)
 
 }
 
+/** Generates a new Buffer Array */
 void GLFWGraphicsSystem::generateBuffer(const GLuint size, GLuint& bo, GLenum type, int dataSize, void *dataPointer, GLenum drawType)
 {
     glGenBuffers(size, &bo);
@@ -353,86 +343,55 @@ void GLFWGraphicsSystem::generateBuffer(const GLuint size, GLuint& bo, GLenum ty
 
 }
 
+/** Release buffer */
+void GLFWGraphicsSystem::deleteBuffer(GLuint size, GLuint &bo)
+{
+	glDeleteBuffers(size, &bo);
+}
+
+/** Creates a new shader */
 GLuint GLFWGraphicsSystem::createShader(GLenum shaderType)
 {
-
     return glCreateShader(shaderType);
 }
 
+/** Release shader */
+void GLFWGraphicsSystem::deleteShader(GLuint shaderID)
+{
+	glDeleteShader(shaderID);
+}
 
+/** Compile the shader */
 void GLFWGraphicsSystem::compileShader(GLuint shaderID, GLuint size,const char* dataPointer)
 {
     glShaderSource(shaderID, size, &dataPointer, NULL);
     glCompileShader(shaderID);
 }
+/** Merge VertexShader and FragmentShader to one */
+void GLFWGraphicsSystem::attachAndLinkShader(GLuint ProgramID, GLuint VertexShaderID, GLuint FragmentShaderID)
+{
+	glAttachShader(ProgramID, VertexShaderID);
+	glAttachShader(ProgramID, FragmentShaderID);
+	glLinkProgram(ProgramID);
+}
 
-
+/** Merge VertexShader and FragmentShader to one */
 GLuint GLFWGraphicsSystem::createShaderProgram()
 {
     return glCreateProgram();
 }
 
-void GLFWGraphicsSystem::attachAndLinkShader(GLuint ProgramID,GLuint VertexShaderID,GLuint FragmentShaderID)
-{
-    glAttachShader(ProgramID, VertexShaderID);
-    glAttachShader(ProgramID, FragmentShaderID);
-    glLinkProgram(ProgramID);
+
+
+
+/** Gets the uniform location for a string in a shader */
+GLint GLFWGraphicsSystem::getUniformLocation(const GLuint shaderProgram, const GLchar* uniformName) {
+	if (!uniformName)
+		throw std::runtime_error("uniformName was NULL");
+
+	GLint uniform = glGetUniformLocation(shaderProgram, uniformName);
+	if (uniform == -1)
+		throw std::runtime_error(std::string("Program uniform not found: ") + uniformName);
+
+	return uniform;
 }
-
-void GLFWGraphicsSystem::deleteShader(GLuint shaderID)
-{
-glDeleteShader(shaderID);
-}
-
-void GLFWGraphicsSystem::deleteBuffer(GLuint size,GLuint &bo)
-{
-    glDeleteBuffers(size,&bo);
-}
-
-GLint GLFWGraphicsSystem::getUniformLocation(GLuint programID,const char* name)
-{
-   return glGetUniformLocation(programID,name);
-}
-
-//void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, const Ray& r, const glm::vec3& color)
-//{
-//    float points[6];
-
-//    // render the line
-
-//    points[0] = r.origin.x;
-//    points[1] = r.origin.y;
-//    points[2] = r.origin.z;
-//    points[3] = r.origin.x+r.direction.x*10;
-//    points[4] = r.origin.y+r.direction.y*10;
-//    points[5] = r.origin.z+r.direction.z*10;
-
-//    GLuint vbo = 0;
-//    glGenBuffers(1, &vbo);
-//    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-//    glBufferData(GL_ARRAY_BUFFER, 6  * sizeof(float), points, GL_STATIC_DRAW);
-
-//    GLuint vao = 0;
-//    glGenVertexArrays(1, &vao);
-//    glBindVertexArray(vao);
-//    glEnableVertexAttribArray(0);
-//    glBindBuffer(GL_ARRAY_BUFFER, vbo);
-//    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 0, NULL);
-
-
-//    glLinkProgram(debugMaterial->getShaderProgram());
-//    glUseProgram(debugMaterial->getShaderProgram());
-
-//    glBindVertexArray(vao);
-
-//    //glm::mat4 transformMatrix = camera->MVPMatrix;
-//    glUniform3fv(debugMaterial->shader->paramID["difuse"], 1, &color[0]);
-//    glm::mat4 transformMatrix(1.0f);
-//    glUniformMatrix4fv(debugMaterial->shader->paramID["MVP"], 1, GL_FALSE, &transformMatrix[0][0]);
-
-//    glDrawArrays(GL_LINES, 0, 2);
-
-
-
-//}
-

@@ -25,86 +25,90 @@ struct MeshVertex;
 
 using namespace physx;
 
+/** GraphicsSystem handles the Graphics of the Engine.
+
+	The idea behind creating an abstract class would be to allow for different Graphic API's to
+	handle how images are drawn. For example, change from OpenGL to DirectX easily.
+
+	This is the class that knows how to draw images on the screen.
+*/
 class GraphicsSystem
-//#ifdef GUINITY_DEBUG
-//	:public StaticCounter<GraphicsSystem>
-//#endif
+
 {
 
+protected:
+	/** Handle to the window*/
+	shared_ptr<GLFWwindow> window;
+	
+	/** Shader used to debug Physics Information*/
+	shared_ptr<Shader> debugShader;
+	/** Material used to debug Physics Information*/
+	shared_ptr<Material> debugMaterial;
+
+	/** Shader used to render GUI*/
+	shared_ptr<Shader> guiShader;
+	/** Material used to render GUI*/
+	shared_ptr<Material> guiMaterial;
+
+	glm::mat4 GUIMatrix;
 public:
-//	static GraphicsSystem& getInstance()
-//	{
-//		static GraphicsSystem instance; // Guaranteed to be destroyed.
-//		// Instantiated on first use.
-//		return instance;
-//	}
 
     static GraphicsSystem* getInstance();
-//    {
-//        static GraphicsSystem* instance; // Guaranteed to be destroyed.
-//        if(instance == nullptr)
-//            instance = new GLFWGraphicsSystem();
-//        // Instantiated on first use.
-//        return instance;
-//    }
 
-public:
-	GraphicsSystem() {};                   // Constructor? (the {} brackets) are needed here.
+	GraphicsSystem() {}; // Constructor? (the {} brackets) are needed here.
 	// Dont forget to declare these two. You want to make sure they
 	// are unaccessable otherwise you may accidently get copies of
 	// your singleton appearing.
 	GraphicsSystem(GraphicsSystem const&);              // Don't Implement
 	void operator=(GraphicsSystem const&); // Don't implement
-public:
-	//GraphicsSystem();
+
 	virtual ~GraphicsSystem();
 
+	/** Initialize the system, create the window and such*/
     virtual int init() = 0;
+	/** Shutdown the system, destroy window and release any allocated memory*/
     virtual void shutdown() = 0;
+	/** Swap buffers*/
     virtual void swap() = 0;
+	/** Clear buffers*/
     virtual void clear() = 0;
-//    virtual void setGraphicsParent(QWindow *parent) = 0;
+	/** create debug shader to display Physics information on the screen*/
+	virtual void createDebugShader() = 0;
 
-	shared_ptr<GLFWwindow> window;
-
-    virtual GLint uniform(const GLuint shaderProgram, const GLchar* uniformName) = 0;
-
-    virtual void createDebugShader()= 0;
-
-    //virtual void render(shared_ptr<Camera> camera, vector < shared_ptr<Actor>> actors, vector < shared_ptr<Light>> lights)=0;
+	
+    
+	/** Renders Physics information on screen from the camera point of view */
     virtual void render(shared_ptr<Camera> camera, const  physx::PxRenderBuffer& rb, const glm::vec4& color)=0;
-    virtual void render(shared_ptr<Camera> camera, vector < shared_ptr<MeshRenderer>>& renderers, vector<shared_ptr<Light>>& lights)=0;
+	/** Renders meshes on the screen from the camera point of view */
+	virtual void render(shared_ptr<Camera> camera, vector < shared_ptr<MeshRenderer>>& renderers, vector<shared_ptr<Light>>& lights)=0;
+	/** Render Widgets on screen */
+	virtual void renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector) = 0;
 
+
+	/** Generates a new Vertex Array - Used for mesh vertice data */
     virtual void generateVertexArrays(const GLuint size, GLuint& vao) = 0;
 
+	/** Generates a new Buffer Array */
     virtual void generateBuffer(const GLuint size, GLuint& bo, GLenum type, int dataSize, void *dataPointer, GLenum drawType) =0;
-    //GraphicsSystem::getInstance()->generateBuffer(1,mvbo,GL_ARRAY_BUFFER,meshVertices.size() * sizeof(MeshVertex),&meshVertices[0],GL_STATIC_DRAW);
+	/** Release buffer */
+	virtual void deleteBuffer(GLuint size, GLuint &bo) = 0;
 
+	/** Creates a new shader */
     virtual GLuint createShader(GLenum shaderType) = 0;
-    virtual void compileShader(GLuint shaderID, GLuint size,const char* dataPointer) = 0;// VertexShaderID,1,&VertexSourcePointer,NULL);
-
+	/** Compile the shader */
+	virtual void compileShader(GLuint shaderID, GLuint size,const char* dataPointer) = 0;
+	/** Creates a new shader program */
     virtual GLuint createShaderProgram() = 0;
-    virtual void attachAndLinkShader(GLuint ProgramID,GLuint VertexShaderID,GLuint FragmentShaderID) = 0;
-    virtual void deleteShader(GLuint shaderID) = 0;
+	/** Merge VertexShader and FragmentShader to one */
+	virtual void attachAndLinkShader(GLuint ProgramID,GLuint VertexShaderID,GLuint FragmentShaderID) = 0;
+	/** Release shader */
+	virtual void deleteShader(GLuint shaderID) = 0;
 
-    virtual void deleteBuffer(GLuint size,GLuint &bo) = 0;
-
+	/** Gets the uniform location for a string in a shader */
     virtual GLint getUniformLocation(GLuint programID,const char* name) = 0;
 
-    //virtual void renderGUI(MeshVertex* meshVertex, int nVertex) = 0;
-    //virtual void renderGUI(shared_ptr<UIWidget> uiWidget, int nWidgets) = 0;
-        virtual void renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector) = 0;
-    
-	shared_ptr<Shader> debugShader;
-	shared_ptr<Material> debugMaterial;
-
-    shared_ptr<Shader> guiShader;
-	shared_ptr<Material> guiMaterial;
-    
-    glm::mat4 GUIMatrix;
-
-    
-	//vector<weak_ptr<MeshRenderer>> allMeshRenderer;
-    
+	/** window Getter */
+	virtual shared_ptr<GLFWwindow> getWindow() { return window; }
+  
 };
 

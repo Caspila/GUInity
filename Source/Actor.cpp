@@ -1,27 +1,25 @@
 #include "Actor.hpp"
-//#include "Script.hpp"
-//#include "ScriptComponent.h"
 #include "Transform.hpp"
 #include "print.hpp"
+#include "ScriptComponent.hpp"
 
-Actor::Actor(string name)// , shared_ptr<MeshRenderer> meshRenderer	)
+/** Constructor with actor name */
+Actor::Actor(string name)
 {
-	
 	transform = make_shared<Transform>();
-
-	//this->meshRenderer = meshRenderer;
-
 	this->name = name;
-
     isActive = true;
     
+	// Memory Management check - Increment Counter by 1
 #ifdef GUINITY_DEBUG
 	nCount++;
 #endif
 }
 
+/** Default Destructor */
 Actor::~Actor()
 {
+	// Memory Management check - Decrease Counter by 1
 #ifdef GUINITY_DEBUG
 	nCount--;
 	cout << "Actor "<< name << " destroyed (" << nCount << " remaining)" << endl;
@@ -29,6 +27,7 @@ Actor::~Actor()
 	
 }
 
+/** Awake. This function is called to Awake all the components attached to the actor */
 void Actor::awake()
 {
 	for (int i = 0; i < components.size(); i++)
@@ -38,42 +37,29 @@ void Actor::awake()
 	}
 }
 
+/** Tick. Function called every frame. This function is responsible for calling the Tick for each Component attached to the actor */
 void Actor::tick(float deltaSeconds)
 {
+	// Only tick active actors
     if(!isActive)
-    {
-//        cout << name << " actor is not active!" << endl;
         return;
-    }
+
 	for (int i = 0; i < components.size(); i++)
 	{
 		shared_ptr<Component> component = components[i];
-		//ScriptComponent& scriptComponent = scriptComponents[i];
 
-		//shared_ptr<Actor> actor = scriptComponent.actor.lock();
-		//if (actor)
-		//{
-		//scriptComponent.script->tick(scriptComponent.actor, deltaSeconds);
 		component->tick(deltaSeconds);
 
-		//}
-
-
-
-		//scriptComponent->tick(scr a,deltaSeconds);
 	}
 
-	//if (transform->rigidBody.expired())
-	//	cout << transform->rigidBody.expired();
-
-	//shared_ptr<PxRigidBody> rigidBodyLock = transform->rigidBody.lock();
-	//if (transform->rigidBody != nullptr)
-	//{
-	//	transform->rigidBody->setGlobalPose(transformToPhysXTransform(transform));
-	//}
 }
 
-void Actor::triggerPhysxCollision(Actor* actor)//string name)
+/** Function that receives Collision from PhysX
+@actor - Other actor that collided with this
+
+Delegates the collision to all ScriptComponents. Trying to emulate Unity, where every script can contain code to handle Collision
+*/
+void Actor::triggerPhysxCollision(Actor* actor)
 {
 	for (auto& x : components)
 	{
@@ -83,6 +69,12 @@ void Actor::triggerPhysxCollision(Actor* actor)//string name)
 			scriptComponent->onCollision(actor);
 	}
 }
+
+/** Function that receives Trigger Collision from PhysX
+@actor - Other actor that collided with this
+
+Delegates the collision to all ScriptComponents. Trying to emulate Unity, where every script can contain code to handle Collision
+*/
 void Actor::triggerPhysxTrigger(Actor* actor)
 {
 	for (auto& x : components)
@@ -94,26 +86,38 @@ void Actor::triggerPhysxTrigger(Actor* actor)
 	}
 }
 
+/** Parent setter */
 void Actor::setParent(shared_ptr<Actor> parent)
 {
 	this->parent = parent;
 }
+/** Parent getter */
+shared_ptr<Actor> Actor::getParent()
+{
+	shared_ptr<Actor> parentLock = parent.lock();
+	return parentLock;
+}
+
+/** Add children to list */
 void Actor::addChildren(shared_ptr<Actor> children)
 {
 	this->children.push_back(children);
 	children->setParent(shared_from_this());
-    
+  
     children->setActive(isActive);
 }
 
+/** isActive setter */
 void Actor::setActive(bool isActive)
 {
     this->isActive = isActive;
     
+	// Deactivate all components
 	for (auto& x : components)
 	{
 		x->setActive(isActive);
 	}
+	// Deactivate all children
 	for (auto& x : children)
 	{
 		auto ptrLock = x.lock();
@@ -124,6 +128,25 @@ void Actor::setActive(bool isActive)
 
 }
 
+/** isActive getter */
+bool Actor::getIsActive()
+{
+	return isActive;
+}
+
+/** editorFlag setter */
+void Actor::setEditorFlag(bool isEditor)
+{
+	editorFlag = isEditor;
+}
+
+/** editorFlag setter */
+bool Actor::getEditorFlag()
+{
+	return editorFlag;
+}
+
+/** initComponents. This function is called to Initialize all the components attached to the actor */
 void Actor::initComponents()
 {
   	for (auto& x : components)
@@ -133,17 +156,9 @@ void Actor::initComponents()
 }
 
 
-shared_ptr<Actor> Actor::getParent()
-{
-	shared_ptr<Actor> parentLock = parent.lock();
-	return parentLock;
-}
 
-void Actor::setEditorFlag(bool isEditor)
-{
-	editorFlag = isEditor;
-}
 
+/** addComponent. Attaches an existing component to the actor. This function is used for deserialization of Actors */
 void Actor::addComponent(shared_ptr<Component> component)
 {
     component->setActor(shared_from_this());

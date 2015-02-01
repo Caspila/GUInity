@@ -5,7 +5,9 @@
 #include "Math.hpp"
 #include "Converter.hpp"
 #include "Actor.hpp"
+#include "Transform.hpp"
 
+/** Default Constructor*/
 MeshComponent::MeshComponent()
 {
 
@@ -14,7 +16,7 @@ MeshComponent::MeshComponent()
 #endif
 }
 
-
+/** Default Destructor. Virtual because this is a parent class*/
 MeshComponent::~MeshComponent()
 {
 #ifdef GUINITY_DEBUG
@@ -23,33 +25,36 @@ MeshComponent::~MeshComponent()
 #endif
 }
 
-
-
+/** mesh Setter */
 void MeshComponent::setMesh(shared_ptr<Mesh> mesh)
 {
 	this->mesh = mesh;
 }
 
+/** mesh Getter */
+shared_ptr<Mesh> MeshComponent::getMesh()
+{
+	return mesh;
+}
+
+/** Get a description for the current component*/
 shared_ptr<ComponentDescription> MeshComponent::getComponentDescription()
 {
 	//return make_shared<MeshFilterDescription>(mesh->assetID);
 	return nullptr;
 }
 
-
+/** Deserialize a component description to a collider */
 void MeshComponent::deserialize(shared_ptr<ComponentDescription> desc)
 {
 
 	//shared_ptr< MeshFilterDescription> meshFilterDesc = dynamic_pointer_cast<MeshFilterDescription>(desc);
-
 	//cout << "MeshFilterDesc mesh id" << meshFilterDesc->meshID << endl;
-
-
 	//mesh = dynamic_pointer_cast<Mesh>(AssetDatabase::idToAsset[meshFilterDesc->meshID]);
 }
 
 
-
+/** Gets the center and the AABB size for the Actor that this component is attached to */
 void MeshComponent::getBoxSize(shared_ptr<Actor> actor, PxVec3& boxSize, PxVec3& center)
 {
 	boxSize.x = mesh->boundsMax.x - mesh->boundsMin.x;
@@ -68,9 +73,9 @@ void MeshComponent::getBoxSize(shared_ptr<Actor> actor, PxVec3& boxSize, PxVec3&
 
 
 	center = glmVec3ToPhysXVec3(mesh->avgCenter);
-	//	return boxSize;
 }
 
+/** Gets the center and the radius for the Actor that this component is attached to*/
 
 void MeshComponent::getSphereSize(shared_ptr<Actor> actor, float& radius, PxVec3& center)
 {
@@ -93,11 +98,9 @@ void MeshComponent::getSphereSize(shared_ptr<Actor> actor, float& radius, PxVec3
 
 
 	center = glmVec3ToPhysXVec3(mesh->avgCenter);
-	//	return radius;
 }
 
-
-
+/** Gets the center and the capsule description for the Actor that this component is attached to*/
 void MeshComponent::getCapsuleGeometry(shared_ptr<Actor>actor, float &radius, float &halfHeight, RotateAxis&orientation, PxVec3& center)
 {
 	PxVec3 boxSize(mesh->boundsMax.x - mesh->boundsMin.x,
@@ -144,4 +147,3 @@ void MeshComponent::getCapsuleGeometry(shared_ptr<Actor>actor, float &radius, fl
 	center = glmVec3ToPhysXVec3(mesh->avgCenter);
 
 }
-

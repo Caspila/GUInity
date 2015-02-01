@@ -6,31 +6,50 @@
 
 using namespace physx;
 
+/** Collider is a component that adds physics and trigger collision behaviour to an actor.
+	Collider is meant to be a parent class for all the Collider types (Sphere, Box, Capsule and Mesh) */
 class Collider :
 	public Component
 {
-public:
-	Collider();
-	virtual ~Collider();
+protected:
+	/** The center of the collider */
+	PxVec3 center;
+	/** The PhysX Shape of the collider */
+	PxShape* shape;
+	/** Used when been deserialized */
+	bool initWithData;
 
-	virtual void awake() {}
-	virtual void tick(float deltaSecods) {};
-	virtual void init() {};
-    
+public:
+	/** Default Constructor */
+	Collider() {};
+	/** Default Destructor. Virtual because it's parent class */
+	virtual ~Collider() {};
+
+	/** Component Awake override */
+	virtual void awake() override{}
+	/** Component Init override */
+	virtual void init() override{};
+	/** Component setActive override */
     virtual void setActive(bool isActive) override;
 
-	//virtual void setActive(bool isActive);
+	/** Is this collider a trigger or should it simulate real world physics? */
 	void setTrigger(bool isTrigger);
+	/** isTrigger getter*/
+	bool getIsTrigger();
+	/** Is this collider used for queries only? */
 	void setQueryOnly(bool queryOnly);
+	/** queryOnly getter*/
+	bool getQueryOnly();
 
-    
+	/** Prototype design pattern*/
+	virtual shared_ptr<Component> clone() { shared_ptr<Collider> compClone = make_shared<Collider>(); return compClone; };
+
+	/** Serialization region*/
+	/** Get a description for the current component*/
     virtual shared_ptr<ComponentDescription> getComponentDescription() {return make_shared<ColliderDescription>();};
-    virtual shared_ptr<Component> clone() { shared_ptr<Collider> compClone = make_shared<Collider>();return compClone;};
-    
+	/** Deserialize a component description to a collider */
     virtual void deserialize(shared_ptr<ComponentDescription> desc) {};
 
-    PxVec3 center;
-	PxShape* shape;
-    bool initWithData;
+    
 };
 

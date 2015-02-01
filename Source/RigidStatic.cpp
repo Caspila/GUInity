@@ -2,6 +2,7 @@
 #include "Physics.hpp"
 #include "Converter.hpp"
 #include "Actor.hpp"
+#include "Transform.hpp"
 
 RigidStatic::RigidStatic()
 {
@@ -18,7 +19,7 @@ void RigidStatic::init()
 	//physxRigidStatic->setActorFlag(PxActorFlag::eDISABLE_SIMULATION,true);
 	physxRigidStatic->setRigidDynamicFlag(PxRigidDynamicFlag::eKINEMATIC, true);
 
-	notify(NewRigidStatic, shared_from_this(), getActor()->editorFlag);
+	notify(NewRigidStatic, shared_from_this(), getActor()->getEditorFlag());
 }
 
 void RigidStatic::tick(float deltaSeconds)

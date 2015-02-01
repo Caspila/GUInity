@@ -36,7 +36,7 @@
 
 #include <iostream>
 
-
+#include "SerializationStructs.hpp"
 
 namespace boost {
     namespace serialization {
@@ -44,13 +44,15 @@ namespace boost {
         template<class Archive>
         void save(Archive & ar, const Asset & asset, const unsigned int version)
         {
-            
-            ar & asset.assetID;
+			unsigned int id = asset.getAssetID();
+			ar & id;
         }
         template<class Archive>
         void load(Archive & ar, Asset & asset, const unsigned int version)
         {
-            ar & asset.assetID;
+			int assetID;
+			ar & assetID;
+			asset.setAssetID(assetID);
             
         }
         
@@ -66,23 +68,13 @@ namespace boost {
         template<class Archive>
         void load(Archive & ar, Mesh & mesh, const unsigned int version)
         {
-
-            
-                   // int myCont = 0;
-            ar & boost::serialization::base_object<Asset>(mesh);
-//            cout << "loaded base_object" << endl;
-//            ar & mesh.triangles;
-////            cout << "loaded triangles" << endl;
-//            ar & mesh.meshVertices;
-////                        cout << "loaded meshVertices" << endl;
-//            ar & mesh.scaleFactor;
-////                        cout << "loaded scaleFactor" << endl;
-//            ar & mesh.boundsMin;
-////                        cout << "loaded boundsMin" << endl;
-//            ar & mesh.boundsMax;
-////                        cout << "loaded boundsMax" << endl;
-//            ar & mesh.avgCenter;
-////                        cout << "loaded avgCenter" << endl;
+			ar & boost::serialization::base_object<Asset>(mesh);
+            ar & mesh.triangles;
+            ar & mesh.meshVertices;
+            ar & mesh.scaleFactor;
+            ar & mesh.boundsMin;
+            ar & mesh.boundsMax;
+            ar & mesh.avgCenter;
             
 
             mesh.createBuffers3();
@@ -90,24 +82,14 @@ namespace boost {
         template<class Archive>
         void save(Archive & ar,const Mesh & mesh, const unsigned int version)
         {
-//            for(int i = 0; i < mesh.meshVertices.size(); i++)
-//            {
-//                cout << i << endl;
-//                                printVertex(mesh.meshVertices[i].position);
-//                                                printVertex(mesh.meshVertices[i].uv);
-//                printVertex(mesh.meshVertices[i].normal);
-//                cout << endl;
-//                //std::cout << mesh.meshVertices[i].normal << endl;
-//            }
-            
+      
             ar & boost::serialization::base_object<Asset>(mesh);
-//            ar & mesh.triangles;
-//            ar & mesh.meshVertices;
-//            cout << "END SAVE MESH" << endl;
-//            ar & mesh.scaleFactor;
-//            ar & mesh.boundsMin;
-//            ar & mesh.boundsMax;
-//            ar & mesh.avgCenter;
+            ar & mesh.triangles;
+            ar & mesh.meshVertices;
+            ar & mesh.scaleFactor;
+            ar & mesh.boundsMin;
+            ar & mesh.boundsMax;
+            ar & mesh.avgCenter;
         }
         template <class Archive>
         void serialize(Archive & ar, Mesh & mesh, const unsigned int version)
@@ -225,7 +207,9 @@ namespace boost {
         {
             ar & boost::serialization::base_object<Asset>(mat);
             
-            ar & mat.shader->assetID;
+			unsigned int id = mat.shader->getAssetID();
+            //ar & mat.shader->getAssetID();
+			ar & id;
             
             
         }
@@ -238,7 +222,7 @@ namespace boost {
             
             ar & shaderID;
             
-            mat.setShader(dynamic_pointer_cast<Shader>(AssetDatabase::idToAsset[shaderID]));
+            mat.setShader(dynamic_pointer_cast<Shader>(AssetDatabase::getAsset(shaderID)));
         }
         template<class Archive>
         void serialize(Archive & ar, Material & mat, const unsigned int version)

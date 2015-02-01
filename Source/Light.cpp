@@ -34,7 +34,7 @@ Light::~Light()
 
 void Light::init()
 {
-	Light::notify(ComponentEventType::NewLight, shared_from_this(), getActor()->editorFlag);
+	Light::notify(ComponentEventType::NewLight, shared_from_this(), getActor()->getEditorFlag());
 }
 
 

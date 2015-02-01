@@ -16,6 +16,10 @@
 using namespace std;
 using namespace boost::filesystem;
 
+/** FileSystem helper */
+
+/** Returns all files in a directory */
 vector<path> getFilesInDirectory(string fullPath);
+/** Returns the checksum of a files */
 int getCRC(string fullPath);
 

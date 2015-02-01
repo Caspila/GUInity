@@ -2,6 +2,7 @@
 #include "Math.hpp"
 #include "Actor.hpp"
 #include "Converter.hpp"
+#include "RigidBody.hpp"
 
 Transform::Transform() : position(0.0f), rotationQuat(), scale(1.0f)
 {

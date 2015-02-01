@@ -2,6 +2,7 @@
 #include "Physics.hpp"
 #include "Actor.hpp"
 #include "Converter.hpp"
+#include "Transform.hpp"
 
 MeshCollider::MeshCollider()
 {

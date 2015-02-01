@@ -9,12 +9,16 @@ class SphereCollider :
 	, public StaticCounter<SphereCollider>
 #endif
 {
+private:
+	float radius;
+
 public:
 	SphereCollider();
     SphereCollider(float radius, PxVec3 center);
 	virtual~SphereCollider();
 	
-    float radius;
+	float getRadius();
+	void setRadius(float newRadius);
 
 	virtual void init();
 	

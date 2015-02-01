@@ -1,19 +1,20 @@
 #pragma once
 
+/** Enumerations */
 
-enum class TransformAxis {x,y,z};
-
-
-enum RotateAxis {x,y,z};
-
-enum MoveAxis { up, right, forward };
-
-enum MoveMode { global, pivot };
-
+/** Used for notifying when Actors are created or removed. */
 enum ActorEventType{  NewActor, RemovedActor};
 
+/** Used for notifying when Components are created or removed. */
 enum ComponentEventType{ NewMeshRenderer, NewCamera, NewLight, NewRigidBody, NewRigidStatic, NewEditorCollider, NewFontRenderer, RemovedRenderer, RemovedCamera, RemovedLight, RemovedRigidBody, RemovedRigidStatic ,RemovedFontRenderer};
 
+/** Is the application in editor or game mode?*/
 enum EngineMode {editor, game};
 
+/** Editor transform mode for currently selected actor*/
 enum class TransformMode {move, rotate, scale, none};
+/** Editor related enums */
+enum class TransformAxis { x, y, z };
+enum RotateAxis { x, y, z };
+enum MoveAxis { up, right, forward };
+enum MoveMode { global, pivot };

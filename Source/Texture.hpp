@@ -16,7 +16,8 @@
 class Texture : public Asset
 {
 public:
-    Texture();
+    Texture(void* buffer, int width, int height);
+	Texture();
     ~Texture();
     
     void init();

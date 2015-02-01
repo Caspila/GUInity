@@ -16,6 +16,7 @@
 #include "RigidStatic.hpp"
 #include "Light.hpp"
 
+/**  The model of each Component for the Prototype Design Pattern. */
 vector<shared_ptr<Component>> Factory::prototypes =
 {make_shared<MeshFilter>(),
 make_shared<MeshRenderer>(),
@@ -27,16 +28,8 @@ make_shared<BoxCollider>(),
 make_shared<SphereCollider>(),
 make_shared<CapsuleCollider>()};
 
-Factory::Factory()
-{
-}
 
-
-Factory::~Factory()
-{
-}
-
-
+/** Deserialize a list of Components and attaches them to an Actor */
 void Factory::DeserializeComponents(shared_ptr<Actor> actor, vector<shared_ptr<ComponentDescription>> compDescs)
 {
     for(auto& x: compDescs)
@@ -46,9 +39,9 @@ void Factory::DeserializeComponents(shared_ptr<Actor> actor, vector<shared_ptr<C
         actor->addComponent(comp);
     }
         
-        //actor->DeserializeComponent(x);
 }
 
+/** Deserialize an Actor*/
 shared_ptr<Actor> Factory::DeserializeActor(ActorDescription& desc)
 {
     shared_ptr<Actor> actor = desc.editorFlag ?
@@ -62,20 +55,19 @@ shared_ptr<Actor> Factory::DeserializeActor(ActorDescription& desc)
     return actor;
 }
 
-shared_ptr<Actor> Factory::CreateActor(string name)//, shared_ptr<MeshRenderer> meshRenderer)
+/** Create a new Actor */
+shared_ptr<Actor> Factory::CreateActor(string name)
 {
 	shared_ptr<Actor> actor = make_shared<Actor>(name);
 	actor->transform->setActor(actor);
 
 	actor->setEditorFlag(false);
 
-	//notify(ActorEventType::NewActor, actor, false);
-
     CreateReferenceActor(actor);
 
 	return actor;
 }
-
+/** Create reference actor. Every Actor in the Game World has a Reference Actor in the Editor World to allow them to be manipulated */
 void Factory::CreateReferenceActor(shared_ptr<Actor> realActor)
 {
     notify(ActorEventType::NewActor, realActor, false);
@@ -86,6 +78,7 @@ void Factory::CreateReferenceActor(shared_ptr<Actor> realActor)
 	editorRef->AddComponent<SphereCollider>();
 }
 
+/** Create a new Editor Actor, one that lives only in the Editor World */
 shared_ptr<Actor> Factory::CreateEditorActor(string name)
 {
 	shared_ptr<Actor> actor = make_shared<Actor>(name);
@@ -96,10 +89,4 @@ shared_ptr<Actor> Factory::CreateEditorActor(string name)
 	notify(ActorEventType::NewActor, actor, true);
 
 	return actor;
-}
-
-
-void Factory::notifyNewActorCreated(Actor& actor)
-{
-    //CreateReferenceActor(actor);
 }

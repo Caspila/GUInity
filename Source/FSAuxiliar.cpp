@@ -9,6 +9,7 @@
 #include "FSAuxiliar.hpp"
 #include <boost/crc.hpp>
 
+/** Returns all files in a directory */
 vector<path> getFilesInDirectory(string fullPath)
 {
     path p(fullPath);
@@ -22,6 +23,7 @@ vector<path> getFilesInDirectory(string fullPath)
     return vec;
 }
 
+/** Returns the checksum of a files */
 int getCRC(string fullPath)
 {
     using namespace boost::filesystem;

@@ -8,6 +8,8 @@
 //class Light;
 //class Actor;
 
+class MeshRenderer;
+
 class World : public Observer, public enable_shared_from_this<World>
 		
 {

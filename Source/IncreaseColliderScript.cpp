@@ -40,14 +40,8 @@ void IncreaseColliderScript::tick(float deltaSeconds)
 		shared_ptr<SphereCollider> sphereCollider = getActor()->GetComponent<SphereCollider>();
 
 		if (sphereCollider)
-		{
-			PxSphereGeometry sphereGeometry;
-			sphereCollider->shape->getSphereGeometry(sphereGeometry);
-
-			sphereGeometry.radius += 1 * deltaSeconds;
+			sphereCollider->setRadius(sphereCollider->getRadius() + 1 * deltaSeconds);
 		
-			sphereCollider->shape->setGeometry(sphereGeometry);
-		}
 
 	}
 	if (Input::getKey(GLFW_KEY_DOWN))
@@ -56,12 +50,7 @@ void IncreaseColliderScript::tick(float deltaSeconds)
 
 		if (sphereCollider)
 		{
-			PxSphereGeometry sphereGeometry;
-			sphereCollider->shape->getSphereGeometry(sphereGeometry);
-
-			sphereGeometry.radius -= 1 * deltaSeconds;
-
-			sphereCollider->shape->setGeometry(sphereGeometry);
+			sphereCollider->setRadius(sphereCollider->getRadius() - 1 * deltaSeconds);
 		}
 	}
 
