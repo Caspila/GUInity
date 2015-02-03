@@ -13,8 +13,6 @@
 #include <boost/serialization/serialization.hpp>
 #include <boost/serialization/export.hpp>
 
-//class QOpenGLVertexArrayObject;
-
 struct MeshVertex
 {
 	glm::vec3 position;

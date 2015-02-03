@@ -207,7 +207,7 @@ namespace boost {
         {
             ar & boost::serialization::base_object<Asset>(mat);
             
-			unsigned int id = mat.shader->getAssetID();
+			unsigned int id = mat.getShader()->getAssetID();
             //ar & mat.shader->getAssetID();
 			ar & id;
             

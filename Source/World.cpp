@@ -224,7 +224,7 @@ void World::onNotify(ComponentEventType type, shared_ptr<Component> component, b
 	{
 		shared_ptr<EditorCollider> editorCollider = dynamic_pointer_cast<EditorCollider>(component);
 		if (editorCollider)
-			physicsScene->addActor(*editorCollider->physxRigidStatic);
+			physicsScene->addActor(*editorCollider->getRigidStatic());
 		break;
 	}
 	case NewFontRenderer:

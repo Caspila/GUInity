@@ -1,11 +1,9 @@
 #include "Light.hpp"
 #include "Actor.hpp"
 
+/** Default Constructor. White Light */
 Light::Light()
 {
-	//transform.setPosition(position);
-	//this->color = color;
-
 	color = glm::vec3(1, 1, 1);
 
 #ifdef GUINITY_DEBUG
@@ -13,6 +11,7 @@ Light::Light()
 #endif
 }
 
+/** Default Constructor. Colored Light */
 Light::Light(glm::vec3 c) : color {c}
 {
 	   
@@ -21,7 +20,7 @@ Light::Light(glm::vec3 c) : color {c}
 #endif
 }
 
-
+/** Default Destructor */
 Light::~Light()
 {
 #ifdef GUINITY_DEBUG
@@ -32,17 +31,30 @@ Light::~Light()
 }
 
 
+/** color setter*/
+glm::vec3 Light::getColor()
+{
+	return color;
+}
+/** color setter*/
+void Light::setColor(glm::vec3 color)
+{
+	this->color = color;
+}
+
+/** Component init override. Notifies that a new light has been created*/
 void Light::init()
 {
 	Light::notify(ComponentEventType::NewLight, shared_from_this(), getActor()->getEditorFlag());
 }
 
-
+/** Get a description for the current component*/
 shared_ptr<ComponentDescription> Light::getComponentDescription()
 {
     return make_shared<LightDescription>(color);
 }
 
+/** Deserialize a description into this instance*/
 void Light::deserialize(shared_ptr<ComponentDescription> desc)
 {
     shared_ptr<LightDescription> lightDesc = dynamic_pointer_cast<LightDescription>(desc);

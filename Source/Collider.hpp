@@ -47,7 +47,7 @@ public:
 	/** Serialization region*/
 	/** Get a description for the current component*/
     virtual shared_ptr<ComponentDescription> getComponentDescription() {return make_shared<ColliderDescription>();};
-	/** Deserialize a component description to a collider */
+	/** Deserialize a component description into this collider */
     virtual void deserialize(shared_ptr<ComponentDescription> desc) {};
 
     

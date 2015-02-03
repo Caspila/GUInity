@@ -253,8 +253,8 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
 			{
 				shared_ptr<EditorCollider> editorCollider = clickedActor->GetComponent<EditorCollider>();
 				
-                if (editorCollider)
-					currentSelectedActor = editorCollider->gameActor.lock();
+				if (editorCollider)
+					currentSelectedActor = editorCollider->getGameActor();
 
 			}
 			

@@ -2,16 +2,19 @@
 #include "Material.hpp"
 #include "Shader.hpp"
 
+/** Default Constructor */
+Material::Material()
+{
+	
+#ifdef GUINITY_DEBUG
+	nCount++;
+#endif
+}
+
+/** Constructor for a Shader */
 Material::Material(shared_ptr<Shader> shader)
 {
 	this->shader = shader;
-
-
-	/*for (int i = 0; i < shader->params.size(); i++)
-	{
-		pair<string, ShaderParamType> &param = shader->params.at(i);
-	}
-*/
 
 	std::map<string, ShaderParamType>::iterator it = shader->params.begin();
 
@@ -29,28 +32,12 @@ Material::Material(shared_ptr<Shader> shader)
 
 	}
 
-	/*for each(pair<string,ShaderParamType> param in shader->params)
-	{
-
-		if (param.second == FLOAT)
-		{
-			params.insert(std::pair<string, Holder>(param.first, Holder(FLOAT,1)));
-		}
-		else if (param.second == VEC3)
-		{
-			params.insert(std::pair<string, Holder>(param.first, Holder(VEC3, glm::vec3())));
-		
-		}
-
-
-	}*/
-
 #ifdef GUINITY_DEBUG
 	nCount++;
 #endif
 }
 
-
+/** Default Destructor. Virtual because inherits from Asset */
 Material::~Material()
 {
 #ifdef GUINITY_DEBUG
@@ -60,29 +47,25 @@ Material::~Material()
 	
 }
 
-
+/** shader Setter*/
 void Material::setShader(shared_ptr<Shader> shader)
 {
     this->shader = shader;
 }
-
+/** shader Getter*/
+shared_ptr<Shader> Material::getShader() const
+{
+	return shader;
+}
+/** Get the shader program*/
 GLuint Material::getShaderProgram()
 {
 	return shader.get()->programID;
 }
 
+/** Checks if param exists on params map*/
 bool Material::paramExists(string paramName)
 {
-//	for each (tuple<string,glm::vec3> var in params)
-//	{
-//		if (get<0>(var).compare(paramName) == 0)
-//			return true;
-//	}
-
-	//auto it = std::find(params.begin(), params.end(), paramName);
-	//
-	//return it != params.end();
-
 	std::map<string, ShaderParamType>::iterator it = shader->params.begin();
 
 	for (; it != shader->params.end(); it++)
@@ -91,10 +74,10 @@ bool Material::paramExists(string paramName)
 			return true;
 	}
 
-
 	return false;
 }
 
+/** Set a vec3 param that has name paramName*/
 void Material::setParamVec3(string paramName, glm::vec3 paramValue)
 {
 
@@ -106,6 +89,7 @@ void Material::setParamVec3(string paramName, glm::vec3 paramValue)
 		cerr << "Material error: " << paramName << " does not exist" << endl;
 }
 
+/** Set a float param that has name paramName*/
 void Material::setParamFloat(string paramName, float paramValue)
 {
 
@@ -117,6 +101,7 @@ void Material::setParamFloat(string paramName, float paramValue)
 		cerr << "Material error: " << paramName << " does not exist" << endl;
 }
 
+/** Set a Texture param that has name paramName*/
 void Material::setParamTexture(string paramName, shared_ptr<Texture> paramValue)
 {
 
@@ -128,17 +113,20 @@ void Material::setParamTexture(string paramName, shared_ptr<Texture> paramValue)
 		cerr << "Material error: " << paramName << " does not exist" << endl;
 }
 
-shared_ptr<Texture> Material::getTextureParam()
+/** Gets a Texture param with the name paramName*/
+shared_ptr<Texture> Material::getTextureParam(string paramName)
 {
-	auto it = params.begin();
+	auto it = params.find(paramName);
 
-	while (it != params.end())
-	{
-		if (it->second.isTexture())
-		{
-			return it->second.operator std::weak_ptr<Texture>().lock();
-		}
-	}
+	// Params does not have param named paramName 
+	if (it == params.end())
+		return nullptr;
 
-	return nullptr;
+	// Param has param named paramName but it's not a texture
+	if (!it->second.isTexture())
+		return nullptr;
+
+	// Param found, return
+	return it->second.operator std::weak_ptr<Texture>().lock();
+
 }

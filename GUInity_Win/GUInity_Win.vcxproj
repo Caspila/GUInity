@@ -152,7 +152,6 @@
     <ClCompile Include="..\Source\Input.cpp" />
     <ClCompile Include="..\Source\Light.cpp" />
     <ClCompile Include="..\Source\main.cpp" />
-    <ClCompile Include="..\Source\mainwindow.cpp" />
     <ClCompile Include="..\Source\Material.cpp" />
     <ClCompile Include="..\Source\Math.cpp" />
     <ClCompile Include="..\Source\MathStructs.cpp" />
@@ -227,7 +226,6 @@
     <ClInclude Include="..\Source\GraphicsSystem.hpp" />
     <ClInclude Include="..\Source\IncreaseColliderScript.hpp" />
     <ClInclude Include="..\Source\Light.hpp" />
-    <ClInclude Include="..\Source\mainwindow.h" />
     <ClInclude Include="..\Source\Math.hpp" />
     <ClInclude Include="..\Source\Holder.hpp" />
     <ClInclude Include="..\Source\Input.hpp" />

@@ -4,16 +4,20 @@
 #include "Transform.hpp"
 
 
-EditorCollider::EditorCollider()
+
+/** gameActor setter*/
+void EditorCollider::setGameActor(shared_ptr<Actor> gameActor)
 {
+	this->gameActor = gameActor;
 }
 
-
-EditorCollider::~EditorCollider()
+/** gameActor getter*/
+shared_ptr<Actor> EditorCollider::getGameActor()
 {
+	return gameActor.lock();
 }
 
-
+/** Component tick override. Updates the fake collider position and rotation to match the real Game Actor */
 void EditorCollider::init()
 {
 	physxRigidStatic = Physics::createRigidDynamic(getActor());
@@ -22,6 +26,7 @@ void EditorCollider::init()
 	notify(NewEditorCollider, shared_from_this(), getActor()->getEditorFlag());
 }
 
+/** Component init override. Initializes the rigid body in the PhysX scene. */
 void EditorCollider::tick(float deltaSeconds)
 {
 	shared_ptr<Actor> gameActorLock = gameActor.lock();
@@ -30,13 +35,11 @@ void EditorCollider::tick(float deltaSeconds)
 
 	myActor->transform->position = gameActorLock->transform->position;
 	myActor->transform->rotationQuat = gameActorLock->transform->rotationQuat;
-	//gameActorLock->transform->position = myActor->transform->position;
-	//gameActorLock->transform->rotationQuat = myActor->transform->rotationQuat;
-
 }
 
-
-void EditorCollider::setGameActor(shared_ptr<Actor> gameActor)
+/** physxRigidStatic getter*/
+PxRigidDynamic* EditorCollider::getRigidStatic()
 {
-	this->gameActor = gameActor;
+	return physxRigidStatic;
 }
+

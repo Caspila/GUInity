@@ -6,89 +6,58 @@
 #ifndef __HOLDER__
 #define __HOLDER__
 
+#include "Enums.hpp"
+
 class Texture;
 
-enum ShaderParamType {
-	VEC3,
-	FLOAT,
-	TEXTURE
-	// Other types you want to store into vector.
-};
-
+/** Holder is a class that can hold multiple values. It's used by Materials and Shaders because
+each shader can contain several input parameters such as float values and Textures. */
 class Holder {
-public:
 
+	// Right now it's REALLY not optmizied because every instance of Holder holds all the
+	// possible types
+	// TODO CREATE UNION THAT USES ONLY ONE TYPE
+	// http://www.informit.com/guides/content.aspx?g=cplusplus&seqNum=556
 
-	//template<typename T>
-	//Holder(ShaderParamType type, T val);
-
-	Holder();
-	Holder(ShaderParamType type, float val);
-	Holder(ShaderParamType type, glm::vec3 val);
-	Holder(ShaderParamType type, shared_ptr<Texture> val);
-	~Holder() {
-		// You want to properly destroy
-		// union members below that have non-trivial constructors
-	}
-
-	bool isFloat()
-	{
-		return type_ == FLOAT;
-	}
-	bool isVec3()
-	{
-		return type_ == VEC3;
-	}
-	bool isTexture()
-	{
-		return type_ == TEXTURE;
-	}
-
-	operator float() const {
-		if (type_ != FLOAT) {
-			//throw SomeException();
-		}
-		return floatValue;
-		//return impl_.float_;
-	}
-	operator glm::vec3() const {
-		if (type_ != VEC3) {
-			//throw SomeException();
-		}
-		//return impl_.vec3_;
-		return vec3Value;
-	}
-	operator weak_ptr<Texture>() const {
-		if (type_ != TEXTURE) {
-			//throw SomeException();
-		}
-		//return impl_.vec3_;
-		return texValue;
-	}
-
-
-	// Do the same for other operators
-	// Or maybe use templates?
-
-	//TODO CREATE UNION THAT USES ONLY ONE TYPE
 private:
-	//union Impl {
-	//	float float_;
-	//	struct{
-	//		glm::vec3 vec3_;
-	//	};
-
-
-	//	Impl() { new(&vec3_) glm::vec3; }
-	//} impl_;
-
+	/** The float value*/
 	float floatValue;
+	/** The vec3 value*/
 	glm::vec3 vec3Value;
+	/** The Texture pointer value*/
 	weak_ptr<Texture> texValue;
 
-	ShaderParamType type_;
+	/** The type of the instance*/
+	ShaderParamType type;
+public:
 
-	// Other stuff.
+	Holder() {};
+	/** The explicit is very important here because we don't want any implicit conversions among types*/
+	/** Constructor for a float*/
+	explicit Holder(ShaderParamType type, float val);
+	/** Constructor for a vec3*/
+	explicit Holder(ShaderParamType type,glm::vec3 val);
+	/** Constructor for a Texture*/
+	explicit Holder(ShaderParamType type,shared_ptr<Texture> val);
+	~Holder() {
+		// Destroy members that have non-trivial constructors
+	}
+
+	/** returns true if it is a float value */
+	bool isFloat() const;
+	/** returns true if it is a vec3 value */
+	bool isVec3() const;
+	/** returns true if it is a Texture value */
+	bool isTexture() const;
+	/** returns the float value */
+	operator float() const;
+	/** returns the vec3 value */
+	operator glm::vec3() const;
+	/** returns the Texture value */
+	operator weak_ptr<Texture>() const;
+
+	
+
 };
 
 #endif

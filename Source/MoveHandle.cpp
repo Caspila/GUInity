@@ -3,6 +3,7 @@
 #include "Physics.hpp"
 #include "Editor.hpp"
 #include "print.hpp"
+#include "Transform.hpp"
 
 MoveHandle::MoveHandle()
 {

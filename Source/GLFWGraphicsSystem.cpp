@@ -12,6 +12,7 @@
 #include "MeshRenderer.hpp"
 #include "MeshFilter.hpp"
 #include "Actor.hpp"
+#include "Transform.hpp"
 #include "Camera.hpp"
 #include "Light.hpp"
 #include "Material.hpp"
@@ -199,10 +200,10 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
             glUniform3fv(meshRenderer->material->shader->paramID["lightIntensity"], 1, &light->color[0]);*/
 
 			glUniform3fv(getUniformLocation(shaderProgram, "lightPos"), 1, &light->getActor()->transform->position[0]);
-			glUniform3fv(getUniformLocation(shaderProgram, "lightIntensity"), 1, &light->color[0]);
+			glUniform3fv(getUniformLocation(shaderProgram, "lightIntensity"), 1, &light->getColor()[0]);
         }
 
-		shared_ptr<Texture> texture = meshRenderer->material->getTextureParam();
+		shared_ptr<Texture> texture = meshRenderer->material->getTextureParam("myTextureSampler");
 		if (texture)
 		{
 			//glEnable(GL_TEXTURE);

@@ -8,16 +8,16 @@
 
 #include "Math.hpp"
 
+/** Constructor with point and normal */
 Plane::Plane(glm::vec3 point, glm::vec3 normal)
 {
     this->point = point;
     this->normal = glm::normalize(normal);
 }
 
+/** Constructor from 3 points. Assumes points are given in CCW */
 Plane::Plane(glm::vec3 point1, glm::vec3 point2, glm::vec3 point3)
 {
-    //orderVertexCCW(point1,point2,point3);
-    
     glm::vec3 a = point2 - point1;
     glm::vec3 b = point3 - point1;
 
@@ -26,16 +26,14 @@ Plane::Plane(glm::vec3 point1, glm::vec3 point2, glm::vec3 point3)
 
 }
 
+/** Constructor from 3 points. Uses Point of View to order points CCW */
 Plane::Plane(glm::vec3 point1, glm::vec3 point2, glm::vec3 point3, glm::vec3 POV)
 {
     orderVertexCCW(point1,point2,point3,POV);
     
     glm::vec3 a = point2 - point1;
     glm::vec3 b = point3 - point1;
-    //glm::vec3 a = point1 - point2;
-    //glm::vec3 b = point1 - point3;
     
     this->point = point1;
     this->normal = glm::normalize(glm::cross(a, b));
-    //this->normal = glm::normalize(glm::cross(b, a));
 }

@@ -4,6 +4,7 @@
 #include "Editor.hpp"
 #include "print.hpp"
 #include "Math.hpp"
+#include "Transform.hpp"
 
 ScaleHandle::ScaleHandle()
 {

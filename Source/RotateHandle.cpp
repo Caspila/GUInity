@@ -5,6 +5,7 @@
 #include "print.hpp"
 #include "CapsuleCollider.hpp"
 #include "Math.hpp"
+#include "Transform.hpp"
 
 RotateHandle::RotateHandle()
 {
