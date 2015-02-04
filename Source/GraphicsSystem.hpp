@@ -65,7 +65,7 @@ public:
 	virtual ~GraphicsSystem();
 
 	/** Initialize the system, create the window and such*/
-    virtual int init() = 0;
+    virtual int init(int width, int height) = 0;
 	/** Shutdown the system, destroy window and release any allocated memory*/
     virtual void shutdown() = 0;
 	/** Swap buffers*/
@@ -75,7 +75,10 @@ public:
 	/** create debug shader to display Physics information on the screen*/
 	virtual void createDebugShader() = 0;
 
-	
+	/** screen width Getter */
+    virtual int getScreenWidth() = 0;
+    /** screen height Getter */
+    virtual int getScreenHeight() = 0;
     
 	/** Renders Physics information on screen from the camera point of view */
     virtual void render(shared_ptr<Camera> camera, const  physx::PxRenderBuffer& rb, const glm::vec4& color)=0;

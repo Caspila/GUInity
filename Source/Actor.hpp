@@ -2,9 +2,9 @@
 
 #include "Module.hpp"
 #include <vector>
+#include "Transform.hpp"
 
-
-class Transform;
+//class Transform;
 class Component;
 
 /** Actor 
@@ -19,6 +19,7 @@ class Actor : public std::enable_shared_from_this<Actor>
 	// Allow for instance counting when using the GUINITY_DEBUG macro
 , public StaticCounter<Actor>
 #endif
+
 {
 
 private:

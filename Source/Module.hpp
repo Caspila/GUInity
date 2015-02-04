@@ -26,6 +26,25 @@
 #endif
 #endif
 
+#ifdef GUINITY_DEBUG
+
+#define INCREASE_STATIC_COUNTER \
+#ifdef GUINITY_DEBUG\
+nCount++;\
+#endif\
+
+#define DECREASE_STATIC_COUNTER \
+#ifdef GUINITY_DEBUG\
+nCount--;\
+#endif\
+
+#define INHERIT_STATIC_COUNTER \
+#ifdef GUINITY_DEBUG \
+, public StaticCounter<Actor> \
+#endif\
+
+#endif
+
 
 using namespace std;
 

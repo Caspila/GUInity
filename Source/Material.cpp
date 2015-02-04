@@ -113,20 +113,36 @@ void Material::setParamTexture(string paramName, shared_ptr<Texture> paramValue)
 		cerr << "Material error: " << paramName << " does not exist" << endl;
 }
 
+
 /** Gets a Texture param with the name paramName*/
-shared_ptr<Texture> Material::getTextureParam(string paramName)
+vector<Material::StringTexPair> Material::getAllTextureParams()
 {
-	auto it = params.find(paramName);
-
-	// Params does not have param named paramName 
-	if (it == params.end())
-		return nullptr;
-
-	// Param has param named paramName but it's not a texture
-	if (!it->second.isTexture())
-		return nullptr;
-
-	// Param found, return
-	return it->second.operator std::weak_ptr<Texture>().lock();
+    vector<Material::StringTexPair>result;
+    
+    auto it = params.begin();
+    
+    while(it!= params.end())
+    {
+        if (it->second.isTexture())
+        {
+            result.push_back(Material::StringTexPair(it->first,it->second.getTexture()));
+        }
+        it++;
+    }
+    
+    return result;
+    
+//	auto it = params.find(paramName);
+//
+//	// Params does not have param named paramName 
+//	if (it == params.end())
+//		return nullptr;
+//
+//	// Param has param named paramName but it's not a texture
+//	if (!it->second.isTexture())
+//		return nullptr;
+//
+//	// Param found, return
+//	return it->second.operator std::weak_ptr<Texture>().lock();
 
 }

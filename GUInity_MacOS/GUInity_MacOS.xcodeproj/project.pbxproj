@@ -64,7 +64,6 @@
 		4672BB0E1A78A164007BF293 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA931A78A164007BF293 /* Input.cpp */; };
 		4672BB0F1A78A164007BF293 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA951A78A164007BF293 /* Light.cpp */; };
 		4672BB101A78A164007BF293 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA971A78A164007BF293 /* main.cpp */; };
-		4672BB111A78A164007BF293 /* mainwindow.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA981A78A164007BF293 /* mainwindow.cpp */; };
 		4672BB121A78A164007BF293 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA9A1A78A164007BF293 /* Material.cpp */; };
 		4672BB131A78A164007BF293 /* Math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA9C1A78A164007BF293 /* Math.cpp */; };
 		4672BB141A78A164007BF293 /* MathStructs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA9E1A78A164007BF293 /* MathStructs.cpp */; };
@@ -118,6 +117,8 @@
 		468B50C31A61E5CC00CD58A5 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 468B50C21A61E5CC00CD58A5 /* libfmod.dylib */; };
 		468B50C51A61E5E300CD58A5 /* libfmod.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 468B50C41A61E5E300CD58A5 /* libfmod.dylib */; };
 		4694EE3D1A4A3A16001E8C48 /* opengl_testing_mag.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4694EE3C1A4A3A16001E8C48 /* opengl_testing_mag.1 */; };
+		46B924391A81F40F00F84B7A /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924351A81F40F00F84B7A /* Sound.cpp */; };
+		46B9243A1A81F40F00F84B7A /* SoundSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924371A81F40F00F84B7A /* SoundSystem.cpp */; };
 		46FFC2311A52880100FCFAC4 /* libboost_serialization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FFC2301A52880100FCFAC4 /* libboost_serialization.a */; };
 		46FFC2351A52886500FCFAC4 /* libboost_serialization.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */; };
 /* End PBXBuildFile section */
@@ -247,7 +248,6 @@
 		4672BA6A1A78A164007BF293 /* Asset.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Asset.hpp; path = ../Source/Asset.hpp; sourceTree = "<group>"; };
 		4672BA6B1A78A164007BF293 /* AssetDatabase.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AssetDatabase.cpp; path = ../Source/AssetDatabase.cpp; sourceTree = "<group>"; };
 		4672BA6C1A78A164007BF293 /* AssetDatabase.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AssetDatabase.hpp; path = ../Source/AssetDatabase.hpp; sourceTree = "<group>"; };
-		4672BA6D1A78A164007BF293 /* Bounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Bounds.h; path = ../Source/Bounds.h; sourceTree = "<group>"; };
 		4672BA6E1A78A164007BF293 /* BoxCollider.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = BoxCollider.cpp; path = ../Source/BoxCollider.cpp; sourceTree = "<group>"; };
 		4672BA6F1A78A164007BF293 /* BoxCollider.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = BoxCollider.hpp; path = ../Source/BoxCollider.hpp; sourceTree = "<group>"; };
 		4672BA701A78A164007BF293 /* Camera.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Camera.cpp; path = ../Source/Camera.cpp; sourceTree = "<group>"; };
@@ -290,8 +290,6 @@
 		4672BA951A78A164007BF293 /* Light.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Light.cpp; path = ../Source/Light.cpp; sourceTree = "<group>"; };
 		4672BA961A78A164007BF293 /* Light.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Light.hpp; path = ../Source/Light.hpp; sourceTree = "<group>"; };
 		4672BA971A78A164007BF293 /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = ../Source/main.cpp; sourceTree = "<group>"; };
-		4672BA981A78A164007BF293 /* mainwindow.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = mainwindow.cpp; path = ../Source/mainwindow.cpp; sourceTree = "<group>"; };
-		4672BA991A78A164007BF293 /* mainwindow.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = mainwindow.h; path = ../Source/mainwindow.h; sourceTree = "<group>"; };
 		4672BA9A1A78A164007BF293 /* Material.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Material.cpp; path = ../Source/Material.cpp; sourceTree = "<group>"; };
 		4672BA9B1A78A164007BF293 /* Material.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Material.hpp; path = ../Source/Material.hpp; sourceTree = "<group>"; };
 		4672BA9C1A78A164007BF293 /* Math.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Math.cpp; path = ../Source/Math.cpp; sourceTree = "<group>"; };
@@ -392,8 +390,12 @@
 		468B50C01A61E56700CD58A5 /* libfbxsdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfbxsdk.a; path = ../../../../../../Applications/Autodesk/FBX_SDK/2015.1/lib/clang/debug/libfbxsdk.a; sourceTree = "<group>"; };
 		468B50C21A61E5CC00CD58A5 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = ../../../FMOD_Programmers_API/api/lowlevel/lib/libfmod.dylib; sourceTree = "<group>"; };
 		468B50C41A61E5E300CD58A5 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = ../../../FMOD_Programmers_API/api/lowlevel/lib/libfmod.dylib; sourceTree = "<group>"; };
-		4694EE371A4A3A16001E8C48 /* opengl_testing_mag */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = opengl_testing_mag; sourceTree = BUILT_PRODUCTS_DIR; };
+		4694EE371A4A3A16001E8C48 /* GUInity_Editor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GUInity_Editor; sourceTree = BUILT_PRODUCTS_DIR; };
 		4694EE3C1A4A3A16001E8C48 /* opengl_testing_mag.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = opengl_testing_mag.1; sourceTree = "<group>"; };
+		46B924351A81F40F00F84B7A /* Sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Sound.cpp; path = ../Source/Sound.cpp; sourceTree = "<group>"; };
+		46B924361A81F40F00F84B7A /* Sound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Sound.hpp; path = ../Source/Sound.hpp; sourceTree = "<group>"; };
+		46B924371A81F40F00F84B7A /* SoundSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundSystem.cpp; path = ../Source/SoundSystem.cpp; sourceTree = "<group>"; };
+		46B924381A81F40F00F84B7A /* SoundSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SoundSystem.hpp; path = ../Source/SoundSystem.hpp; sourceTree = "<group>"; };
 		46FFC2271A523C2200FCFAC4 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = "../../../FMOD Programmers API/api/lowlevel/lib/libfmod.dylib"; sourceTree = "<group>"; };
 		46FFC2291A523C3D00FCFAC4 /* libfbxsdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfbxsdk.a; path = "/Applications/Autodesk/FBX SDK/2015.1/lib/clang/debug/libfbxsdk.a"; sourceTree = "<absolute>"; };
 		46FFC22B1A523C7400FCFAC4 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = "../../../FMOD Programmers API/api/lowlevel/lib/libfmod.dylib"; sourceTree = "<group>"; };
@@ -443,12 +445,13 @@
 		464D8A861A4A5336007B0CDD /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				46B924361A81F40F00F84B7A /* Sound.hpp */,
+				46B924381A81F40F00F84B7A /* SoundSystem.hpp */,
 				4672BA651A78A164007BF293 /* Actor.hpp */,
 				4672BA671A78A164007BF293 /* AddForceScript.hpp */,
 				4672BA681A78A164007BF293 /* AnyClass.hpp */,
 				4672BA6A1A78A164007BF293 /* Asset.hpp */,
 				4672BA6C1A78A164007BF293 /* AssetDatabase.hpp */,
-				4672BA6D1A78A164007BF293 /* Bounds.h */,
 				4672BA6F1A78A164007BF293 /* BoxCollider.hpp */,
 				4672BA711A78A164007BF293 /* Camera.hpp */,
 				4672BA731A78A164007BF293 /* CapsuleCollider.hpp */,
@@ -470,7 +473,6 @@
 				4672BA921A78A164007BF293 /* IncreaseColliderScript.hpp */,
 				4672BA941A78A164007BF293 /* Input.hpp */,
 				4672BA961A78A164007BF293 /* Light.hpp */,
-				4672BA991A78A164007BF293 /* mainwindow.h */,
 				4672BA9B1A78A164007BF293 /* Material.hpp */,
 				4672BA9D1A78A164007BF293 /* Math.hpp */,
 				4672BA9F1A78A164007BF293 /* MathStructs.hpp */,
@@ -526,6 +528,8 @@
 		464D8A871A4A5342007B0CDD /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				46B924351A81F40F00F84B7A /* Sound.cpp */,
+				46B924371A81F40F00F84B7A /* SoundSystem.cpp */,
 				4672BA641A78A164007BF293 /* Actor.cpp */,
 				4672BA661A78A164007BF293 /* AddForceScript.cpp */,
 				4672BA691A78A164007BF293 /* Asset.cpp */,
@@ -551,7 +555,6 @@
 				4672BA931A78A164007BF293 /* Input.cpp */,
 				4672BA951A78A164007BF293 /* Light.cpp */,
 				4672BA971A78A164007BF293 /* main.cpp */,
-				4672BA981A78A164007BF293 /* mainwindow.cpp */,
 				4672BA9A1A78A164007BF293 /* Material.cpp */,
 				4672BA9C1A78A164007BF293 /* Math.cpp */,
 				4672BA9E1A78A164007BF293 /* MathStructs.cpp */,
@@ -728,7 +731,7 @@
 		4694EE381A4A3A16001E8C48 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				4694EE371A4A3A16001E8C48 /* opengl_testing_mag */,
+				4694EE371A4A3A16001E8C48 /* GUInity_Editor */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -759,7 +762,7 @@
 			);
 			name = GUInity_Editor;
 			productName = opengl_testing_mag;
-			productReference = 4694EE371A4A3A16001E8C48 /* opengl_testing_mag */;
+			productReference = 4694EE371A4A3A16001E8C48 /* GUInity_Editor */;
 			productType = "com.apple.product-type.tool";
 		};
 /* End PBXNativeTarget section */
@@ -803,7 +806,6 @@
 				4672BB241A78A164007BF293 /* PlayerScript.cpp in Sources */,
 				4672BB081A78A164007BF293 /* FSAuxiliar.cpp in Sources */,
 				4672BB371A78A164007BF293 /* Subject.cpp in Sources */,
-				4672BB111A78A164007BF293 /* mainwindow.cpp in Sources */,
 				46389E071A6CEF5A000B0DEB /* PxTkBmpLoader.cpp in Sources */,
 				4672BB271A78A164007BF293 /* Ray.cpp in Sources */,
 				4672BB021A78A164007BF293 /* Editor.cpp in Sources */,
@@ -833,6 +835,7 @@
 				4672BB0E1A78A164007BF293 /* Input.cpp in Sources */,
 				4672BB291A78A164007BF293 /* Renderer.cpp in Sources */,
 				46389E091A6CEF5A000B0DEB /* PxTkMatrixUtils.cpp in Sources */,
+				46B924391A81F40F00F84B7A /* Sound.cpp in Sources */,
 				4672BB161A78A164007BF293 /* MeshCollider.cpp in Sources */,
 				4672BB011A78A164007BF293 /* Converter.cpp in Sources */,
 				4672BB2D1A78A164007BF293 /* RotateOverTime.cpp in Sources */,
@@ -865,6 +868,7 @@
 				4672BB0B1A78A164007BF293 /* GraphicsSystem.cpp in Sources */,
 				4672BB131A78A164007BF293 /* Math.cpp in Sources */,
 				4672BB201A78A164007BF293 /* PhysicsMaterial.cpp in Sources */,
+				46B9243A1A81F40F00F84B7A /* SoundSystem.cpp in Sources */,
 				4672BB251A78A164007BF293 /* print.cpp in Sources */,
 				4672BAFC1A78A164007BF293 /* BoxCollider.cpp in Sources */,
 				4672BB1C1A78A164007BF293 /* MoveHandle.cpp in Sources */,

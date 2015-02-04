@@ -4,11 +4,9 @@
 #include "ScriptComponent.hpp"
 
 /** Constructor with actor name */
-Actor::Actor(string name)
+Actor::Actor(string name) : name(name), isActive(true)
 {
 	transform = make_shared<Transform>();
-	this->name = name;
-    isActive = true;
     
 	// Memory Management check - Increment Counter by 1
 #ifdef GUINITY_DEBUG

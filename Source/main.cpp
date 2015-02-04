@@ -165,7 +165,7 @@ int main(int argc, char *argv[]) {
 
 	checkFilesOnCommonData();
 
-    int notOK = GraphicsSystem::getInstance()->init();
+    int notOK = GraphicsSystem::getInstance()->init(640,480);
 	if (notOK)
 		return 1;
     

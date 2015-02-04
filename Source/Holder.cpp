@@ -41,7 +41,7 @@ bool Holder::isTexture() const
 }
 
 /** returns the float value */
-Holder::operator float() const {
+float Holder::getFloat() const {
 	if (this->type != FLOAT) {
 		//throw SomeException();
 		cerr << "Trying to convert type to float but it is not" << endl;
@@ -49,7 +49,7 @@ Holder::operator float() const {
 	return floatValue;
 }
 /** returns the vec3 value */
-Holder::operator glm::vec3() const {
+glm::vec3 Holder::getVec3() const {
 	if (this->type != VEC3) {
 		//throw SomeException();
 		cerr << "Trying to convert type to vec3 but it is not" << endl;
@@ -57,10 +57,10 @@ Holder::operator glm::vec3() const {
 	return vec3Value;
 }
 /** returns the Texture value */
-Holder::operator weak_ptr<Texture>() const {
+shared_ptr<Texture> Holder::getTexture() const {
 	if (this->type != TEXTURE) {
 		//throw SomeException();
 		cerr << "Trying to convert type to texture but it is not" << endl;
 	}
-	return texValue;
+	return texValue.lock();
 }

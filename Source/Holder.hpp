@@ -50,11 +50,11 @@ public:
 	/** returns true if it is a Texture value */
 	bool isTexture() const;
 	/** returns the float value */
-	operator float() const;
+	float getFloat() const;
 	/** returns the vec3 value */
-	operator glm::vec3() const;
+    glm::vec3 getVec3() const;
 	/** returns the Texture value */
-	operator weak_ptr<Texture>() const;
+    shared_ptr<Texture> getTexture() const;
 
 	
 

@@ -46,6 +46,7 @@ int SoundSystem::init()
 		
 	//ERRCHECK(result);
 
+    return 0;
 }
 
 void SoundSystem::playSound(shared_ptr<Sound> sound)

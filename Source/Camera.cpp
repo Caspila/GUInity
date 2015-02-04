@@ -3,6 +3,7 @@
 #include "Math.hpp"
 #include "Transform.hpp"
 #include "Actor.hpp"
+#include "GraphicsSystem.hpp"
 
 int Camera::nCount = 0;
 
@@ -67,8 +68,11 @@ glm::mat4 Camera::getModelMatrix()
 
 glm::vec3 Camera::screenPointToWorld(glm::vec2 pos)
 {
-	float x = (2.0f * pos.x) / 640 - 1.0f;
-	float y = 1.0f - (2.0f * pos.y) / 480;
+    int witdh = GraphicsSystem::getInstance()->getScreenWidth();
+    int height = GraphicsSystem::getInstance()->getScreenHeight();
+    
+	float x = (2.0f * pos.x) / witdh - 1.0f;
+	float y = 1.0f - (2.0f * pos.y) / height;
 	float z = 1.0f;
 	glm::vec3 ray_nds(x, y, z);
 
@@ -88,8 +92,11 @@ glm::vec3 Camera::screenPointToWorld(glm::vec2 pos)
 
 Ray Camera::screenPointToRay(glm::vec2 pos)
 {
-	float x = (2.0f * pos.x) / 640 - 1.0f;
-	float y = 1.0f - (2.0f * pos.y) / 480;
+    int witdh = GraphicsSystem::getInstance()->getScreenWidth();
+    int height = GraphicsSystem::getInstance()->getScreenHeight();
+    
+	float x = (2.0f * pos.x) / witdh - 1.0f;
+	float y = 1.0f - (2.0f * pos.y) / height;
 	float z = 1.0f;
 	glm::vec3 ray_nds(x, y, z);
 
@@ -117,9 +124,12 @@ Ray Camera::screenPointToRay(glm::vec2 pos)
 
 Ray Camera::screenPointToRay2(glm::vec2 pos)
 {
+    int witdh = GraphicsSystem::getInstance()->getScreenWidth();
+    int height = GraphicsSystem::getInstance()->getScreenHeight();
+    
 	glm::vec2 normalizedPos;
-	normalizedPos.x = (2 * (pos.x - 640) / 640) - 1;
-	normalizedPos.y = -((2 * (pos.y - 480) / 480) - 1);
+	normalizedPos.x = (2 * (pos.x - witdh) / witdh) - 1;
+	normalizedPos.y = -((2 * (pos.y - height) / height) - 1);
 
 	glm::mat4 U = glm::inverse(projection * getModelMatrix());
 

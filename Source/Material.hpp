@@ -4,6 +4,7 @@
 #include <GLFW/glfw3.h>
 #include "Module.hpp"
 #include <map>
+#include <vector>
 #include "Holder.hpp"
 #include "Asset.hpp"
 
@@ -51,8 +52,9 @@ public:
 	/** Set a Texture param that has name paramName*/
 	void setParamTexture(string paramName, shared_ptr<Texture> paramValue);
     
+    typedef pair<string, shared_ptr<Texture>> StringTexPair;
 	/** Gets a Texture param with the name paramName*/
-	shared_ptr<Texture> getTextureParam(string paramName);
+	vector<StringTexPair> getAllTextureParams();
 
 
 

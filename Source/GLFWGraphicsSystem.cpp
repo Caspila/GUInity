@@ -22,8 +22,11 @@
 #include "Texture.hpp"
 
 /** Initialize the system, create the window and such*/
-int GLFWGraphicsSystem::init()
+int GLFWGraphicsSystem::init(int width, int height)
 {
+    screenWidth = width;
+    screenHeight = height;
+    
     if (!glfwInit()) {
 		fprintf(stderr, "ERROR: could not start GLFW3\n");
 		return 1;
@@ -33,7 +36,7 @@ int GLFWGraphicsSystem::init()
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
 
-	window.reset(glfwCreateWindow(640, 480, "Hello Triangle", NULL, NULL), glfwDestroyWindow);
+	window.reset(glfwCreateWindow(screenWidth, screenHeight, "Hello Triangle", NULL, NULL), glfwDestroyWindow);
 	if (!window) {
 		fprintf(stderr, "ERROR: could not open window with GLFW3\n");
 		glfwTerminate();
@@ -54,6 +57,8 @@ int GLFWGraphicsSystem::init()
     glEnable(GL_CULL_FACE);
     glFrontFace(GL_CCW);
     
+
+    
     createDebugShader();
 	return 0;
 
@@ -63,7 +68,11 @@ int GLFWGraphicsSystem::init()
 {
     debugMaterial.reset();
 	debugShader.reset();
-	glfwTerminate();
+
+    guiMaterial.reset();
+	guiShader.reset();
+	
+    glfwTerminate();
 
 }
  /** Swap buffers*/
@@ -91,7 +100,18 @@ void GLFWGraphicsSystem::createDebugShader()
     guiMaterial = make_shared<Material>(guiShader);
 
 
-    GUIMatrix = glm::ortho(0.0f, 640.0f, 480.0f, 0.0f, -5.0f, 5.0f);
+    GUIMatrix = glm::ortho(0.0f, (float)screenWidth, (float)screenHeight, 0.0f, -5.0f, 5.0f);
+}
+
+/** screen width Getter */
+int GLFWGraphicsSystem::getScreenWidth()
+{
+    return screenWidth;
+}
+/** screen height Getter */
+int GLFWGraphicsSystem::getScreenHeight()
+{
+    return screenHeight;
 }
 
 
@@ -150,12 +170,22 @@ void GLFWGraphicsSystem::renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector)
 //    }
 }
 
+/** Disable Textures that have are not needed for the current draw call */
+void GLFWGraphicsSystem::disableNonUsedTextures(int nTextures) const
+{
+    int startingIndex = currentTexturesUsed -(currentTexturesUsed - nTextures);
+    
+    for(int i = startingIndex; i < currentTexturesUsed; i++)
+    {
+        glActiveTexture(GL_TEXTURE0+i);
+        glDisable(GL_TEXTURE_2D);
+    }
+}
+
 /** Renders meshes on the screen from the camera point of view */
 void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<MeshRenderer>>& renderers, vector<shared_ptr<Light>>& lights)
 //void GraphicsSystem::render(World& world)
 {
-    //shared_ptr<Camera> camera = world.cameras[0];
-
     camera->computeModelViewMatrix();
 
         //glEnable(GL_BLEND);
@@ -166,11 +196,6 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         shared_ptr<MeshRenderer> meshRenderer = renderers[i];
 
         shared_ptr<Actor> actor = meshRenderer->getActor();
-
-        /*shared_ptr<MeshFilter> meshFilter = meshRenderer->meshFilter.lock();
-        if (!meshFilter)
-            continue;
-*/
 
 		shared_ptr<MeshComponent> meshComponent = meshRenderer->meshComponent.lock();
 		if (!meshComponent)
@@ -183,8 +208,8 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         glLinkProgram(shaderProgram);
         glUseProgram(shaderProgram);
 
-        float ambientLight = 0.5f;
-        glm::vec3 ambientLightColor(1.0, 0.0, 0.0);
+        float ambientLight = 0.1f;
+        glm::vec3 ambientLightColor(1.0, 1.0, 1.0);
 
         glUniform3fv(getUniformLocation(shaderProgram, "ambientLightColor"), 1, &ambientLightColor[0]);
 		glUniform1f(getUniformLocation(shaderProgram, "ambientLightIntensity"), ambientLight);
@@ -196,38 +221,23 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         {
             shared_ptr<Light> light = lights[j];
 
-            /*glUniform3fv(meshRenderer->material->shader->paramID["lightPos"], 1, &light->getActor()->transform->position[0]);
-            glUniform3fv(meshRenderer->material->shader->paramID["lightIntensity"], 1, &light->color[0]);*/
-
 			glUniform3fv(getUniformLocation(shaderProgram, "lightPos"), 1, &light->getActor()->transform->position[0]);
 			glUniform3fv(getUniformLocation(shaderProgram, "lightIntensity"), 1, &light->getColor()[0]);
         }
 
-		shared_ptr<Texture> texture = meshRenderer->material->getTextureParam("myTextureSampler");
-		if (texture)
-		{
-			//glEnable(GL_TEXTURE);
-			glActiveTexture(GL_TEXTURE0);
-			glBindTexture(GL_TEXTURE_2D, texture->textureID);
-			glUniform1i(getUniformLocation(shaderProgram, "myTextureSampler"), 0);
-			//glBindTexture(GL_TEXTURE_2D, Texture);
-			//glUniform1i(texture->textureID, 0);
+        vector<Material::StringTexPair> stringTexPairs = meshRenderer->material->getAllTextureParams();
+		//shared_ptr<Texture> texture = meshRenderer->material->getTextureParam("myTextureSampler");
 
-			//glactivete
-
-			/*glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, texture->width, texture->height, 0, GL_RGBA, GL_UNSIGNED_BYTE, (GLvoid*)texture->data);
-
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
-			glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);*/
-		}
-		else
-		{
-			//glDisable(GL_TEXTURE);
-			//glActiveTexture(GL_TEXTURE0);
-			//glUniform1i(texture->textureID, 0);
-			//glDisable(GL_TEXTURE0);
-
-		}
+        disableNonUsedTextures(stringTexPairs.size());
+        int texCount = 0;
+		for(auto& stringTexPair : stringTexPairs)
+        {
+            glActiveTexture(GL_TEXTURE0+texCount);
+			glBindTexture(GL_TEXTURE_2D, stringTexPair.second->textureID);
+			glUniform1i(getUniformLocation(shaderProgram, stringTexPair.first.c_str()), 0);
+         
+            texCount++;
+        }
 
         
 		glBindVertexArray(meshComponent->getMesh()->vao);

@@ -160,6 +160,8 @@ void Editor::shutdown()
 	scaleHandles = nullptr;
 
 	rotateHandles = nullptr;
+    
+    
 
 	world->shutdown();
 

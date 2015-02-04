@@ -6,6 +6,9 @@
 
 class GLFWGraphicsSystem : public GraphicsSystem
 {
+private:
+    int currentTexturesUsed;
+    int screenWidth, screenHeight;
 public:
 	/** Default Destructor */
 	virtual ~GLFWGraphicsSystem() {};
@@ -13,7 +16,7 @@ public:
 	GLFWGraphicsSystem() {};
 
 	/** Initialize the system, create the window and such*/
-    virtual int init() override;
+    virtual int init(int width, int height) override;
 	/** Shutdown the system, destroy window and release any allocated memory*/
     virtual void shutdown() override;
 	/** Swap buffers*/
@@ -23,6 +26,10 @@ public:
 	/** create debug shader to display Physics information on the screen*/
     virtual void createDebugShader() override;
 
+    /** screen width Getter */
+    virtual int getScreenWidth() override;
+    /** screen height Getter */
+    virtual int getScreenHeight() override;
     
 	/** Renders Physics information on screen from the camera point of view */
 	virtual void render(shared_ptr<Camera> camera, const  physx::PxRenderBuffer& rb, const glm::vec4& color) override;
@@ -52,6 +59,9 @@ public:
 
 	/** Gets the uniform location for a string in a shader */
     virtual GLint getUniformLocation(GLuint programID,const char* name) override;
+
+    /** Disable Textures that have are not needed for the current draw call */
+    void disableNonUsedTextures(int nTextures) const;
 
 	
 };

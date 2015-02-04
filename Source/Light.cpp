@@ -2,14 +2,7 @@
 #include "Actor.hpp"
 
 /** Default Constructor. White Light */
-Light::Light()
-{
-	color = glm::vec3(1, 1, 1);
-
-#ifdef GUINITY_DEBUG
-	nCount++;
-#endif
-}
+Light::Light() : Light(glm::vec3(1,1,1)) {}
 
 /** Default Constructor. Colored Light */
 Light::Light(glm::vec3 c) : color {c}
