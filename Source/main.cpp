@@ -239,6 +239,7 @@ int main(int argc, char *argv[]) {
 
 		shared_ptr<Mesh> quadMesh = AssetDatabase::createMesh(quadVertex, triangles);
 
+		//shared_ptr<Texture> whiteTexture = AssetDatabase::createTexture(CommonData("white.png"));
 		shared_ptr<Texture> texture = AssetDatabase::createTexture(CommonData("button.png"));
 
 		shared_ptr<Font> font = AssetDatabase::createFont(CommonData("arial.ttf"),48);
@@ -250,7 +251,7 @@ int main(int argc, char *argv[]) {
 
 		shared_ptr<Mesh> cylinderMesh = AssetDatabase::createMeshFromFBX("cylinder3.fbx");
 
-		shared_ptr<Mesh> cubeMesh = AssetDatabase::createMeshFromFBX("cubeCenter.fbx");
+		shared_ptr<Mesh> cubeMesh = AssetDatabase::createMeshFromFBX("box.fbx");
 
 		shared_ptr<Mesh> objMesh = AssetDatabase::createMeshFromOBJ("sphere.obj");
 
@@ -289,9 +290,11 @@ int main(int argc, char *argv[]) {
 		//shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsNoLight.fragmentshader"));
 
 		shared_ptr<Material> defaultMaterial = AssetDatabase::createMaterial("DefaultMaterial", s);
-		defaultMaterial->setParamTexture("myTextureSampler", texture);
+		defaultMaterial->setParamTexture("_textureSampler", texture);
+		defaultMaterial->setParamVec3("_difuseColor", glm::vec3(1,0,0));
 		shared_ptr<Material> fontMaterial = AssetDatabase::createMaterial("FontMaterial", s);
-		fontMaterial->setParamTexture("myTextureSampler", font->getFontTexture());
+		fontMaterial->setParamTexture("_textureSampler", font->getFontTexture());
+		fontMaterial->setParamVec3("_difuseColor", glm::vec3(0, 1, 0));
 
 		shared_ptr<Editor> editor = make_shared<Editor>();
 		editor->init();
@@ -303,9 +306,8 @@ int main(int argc, char *argv[]) {
 		std::ofstream ofs(CommonData("filename"));
 
 
-		shared_ptr<Actor> fbxTest;
+		shared_ptr<Actor> fbxTest = Factory::CreateActor("FBXTest");// , meshRenderer1);
 
-		fbxTest = Factory::CreateActor("FBXTest");// , meshRenderer1);
 		//fbxTest->transform->setScale(glm::vec3(10,10,10));
 		//    fbxTest->transform->setRotationQuat(glm::quat(glm::vec3(45 * Deg2Radian, 45 * Deg2Radian, 45 * Deg2Radian)));
 		shared_ptr<MeshFilter> meshFilter = fbxTest->AddComponent<MeshFilter>();
@@ -325,16 +327,26 @@ int main(int argc, char *argv[]) {
 
 
 		//fbxTest->AddComponent<RigidBody>();
-		fbxTest->AddComponent<SphereCollider>();
-		fbxTest->AddComponent<AddForceScript>();
+		//fbxTest->AddComponent<SphereCollider>();
+		//fbxTest->AddComponent<AddForceScript>();
 		//fbxTest->AddComponent<SphereCollider>();
 
+		shared_ptr<Actor> floor = Factory::CreateActor("Floor");
 
+		meshFilter = floor->AddComponent<MeshFilter>();
+		floor->transform->setPosition(glm::vec3(0, -4, -2));
+		floor->transform->setRotationQuat(glm::quat(glm::vec3(0, 0, 45 * Deg2Radian)));
+		floor->transform->setScale(glm::vec3(5, 0.1f, 5.0f));
+
+		meshFilter->setMesh(cubeMesh);
+		meshRenderer = floor->AddComponent<MeshRenderer>();
+		meshRenderer->material = defaultMaterial;
+		floor->AddComponent<BoxCollider>();
 
 		shared_ptr<Actor> fontTest = Factory::CreateActor("FontTest");// , meshRenderer1);
 		shared_ptr<FontMesh> fontMesh = fontTest->AddComponent<FontMesh>();
 		fontMesh->setFont(font);
-		fontMesh->setText("opa,blz?");
+		fontMesh->setText("opa, blz?");
 		meshRenderer = fontTest->AddComponent<MeshRenderer>();
 		meshRenderer->setMaterial(fontMaterial);
 
@@ -368,17 +380,7 @@ int main(int argc, char *argv[]) {
 		//    fbxTest->AddComponent<RigidBody>();
 		//    fbxTest->AddComponent<BoxCollider>();
 
-		shared_ptr<Actor> floor = Factory::CreateActor("Floor");
 
-		meshFilter = floor->AddComponent<MeshFilter>();
-		floor->transform->setPosition(glm::vec3(0, -4, 0));
-		floor->transform->setRotationQuat(glm::quat(glm::vec3(0, 0, 45 * Deg2Radian)));
-		floor->transform->setScale(glm::vec3(5, 0.1f, 5.0f));
-
-		meshFilter->setMesh(cubeMesh);
-		meshRenderer = floor->AddComponent<MeshRenderer>();
-		meshRenderer->material = defaultMaterial;
-		floor->AddComponent<BoxCollider>();
 
 
 		//    floor->AddComponent<RotateOverTime>();

@@ -5,6 +5,7 @@
 
 using namespace physx;
 
+/** Default Constructor */
 BoxCollider::BoxCollider()
 {
     initWithData = false;
@@ -13,7 +14,7 @@ BoxCollider::BoxCollider()
 #endif
 }
 
-
+/** Deserialization Constructor */
 BoxCollider::BoxCollider(PxVec3 halfExtent, PxVec3 center)
 {
     this->halfExtent = halfExtent;
@@ -26,6 +27,7 @@ BoxCollider::BoxCollider(PxVec3 halfExtent, PxVec3 center)
 #endif
 }
 
+/** Default Destructor*/
 BoxCollider::~BoxCollider()
 {
 #ifdef GUINITY_DEBUG
@@ -34,10 +36,13 @@ BoxCollider::~BoxCollider()
 #endif
 }
 
+/** Init component override. Create a new Box Shape in the PhysX scene. */
 void BoxCollider::init()
 {
+	// Deserializing
     if(initWithData)
         shape = Physics::createBoxCollider(halfExtent,center,getActor());
+	// Create new
     else
     {
         shared_ptr<MeshFilter> meshFilter = getActor()->GetComponent<MeshFilter>();
@@ -50,18 +55,15 @@ void BoxCollider::init()
         
         shape = Physics::createBoxCollider(halfExtent,center,getActor());
     }
-    
-
-    
-	//shape = halfExtent == glm::vec3(0,0,0) ? Physics::createBoxCollider(getActor()) : ;
 }
 
-
+/** Get a description for the current component*/
 shared_ptr<ComponentDescription> BoxCollider::getComponentDescription()
 {
     return make_shared<BoxColliderDescription>(halfExtent);
 }
 
+/** Deserialize a component description into this collider */
 void BoxCollider::deserialize(shared_ptr<ComponentDescription> desc)
 {
     

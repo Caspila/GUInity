@@ -188,8 +188,8 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 {
     camera->computeModelViewMatrix();
 
-        //glEnable(GL_BLEND);
-        //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //glEnable(GL_BLEND);
+    //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
     for (int i = 0; i < renderers.size(); i++)
     {
@@ -215,7 +215,7 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 		glUniform1f(getUniformLocation(shaderProgram, "ambientLightIntensity"), ambientLight);
 
 
-		glUniformMatrix4fv(getUniformLocation(shaderProgram, "camera"), 1, GL_FALSE, &camera->MVPMatrix[0][0]);
+		glUniformMatrix4fv(getUniformLocation(shaderProgram, "camera"), 1, GL_FALSE, &camera->getMVPMatrix()[0][0]);
 		glUniformMatrix4fv(getUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
         for (int j = 0; j < lights.size(); j++)
         {
@@ -226,6 +226,7 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         }
 
         vector<Material::StringTexPair> stringTexPairs = meshRenderer->material->getAllTextureParams();
+
 		//shared_ptr<Texture> texture = meshRenderer->material->getTextureParam("myTextureSampler");
 
         disableNonUsedTextures(stringTexPairs.size());
@@ -239,11 +240,16 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
             texCount++;
         }
 
+		vector<Material::StringVec3Pair> stringVec3Pairs = meshRenderer->material->getAllVec3Params();
+		for (auto& stringVec3Pair : stringVec3Pairs)
+		{
+			glUniform3fv(getUniformLocation(shaderProgram, stringVec3Pair.first.c_str()), 1, &stringVec3Pair.second[0]);
+		}
         
-		glBindVertexArray(meshComponent->getMesh()->vao);
+		glBindVertexArray(meshComponent->getMesh()->getVertexArrayID());
 
         glEnableVertexAttribArray(0);
-		glBindBuffer(GL_ARRAY_BUFFER, meshComponent->getMesh()->mvbo);
+		glBindBuffer(GL_ARRAY_BUFFER, meshComponent->getMesh()->getVertexBuffer());
 
         //Vertex
         glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(0));
@@ -260,10 +266,10 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         glEnableVertexAttribArray(3);
         glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginUV));
         
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshComponent->getMesh()->ibo);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshComponent->getMesh()->getTrianglesBuffer());
 
         // draw points 0-3 from the currently bound VAO with current in-use shader
-		glDrawElements(GL_TRIANGLES, meshComponent->getMesh()->triangles.size(), GL_UNSIGNED_SHORT, NULL);
+		glDrawElements(GL_TRIANGLES, meshComponent->getMesh()->getTrianglesCount(), GL_UNSIGNED_SHORT, NULL);
 
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(2);
@@ -320,9 +326,9 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera,const physx::PxRenderB
     /*glUniform3fv(debugMaterial->shader->paramID["difuse"], 1, &color[0]);*/
 	glUniform3fv(getUniformLocation(debugMaterial->getShaderProgram(), "difuse") , 1, &color[0]);
 
-    glm::mat4 transformMatrix = camera->MVPMatrix;// *actor->transform->getModelMatrix();
+	//glm::mat4 transformMatrix = camera->getMVPMatrix();// *actor->transform->getModelMatrix();
 
-	glUniformMatrix4fv(getUniformLocation(debugMaterial->getShaderProgram(), "MVP"), 1, GL_FALSE, &transformMatrix[0][0]);
+	glUniformMatrix4fv(getUniformLocation(debugMaterial->getShaderProgram(), "MVP"), 1, GL_FALSE, &camera->getMVPMatrix()[0][0]);
     //glUniformMatrix4fv(debugMaterial->shader->paramID["MVP"], 1, GL_FALSE, &transformMatrix[0][0]);
 
     glDrawArrays(GL_LINES, 0, 2 * rb.getNbLines());

@@ -24,6 +24,16 @@ struct MeshVertex
 	
 };
 
+/** Mesh is an Asset that represents a 3D Model. The vertexes are indexed, meaning that they're stored once only
+	and can be referenced in several faces (triangles).
+
+	Currently supported features:
+	-Vertex Position
+	-Vertex UV
+	-Vertex Normal
+
+	Animations are NOT currently supported.
+*/
 class Mesh : public Asset
 #ifdef GUINITY_DEBUG
 	, public StaticCounter<Mesh>
@@ -31,45 +41,90 @@ class Mesh : public Asset
 {
 
 
+	// TODO. ALLOWING PRIVATE BECAUSE OF SERIALIZATION. FIND OUT HOW TO USE BOOST
+	// NON-INTRUSIVE SERIALIZATION WITH PRIVATE MEMBERS AND CHANGE IT
 public:
-	Mesh();
-	Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangles, int nPoints, int nTriangles);
-	Mesh(vector<MeshVertex> vertex, vector<unsigned short> triangles);
-    Mesh(vector<glm::vec3> vertices,vector<int> usedIndex,vector<int> usedTris);
-    
-    virtual ~Mesh();
-    
+	// Allow serialization to access non-public data members.  
+	friend class boost::serialization::access;
+
+	/** The vertices data */
+	vector<MeshVertex> meshVertices;
+	/** The mesh triangles */
 	vector<unsigned short> triangles;
 
-	vector<MeshVertex> meshVertices;
-
-	void setScaleFactor(float f);
-
-	void addVertex(glm::vec3 position, glm::vec2 uv, glm::vec3 normal);
-	void addTriangle(int vertexIndex);
-
-	// Vertex array
+	/** Vertex array*/
 	GLuint vao;
-	// Triangles array
+	/** Triangles array*/
 	GLuint ibo;
-	// Vertex data array
+	/** Vertex data array*/
 	GLuint mvbo;
 
-	//int nPoints, nNormalPoints;
-    float scaleFactor;
+	/** Scale factor of the mesh */
+	float scaleFactor;
 
-	void createBuffers3();
-	void calculateBounds3();
-	
-	glm::vec3 boundsMin, boundsMax, avgCenter;
+	/** Min bounds of the mesh */
+	glm::vec3 boundsMin;
+	/** Max bounds of the mesh */
+	glm::vec3 boundsMax;
+	/** Average center of the mesh */
+	glm::vec3 avgCenter;
+
+public:
+	/** Default Constructor */
+	Mesh();
+	/** Constructor from array of indices, normal points, uvs and triangles */
+	Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangles, int nPoints, int nTriangles);
+	/** Constructor from vector of MeshVertex and triangles */
+	Mesh(vector<MeshVertex> vertex, vector<unsigned short> triangles);
+	/** Constructor from vector of MeshVertex, subset of used Indexes and triangles */
+	Mesh(vector<glm::vec3> vertices,vector<int> usedIndex,vector<int> usedTris);
     
+	/** Default Destructor */
+    virtual ~Mesh();
+
+	/** scaleFactor Setter */
+	void setScaleFactor(float f);
+	/** scaleFactor getter */
+	float getScaleFactor();
+
+	/** boundsMin Getter*/
+	glm::vec3 getBoundsMin();
+	/** boundsMax Getter*/
+	glm::vec3 getBoundsMax();
+	/** avgCenter Getter*/
+	glm::vec3 getAverageCenter();
+
+	/** vao getter */
+	float getVertexArrayID();
+	/** mvbo getter */
+	float getVertexBuffer();
+	/** ibo getter */
+	float getTrianglesBuffer();
+
+	/** Count of triangles list  */
+	int getTrianglesCount();
+	/** Count of Mesh Vertices */
+	int getVerticesCount();
+
+	/** Adds a new vertex to the mesh */
+	void addVertex(glm::vec3 position, glm::vec2 uv, glm::vec3 normal);
+	/** Adds a new index to the triangles list*/
+	void addTriangle(int vertexIndex);
+
+	
+	/** Create OpenGL buffers */
+	void createBuffers3();
+	/** Calculate mesh bounds */
+	void calculateBounds3();
+
+    
+	/** Returns non duplicate mesh vertices based on position only. It does not take into consideration other parameters such as UV or normal.
+		This function was used by the ConvexHull in Math.hpp */
     vector<glm::vec3> getNonDuplicateMeshVertex();
 
-//    QOpenGLVertexArrayObject* QTvao;
-    
+
 };
 
-//BOOST_CLASS_EXPORT_KEY(Mesh);
 
 
 #endif

@@ -57,9 +57,12 @@ void MeshComponent::deserialize(shared_ptr<ComponentDescription> desc)
 /** Gets the center and the AABB size for the Actor that this component is attached to */
 void MeshComponent::getBoxSize(shared_ptr<Actor> actor, PxVec3& boxSize, PxVec3& center)
 {
-	boxSize.x = mesh->boundsMax.x - mesh->boundsMin.x;
-	boxSize.y = mesh->boundsMax.y - mesh->boundsMin.y,
-		boxSize.z = mesh->boundsMax.z - mesh->boundsMin.z;
+	glm::vec3 boundsMax = mesh->getBoundsMax();
+	glm::vec3 boundsMin = mesh->getBoundsMin();
+
+	boxSize.x = boundsMax.x - boundsMin.x;
+	boxSize.y = boundsMax.y - boundsMin.y;
+	boxSize.z=boundsMax.z - boundsMin.z;
 
 	boxSize = boxSize / 2;
 
@@ -72,16 +75,19 @@ void MeshComponent::getBoxSize(shared_ptr<Actor> actor, PxVec3& boxSize, PxVec3&
 	boxSize.z *= actor->transform->scale.z;
 
 
-	center = glmVec3ToPhysXVec3(mesh->avgCenter);
+	center = glmVec3ToPhysXVec3(mesh->getAverageCenter());
 }
 
 /** Gets the center and the radius for the Actor that this component is attached to*/
 
 void MeshComponent::getSphereSize(shared_ptr<Actor> actor, float& radius, PxVec3& center)
 {
-	PxVec3 boxSize(mesh->boundsMax.x - mesh->boundsMin.x,
-		mesh->boundsMax.y - mesh->boundsMin.y,
-		mesh->boundsMax.z - mesh->boundsMin.z);
+	glm::vec3 boundsMax = mesh->getBoundsMax();
+	glm::vec3 boundsMin = mesh->getBoundsMin();
+
+	PxVec3 boxSize(boundsMax.x - boundsMin.x,
+		boundsMax.y - boundsMin.y,
+		boundsMax.z - boundsMin.z);
 
 	boxSize = boxSize / 2;
 
@@ -97,15 +103,18 @@ void MeshComponent::getSphereSize(shared_ptr<Actor> actor, float& radius, PxVec3
 	radius = fmaxf(radius, boxSize.z);
 
 
-	center = glmVec3ToPhysXVec3(mesh->avgCenter);
+	center = glmVec3ToPhysXVec3(mesh->getAverageCenter());
 }
 
 /** Gets the center and the capsule description for the Actor that this component is attached to*/
 void MeshComponent::getCapsuleGeometry(shared_ptr<Actor>actor, float &radius, float &halfHeight, RotateAxis&orientation, PxVec3& center)
 {
-	PxVec3 boxSize(mesh->boundsMax.x - mesh->boundsMin.x,
-		mesh->boundsMax.y - mesh->boundsMin.y,
-		mesh->boundsMax.z - mesh->boundsMin.z);
+	glm::vec3 boundsMax = mesh->getBoundsMax();
+	glm::vec3 boundsMin = mesh->getBoundsMin();
+
+	PxVec3 boxSize(boundsMax.x - boundsMin.x,
+		boundsMax.y - boundsMin.y,
+		boundsMax.z - boundsMin.z);
 
 	boxSize = boxSize / 2;
 
@@ -144,6 +153,6 @@ void MeshComponent::getCapsuleGeometry(shared_ptr<Actor>actor, float &radius, fl
 		halfHeight = boxSize.z / 2;
 		radius = boxSize.y / 2;
 	}
-	center = glmVec3ToPhysXVec3(mesh->avgCenter);
+	center = glmVec3ToPhysXVec3(mesh->getAverageCenter());
 
 }

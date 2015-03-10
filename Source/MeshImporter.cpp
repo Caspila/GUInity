@@ -129,7 +129,7 @@ shared_ptr<Mesh> MeshImporter::importFbxMesh(string filename)
 									glm::vec2(fbxUV.mData[0], fbxUV.mData[1]),
 									glm::vec3(fbxNormal.mData[0], fbxNormal.mData[1], fbxNormal.mData[2]));
 								
-								unsigned short newIndex = mesh->meshVertices.size() - 1;
+								unsigned short newIndex = mesh->getVerticesCount() - 1;
 					
 								vertexMap[v] = newIndex;
 								mesh->addTriangle(newIndex);
@@ -274,7 +274,7 @@ shared_ptr<Mesh> MeshImporter::importObjMesh(string filename)
 		{
 			mesh->addVertex(v.position, v.uv, v.normal);
 
-			unsigned short newIndex = mesh->meshVertices.size() - 1;
+			unsigned short newIndex = mesh->getVerticesCount() - 1;
 
 			vertexMap[v] = newIndex;
 			mesh->addTriangle(newIndex);

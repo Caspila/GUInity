@@ -53,9 +53,11 @@ public:
 	void setParamTexture(string paramName, shared_ptr<Texture> paramValue);
     
     typedef pair<string, shared_ptr<Texture>> StringTexPair;
-	/** Gets a Texture param with the name paramName*/
+	typedef pair<string, glm::vec3> StringVec3Pair;
+	/** Gets all Texture params*/
 	vector<StringTexPair> getAllTextureParams();
-
+	/** Gets all Vec3 params*/
+	vector<StringVec3Pair> getAllVec3Params();
 
 
 };

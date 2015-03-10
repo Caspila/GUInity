@@ -56,6 +56,8 @@ void FontMesh::createMesh()
 	float letterWidth = 0.5f;
 	float letterHeight = 0.5f;
 
+
+
 	float xOffset = 0;
 
 	for (int i = 0; i < text.size(); i++)
@@ -65,6 +67,8 @@ void FontMesh::createMesh()
 		LetterFontUV letterUV = font->getCharDesc(c);
 
 		letterWidth = letterHeight * letterUV.ratio;
+		/*letterWidth *= letterUV.widthRatioToMax;
+		letterHeight *= letterUV.heightRatioToMax;*/
 
 		int i0, i1, i2, i3;
 		glm::vec3 p0, p1, p2, p3;

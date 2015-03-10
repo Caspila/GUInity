@@ -150,9 +150,12 @@ PxVec3 getBoxSize(shared_ptr<Actor> actor, shared_ptr<MeshFilter> meshFilter)
 {
 	shared_ptr<Mesh> mesh = meshFilter->getMesh();
 
-	PxVec3 boxSize(mesh->boundsMax.x - mesh->boundsMin.x,
-		mesh->boundsMax.y - mesh->boundsMin.y,
-		mesh->boundsMax.z - mesh->boundsMin.z);
+	glm::vec3 boundsMax = mesh->getBoundsMax();
+	glm::vec3 boundsMin = mesh->getBoundsMin();
+
+	PxVec3 boxSize(boundsMax.x - boundsMin.x,
+		boundsMax.y - boundsMin.y,
+		boundsMax.z - boundsMin.z);
 
 	boxSize = boxSize / 2;
 
@@ -172,9 +175,12 @@ float getSphereSize(shared_ptr<Actor> actor, shared_ptr<MeshFilter> meshFilter)
 {
 	shared_ptr<Mesh> mesh = meshFilter->getMesh();
 
-	PxVec3 boxSize(mesh->boundsMax.x -  mesh->boundsMin.x,
-					mesh->boundsMax.y - mesh->boundsMin.y,
-					mesh->boundsMax.z - mesh->boundsMin.z);
+	glm::vec3 boundsMax = mesh->getBoundsMax();
+	glm::vec3 boundsMin = mesh->getBoundsMin();
+
+	PxVec3 boxSize(boundsMax.x - boundsMin.x,
+		boundsMax.y - boundsMin.y,
+		boundsMax.z - boundsMin.z);
 	
 		boxSize = boxSize / 2;
 	
@@ -231,7 +237,7 @@ PxShape* Physics::createBoxCollider(shared_ptr<Actor> actor)
 	if (meshFilter)
 	{
 		boxSize = getBoxSize(actor, meshFilter);
-		center = PxVec3(glmVec3ToPhysXVec3( meshFilter->getMesh()->avgCenter));
+		center = PxVec3(glmVec3ToPhysXVec3( meshFilter->getMesh()->getAverageCenter()));
 	}
 
     return createBoxCollider(boxSize,center,actor);
@@ -284,7 +290,7 @@ PxShape* Physics::createSphereCollider(shared_ptr<Actor> actor)
 	{
 		radius = getSphereSize(actor, meshFilter);
 
-		center = PxVec3(glmVec3ToPhysXVec3(meshFilter->getMesh()->avgCenter));
+		center = PxVec3(glmVec3ToPhysXVec3(meshFilter->getMesh()->getAverageCenter()));
 	}
     return createSphereCollider(radius, center, actor);
 }
@@ -294,9 +300,12 @@ void getCapsuleGeometry(shared_ptr<Actor>actor,shared_ptr<MeshFilter>meshFilter,
 {
 	shared_ptr<Mesh> mesh = meshFilter->getMesh();
 
-    PxVec3 boxSize(mesh->boundsMax.x - mesh->boundsMin.x,
-                   mesh->boundsMax.y - mesh->boundsMin.y,
-                   mesh->boundsMax.z - mesh->boundsMin.z);
+	glm::vec3 boundsMax = mesh->getBoundsMax();
+	glm::vec3 boundsMin = mesh->getBoundsMin();
+
+	PxVec3 boxSize(boundsMax.x - boundsMin.x,
+		boundsMax.y - boundsMin.y,
+		boundsMax.z - boundsMin.z);
 	
     boxSize = boxSize / 2;
 	
@@ -405,7 +414,7 @@ PxShape* Physics::createCapsuleCollider(shared_ptr<Actor> actor)
         getCapsuleGeometry(actor,meshFilter,radius,halfHeight,orientation);
 		radius = getSphereSize(actor, meshFilter);
         
-		center = PxVec3(glmVec3ToPhysXVec3(meshFilter->getMesh()->avgCenter));
+		center = PxVec3(glmVec3ToPhysXVec3(meshFilter->getMesh()->getAverageCenter()));
 	}
     return  createCapsuleCollider(radius, halfHeight,orientation, center, actor);
 }

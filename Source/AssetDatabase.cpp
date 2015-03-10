@@ -20,6 +20,7 @@
 #include "Serialization2.hpp"
 #include "Font.hpp"
 #include "Sound.hpp"
+#include <freetype/ftglyph.h>
 
 /** currentID, "Primary Key"*/
 unsigned int AssetDatabase::currentID = 0;
@@ -518,7 +519,7 @@ finalise:
 }
 
 
-void AssetDatabase::getWidthHeightForAlphabet(FT_Face face, string alphabet, int& width, int& height)
+void AssetDatabase::getWidthHeightForAlphabet(FT_Face face, string alphabet, int& width, int& height, int& yOrigin)
 {
 	width = 0;
 	for (int i = 0; i < alphabet.size(); i++)
@@ -528,7 +529,7 @@ void AssetDatabase::getWidthHeightForAlphabet(FT_Face face, string alphabet, int
 
 		/* retrieve glyph index from character code */
 		glyph_index = FT_Get_Char_Index(face, alphabet[i]);
-
+			
 		/* load glyph image into the slot (erase previous one) */
 		FT_Error error = FT_Load_Glyph(face, glyph_index, FT_LOAD_DEFAULT);
 		if (error)
@@ -536,15 +537,32 @@ void AssetDatabase::getWidthHeightForAlphabet(FT_Face face, string alphabet, int
 			cout << error << endl;
 			continue;  /* ignore errors */
 		}
+
+		FT_Glyph glyph;
+		FT_Get_Glyph(face->glyph, &glyph);
+	
+
 		/* convert to an anti-aliased bitmap */
 		error = FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
 
-		width += face->glyph->bitmap.width + face->glyph->bitmap_left;
-		height = max(height, face->glyph->bitmap.rows + face->glyph->bitmap_top);
+		int charWidth = face->glyph->bitmap.width + abs(face->glyph->bitmap_left);
+		if (charWidth == 0)
+			charWidth = face->glyph->advance.x / 64;
+
+		width += charWidth;
+
+		//height = max(height, face->glyph->bitmap.rows + face->glyph->bitmap_top);
+		int yPos = (face->glyph->bitmap.rows - face->glyph->bitmap_top);
+		yOrigin = max(yOrigin, yPos);
+
+		int charHeight = face->glyph->bitmap.rows + yPos;
+
+		height = max(height,charHeight);
+
 	}
 }
 
-void AssetDatabase::addGlyphToBuffer(FT_Face& face, char letter, unsigned char* buffer, int bufferWidth, int bufferHeight, int xOffset, int yOffset, int& outGlyphWidth, int& outGlyphHeight)
+void AssetDatabase::addGlyphToBuffer(FT_Face& face, char letter, unsigned char* buffer, int bufferWidth, int bufferHeight, int xOffset, int yOffset, int yOrigin, int& outGlyphWidth, int& outGlyphHeight)
 {
 	FT_UInt  glyph_index;
 
@@ -564,17 +582,25 @@ void AssetDatabase::addGlyphToBuffer(FT_Face& face, char letter, unsigned char* 
 
 	int offset = (bufferHeight - 1) * bufferWidth + xOffset;
 	int width = face->glyph->bitmap.width;
-	int height = face->glyph->bitmap.rows;
+	if (width == 0)
+		width = face->glyph->advance.x / 64;
 
-	outGlyphWidth = width + face->glyph->bitmap_left;
+	int height = face->glyph->bitmap.rows;
+	int bitmap_left = abs(face->glyph->bitmap_left);
+
+	outGlyphWidth = width + bitmap_left;
 	outGlyphHeight = height + face->glyph->bitmap_top;
 
+	int yPos = face->glyph->bitmap.rows - face->glyph->bitmap_top;
+	int yOriginDelta = yOrigin - yPos;
+
 	int xI, yI;
+	//for (yI = height - 1; yI >= 0; yI--) {
 	for (yI = height - 1; yI >= 0; yI--) {
 		for (xI = 0; xI<width; xI++) {
 
-			int bufferIndex = offset - (height - yI)*bufferWidth + //y
-				(xI + face->glyph->bitmap_left); //x
+			int bufferIndex = offset - (height - yI + yOriginDelta)*bufferWidth + //y
+				(xI + bitmap_left); //x
 			int bitmapIndex = yI *width + xI;
 
 			buffer[bufferIndex] = face->glyph->bitmap.buffer[bitmapIndex];
@@ -589,9 +615,11 @@ map<char, LetterFontUV> AssetDatabase::createFontTexture(FT_Face& face, string f
 {
 	map<char, LetterFontUV> charUVMap;
 
-	int width, height;
-	string alphabet = "bpabcdefghjklmnopqrstuvxyzw0123456789!?,./\[]{};':\"";
-	getWidthHeightForAlphabet(face, alphabet, width, height);
+	int width, height, yOrigin;
+	width = height = yOrigin = 0;
+
+	string alphabet = "abcdefghjklmnopqrstuvxyzw0123456789 !?,./\[]{};':\"";
+	getWidthHeightForAlphabet(face, alphabet, width, height, yOrigin);
 
 	int xOffset, yOffset;
 	xOffset = yOffset = 0;
@@ -604,8 +632,8 @@ map<char, LetterFontUV> AssetDatabase::createFontTexture(FT_Face& face, string f
 	for (int i = 0; i < alphabet.size(); i++)
 	{
 		int outGlyphWidth, outGlyphHeight;
-		addGlyphToBuffer(face, alphabet[i], buffer, width, height, xOffset, yOffset, outGlyphWidth, outGlyphHeight);
-		charUVMap[alphabet[i]] = LetterFontUV(glm::vec2(xOffset / (float)width, 0), glm::vec2((xOffset + outGlyphWidth) / (float)width, 1), (float)outGlyphWidth / outGlyphHeight);
+		addGlyphToBuffer(face, alphabet[i], buffer, width, height, xOffset, yOffset, yOrigin, outGlyphWidth, outGlyphHeight);
+		charUVMap[alphabet[i]] = LetterFontUV(glm::vec2(xOffset / (float)width, 0), glm::vec2((xOffset + outGlyphWidth) / (float)width, 1), (float)outGlyphWidth / height);
 		xOffset += outGlyphWidth;
 	}
 

@@ -169,12 +169,17 @@ void Shader::checkLine(const string& Line)
 
 		if (splitted.size() >= 2)
 		{
-			if (splitted[1].compare("sampler2D")==0)
-				params.insert(pair<string, ShaderParamType>(splitted[2], ShaderParamType::TEXTURE));
-			/*else if (splitted[1].compare("float"))
-				params.insert(pair<string, ShaderParamType>(splitted[2], ShaderParamType::FLOAT));
-*/
-			cout <<"Shader param:"<< splitted[2] << endl;
+			if (splitted[2][0] == '_')
+			{
+				if (splitted[1].compare("sampler2D") == 0)
+					params.insert(pair<string, ShaderParamType>(splitted[2], ShaderParamType::TEXTURE));
+				else if (splitted[1].compare("vec3") == 0)
+					params.insert(pair<string, ShaderParamType>(splitted[2], ShaderParamType::VEC3));
+				/*else if (splitted[1].compare("float"))
+					params.insert(pair<string, ShaderParamType>(splitted[2], ShaderParamType::FLOAT));
+					*/
+				cout << "Shader param:" << splitted[2] << endl;
+			}
 		}
 	}
 }

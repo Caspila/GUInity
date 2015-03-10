@@ -19,12 +19,12 @@
     <Filter Include="EditorScripts">
       <UniqueIdentifier>{cf3a42d5-cc33-4dac-80c8-00b723e6fc68}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Scripts">
+      <UniqueIdentifier>{df67f115-5902-4a23-93c2-9ba9ef8ff548}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Source\Actor.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\AddForceScript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Asset.cpp">
@@ -54,9 +54,6 @@
     <ClCompile Include="..\Source\Editor.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\EditorCameraControl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\EditorCollider.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -82,9 +79,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Holder.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\IncreaseColliderScript.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Input.cpp">
@@ -126,12 +120,6 @@
     <ClCompile Include="..\Source\Module.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\MoveHandle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\MoveTool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\Observer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -150,13 +138,7 @@
     <ClCompile Include="..\Source\PhysXInsertionCallback.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\Source\PlayerScript.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\Source\print.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\QTGraphicsSystem.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\Ray.cpp">
@@ -172,21 +154,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\RigidStatic.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\RotateHandle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\RotateOverTime.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\RotateTool.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\ScaleHandle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\Source\ScaleTool.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\Source\ScriptComponent.cpp">
@@ -240,15 +207,42 @@
     <ClCompile Include="..\Source\Sound.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="..\Source\AddForceScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\EditorCameraControl.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\MoveHandle.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\MoveTool.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\RotateOverTime.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\RotateTool.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ScaleHandle.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\ScaleTool.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\RotateHandle.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\PlayerScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Source\IncreaseColliderScript.cpp">
+      <Filter>Scripts</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Source\Actor.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\AddForceScript.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\AnyClass.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Asset.hpp">
@@ -278,9 +272,6 @@
     <ClInclude Include="..\Source\Editor.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\EditorCameraControl.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\EditorCollider.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -306,9 +297,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\GraphicsSystem.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\IncreaseColliderScript.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Light.hpp">
@@ -350,12 +338,6 @@
     <ClInclude Include="..\Source\Module.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\MoveHandle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\MoveTool.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\Observer.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -374,16 +356,10 @@
     <ClInclude Include="..\Source\PhysXInsertionCallback.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\Source\PlayerScript.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\Source\PointerHolder.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\print.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\QTGraphicsSystem.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\Ray.hpp">
@@ -399,21 +375,6 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\RigidStatic.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\RotateHandle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\RotateOverTime.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\RotateTool.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\ScaleHandle.hpp">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\Source\ScaleTool.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\Source\ScriptComponent.hpp">
@@ -472,6 +433,39 @@
     </ClInclude>
     <ClInclude Include="..\Source\SoundSystem.hpp">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\AddForceScript.hpp">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\EditorCameraControl.hpp">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\IncreaseColliderScript.hpp">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\MoveHandle.hpp">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\MoveTool.hpp">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\RotateHandle.hpp">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\RotateOverTime.hpp">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\RotateTool.hpp">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\PlayerScript.hpp">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ScaleHandle.hpp">
+      <Filter>Scripts</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Source\ScaleTool.hpp">
+      <Filter>Scripts</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

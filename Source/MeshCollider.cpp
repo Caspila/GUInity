@@ -4,6 +4,7 @@
 #include "Converter.hpp"
 #include "Transform.hpp"
 
+/** Default Constructor*/
 MeshCollider::MeshCollider()
 {
 #ifdef GUINITY_DEBUG
@@ -11,7 +12,7 @@ nCount++;
 #endif
 }
 
-
+/** Default Destructor. Virtual because inherits from Collider*/
 MeshCollider::~MeshCollider()
 {
 #ifdef GUINITY_DEBUG
@@ -20,6 +21,7 @@ MeshCollider::~MeshCollider()
 #endif
 }
 
+/** Init component override. Create a new Mesh Shape in the PhysX scene. */
 void MeshCollider::init()
 {
 
@@ -27,6 +29,7 @@ void MeshCollider::init()
     
 }
 
+/** Component tick override. Updates the scale of the Mesh Shape in the PhysX scene. */
 void MeshCollider::tick(float deltaSeconds)
 {
     PxConvexMeshGeometry geo;
@@ -40,4 +43,14 @@ void MeshCollider::tick(float deltaSeconds)
     
 }
 
+/** Get a description for the current component*/
+shared_ptr<ComponentDescription> MeshCollider::getComponentDescription()
+{
+	return nullptr;
+}
+/** Deserialize a component description into this collider */
+void MeshCollider::deserialize(shared_ptr<ComponentDescription> desc)
+{
+
+}
 

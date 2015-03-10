@@ -24,11 +24,11 @@ Material::Material(shared_ptr<Shader> shader)
 		{
 			params.insert(std::pair<string, Holder>(it->first, Holder(TEXTURE, nullptr)));
 		}
-		/*else if (it->second == VEC3)
+		else if (it->second == VEC3)
 		{
 			params.insert(std::pair<string, Holder>(it->first, Holder(VEC3, glm::vec3())));
 
-		}*/
+		}
 
 	}
 
@@ -114,7 +114,7 @@ void Material::setParamTexture(string paramName, shared_ptr<Texture> paramValue)
 }
 
 
-/** Gets a Texture param with the name paramName*/
+/** Gets all Texture params*/
 vector<Material::StringTexPair> Material::getAllTextureParams()
 {
     vector<Material::StringTexPair>result;
@@ -131,18 +131,25 @@ vector<Material::StringTexPair> Material::getAllTextureParams()
     }
     
     return result;
-    
-//	auto it = params.find(paramName);
-//
-//	// Params does not have param named paramName 
-//	if (it == params.end())
-//		return nullptr;
-//
-//	// Param has param named paramName but it's not a texture
-//	if (!it->second.isTexture())
-//		return nullptr;
-//
-//	// Param found, return
-//	return it->second.operator std::weak_ptr<Texture>().lock();
+
+}
+
+/** Gets all Vec3 params*/
+vector<Material::StringVec3Pair> Material::getAllVec3Params()
+{
+	vector<Material::StringVec3Pair>result;
+
+	auto it = params.begin();
+
+	while (it != params.end())
+	{
+		if (it->second.isVec3())
+		{
+			result.push_back(Material::StringVec3Pair(it->first, it->second.getVec3()));
+		}
+		it++;
+	}
+
+	return result;
 
 }

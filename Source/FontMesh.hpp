@@ -19,7 +19,7 @@ class FontMesh :
 private:
 	/** The Font asset*/
 	shared_ptr<Font> font;
-	/** The text asset*/
+	/** The text */
 	string text;
 	/** The material used to render the Mesh*/
 	shared_ptr<Material> material;

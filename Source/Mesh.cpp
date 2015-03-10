@@ -3,13 +3,8 @@
 #include <glm/geometric.hpp>
 #include "GraphicsSystem.hpp"
 #include <map>
-//#include <qopenglvertexarrayobject.h>
 
-// Code from http://www.opengl-tutorial.org/beginners-tutorials/tutorial-7-model-loading/
-
-
-//BOOST_CLASS_EXPORT_IMPLEMENT(Asset);
-
+/** Default Constructor */
 Mesh::Mesh() : Asset()
 {
     
@@ -22,21 +17,41 @@ Mesh::Mesh() : Asset()
 
 }
 
+
+/** Constructor from array of indices, normal points, uvs and triangles */
+Mesh::Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangles, int nPoints, int nTriangles) : Asset()
+{
+	mvbo = vao = ibo = 0;
+	scaleFactor = 1;
+
+	//this->nPoints = nPoints;
+
+	for (int i = 0; i < nPoints; i++)
+	{
+		meshVertices.push_back(MeshVertex(glm::vec3(indices[i * 3], indices[i * 3 + 1], indices[i * 3 + 2]),
+			glm::vec2(uv[i * 3], uv[i * 3 + 1]),
+			glm::vec3(normalPoints[i * 3], normalPoints[i * 3 + 1], normalPoints[i * 3 + 2])));
+	}
+
+	for (int i = 0; i < nTriangles; i++)
+	{
+		this->triangles.push_back(triangles[i]);
+	}
+
+#ifdef GUINITY_DEBUG
+	nCount++;
+#endif
+
+	createBuffers3();
+}
+
+/** Constructor from vector of MeshVertex and triangles */
 Mesh::Mesh(vector<MeshVertex> vertex, vector<unsigned short> triangles)
 {
     
     mvbo = vao = ibo = 0;
-        scaleFactor = 1;
-    
-//    for (int i = 0; i < vertex.size(); i++)
-//	{
-//		this->meshVertices.push_back(vertex[i]);
-//	}
-//    for (int i = 0; i < triangles.size(); i++)
-//	{
-//		this->triangles.push_back(triangles[i]);
-//	}
-    
+    scaleFactor = 1;
+
     meshVertices = std::move(vertex);
     this->triangles = std::move(triangles);
     
@@ -47,6 +62,7 @@ Mesh::Mesh(vector<MeshVertex> vertex, vector<unsigned short> triangles)
     createBuffers3();
 }
 
+/** Constructor from vector of MeshVertex, subset of used Indexes and triangles */
 Mesh::Mesh(vector<glm::vec3> vertices,vector<int> usedIndex,vector<int> usedTris)
 {
    	mvbo = vao = ibo = 0;
@@ -72,52 +88,45 @@ Mesh::Mesh(vector<glm::vec3> vertices,vector<int> usedIndex,vector<int> usedTris
 }
 
 
-Mesh::Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangles, int nPoints, int nTriangles) : Asset()
+/** Default Destructor */
+Mesh::~Mesh()
 {
-	mvbo = vao = ibo = 0;
-    scaleFactor = 1;
-    
-	//this->nPoints = nPoints;
-    
-	for (int i = 0; i < nPoints; i++)
+
+	if (!triangles.empty())
 	{
-		meshVertices.push_back(MeshVertex(glm::vec3(indices[i * 3], indices[i * 3 + 1], indices[i * 3 + 2]),
-                                          glm::vec2(uv[i * 3], uv[i * 3 + 1]),
-                                          glm::vec3(normalPoints[i * 3], normalPoints[i * 3 + 1], normalPoints[i * 3 + 2])));
+		GraphicsSystem::getInstance()->deleteBuffer(1, ibo);
 	}
-    
-	for (int i = 0; i < nTriangles; i++)
+	if (!meshVertices.empty())
 	{
-		this->triangles.push_back(triangles[i]);
+
+		GraphicsSystem::getInstance()->deleteBuffer(1, ibo);
 	}
-    
+
+
+
 #ifdef GUINITY_DEBUG
-	nCount++;
+	nCount--;
+	cout << "Mesh destroyed (" << nCount << " remaining)" << endl;
 #endif
-    
-	createBuffers3();
+
 }
 
 
+/** Adds a new vertex to the mesh */
 void Mesh::addVertex(glm::vec3 position, glm::vec2 uv, glm::vec3 normal)
 {
-	//int vertexIndex=	vertexExists(position, uv, normal);
-	//
-	//if (vertexIndex == -1)
-	//{
+	
 		meshVertices.push_back(MeshVertex(position, uv, normal));
-	//	return meshVertices.size() - 1;
-	//}
-	//else
-	//	return vertexIndex;
 		
 }
 
+/** Adds a new index to the triangles list*/
 void Mesh::addTriangle(int vertexIndex)
 {
 	triangles.push_back(vertexIndex);
 }
 
+/** scaleFactor Setter */
 void Mesh::setScaleFactor(float f)
 {
     scaleFactor = f;
@@ -128,73 +137,85 @@ void Mesh::setScaleFactor(float f)
 	if (mvbo != 0)
 	{
         GraphicsSystem::getInstance()->deleteBuffer(1,mvbo);
-        //glDeleteBuffers(1, &mvbo);
 		mvbo = 0;
 	}
 
     GraphicsSystem::getInstance()->generateBuffer(1,mvbo,GL_ARRAY_BUFFER,meshVertices.size() * sizeof(MeshVertex),&meshVertices[0],GL_STATIC_DRAW);
 
-//	glGenBuffers(1, &mvbo);
-//	glBindBuffer(GL_ARRAY_BUFFER, mvbo);
-//	glBufferData(GL_ARRAY_BUFFER, meshVertices.size() * sizeof(MeshVertex), &meshVertices[0], GL_STATIC_DRAW);
-
 	boundsMin *= f;
 	boundsMax *= f;
 	avgCenter *= f;
 }
+/** scaleFactor getter */
+float Mesh::getScaleFactor()
+{
+	return scaleFactor;
+}
+
+/** boundsMin Getter*/
+glm::vec3 Mesh::getBoundsMin()
+{
+	return boundsMin;
+}
+/** boundsMax Getter*/
+glm::vec3 Mesh::getBoundsMax()
+{
+	return boundsMax;
+}
+
+/** avgCenter Getter*/
+glm::vec3 Mesh::getAverageCenter()
+{
+	return avgCenter;
+}
 
 
+/** vao getter */
+float Mesh::getVertexArrayID()
+{
+	return vao;
+}
+/** mvbo getter */
+float Mesh::getVertexBuffer()
+{
+	return mvbo;
+}
+/** ibo getter */
+float Mesh::getTrianglesBuffer()
+{
+	return ibo;
+}
+
+/** Count of triangles list getter */
+int Mesh::getTrianglesCount()
+{
+	return triangles.size();
+}
+/** Count of Mesh Vertices */
+int Mesh::getVerticesCount()
+{
+	return meshVertices.size();
+}
+
+/** Create OpenGL buffers */
 void Mesh::createBuffers3()
 {
 	//nPoints = meshVertices.size();
 
 	vao = 0;
     GraphicsSystem::getInstance()->generateVertexArrays(1,vao);
-//    QTvao =
-//    glGenVertexArrays(1, &vao);
-//	glBindVertexArray(vao);
 
 	mvbo = 0;
     GraphicsSystem::getInstance()->generateBuffer(1,mvbo,GL_ARRAY_BUFFER,meshVertices.size() * sizeof(MeshVertex),&meshVertices[0],GL_STATIC_DRAW);
-//	glGenBuffers(1, &mvbo);
-//  glBindBuffer(GL_ARRAY_BUFFER, mvbo);
-//	glBufferData(GL_ARRAY_BUFFER, meshVertices.size() * sizeof(MeshVertex), &meshVertices[0], GL_STATIC_DRAW);
 
 	ibo = 0;
     GraphicsSystem::getInstance()->generateBuffer(1,ibo,GL_ELEMENT_ARRAY_BUFFER,triangles.size() * sizeof(unsigned short),&triangles[0],GL_STATIC_DRAW);
-//	glGenBuffers(1, &ibo);
-//	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ibo);
-//	glBufferData(GL_ELEMENT_ARRAY_BUFFER, triangles.size() * sizeof(unsigned short), &triangles[0], GL_STATIC_DRAW);
 
 	calculateBounds3();
 }
 
-Mesh::~Mesh()
-{
 
-	if (!triangles.empty())
-	{
-        GraphicsSystem::getInstance()->deleteBuffer(1,ibo);
-//		glDeleteBuffers(1, &ibo);
-	}
-	if (!meshVertices.empty())
-	{
-
-        GraphicsSystem::getInstance()->deleteBuffer(1,ibo);
-//		glDeleteBuffers(1, &mvbo);
-	}
-    //GraphicsSystem::getInstance()->deleteVertexArrays(1,ibo);
-    //glDeleteVertexArrays(1, &vao);
-
-
-#ifdef GUINITY_DEBUG
-	nCount--;
-	cout << "Mesh destroyed (" << nCount << " remaining)" << endl;
-#endif
-	
-}
-
-
+/** Calculate mesh bounds */
 void Mesh::calculateBounds3()
 {
 	float minX, minY, minZ, maxX, maxY, maxZ;
@@ -228,22 +249,10 @@ void Mesh::calculateBounds3()
 	avgCenter = sumPoints * (1.0f / meshVertices.size());
 }
 
+/** Returns non duplicate mesh vertices based on position only. It does not take into consideration other parameters such as UV or normal.
+This function was used by the ConvexHull in Math.hpp */
 vector<glm::vec3> Mesh::getNonDuplicateMeshVertex()
 {
-//    map<MeshVertex,int> vertexMapping;
-//    vector<glm::vec3> result;
-    
-//    for (auto &vertice : meshVertices)
-//    {
-//        glm::vec3 pos =vertice.position;
-//        
-//        if(find(vertexMapping.begin(),vertexMapping.end(),pos) != vertexMapping.end())
-//        //map<glm::vec3,int>::iterator it = vertexMapping.find(pos);
-//        
-////        if(it == vertexMapping.end())
-//            vertexMapping[pos] = 0;
-//    }
-   
     vector<glm::vec3> result;
     
     for (auto &vertice : meshVertices)

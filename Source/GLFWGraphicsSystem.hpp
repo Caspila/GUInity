@@ -7,8 +7,12 @@
 class GLFWGraphicsSystem : public GraphicsSystem
 {
 private:
+	/** Number of textures used on last draw call. Used to disable unused textures on OpenGL. */
     int currentTexturesUsed;
-    int screenWidth, screenHeight;
+	/** Screen width */
+	int screenWidth;
+	/** Screen height */
+	int screenHeight;
 public:
 	/** Default Destructor */
 	virtual ~GLFWGraphicsSystem() {};

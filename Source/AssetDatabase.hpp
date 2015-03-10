@@ -104,9 +104,9 @@ private:
 	/** creates a .png texture for the a Font */
 	static map<char, LetterFontUV> createFontTexture(FT_Face& face, string filename);
 	/** adds a Glyph (character) to the image buffer. Used by createFontTexture. */
-	static void addGlyphToBuffer(FT_Face& face, char letter, unsigned char* buffer, int bufferWidth, int bufferHeight, int xOffset, int yOffset, int& outGlyphWidth, int& outGlyphHeight);
+	static void addGlyphToBuffer(FT_Face& face, char letter, unsigned char* buffer, int bufferWidth, int bufferHeight, int xOffset, int yOffset, int yOrigin, int& outGlyphWidth, int& outGlyphHeight);
 	/** calculate the Width and Height of the resulting font Texture for the alphabet*/
-	static void getWidthHeightForAlphabet(FT_Face face, string alphabet, int& width, int& height);
+	static void getWidthHeightForAlphabet(FT_Face face, string alphabet, int& width, int& height, int &yOrigin);
 	/** Write a buffer to a .png file*/
 	static int writeImage(const char* filename, int width, int height, unsigned char *buffer, char* title);
 	/** loads a .png file to a buffer */

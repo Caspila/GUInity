@@ -172,7 +172,6 @@
     <ClCompile Include="..\Source\PhysXInsertionCallback.cpp" />
     <ClCompile Include="..\Source\PlayerScript.cpp" />
     <ClCompile Include="..\Source\print.cpp" />
-    <ClCompile Include="..\Source\QTGraphicsSystem.cpp" />
     <ClCompile Include="..\Source\Ray.cpp" />
     <ClCompile Include="..\Source\ReflectionTest.cpp" />
     <ClCompile Include="..\Source\Renderer.cpp" />
@@ -204,7 +203,6 @@
   <ItemGroup>
     <ClInclude Include="..\Source\Actor.hpp" />
     <ClInclude Include="..\Source\AddForceScript.hpp" />
-    <ClInclude Include="..\Source\AnyClass.hpp" />
     <ClInclude Include="..\Source\Asset.hpp" />
     <ClInclude Include="..\Source\AssetDatabase.hpp" />
     <ClInclude Include="..\Source\BoxCollider.hpp" />
@@ -249,7 +247,6 @@
     <ClInclude Include="..\Source\PlayerScript.hpp" />
     <ClInclude Include="..\Source\PointerHolder.hpp" />
     <ClInclude Include="..\Source\print.hpp" />
-    <ClInclude Include="..\Source\QTGraphicsSystem.hpp" />
     <ClInclude Include="..\Source\Ray.hpp" />
     <ClInclude Include="..\Source\ReflectionTest.h" />
     <ClInclude Include="..\Source\Renderer.hpp" />
