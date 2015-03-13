@@ -21,7 +21,9 @@ class MeshRenderer;
 class GLFWGraphicsSystem;
 class QOpenGLVertexArrayObject;
 class UIWidget;
+class Texture;
 struct MeshVertex;
+
 
 using namespace physx;
 
@@ -109,6 +111,8 @@ public:
 
 	/** Gets the uniform location for a string in a shader */
     virtual GLint getUniformLocation(GLuint programID,const char* name) = 0;
+
+	virtual shared_ptr<Texture> getDefaultTexture() = 0;
 
 	/** window Getter */
 	virtual shared_ptr<GLFWwindow> getWindow() { return window; }

@@ -14,6 +14,10 @@ class RigidBody : public Subject<RigidBody>,
 	, public StaticCounter<RigidBody>
 #endif
 {
+private:
+
+	PxRigidBody* physxRigidBody;
+
 public:
 	RigidBody();
 	virtual ~RigidBody();
@@ -22,11 +26,12 @@ public:
 	virtual void tick(float deltaSecods) override;
 	virtual void setActive(bool isActive) override;
 
-	PxRigidBody* physxRigidBody;
     
     // Every RigidBody will have a D6 joint to allow for locking degrees of freedom
 //    PxD6Joint* d6Joint;
     
+	PxRigidBody* getRigidbody();
+	
 	void setKinematic(bool isKinematic);
 
     bool getKinematic();
@@ -46,7 +51,8 @@ public:
     
     void addForce(glm::vec3 axis);
 
-
+	void setGravity(bool enabled);
+	bool getGravity();
     
 };
 

@@ -2,6 +2,7 @@
 #include "Physics.hpp"
 #include "Actor.hpp"
 #include "Converter.hpp"
+#include "MeshFilter.hpp"
 
 
 /** Deserialization Constructor*/
@@ -76,6 +77,8 @@ void SphereCollider::init()
             
         shape = Physics::createSphereCollider(radius,center,getActor());
     }
+	// Sets the material as the default one
+	Collider::init();
 }
 
 /** Get a description for the current component*/

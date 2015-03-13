@@ -13,6 +13,9 @@ private:
 	int screenWidth;
 	/** Screen height */
 	int screenHeight;
+
+	/** Default white texture */
+	shared_ptr<Texture> defaultTexture;
 public:
 	/** Default Destructor */
 	virtual ~GLFWGraphicsSystem() {};
@@ -64,7 +67,11 @@ public:
 	/** Gets the uniform location for a string in a shader */
     virtual GLint getUniformLocation(GLuint programID,const char* name) override;
 
-    /** Disable Textures that have are not needed for the current draw call */
+	/** Gets the uniform location for a string in a shader */
+	virtual shared_ptr<Texture> getDefaultTexture() override;
+
+	
+	/** Disable Textures that have are not needed for the current draw call */
     void disableNonUsedTextures(int nTextures) const;
 
 	

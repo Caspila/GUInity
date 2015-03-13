@@ -17,6 +17,10 @@ class Physics
 {
 	//enum ColliderType {sphere, box};
 
+
+	/*static PxMaterial* defaultPhysicsMaterial;*/
+	static shared_ptr<PhysicsMaterial> defaultPhysicsMaterial;
+
 public:
 	Physics();// shared_ptr<PxScene> physicsScene);
 	~Physics();
@@ -29,7 +33,6 @@ public:
 	static PxFoundation* gFoundation;
 	//static PxScene* scene;
 
-	static PxMaterial* defaultPhysicsMaterial;
 
 	static PhysXEventCallback* physxEventCallback;
 
@@ -66,8 +69,9 @@ public:
 
 	static PxScene* createPhysicsScene();
 
-	static shared_ptr<PhysicsMaterial> createMaterial(float friction, float dynamicFriction, float restitution);
+	static PxMaterial* createMaterial(float friction, float dynamicFriction, float restitution);
 
+	static shared_ptr<PhysicsMaterial> getDefaultMaterial();
 	//static void tick();
 	static void tickScene(PxScene* scene);
 

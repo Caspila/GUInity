@@ -1,6 +1,7 @@
 #include "Shader.hpp"
 #include <sstream>
 #include "GraphicsSystem.hpp"
+#include <regex>
 
 Shader::Shader()
 {
@@ -162,26 +163,23 @@ void Shader::LoadShaders(){
 
 void Shader::checkLine(const string& Line)
 {
-	size_t found = Line.find("uniform");
-	if (found != string::npos)
+	std::regex vec3Regex("uniform +(vec3|sampler2D) +(_[a-z|A-Z|0-9]+) *;");// [a - z | A - Z | 0 - 9] + +; ");// (sub)(.*)");
+	std::smatch res;
+	if (std::regex_search(Line, res, vec3Regex))
 	{
-		vector<string> splitted = split(Line, ' ');
-
-		if (splitted.size() >= 2)
+		// 0 is the full line
+		// 1 is the type
+		// 2 is the var name
+		if (res.size() == 3)
 		{
-			if (splitted[2][0] == '_')
-			{
-				if (splitted[1].compare("sampler2D") == 0)
-					params.insert(pair<string, ShaderParamType>(splitted[2], ShaderParamType::TEXTURE));
-				else if (splitted[1].compare("vec3") == 0)
-					params.insert(pair<string, ShaderParamType>(splitted[2], ShaderParamType::VEC3));
-				/*else if (splitted[1].compare("float"))
-					params.insert(pair<string, ShaderParamType>(splitted[2], ShaderParamType::FLOAT));
-					*/
-				cout << "Shader param:" << splitted[2] << endl;
-			}
+			if (res[1].str().compare("vec3")==0)
+				params.insert(pair<string, ShaderParamType>(res[2].str(), ShaderParamType::VEC3));
+			else if (res[1].str().compare("sampler2D")==0)
+				params.insert(pair<string, ShaderParamType>(res[2].str(), ShaderParamType::TEXTURE));
 		}
+	
 	}
+
 }
 
 void Shader::createUniformLocation()
@@ -191,8 +189,6 @@ void Shader::createUniformLocation()
 	for (; it != params.end(); it++)
 	{
 		const char* name = it->first.c_str();
-
-        //paramID.insert(pair<string, GLuint>(it->first, glGetUniformLocation(programID, name)));
 
         GLint uniformLocation = GraphicsSystem::getInstance()->getUniformLocation(programID, name);
         paramID.insert(pair<string, GLuint>(it->first,uniformLocation) );

@@ -1,8 +1,9 @@
 #pragma once
 #include "Component.hpp"
 #include <PxPhysics.h>
+#include "Physics.hpp"
 
-#include "MeshFilter.hpp"
+class PhysicsMaterial;
 
 using namespace physx;
 
@@ -18,6 +19,8 @@ protected:
 	PxShape* shape;
 	/** Used when been deserialized */
 	bool initWithData;
+	/** The physics material that determines the behaviour of the physics shape */
+	shared_ptr<PhysicsMaterial> physicsMaterial;
 
 public:
 	/** Default Constructor */
@@ -28,7 +31,7 @@ public:
 	/** Component Awake override */
 	virtual void awake() override{}
 	/** Component Init override */
-	virtual void init() override{};
+	virtual void init() override{ physicsMaterial = Physics::getDefaultMaterial(); };
 	/** Component setActive override */
     virtual void setActive(bool isActive) override;
 
@@ -40,6 +43,11 @@ public:
 	void setQueryOnly(bool queryOnly);
 	/** queryOnly getter*/
 	bool getQueryOnly();
+
+	/** physicsMaterial getter*/
+	void setPhysicsMaterial(shared_ptr<PhysicsMaterial> physMaterial);
+	/** physicsMaterial getter*/
+	shared_ptr<PhysicsMaterial> getPhysicsMaterial();
 
 	/** Prototype design pattern*/
 	virtual shared_ptr<Component> clone() { shared_ptr<Collider> compClone = make_shared<Collider>(); return compClone; };

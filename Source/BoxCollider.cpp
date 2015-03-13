@@ -2,6 +2,7 @@
 #include "Physics.hpp"
 #include "Actor.hpp"
 #include "Converter.hpp"
+#include "MeshFilter.hpp"
 
 using namespace physx;
 
@@ -55,6 +56,8 @@ void BoxCollider::init()
         
         shape = Physics::createBoxCollider(halfExtent,center,getActor());
     }
+	// Sets the material as the default one
+	Collider::init();
 }
 
 /** Get a description for the current component*/

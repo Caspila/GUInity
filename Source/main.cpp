@@ -165,6 +165,8 @@ int main(int argc, char *argv[]) {
 
 	checkFilesOnCommonData();
 
+	AssetDatabase::init();
+
     int notOK = GraphicsSystem::getInstance()->init(640,480);
 	if (notOK)
 		return 1;
@@ -175,12 +177,14 @@ int main(int argc, char *argv[]) {
 	
 	SoundSystem::getInstance()->init();
 
+	
+
     Physics physics;
     physics.init();
     
     EngineMode engineMode = EngineMode::editor;
     
-	AssetDatabase::init();
+	
 
 	
 		vector<MeshVertex> quadVertex;
@@ -236,6 +240,8 @@ int main(int argc, char *argv[]) {
 		triangles.push_back(2);
 		triangles.push_back(1);
 		triangles.push_back(3);
+
+		shared_ptr<PhysicsMaterial> bouncyPhysMaterial = AssetDatabase::createPhysicsMaterial("bouncy", 0.0f, 0.0f, 1.0f);
 
 		shared_ptr<Mesh> quadMesh = AssetDatabase::createMesh(quadVertex, triangles);
 
@@ -317,6 +323,14 @@ int main(int argc, char *argv[]) {
 		shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
 		meshRenderer->material = defaultMaterial;
 		shared_ptr<RigidBody> rigidBody = fbxTest->AddComponent<RigidBody>();
+		rigidBody->setRotateEnabled(TransformAxis::x, false);
+		rigidBody->setRotateEnabled(TransformAxis::y, false);
+		rigidBody->setRotateEnabled(TransformAxis::z, false);
+		rigidBody->setGravity(false);
+
+		shared_ptr<Collider> collider = fbxTest->AddComponent<SphereCollider>();
+		collider->setPhysicsMaterial(bouncyPhysMaterial);
+		
 		//rigidBody->setMoveEnabled(TransformAxis::y, false);
 		//    rigidBody->setMoveEnabled(TransformAxis::z, false);
 		//        rigidBody->setMoveEnabled(TransformAxis::x, false);
@@ -335,18 +349,19 @@ int main(int argc, char *argv[]) {
 
 		meshFilter = floor->AddComponent<MeshFilter>();
 		floor->transform->setPosition(glm::vec3(0, -4, -2));
-		floor->transform->setRotationQuat(glm::quat(glm::vec3(0, 0, 45 * Deg2Radian)));
+		//floor->transform->setRotationQuat(glm::quat(glm::vec3(0, 0, 45 * Deg2Radian)));
 		floor->transform->setScale(glm::vec3(5, 0.1f, 5.0f));
 
 		meshFilter->setMesh(cubeMesh);
 		meshRenderer = floor->AddComponent<MeshRenderer>();
 		meshRenderer->material = defaultMaterial;
-		floor->AddComponent<BoxCollider>();
+		collider = floor->AddComponent<BoxCollider>();
+		collider->setPhysicsMaterial(bouncyPhysMaterial);
 
 		shared_ptr<Actor> fontTest = Factory::CreateActor("FontTest");// , meshRenderer1);
 		shared_ptr<FontMesh> fontMesh = fontTest->AddComponent<FontMesh>();
 		fontMesh->setFont(font);
-		fontMesh->setText("opa, blz?");
+		fontMesh->setText("HEY THERE MATE!");
 		meshRenderer = fontTest->AddComponent<MeshRenderer>();
 		meshRenderer->setMaterial(fontMaterial);
 
@@ -467,7 +482,7 @@ int main(int argc, char *argv[]) {
 		myCamera->AddComponent<Camera>();
 		myCamera->AddComponent<EditorCameraControl>();
 
-		shared_ptr<PhysicsMaterial> physMaterial = physics.createMaterial(0.5f, 0.5f, 0.75f);
+		//shared_ptr<PhysicsMaterial> physMaterial = physics.createMaterial(0.5f, 0.5f, 0.75f);
 	}
 
     editor->world->awake();

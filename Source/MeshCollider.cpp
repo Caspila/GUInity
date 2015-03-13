@@ -27,6 +27,8 @@ void MeshCollider::init()
 
 	shape = Physics::createMeshCollider(getActor());
     
+	// Sets the material as the default one
+	Collider::init();
 }
 
 /** Component tick override. Updates the scale of the Mesh Shape in the PhysX scene. */

@@ -9,6 +9,7 @@
 #include "Math.hpp"
 #include "AssetDatabase.hpp"
 #include "Material.hpp"
+#include "MeshFilter.hpp"
 
 RotateTool::RotateTool()
 {

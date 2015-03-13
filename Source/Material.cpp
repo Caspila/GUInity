@@ -1,6 +1,7 @@
 
 #include "Material.hpp"
 #include "Shader.hpp"
+#include "GraphicsSystem.hpp"
 
 /** Default Constructor */
 Material::Material()
@@ -22,11 +23,11 @@ Material::Material(shared_ptr<Shader> shader)
 	{
 		if (it->second == TEXTURE)
 		{
-			params.insert(std::pair<string, Holder>(it->first, Holder(TEXTURE, nullptr)));
+			params.insert(std::pair<string, Holder>(it->first, Holder(TEXTURE, GraphicsSystem::getInstance()->getDefaultTexture())));
 		}
 		else if (it->second == VEC3)
 		{
-			params.insert(std::pair<string, Holder>(it->first, Holder(VEC3, glm::vec3())));
+			params.insert(std::pair<string, Holder>(it->first, Holder(VEC3, glm::vec3(1,1,1))));
 
 		}
 

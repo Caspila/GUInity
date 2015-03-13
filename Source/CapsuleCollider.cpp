@@ -2,6 +2,7 @@
 #include "Physics.hpp"
 #include "Math.hpp"
 #include "Actor.hpp"
+#include "MeshFilter.hpp"
 /** Deserialization Constructor*/
 CapsuleCollider::CapsuleCollider(RotateAxis orientation, float halfHeight, float radius,PxVec3 center = PxVec3(0,0,0))
 {
@@ -106,6 +107,9 @@ void CapsuleCollider::init()
         
         shape = Physics::createCapsuleCollider(radius,halfHeight,orientation,center,getActor());
     }
+
+	// Sets the material as the default one
+	Collider::init();
 }
 
 /** Get a description for the current component*/

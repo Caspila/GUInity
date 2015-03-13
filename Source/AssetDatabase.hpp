@@ -22,7 +22,7 @@ class Shader;
 class Texture;
 class Font;
 class Sound;
-
+class PhysicsMaterial;
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
@@ -79,6 +79,20 @@ public:
 	/** Create material from a shader. Several materials can have the same shader but different properties, such as textures and colors. */
 	static shared_ptr<Material> createMaterial(string name, shared_ptr<Shader> shader);
 	
+	//shared_ptr<PhysicsMaterial> Physics::createMaterial(float friction, float dynamicFriction, float restitution)
+	//{
+	//	shared_ptr<PxMaterial> material;
+	//	material.reset(gPhysicsSDK->createMaterial(friction, dynamicFriction, restitution), releaseMaterial);
+
+	//	shared_ptr<PhysicsMaterial> physics = make_shared<PhysicsMaterial>(friction, dynamicFriction, restitution, material);
+
+	//	return physics;
+	//}
+
+	/** Create a physics material that can be used to specify behaviour of shapes in the physics scene */
+	static shared_ptr<PhysicsMaterial> createPhysicsMaterial(string name, float friction, float dynamicFriction, float restitution);
+
+
 	/** Create mesh from .fbx files*/
     static shared_ptr<Mesh> createMeshFromFBX(string filename);
 	/** Create mesh from .obj files*/

@@ -185,6 +185,20 @@ void RigidBody::addForce(glm::vec3 axis)
 
 }
 
+PxRigidBody* RigidBody::getRigidbody()
+{
+	return physxRigidBody;
+}
+
+void RigidBody::setGravity(bool enabled)
+{
+	physxRigidBody->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
+}
+bool RigidBody::getGravity()
+{
+	return physxRigidBody->getActorFlags() & (PxActorFlag::eDISABLE_GRAVITY);
+}
+
 shared_ptr<ComponentDescription> RigidBody::getComponentDescription()
 {
     return make_shared<RigidBodyDescription>(getKinematic());
@@ -194,3 +208,4 @@ void RigidBody::deserialize(shared_ptr<ComponentDescription> desc)
 {
     
 }
+

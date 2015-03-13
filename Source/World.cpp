@@ -210,7 +210,7 @@ void World::onNotify(ComponentEventType type, shared_ptr<Component> component, b
 	case NewRigidBody:
 	{
 		shared_ptr<RigidBody> rigidBody = dynamic_pointer_cast<RigidBody>(component);
-		physicsScene->addActor(*rigidBody->physxRigidBody);
+		physicsScene->addActor(*rigidBody->getRigidbody());
 		break;
 	}
 	case NewRigidStatic:

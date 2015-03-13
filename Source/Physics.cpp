@@ -16,7 +16,8 @@
 //#include <PxToolkit.h>
 #include <PxConstraint.h>
 #include <PxConstraintDesc.h>
-
+#include <PxPhysics.h>
+#include "AssetDatabase.hpp"
 
 PhysXEventCallback* Physics::physxEventCallback;
 PxPhysics* Physics::gPhysicsSDK;
@@ -24,7 +25,8 @@ PxDefaultErrorCallback Physics::gDefaultErrorCallback;
 PxDefaultAllocator Physics::gDefaultAllocatorCallback;
 PxFoundation* Physics::gFoundation;
 PxReal Physics::myTimestep = 1.0f / 60.0f;
-PxMaterial* Physics::defaultPhysicsMaterial;
+//PxMaterial* Physics::defaultPhysicsMaterial;
+shared_ptr<PhysicsMaterial> Physics::defaultPhysicsMaterial;
 map<shared_ptr<Mesh>,PxConvexMesh*> Physics::convexMeshes;
 
 PxFilterFlags CustomSimulationFilterShader(
@@ -88,21 +90,28 @@ int Physics::init()
 	//gPhysicsSDK->createRigidStatic(();
 
     
-	defaultPhysicsMaterial = gPhysicsSDK->createMaterial(0.5f, 0.5f, 0.1f);
+	defaultPhysicsMaterial = AssetDatabase::createPhysicsMaterial("default",0.5f, 0.5f, 0.1f);
+
+	//defaultPhysicsMaterial = gPhysicsSDK->createMaterial(0.5f, 0.5f, 0.1f);
 
     return 0;
 }
 	
-
-
-shared_ptr<PhysicsMaterial> Physics::createMaterial(float friction, float dynamicFriction, float restitution)
+shared_ptr<PhysicsMaterial> Physics::getDefaultMaterial()
 {
-	shared_ptr<PxMaterial> material;
-	material.reset(gPhysicsSDK->createMaterial(friction, dynamicFriction, restitution), releaseMaterial);
+	return defaultPhysicsMaterial;
+}
 
-	shared_ptr<PhysicsMaterial> physics = make_shared<PhysicsMaterial>(friction, dynamicFriction, restitution, material);
+PxMaterial* Physics::createMaterial(float friction, float dynamicFriction, float restitution)
+{
+	//shared_ptr<PxMaterial> material;
+	//material.reset(gPhysicsSDK->createMaterial(friction, dynamicFriction, restitution), releaseMaterial);
 
-	return physics;
+	//shared_ptr<PhysicsMaterial> physics = make_shared<PhysicsMaterial>(friction, dynamicFriction, restitution, material);
+
+	//return physics;
+
+	return gPhysicsSDK->createMaterial(friction, dynamicFriction, restitution);
 }
 
 PxRigidDynamic* Physics::createRigidDynamic(shared_ptr<Actor> actor)
@@ -211,7 +220,7 @@ PxShape* Physics::createBoxCollider(PxVec3 halfExtent, PxVec3 center, shared_ptr
     PxShape* shape = nullptr;
 	if (rigidBody)
 	{
-		shape = rigidBody->physxRigidBody->createShape(PxBoxGeometry(halfExtent), *defaultPhysicsMaterial);
+		shape = rigidBody->getRigidbody()->createShape(PxBoxGeometry(halfExtent), *defaultPhysicsMaterial->getMaterial());// , *defaultPhysicsMaterial);
 	}
 	else
 	{
@@ -219,7 +228,7 @@ PxShape* Physics::createBoxCollider(PxVec3 halfExtent, PxVec3 center, shared_ptr
 		if (!rigidStatic)
 			rigidStatic = actor->AddComponent<RigidStatic>();
         
-        shape = rigidStatic->physxRigidStatic->createShape(PxBoxGeometry(halfExtent), *defaultPhysicsMaterial);
+		shape = rigidStatic->physxRigidStatic->createShape(PxBoxGeometry(halfExtent), *defaultPhysicsMaterial->getMaterial());
         shape->userData = (void*)actor.get();
         
 	}
@@ -259,7 +268,7 @@ PxShape* Physics::createSphereCollider(float radius, PxVec3 center, shared_ptr<A
 	if (rigidBody)
 	{
         
-		shape = rigidBody->physxRigidBody->createShape(PxSphereGeometry(radius), *defaultPhysicsMaterial);
+		shape = rigidBody->getRigidbody()->createShape(PxSphereGeometry(radius), *defaultPhysicsMaterial->getMaterial());
 	}
 	else
 	{
@@ -268,7 +277,7 @@ PxShape* Physics::createSphereCollider(float radius, PxVec3 center, shared_ptr<A
 		if (!rigidStatic)
 			rigidStatic = actor->AddComponent<RigidStatic>();
         
-        shape = rigidStatic->physxRigidStatic->createShape(PxSphereGeometry(radius), *defaultPhysicsMaterial);
+		shape = rigidStatic->physxRigidStatic->createShape(PxSphereGeometry(radius), *defaultPhysicsMaterial->getMaterial());
         shape->userData = (void*)actor.get();
     }
     
@@ -379,7 +388,7 @@ PxShape* Physics::createCapsuleCollider(float radius, float halfHeight, RotateAx
     PxShape* shape = nullptr;
 	if (rigidBody)
 	{
-		shape = rigidBody->physxRigidBody->createShape(PxCapsuleGeometry(radius,halfHeight), *defaultPhysicsMaterial);
+		shape = rigidBody->getRigidbody()->createShape(PxCapsuleGeometry(radius, halfHeight), *defaultPhysicsMaterial->getMaterial());
 	}
 	else
 	{
@@ -388,7 +397,7 @@ PxShape* Physics::createCapsuleCollider(float radius, float halfHeight, RotateAx
 		if (!rigidStatic)
 			rigidStatic = actor->AddComponent<RigidStatic>();
         
-		shape = rigidStatic->physxRigidStatic->createShape(PxCapsuleGeometry(radius,halfHeight), *defaultPhysicsMaterial);
+		shape = rigidStatic->physxRigidStatic->createShape(PxCapsuleGeometry(radius, halfHeight), *defaultPhysicsMaterial->getMaterial());
 		shape->userData = (void*)actor.get();
 	}
     
@@ -611,7 +620,7 @@ PxShape* Physics::createMeshCollider(shared_ptr<Actor> actor)
 	if (rigidBody)
 	{
 		
-		shape = rigidBody->physxRigidBody->createShape(geo, *defaultPhysicsMaterial);
+		shape = rigidBody->getRigidbody()->createShape(geo, *defaultPhysicsMaterial->getMaterial());
 	
 	}
 	else
@@ -621,7 +630,7 @@ PxShape* Physics::createMeshCollider(shared_ptr<Actor> actor)
 		if (!rigidStatic)
 			rigidStatic = actor->AddComponent<RigidStatic>();
 		//
-		shape = rigidStatic->physxRigidStatic->createShape(geo, *defaultPhysicsMaterial);
+		shape = rigidStatic->physxRigidStatic->createShape(geo, *defaultPhysicsMaterial->getMaterial());
 		//shape->userData = (void*)actor.get();
 	}
 
@@ -677,8 +686,8 @@ void Physics::applyRigidBodyConstraints(PxScene* scene)
         shared_ptr<RigidBody> rigidBody = a->GetComponent<RigidBody>();
         
         
-        PxVec3 currentVelocity = rigidBody->physxRigidBody->getLinearVelocity();
-        PxVec3 angularVelocity = rigidBody->physxRigidBody->getAngularVelocity();
+		PxVec3 currentVelocity = rigidBody->getRigidbody()->getLinearVelocity();
+		PxVec3 angularVelocity = rigidBody->getRigidbody()->getAngularVelocity();
         if(rigidBody->lockMoveX)
             currentVelocity.x = 0;
         if(rigidBody->lockMoveY)
@@ -693,8 +702,8 @@ void Physics::applyRigidBodyConstraints(PxScene* scene)
         if(rigidBody->lockRotateZ)
             angularVelocity.z = 0;
         
-        rigidBody->physxRigidBody->setLinearVelocity(currentVelocity);
-        rigidBody->physxRigidBody->setAngularVelocity(angularVelocity);
+		rigidBody->getRigidbody()->setLinearVelocity(currentVelocity);
+		rigidBody->getRigidbody()->setAngularVelocity(angularVelocity);
         
 	}
 }

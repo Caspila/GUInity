@@ -1,4 +1,5 @@
 #include "Collider.hpp"
+#include <PhysicsMaterial.hpp>
 
 /** Component setActive override */
 void Collider::setActive(bool isActive)
@@ -29,4 +30,18 @@ bool Collider::getQueryOnly()
 	return shape->getFlags() & PxShapeFlag::eSCENE_QUERY_SHAPE;
 }
 
+/** physicsMaterial getter*/
+void Collider::setPhysicsMaterial(shared_ptr<PhysicsMaterial> physMaterial)
+{
+	physicsMaterial = physMaterial;
 
+	PxMaterial* mat = physicsMaterial->getMaterial();
+	PxMaterial* const newMat = const_cast<PxMaterial* const>(mat);
+
+	shape->setMaterials(&newMat, 1);
+}
+/** physicsMaterial getter*/
+shared_ptr<PhysicsMaterial> Collider::getPhysicsMaterial()
+{
+	return physicsMaterial;
+}

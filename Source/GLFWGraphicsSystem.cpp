@@ -57,9 +57,10 @@ int GLFWGraphicsSystem::init(int width, int height)
     glEnable(GL_CULL_FACE);
     glFrontFace(GL_CCW);
     
-
-    
     createDebugShader();
+
+	defaultTexture = AssetDatabase::createTexture(CommonData("white.png"));
+
 	return 0;
 
 }
@@ -411,4 +412,11 @@ GLint GLFWGraphicsSystem::getUniformLocation(const GLuint shaderProgram, const G
 		throw std::runtime_error(std::string("Program uniform not found: ") + uniformName);
 
 	return uniform;
+}
+
+
+shared_ptr<Texture> GLFWGraphicsSystem::getDefaultTexture()
+{
+
+	return defaultTexture;
 }

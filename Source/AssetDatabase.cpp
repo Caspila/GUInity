@@ -21,6 +21,7 @@
 #include "Font.hpp"
 #include "Sound.hpp"
 #include <freetype/ftglyph.h>
+#include "PhysicsMaterial.hpp"
 
 /** currentID, "Primary Key"*/
 unsigned int AssetDatabase::currentID = 0;
@@ -193,6 +194,12 @@ shared_ptr<Material> AssetDatabase::createMaterial(string filename, shared_ptr<S
     shared_ptr<Material> material = make_shared<Material>(shader);
     assignCurrentID(material,filename);
     return material;
+}
+shared_ptr<PhysicsMaterial> AssetDatabase::createPhysicsMaterial(string name, float friction, float dynamicFriction, float restitution)
+{
+	shared_ptr<PhysicsMaterial> physicsMaterial = make_shared<PhysicsMaterial>(friction,dynamicFriction,restitution);
+	assignCurrentID(physicsMaterial, name);
+	return physicsMaterial;
 }
 
 /** Create mesh from .fbx files*/
@@ -423,6 +430,7 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     delete[] row_pointers;
     fclose(fp);
     
+	
     return image_data;
 }
 
