@@ -1,0 +1,19 @@
+#version 400
+
+uniform vec3 ambientLightColor ;
+uniform float ambientLightIntensity ;
+uniform mat4 model ;
+uniform vec3 lightPos ;
+uniform vec3 lightIntensity ;
+uniform sampler2D _textureSampler;
+uniform vec4 _difuseColor ;
+
+
+in vec2 UV;
+
+
+out vec4 finalColor;
+
+void main(){
+	finalColor = _difuseColor * texture( _textureSampler, UV ).rgba;
+}

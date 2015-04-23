@@ -87,7 +87,6 @@ int GLFWGraphicsSystem::init(int width, int height)
  /** Clear buffers*/
  void GLFWGraphicsSystem::clear()
  {
-
 	 glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
  }
 
@@ -171,7 +170,7 @@ void GLFWGraphicsSystem::renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector)
 //    }
 }
 
-/** Disable Textures that have are not needed for the current draw call */
+/** Disable Textures that are not needed for the current draw call */
 void GLFWGraphicsSystem::disableNonUsedTextures(int nTextures) const
 {
     int startingIndex = currentTexturesUsed -(currentTexturesUsed - nTextures);
@@ -212,23 +211,24 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         float ambientLight = 0.1f;
         glm::vec3 ambientLightColor(1.0, 1.0, 1.0);
 
-        glUniform3fv(getUniformLocation(shaderProgram, "ambientLightColor"), 1, &ambientLightColor[0]);
-		glUniform1f(getUniformLocation(shaderProgram, "ambientLightIntensity"), ambientLight);
+		setUniform3fv(shaderProgram, "ambientLightColor", 1, &ambientLightColor[0]);
+		setUniform1f(shaderProgram, "ambientLightIntensity", ambientLight);
 
 
-		glUniformMatrix4fv(getUniformLocation(shaderProgram, "camera"), 1, GL_FALSE, &camera->getMVPMatrix()[0][0]);
-		glUniformMatrix4fv(getUniformLocation(shaderProgram, "model"), 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
-        for (int j = 0; j < lights.size(); j++)
+		setUniformMatrix4fv(shaderProgram, "camera", 1, GL_FALSE, &camera->getMVPMatrix()[0][0]);
+		setUniformMatrix4fv(shaderProgram, "model", 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
+
+
+      for (int j = 0; j < lights.size(); j++)
         {
             shared_ptr<Light> light = lights[j];
 
-			glUniform3fv(getUniformLocation(shaderProgram, "lightPos"), 1, &light->getActor()->transform->position[0]);
-			glUniform3fv(getUniformLocation(shaderProgram, "lightIntensity"), 1, &light->getColor()[0]);
-        }
+			setUniform3fv(shaderProgram, "lightPos", 1, &light->getActor()->transform->position[0]);
+			setUniform3fv(shaderProgram, "lightIntensity", 1, &light->getColor()[0]);
+
+}
 
         vector<Material::StringTexPair> stringTexPairs = meshRenderer->material->getAllTextureParams();
-
-		//shared_ptr<Texture> texture = meshRenderer->material->getTextureParam("myTextureSampler");
 
         disableNonUsedTextures(stringTexPairs.size());
         int texCount = 0;
@@ -241,10 +241,11 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
             texCount++;
         }
 
-		vector<Material::StringVec3Pair> stringVec3Pairs = meshRenderer->material->getAllVec3Params();
-		for (auto& stringVec3Pair : stringVec3Pairs)
+		vector<Material::StringVec4Pair> stringVec4Pairs = meshRenderer->material->getAllVec4Params();
+		for (auto& stringVec4Pair : stringVec4Pairs)
 		{
-			glUniform3fv(getUniformLocation(shaderProgram, stringVec3Pair.first.c_str()), 1, &stringVec3Pair.second[0]);
+			setUniform4fv(shaderProgram, stringVec4Pair.first.c_str(), 1, &stringVec4Pair.second[0]);
+			//glUniform4fv(getUniformLocation(shaderProgram, stringVec4Pair.first.c_str()), 1, &stringVec4Pair.second[0]);
 		}
         
 		glBindVertexArray(meshComponent->getMesh()->getVertexArrayID());
@@ -403,13 +404,28 @@ GLuint GLFWGraphicsSystem::createShaderProgram()
 
 
 /** Gets the uniform location for a string in a shader */
+//GLint GLFWGraphicsSystem::getUniformLocation(const GLuint shaderProgram, const GLchar* uniformName) {
+//	if (!uniformName)
+//		throw std::runtime_error("uniformName was NULL");
+//
+//	GLint uniform = glGetUniformLocation(shaderProgram, uniformName);
+//	if (uniform == -1)
+//		throw std::runtime_error(std::string("Program uniform not found: ") + uniformName);
+//
+//	return uniform;
+//}
+
 GLint GLFWGraphicsSystem::getUniformLocation(const GLuint shaderProgram, const GLchar* uniformName) {
+	
 	if (!uniformName)
-		throw std::runtime_error("uniformName was NULL");
+		return -1;
+		//cout << "Warning: Trying to get Uniform Location with null uniform name " << endl;
+		//throw std::runtime_error("uniformName was NULL");
 
 	GLint uniform = glGetUniformLocation(shaderProgram, uniformName);
-	if (uniform == -1)
-		throw std::runtime_error(std::string("Program uniform not found: ") + uniformName);
+	/*if (uniform == -1)
+		cout << "Warning: Shader uniform " << uniformName << " not found " << endl;
+	*/	//throw std::runtime_error(std::string("Program uniform not found: ") + uniformName);
 
 	return uniform;
 }
@@ -419,4 +435,55 @@ shared_ptr<Texture> GLFWGraphicsSystem::getDefaultTexture()
 {
 
 	return defaultTexture;
+}
+
+
+bool  GLFWGraphicsSystem::setUniform4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value)
+{
+	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
+
+	if (uniformLocation != -1)
+	{
+		glUniform4fv(uniformLocation, count, value);
+		return true;
+	}
+
+	return false;
+}
+bool  GLFWGraphicsSystem::setUniform3fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value)
+{
+	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
+
+	if (uniformLocation != -1)
+	{
+		glUniform3fv(uniformLocation, count, value);
+		return true;
+	}
+
+	return false;
+}
+bool  GLFWGraphicsSystem::setUniform1f(const GLuint& shaderProgram, const GLchar* uniformName, GLfloat value)
+{
+	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
+
+	if (uniformLocation != -1)
+	{
+		glUniform1f(uniformLocation, value);
+		return true;
+	}
+
+	return false;
+}
+
+bool  GLFWGraphicsSystem::setUniformMatrix4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLboolean transpose, GLfloat* value)
+{
+	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
+
+	if (uniformLocation != -1)
+	{
+		glUniformMatrix4fv(uniformLocation, 1, transpose, value);
+		return true;
+	}
+
+	return false;
 }

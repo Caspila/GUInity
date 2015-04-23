@@ -245,7 +245,7 @@ int main(int argc, char *argv[]) {
 
 		shared_ptr<Mesh> quadMesh = AssetDatabase::createMesh(quadVertex, triangles);
 
-		//shared_ptr<Texture> whiteTexture = AssetDatabase::createTexture(CommonData("white.png"));
+	//	shared_ptr<Texture> whiteTexture = AssetDatabase::createTexture(CommonData("white2.png"));
 		shared_ptr<Texture> texture = AssetDatabase::createTexture(CommonData("button.png"));
 
 		shared_ptr<Font> font = AssetDatabase::createFont(CommonData("arial.ttf"),48);
@@ -292,15 +292,16 @@ int main(int argc, char *argv[]) {
 		//    
 
 
-		shared_ptr<Shader> s = AssetDatabase::createShader("LightShader", CommonData("vsLight.vs"), CommonData("fsLight.fragmentshader"));
+		shared_ptr<Shader> diffuseShader = AssetDatabase::createShader("LightShader", CommonData("vsLight.vs"), CommonData("fsLight.fragmentshader"));
+		shared_ptr<Shader> unlitShader = AssetDatabase::createShader("UnlitShader", CommonData("vsUnlit.vs"), CommonData("fsUnlit.fragmentshader"));
 		//shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsNoLight.fragmentshader"));
 
-		shared_ptr<Material> defaultMaterial = AssetDatabase::createMaterial("DefaultMaterial", s);
-		defaultMaterial->setParamTexture("_textureSampler", texture);
-		defaultMaterial->setParamVec3("_difuseColor", glm::vec3(1,0,0));
-		shared_ptr<Material> fontMaterial = AssetDatabase::createMaterial("FontMaterial", s);
+		shared_ptr<Material> defaultMaterial = AssetDatabase::createMaterial("DefaultMaterial", diffuseShader);
+//		defaultMaterial->setParamTexture("_textureSampler", whiteTexture);
+		defaultMaterial->setParamVec4("_difuseColor", glm::vec4(1,1,1,1));
+		shared_ptr<Material> fontMaterial = AssetDatabase::createMaterial("FontMaterial", unlitShader);
 		fontMaterial->setParamTexture("_textureSampler", font->getFontTexture());
-		fontMaterial->setParamVec3("_difuseColor", glm::vec3(0, 1, 0));
+		fontMaterial->setParamVec4("_difuseColor", glm::vec4(1, 1, 1,1));
 
 		shared_ptr<Editor> editor = make_shared<Editor>();
 		editor->init();
@@ -323,11 +324,11 @@ int main(int argc, char *argv[]) {
 		shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
 		meshRenderer->material = defaultMaterial;
 		shared_ptr<RigidBody> rigidBody = fbxTest->AddComponent<RigidBody>();
-		rigidBody->setRotateEnabled(TransformAxis::x, false);
+	/*	rigidBody->setRotateEnabled(TransformAxis::x, false);
 		rigidBody->setRotateEnabled(TransformAxis::y, false);
 		rigidBody->setRotateEnabled(TransformAxis::z, false);
-		rigidBody->setGravity(false);
-
+		rigidBody->setGravity(true);
+*/
 		shared_ptr<Collider> collider = fbxTest->AddComponent<SphereCollider>();
 		collider->setPhysicsMaterial(bouncyPhysMaterial);
 		
@@ -361,7 +362,7 @@ int main(int argc, char *argv[]) {
 		shared_ptr<Actor> fontTest = Factory::CreateActor("FontTest");// , meshRenderer1);
 		shared_ptr<FontMesh> fontMesh = fontTest->AddComponent<FontMesh>();
 		fontMesh->setFont(font);
-		fontMesh->setText("HEY THERE MATE!");
+		fontMesh->setText("hey there mate!");
 		meshRenderer = fontTest->AddComponent<MeshRenderer>();
 		meshRenderer->setMaterial(fontMaterial);
 

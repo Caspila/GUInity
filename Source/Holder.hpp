@@ -23,7 +23,7 @@ private:
 	/** The float value*/
 	float floatValue;
 	/** The vec3 value*/
-	glm::vec3 vec3Value;
+	glm::vec4 vec4Value;
 	/** The Texture pointer value*/
 	weak_ptr<Texture> texValue;
 
@@ -35,8 +35,8 @@ public:
 	/** The explicit is very important here because we don't want any implicit conversions among types*/
 	/** Constructor for a float*/
 	explicit Holder(ShaderParamType type, float val);
-	/** Constructor for a vec3*/
-	explicit Holder(ShaderParamType type,glm::vec3 val);
+	/** Constructor for a vec4*/
+	explicit Holder(ShaderParamType type,const glm::vec4& val);
 	/** Constructor for a Texture*/
 	explicit Holder(ShaderParamType type,shared_ptr<Texture> val);
 	~Holder() {
@@ -45,14 +45,14 @@ public:
 
 	/** returns true if it is a float value */
 	bool isFloat() const;
-	/** returns true if it is a vec3 value */
-	bool isVec3() const;
+	/** returns true if it is a vec4 value */
+	bool isVec4() const;
 	/** returns true if it is a Texture value */
 	bool isTexture() const;
 	/** returns the float value */
 	float getFloat() const;
-	/** returns the vec3 value */
-    glm::vec3 getVec3() const;
+	/** returns the vec4 value */
+    glm::vec4 getVec4() const;
 	/** returns the Texture value */
     shared_ptr<Texture> getTexture() const;
 

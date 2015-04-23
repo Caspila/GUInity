@@ -25,9 +25,9 @@ Material::Material(shared_ptr<Shader> shader)
 		{
 			params.insert(std::pair<string, Holder>(it->first, Holder(TEXTURE, GraphicsSystem::getInstance()->getDefaultTexture())));
 		}
-		else if (it->second == VEC3)
+		else if (it->second == VEC4)
 		{
-			params.insert(std::pair<string, Holder>(it->first, Holder(VEC3, glm::vec3(1,1,1))));
+			params.insert(std::pair<string, Holder>(it->first, Holder(VEC4, glm::vec4(1,1,1,1))));
 
 		}
 
@@ -78,13 +78,13 @@ bool Material::paramExists(string paramName)
 	return false;
 }
 
-/** Set a vec3 param that has name paramName*/
-void Material::setParamVec3(string paramName, glm::vec3 paramValue)
+/** Set a vec4 param that has name paramName*/
+void Material::setParamVec4(string paramName,const glm::vec4& paramValue)
 {
 
 	auto found = params.find(paramName);
 	if (found != params.end())
-		params[paramName] = Holder(VEC3,paramValue);
+		params[paramName] = Holder(VEC4,paramValue);
 
 	else
 		cerr << "Material error: " << paramName << " does not exist" << endl;
@@ -96,7 +96,7 @@ void Material::setParamFloat(string paramName, float paramValue)
 
 	auto found = params.find(paramName);
 	if (found != params.end())
-		params[paramName] = Holder(VEC3, paramValue);
+		params[paramName] = Holder(VEC4, paramValue);
 
 	else
 		cerr << "Material error: " << paramName << " does not exist" << endl;
@@ -136,17 +136,17 @@ vector<Material::StringTexPair> Material::getAllTextureParams()
 }
 
 /** Gets all Vec3 params*/
-vector<Material::StringVec3Pair> Material::getAllVec3Params()
+vector<Material::StringVec4Pair> Material::getAllVec4Params()
 {
-	vector<Material::StringVec3Pair>result;
+	vector<Material::StringVec4Pair>result;
 
 	auto it = params.begin();
 
 	while (it != params.end())
 	{
-		if (it->second.isVec3())
+		if (it->second.isVec4())
 		{
-			result.push_back(Material::StringVec3Pair(it->first, it->second.getVec3()));
+			result.push_back(Material::StringVec4Pair(it->first, it->second.getVec4()));
 		}
 		it++;
 	}

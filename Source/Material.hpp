@@ -45,19 +45,19 @@ public:
 
 	/** Checks if param exists on params map*/
 	bool paramExists(string paramName);
-	/** Set a vec3 param that has name paramName*/
-	void setParamVec3(string paramName, glm::vec3 paramValue);
+	/** Set a vec4 param that has name paramName*/
+	void setParamVec4(string paramName, const glm::vec4& paramValue);
 	/** Set a float param that has name paramName*/
 	void setParamFloat(string paramName, float paramValue);
 	/** Set a Texture param that has name paramName*/
 	void setParamTexture(string paramName, shared_ptr<Texture> paramValue);
     
     typedef pair<string, shared_ptr<Texture>> StringTexPair;
-	typedef pair<string, glm::vec3> StringVec3Pair;
+	typedef pair<string, glm::vec4> StringVec4Pair;
 	/** Gets all Texture params*/
 	vector<StringTexPair> getAllTextureParams();
-	/** Gets all Vec3 params*/
-	vector<StringVec3Pair> getAllVec3Params();
+	/** Gets all Vec4 params*/
+	vector<StringVec4Pair> getAllVec4Params();
 
 
 };

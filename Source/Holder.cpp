@@ -9,11 +9,11 @@ Holder::Holder(ShaderParamType type,float val)
 	this->type = type;
 	floatValue = val;
 }
-/** Constructor for a vec3*/
-Holder::Holder(ShaderParamType type,glm::vec3 val)
+/** Constructor for a vec4*/
+Holder::Holder(ShaderParamType type,const glm::vec4& val)
 {
 	this->type = type;
-	vec3Value = val;
+	vec4Value = glm::vec4(val);
 
 }
 
@@ -30,9 +30,9 @@ bool Holder::isFloat() const
 	return this->type == FLOAT;
 }
 /** returns true if it is a vec3 value */
-bool Holder::isVec3() const
+bool Holder::isVec4() const
 {
-	return this->type == VEC3;
+	return this->type == VEC4;
 }
 /** returns true if it is a Texture value */
 bool Holder::isTexture() const
@@ -49,12 +49,12 @@ float Holder::getFloat() const {
 	return floatValue;
 }
 /** returns the vec3 value */
-glm::vec3 Holder::getVec3() const {
-	if (this->type != VEC3) {
+glm::vec4 Holder::getVec4() const {
+	if (this->type != VEC4) {
 		//throw SomeException();
-		cerr << "Trying to convert type to vec3 but it is not" << endl;
+		cerr << "Trying to convert type to vec4 but it is not" << endl;
 	}
-	return vec3Value;
+	return vec4Value;
 }
 /** returns the Texture value */
 shared_ptr<Texture> Holder::getTexture() const {

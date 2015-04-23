@@ -10,7 +10,7 @@ enum ComponentEventType{ NewMeshRenderer, NewCamera, NewLight, NewRigidBody, New
 
 /** Types supported for shader and materials*/
 enum ShaderParamType {
-	VEC3,
+	VEC4,
 	FLOAT,
 	TEXTURE
 };

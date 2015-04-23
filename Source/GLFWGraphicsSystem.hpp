@@ -74,6 +74,11 @@ public:
 	/** Disable Textures that have are not needed for the current draw call */
     void disableNonUsedTextures(int nTextures) const;
 
+
+	bool  GLFWGraphicsSystem::setUniform4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value);
+	bool  GLFWGraphicsSystem::setUniform3fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value);
+	bool  GLFWGraphicsSystem::setUniform1f(const GLuint& shaderProgram, const GLchar* uniformName, GLfloat value);
+	bool  GLFWGraphicsSystem::setUniformMatrix4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLboolean transpose, GLfloat* value);
 	
 };
 
