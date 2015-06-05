@@ -25,7 +25,25 @@ void RigidBody::init()
 {
 	
 	physxRigidBody = Physics::createRigidDynamic(getActor());
-    lockMoveX = lockMoveY = lockMoveZ = lockRotateX = lockRotateY = lockRotateZ = false;
+    if(initWithData)
+    {
+        setMoveEnabled(TransformAxis::x, lockMoveX);
+        setMoveEnabled(TransformAxis::y, lockMoveY);
+        setMoveEnabled(TransformAxis::z, lockMoveZ);
+
+        setRotateEnabled(TransformAxis::x, lockRotateX);
+        setRotateEnabled(TransformAxis::y, lockRotateY);
+        setMoveEnabled(TransformAxis::z, lockRotateZ);
+
+        setKinematic(isKinematic);
+        setGravity(gravityEnabled);
+        
+    }
+    else
+    {
+        lockMoveX = lockMoveY = lockMoveZ = lockRotateX = lockRotateY = lockRotateZ = false;
+        
+    }
 //    d6Joint = Physics::createD6Joint(getActor(),physxRigidBody);
 
 
@@ -55,12 +73,16 @@ void RigidBody::tick(float deltaSeconds)
 
 void RigidBody::setKinematic(bool isKinematic)
 {
+    this->isKinematic = isKinematic;
+    
 	physxRigidBody->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, isKinematic);
 }
 
 bool RigidBody::getKinematic()
 {
-    return physxRigidBody->getRigidBodyFlags() & (PxRigidBodyFlag::eKINEMATIC);
+    return isKinematic;
+    
+//    return physxRigidBody->getRigidBodyFlags() & (PxRigidBodyFlag::eKINEMATIC);
 }
 
 void RigidBody::setActive(bool isActive)
@@ -179,9 +201,8 @@ void RigidBody::updateTransform(const PxTransform& newTransform)
 }
 void RigidBody::addForce(glm::vec3 axis)
 {
-//    physxRigidBody->addForce(PxVec3(0,0,10),)
+
     physxRigidBody->addForce(glmVec3ToPhysXVec3(axis));
-//    physxRigidBody->addForce()
 
 }
 
@@ -192,12 +213,35 @@ PxRigidBody* RigidBody::getRigidbody()
 
 void RigidBody::setGravity(bool enabled)
 {
+    this->gravityEnabled = enabled;
 	physxRigidBody->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
 }
 bool RigidBody::getGravity()
 {
-	return physxRigidBody->getActorFlags() & (PxActorFlag::eDISABLE_GRAVITY);
+    return gravityEnabled;
+//	return physxRigidBody->getActorFlags() & (PxActorFlag::eDISABLE_GRAVITY);
 }
+
+shared_ptr<Component> RigidBody::clone()
+{
+    shared_ptr<RigidBody> compClone = make_shared<RigidBody>();
+    
+    compClone->setCopyMode(true);
+    compClone->lockMoveX = lockMoveX;
+    compClone->lockMoveY = lockMoveY;
+    compClone->lockMoveZ = lockMoveZ;
+    
+    compClone->lockRotateX = lockRotateX;
+    compClone->lockRotateY = lockRotateY;
+    compClone->lockRotateZ = lockRotateZ;
+    
+    compClone->isKinematic = isKinematic;
+    
+    compClone->gravityEnabled = gravityEnabled;
+    
+    return compClone;
+};
+
 
 shared_ptr<ComponentDescription> RigidBody::getComponentDescription()
 {

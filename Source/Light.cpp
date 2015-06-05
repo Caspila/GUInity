@@ -41,6 +41,13 @@ void Light::init()
 	Light::notify(ComponentEventType::NewLight, shared_from_this(), getActor()->getEditorFlag());
 }
 
+/** Prototype design pattern*/
+shared_ptr<Component> Light::clone()
+{
+    shared_ptr<Light> compClone = make_shared<Light>(getColor());
+    return compClone;
+}
+
 /** Get a description for the current component*/
 shared_ptr<ComponentDescription> Light::getComponentDescription()
 {

@@ -63,14 +63,19 @@ shared_ptr<Actor> Factory::CreateActor(string name)
 
 	actor->setEditorFlag(false);
 
-    CreateReferenceActor(actor);
-
+    notify(ActorEventType::NewActor, actor, false);
+    
+//    CreateReferenceActor(actor);
+    
 	return actor;
 }
+
+
+
 /** Create reference actor. Every Actor in the Game World has a Reference Actor in the Editor World to allow them to be manipulated */
 void Factory::CreateReferenceActor(shared_ptr<Actor> realActor)
 {
-    notify(ActorEventType::NewActor, realActor, false);
+
     
     shared_ptr<Actor> editorRef = CreateEditorActor(string(realActor->name).append("___editorRef"));
 	shared_ptr<EditorCollider> editorCollider = editorRef->AddComponent<EditorCollider>();

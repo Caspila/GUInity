@@ -75,10 +75,10 @@ public:
     void disableNonUsedTextures(int nTextures) const;
 
 
-	bool  GLFWGraphicsSystem::setUniform4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value);
-	bool  GLFWGraphicsSystem::setUniform3fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value);
-	bool  GLFWGraphicsSystem::setUniform1f(const GLuint& shaderProgram, const GLchar* uniformName, GLfloat value);
-	bool  GLFWGraphicsSystem::setUniformMatrix4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLboolean transpose, GLfloat* value);
+	bool  setUniform4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value);
+	bool  setUniform3fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value);
+	bool  setUniform1f(const GLuint& shaderProgram, const GLchar* uniformName, GLfloat value);
+	bool  setUniformMatrix4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLboolean transpose, GLfloat* value);
 	
 };
 

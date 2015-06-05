@@ -3,10 +3,13 @@
 #include "Actor.hpp"
 #include "Converter.hpp"
 #include "Transform.hpp"
+#include "PhysicsMaterial.hpp"
 
 /** Default Constructor*/
 MeshCollider::MeshCollider()
 {
+    setCopyMode(false);
+    
 #ifdef GUINITY_DEBUG
 nCount++;
 #endif
@@ -24,11 +27,20 @@ MeshCollider::~MeshCollider()
 /** Init component override. Create a new Mesh Shape in the PhysX scene. */
 void MeshCollider::init()
 {
-
 	shape = Physics::createMeshCollider(getActor());
-    
-	// Sets the material as the default one
-	Collider::init();
+
+    if(initWithData)
+    {
+        PxMaterial* mat = physicsMaterial->getMaterial();
+        PxMaterial* const newMat = const_cast<PxMaterial* const>(mat);
+        
+        shape->setMaterials(&newMat,1);
+    }
+    else
+    {
+        // Sets the material as the default one
+        Collider::init();
+    }
 }
 
 /** Component tick override. Updates the scale of the Mesh Shape in the PhysX scene. */
@@ -44,6 +56,17 @@ void MeshCollider::tick(float deltaSeconds)
     shape->setGeometry(geo);
     
 }
+
+shared_ptr<Component> MeshCollider::clone()
+{
+    shared_ptr<MeshCollider> compClone = make_shared<MeshCollider>();
+    
+    compClone->setPhysicsMaterial(getPhysicsMaterial());
+    compClone->setCopyMode(true);
+    
+    return compClone;
+};
+
 
 /** Get a description for the current component*/
 shared_ptr<ComponentDescription> MeshCollider::getComponentDescription()

@@ -38,6 +38,8 @@ public:
     
     bool lockMoveX,lockMoveY,lockMoveZ;
     bool lockRotateX,lockRotateY,lockRotateZ;
+    bool isKinematic;
+    bool gravityEnabled;
     
     void setMoveEnabled(TransformAxis axis, bool enabled);
     void setRotateEnabled(TransformAxis axis, bool enabled);
@@ -45,7 +47,7 @@ public:
     void updateTransform(const PxTransform& transform);
     
     virtual shared_ptr<ComponentDescription> getComponentDescription();
-    virtual shared_ptr<Component> clone() { shared_ptr<RigidBody> compClone = make_shared<RigidBody>();return compClone;};
+    virtual shared_ptr<Component> clone() override;
     
     virtual void deserialize(shared_ptr<ComponentDescription> desc);
     

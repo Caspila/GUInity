@@ -27,7 +27,7 @@ void RigidStatic::tick(float deltaSeconds)
 	shared_ptr<Actor> actor = getActor();
 
 //	physxRigidStatic->setGlobalPose(transformToPhysXTransform(actor->transform));
-        	physxRigidStatic->setGlobalPose(PxTransform(glmMat4ToPhysxMat4(actor->transform->getPosRotMatrix())));
+   	physxRigidStatic->setGlobalPose(PxTransform(glmMat4ToPhysxMat4(actor->transform->getPosRotMatrix())));
 }
 
 shared_ptr<ComponentDescription> RigidStatic::getComponentDescription()
@@ -48,4 +48,9 @@ void RigidStatic::setActive(bool isActive)
     
 //        cout << "Disabled RigidStatic" << isActive<< endl;
     
+}
+
+PxRigidDynamic* RigidStatic::getRigidDynamic()
+{
+    return physxRigidStatic;
 }

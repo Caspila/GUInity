@@ -3,7 +3,7 @@
 /** Enumerations */
 
 /** Used for notifying when Actors are created or removed. */
-enum ActorEventType{  NewActor, RemovedActor};
+enum ActorEventType{  NewActor,  RemovedActor};
 
 /** Used for notifying when Components are created or removed. */
 enum ComponentEventType{ NewMeshRenderer, NewCamera, NewLight, NewRigidBody, NewRigidStatic, NewEditorCollider, NewFontRenderer, RemovedRenderer, RemovedCamera, RemovedLight, RemovedRigidBody, RemovedRigidStatic ,RemovedFontRenderer};

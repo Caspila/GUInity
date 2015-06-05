@@ -9,7 +9,7 @@ using namespace physx;
 /** Default Constructor */
 BoxCollider::BoxCollider()
 {
-    initWithData = false;
+    setCopyMode(false);
 #ifdef GUINITY_DEBUG
 	nCount++;
 #endif
@@ -20,7 +20,7 @@ BoxCollider::BoxCollider(PxVec3 halfExtent, PxVec3 center)
 {
     this->halfExtent = halfExtent;
     this->center = center;
-    initWithData = true;
+    setCopyMode(true);
     
     
 #ifdef GUINITY_DEBUG
@@ -42,7 +42,12 @@ void BoxCollider::init()
 {
 	// Deserializing
     if(initWithData)
+    {
         shape = Physics::createBoxCollider(halfExtent,center,getActor());
+        
+        // The physics material is set but it's not yet linked to the shape
+        setPhysicsMaterial(getPhysicsMaterial());
+    }
 	// Create new
     else
     {
@@ -55,9 +60,18 @@ void BoxCollider::init()
             meshFilter->getBoxSize(getActor(), halfExtent,center);
         
         shape = Physics::createBoxCollider(halfExtent,center,getActor());
+        
+        // Sets the material as the default one
+        Collider::init();
     }
-	// Sets the material as the default one
-	Collider::init();
+
+}
+
+shared_ptr<Component> BoxCollider::clone()
+{
+    shared_ptr<BoxCollider> compClone = make_shared<BoxCollider>(halfExtent, center);
+    compClone->setPhysicsMaterial(getPhysicsMaterial());
+    return compClone;
 }
 
 /** Get a description for the current component*/

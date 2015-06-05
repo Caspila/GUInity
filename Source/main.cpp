@@ -323,7 +323,8 @@ int main(int argc, char *argv[]) {
 		meshFilter->setMesh(objMesh);
 		shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
 		meshRenderer->material = defaultMaterial;
-		shared_ptr<RigidBody> rigidBody = fbxTest->AddComponent<RigidBody>();
+//		shared_ptr<RigidBody> rigidBody = fbxTest->AddComponent<RigidBody>();
+        fbxTest->AddComponent<PlayerScript>();
 	/*	rigidBody->setRotateEnabled(TransformAxis::x, false);
 		rigidBody->setRotateEnabled(TransformAxis::y, false);
 		rigidBody->setRotateEnabled(TransformAxis::z, false);
@@ -511,8 +512,9 @@ int main(int argc, char *argv[]) {
             engineMode = EngineMode::editor;
         if (Input::getKeyPressed(GLFW_KEY_2))
             engineMode = EngineMode::game;
-	
-        Time::frameEnd();
+        
+        float fps = Time::frameEnd();
+        cout << "FPS:" << 1.0f/fps << endl;
     }
 
     physics.shutdown();

@@ -2,6 +2,7 @@
 #include "Transform.hpp"
 #include "print.hpp"
 #include "ScriptComponent.hpp"
+#include "Factory.hpp"
 
 /** Constructor with actor name */
 Actor::Actor(string name) : name(name), isActive(true)
@@ -162,4 +163,27 @@ void Actor::addComponent(shared_ptr<Component> component)
     component->setActor(shared_from_this());
     components.push_back(component);
     component->init();
+}
+
+shared_ptr<Actor> Actor::clone()
+{
+    shared_ptr<Actor> newActor = Factory::CreateActor(name+"(Clone)");
+    
+    newActor->transform->setPosition(transform->getPosition());
+    newActor->transform->setScale(transform->getScale());
+    newActor->transform->setRotationQuat(transform->getRotationQuat());
+    
+  	for (auto& x : components)
+	{
+        newActor->addComponent(x->clone());
+    }
+    
+	for (auto& x : children)
+	{
+		auto ptrLock = x.lock();
+		if (ptrLock)
+            newActor->addChildren(ptrLock->clone());
+	}
+    
+    return newActor;
 }

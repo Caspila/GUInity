@@ -19,7 +19,7 @@ public:
 	virtual void tick(float deltaSeconds) override;
 
 	/** Prototype design pattern*/
-	virtual shared_ptr<Component> clone() { shared_ptr<MeshCollider> compClone = make_shared<MeshCollider>(); return compClone; };
+	virtual shared_ptr<Component> clone() override;
 
 	/** Serialization region*/
 	/** Get a description for the current component*/

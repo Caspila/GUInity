@@ -143,6 +143,8 @@ void World::awake()
 
     awake(0,actors.size());
     
+    isAwake = true;
+    
 }
 
 void World::awake(unsigned long start, unsigned long end)
@@ -167,7 +169,7 @@ void World::tick(float deltaTime)
 
 	transferNewActors();
 
-	Physics::tickScene(physicsScene);
+//	Physics::tickScene(physicsScene);
 }
 
 void World::shutdown()
@@ -217,7 +219,7 @@ void World::onNotify(ComponentEventType type, shared_ptr<Component> component, b
 	{
 		shared_ptr<RigidStatic> rigidStatic = dynamic_pointer_cast<RigidStatic>(component);
 		if (rigidStatic)
-			physicsScene->addActor(*rigidStatic->physxRigidStatic);
+			physicsScene->addActor(*rigidStatic->getRigidDynamic());
 		break;
 	}
 	case NewEditorCollider:

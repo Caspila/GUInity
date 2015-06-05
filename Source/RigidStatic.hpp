@@ -8,6 +8,9 @@ using namespace physx;
 class RigidStatic : public Subject<RigidStatic>,
 	public Component
 {
+private:
+   	PxRigidDynamic* physxRigidStatic;
+    
 public:
 	RigidStatic();
 	~RigidStatic();
@@ -16,7 +19,7 @@ public:
 	virtual void tick(float deltaSecods) override;
     virtual void setActive(bool isActive) override;
 
-	PxRigidDynamic* physxRigidStatic;
+    PxRigidDynamic* getRigidDynamic();
     
     virtual shared_ptr<ComponentDescription> getComponentDescription();
     virtual shared_ptr<Component> clone() { shared_ptr<RigidStatic> compClone = make_shared<RigidStatic>();return compClone;};

@@ -17,8 +17,7 @@ protected:
 	PxVec3 center;
 	/** The PhysX Shape of the collider */
 	PxShape* shape;
-	/** Used when been deserialized */
-	bool initWithData;
+
 	/** The physics material that determines the behaviour of the physics shape */
 	shared_ptr<PhysicsMaterial> physicsMaterial;
 
@@ -31,7 +30,7 @@ public:
 	/** Component Awake override */
 	virtual void awake() override{}
 	/** Component Init override */
-	virtual void init() override{ physicsMaterial = Physics::getDefaultMaterial(); };
+	virtual void init() override;
 	/** Component setActive override */
     virtual void setActive(bool isActive) override;
 

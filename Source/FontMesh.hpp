@@ -22,7 +22,7 @@ private:
 	/** The text */
 	string text;
 	/** The material used to render the Mesh*/
-	shared_ptr<Material> material;
+//	shared_ptr<Material> material;
 
 public:
 	/** Default Constructor*/
@@ -44,7 +44,7 @@ public:
 	void createMesh();
 
 	/** Prototype design pattern*/
-	virtual shared_ptr<Component> clone() override{ shared_ptr<FontMesh> compClone = make_shared<FontMesh>(); return compClone; };
+	virtual shared_ptr<Component> clone() override;
 
 	/** Serialization region*/
 	/** Get a description for the current component*/

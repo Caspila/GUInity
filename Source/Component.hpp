@@ -17,10 +17,18 @@ class Component : public enable_shared_from_this<Component>
 //#endif
 {
 
+protected:
+    /** Used when been deserialized or cloned*/
+	bool initWithData;
+    /** Used when been deserialized or cloned*/
+    void setCopyMode(bool initWithData);
+    
 private:
 	/** All components should be tied to a actor */
 	weak_ptr<Actor> actor;
 
+
+    
 public:
 
 	/** Default Constructor*/
@@ -28,6 +36,8 @@ public:
 	/** Default Destructor. Virtual because is parent class*/
 	virtual ~Component();
 
+    
+    
 	/** Functions that should be inheritted if needed */
 	/** sets the component as active or not active */
 	virtual void setActive(bool isActive) {};
@@ -42,6 +52,7 @@ public:
 	shared_ptr<Actor> getActor();
 	/** setter for Actor */
 	void setActor(weak_ptr<Actor> actor);
+    
 
 	/** TODO. SERIALIZATION IS NOT WORKING PROPERLY AT THE MOMENT */
 	/** Every component should inherit the following functions to allow for serialization/deserialization of actors */

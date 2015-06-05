@@ -36,6 +36,11 @@ shared_ptr<Actor> Component::getActor()
 	return nullptr;
 }
 
+void Component::setCopyMode(bool initWithData)
+{
+    this->initWithData = initWithData;
+}
+
 /** setter for Actor */
 void Component::setActor(weak_ptr<Actor> actor)
 {

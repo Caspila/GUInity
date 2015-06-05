@@ -228,7 +228,7 @@ PxShape* Physics::createBoxCollider(PxVec3 halfExtent, PxVec3 center, shared_ptr
 		if (!rigidStatic)
 			rigidStatic = actor->AddComponent<RigidStatic>();
         
-		shape = rigidStatic->physxRigidStatic->createShape(PxBoxGeometry(halfExtent), *defaultPhysicsMaterial->getMaterial());
+		shape = rigidStatic->getRigidDynamic()->createShape(PxBoxGeometry(halfExtent), *defaultPhysicsMaterial->getMaterial());
         shape->userData = (void*)actor.get();
         
 	}
@@ -277,7 +277,7 @@ PxShape* Physics::createSphereCollider(float radius, PxVec3 center, shared_ptr<A
 		if (!rigidStatic)
 			rigidStatic = actor->AddComponent<RigidStatic>();
         
-		shape = rigidStatic->physxRigidStatic->createShape(PxSphereGeometry(radius), *defaultPhysicsMaterial->getMaterial());
+		shape = rigidStatic->getRigidDynamic()->createShape(PxSphereGeometry(radius), *defaultPhysicsMaterial->getMaterial());
         shape->userData = (void*)actor.get();
     }
     
@@ -397,7 +397,7 @@ PxShape* Physics::createCapsuleCollider(float radius, float halfHeight, RotateAx
 		if (!rigidStatic)
 			rigidStatic = actor->AddComponent<RigidStatic>();
         
-		shape = rigidStatic->physxRigidStatic->createShape(PxCapsuleGeometry(radius, halfHeight), *defaultPhysicsMaterial->getMaterial());
+		shape = rigidStatic->getRigidDynamic()->createShape(PxCapsuleGeometry(radius, halfHeight), *defaultPhysicsMaterial->getMaterial());
 		shape->userData = (void*)actor.get();
 	}
     
@@ -630,7 +630,7 @@ PxShape* Physics::createMeshCollider(shared_ptr<Actor> actor)
 		if (!rigidStatic)
 			rigidStatic = actor->AddComponent<RigidStatic>();
 		//
-		shape = rigidStatic->physxRigidStatic->createShape(geo, *defaultPhysicsMaterial->getMaterial());
+		shape = rigidStatic->getRigidDynamic()->createShape(geo, *defaultPhysicsMaterial->getMaterial());
 		//shape->userData = (void*)actor.get();
 	}
 

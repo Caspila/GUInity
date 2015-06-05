@@ -36,6 +36,8 @@ public:
 	/** Default Destructor */
 	virtual ~Actor();
 
+    shared_ptr<Actor> clone();
+    
 	/** Name of the Actor */
 	string name;
 	
@@ -102,6 +104,7 @@ public:
 		component->setActor(transform->actor);
 		components.push_back(component);
 		component->init();
+        
 
 		return component;
 	}

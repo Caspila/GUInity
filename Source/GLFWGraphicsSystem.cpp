@@ -20,6 +20,7 @@
 #include "UIWidget.hpp"
 #include "AssetDatabase.hpp"
 #include "Texture.hpp"
+#include "Time.hpp"
 
 /** Initialize the system, create the window and such*/
 int GLFWGraphicsSystem::init(int width, int height)
@@ -193,6 +194,8 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
     
     for (int i = 0; i < renderers.size(); i++)
     {
+//                Time::stopwatchStart();
+        
         shared_ptr<MeshRenderer> meshRenderer = renderers[i];
 
         shared_ptr<Actor> actor = meshRenderer->getActor();
@@ -203,11 +206,20 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 
 
         GLuint shaderProgram = meshRenderer->material->getShaderProgram();
+//        cout << "Get data:" <<       Time::stopwatchEnd() << endl;
 
+//        Time::stopwatchStart();
 
-        glLinkProgram(shaderProgram);
+//        glLinkProgram(shaderProgram);
+        
+//        cout << "Link shader:" <<       Time::stopwatchEnd() << endl;
         glUseProgram(shaderProgram);
 
+
+
+
+
+//                Time::stopwatchStart();
         float ambientLight = 0.1f;
         glm::vec3 ambientLightColor(1.0, 1.0, 1.0);
 
@@ -218,7 +230,8 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 		setUniformMatrix4fv(shaderProgram, "camera", 1, GL_FALSE, &camera->getMVPMatrix()[0][0]);
 		setUniformMatrix4fv(shaderProgram, "model", 1, GL_FALSE, &actor->transform->getModelMatrix()[0][0]);
 
-
+       
+        
       for (int j = 0; j < lights.size(); j++)
         {
             shared_ptr<Light> light = lights[j];
@@ -226,7 +239,7 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 			setUniform3fv(shaderProgram, "lightPos", 1, &light->getActor()->transform->position[0]);
 			setUniform3fv(shaderProgram, "lightIntensity", 1, &light->getColor()[0]);
 
-}
+        }
 
         vector<Material::StringTexPair> stringTexPairs = meshRenderer->material->getAllTextureParams();
 
@@ -247,6 +260,10 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 			setUniform4fv(shaderProgram, stringVec4Pair.first.c_str(), 1, &stringVec4Pair.second[0]);
 			//glUniform4fv(getUniformLocation(shaderProgram, stringVec4Pair.first.c_str()), 1, &stringVec4Pair.second[0]);
 		}
+//        
+//         cout << "Set shader data:" <<       Time::stopwatchEnd() << endl;
+        
+//                        Time::stopwatchStart();
         
 		glBindVertexArray(meshComponent->getMesh()->getVertexArrayID());
 
@@ -277,6 +294,7 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         glDisableVertexAttribArray(2);
         glDisableVertexAttribArray(3);
 
+//           cout << "Set attribs:" <<       Time::stopwatchEnd() << endl;
 
     }
 

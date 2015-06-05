@@ -53,7 +53,12 @@ void Game::update(float deltaSeconds)
 
 	GraphicsSystem::getInstance()->clear();
 
+    
+//    Time::stopwatchStart();
+    
 	GraphicsSystem::getInstance()->render(world->cameras[0],world->meshRenderers,world->lights);
+//    cout << "Render time:" << Time::stopwatchEnd() << endl;
+    
 	//GraphicsSystem::getInstance().render(world->cameras[0], );
 	GraphicsSystem::getInstance()->render(world->cameras[0], world->physicsScene->getRenderBuffer(), glm::vec4(1, 1, 1,1));
 

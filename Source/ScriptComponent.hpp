@@ -21,20 +21,14 @@ public:
 
 	virtual ~ScriptComponent();
 
-	//shared_ptr<Script> script;
-	//shared_ptr<Script> script;
-
 	virtual void init() {};
 	virtual void awake() override {} ;
 	virtual void tick(float deltaSecods) override {};
 
-
-
 	virtual void onCollision(Actor* actor) {};
 	virtual void onTrigger(Actor* actor) {};
 
-    
-    int x;
+    virtual shared_ptr<Component> clone() override;
     
     
 private:

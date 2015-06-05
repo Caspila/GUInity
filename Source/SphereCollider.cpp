@@ -11,7 +11,7 @@ SphereCollider::SphereCollider(float radius, PxVec3 center = PxVec3(0,0,0))
     this->radius = radius;
     this->center = center;
     
-    initWithData = true;
+    setCopyMode(true);
     
 #ifdef GUINITY_DEBUG
 	nCount++;
@@ -22,7 +22,8 @@ SphereCollider::SphereCollider(float radius, PxVec3 center = PxVec3(0,0,0))
 SphereCollider::SphereCollider()
 {
 
-    initWithData = false;
+    setCopyMode(false);
+    
 #ifdef GUINITY_DEBUG
 	nCount++;
 #endif
@@ -63,7 +64,12 @@ void SphereCollider::init()
 {
 	// Deserializing
     if(initWithData)
+    {
         shape = Physics::createSphereCollider(radius,center,getActor());
+        
+        // The physics material is set but it's not yet linked to the shape
+        setPhysicsMaterial(getPhysicsMaterial());
+    }
     // Create a new one
 	else
     {
@@ -76,10 +82,18 @@ void SphereCollider::init()
             meshFilter->getSphereSize(getActor(), radius, center);
             
         shape = Physics::createSphereCollider(radius,center,getActor());
+        // Sets the material as the default one
+        Collider::init();
+        
     }
-	// Sets the material as the default one
-	Collider::init();
+
 }
+
+	shared_ptr<Component> SphereCollider::clone() {
+        shared_ptr<SphereCollider> compClone = make_shared<SphereCollider>(radius,center);
+        compClone->setPhysicsMaterial(getPhysicsMaterial());
+        return compClone;
+    };
 
 /** Get a description for the current component*/
 shared_ptr<ComponentDescription> SphereCollider::getComponentDescription()

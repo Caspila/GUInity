@@ -30,7 +30,7 @@ public:
 	virtual void init();
 	
 	/** Prototype design pattern*/
-	virtual shared_ptr<Component> clone() { shared_ptr<SphereCollider> compClone = make_shared<SphereCollider>(radius,center); return compClone; };
+	virtual shared_ptr<Component> clone() override;
 
 	/** Serialization region*/
 	/** Get a description for the current component*/

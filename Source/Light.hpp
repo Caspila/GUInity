@@ -35,7 +35,7 @@ public:
 	virtual void init() override;
 
 	/** Prototype design pattern*/
-	virtual shared_ptr<Component> clone() { shared_ptr<Light> compClone = make_shared<Light>(); return compClone; };
+	virtual shared_ptr<Component> clone() override;
 
 
 	/** Serialization region*/

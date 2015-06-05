@@ -20,7 +20,7 @@ public:
 	virtual ~PhysicsMaterial();
 
 	float friction, dynamicFriction, restitution;
-
+    
 	PxMaterial*   getMaterial();
 
 };

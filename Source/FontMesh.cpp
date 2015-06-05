@@ -91,11 +91,25 @@ void FontMesh::createMesh()
 		mesh->addTriangle(i * 4+1);
 		mesh->addTriangle(i * 4+2);
 
+        
 		xOffset += letterWidth;
 	}
 
 	mesh->createBuffers3();
 }
+
+/** Prototype design pattern*/
+shared_ptr<Component> FontMesh::clone()
+{
+    shared_ptr<FontMesh> compClone = make_shared<FontMesh>();
+    
+    compClone->setFont(getFont());
+    compClone->setText(text);
+    
+    return compClone;
+};
+
+
 /** Get a description for the current component*/
 shared_ptr<ComponentDescription> FontMesh::getComponentDescription()
 {

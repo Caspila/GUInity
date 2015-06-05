@@ -80,7 +80,7 @@ public:
    
 
 	/** Prototype design pattern*/
-	virtual shared_ptr<Component> clone() { shared_ptr<Camera> compClone = make_shared<Camera>(); return compClone; };
+	virtual shared_ptr<Component> clone() override;
 	
 	/** Serialization region*/
 	/** Get a description for the current component*/

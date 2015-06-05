@@ -6,7 +6,7 @@
 /** Deserialization Constructor*/
 CapsuleCollider::CapsuleCollider(RotateAxis orientation, float halfHeight, float radius,PxVec3 center = PxVec3(0,0,0))
 {
-    initWithData = true;
+    setCopyMode(true);
     this->orientation = orientation;
     this->halfHeight = halfHeight;
     this->radius = radius;
@@ -20,7 +20,7 @@ CapsuleCollider::CapsuleCollider(RotateAxis orientation, float halfHeight, float
 /** Default Constructor*/
 CapsuleCollider::CapsuleCollider()
 {
-    initWithData = false;
+    setCopyMode(false);
     
 #ifdef GUINITY_DEBUG
 	nCount++;
@@ -91,7 +91,12 @@ void CapsuleCollider::init()
 
 	// Deserialize
     if(initWithData)
+    {
         shape = Physics::createCapsuleCollider(radius,halfHeight,orientation,center,getActor());
+        
+        // The physics material is set but it's not yet linked to the shape
+        setPhysicsMaterial(getPhysicsMaterial());
+    }
     // Create new one
 	else
     {
@@ -106,11 +111,21 @@ void CapsuleCollider::init()
             meshFilter->getCapsuleGeometry(getActor(), radius, halfHeight, orientation, center);
         
         shape = Physics::createCapsuleCollider(radius,halfHeight,orientation,center,getActor());
+        
+        // Sets the material as the default one
+        Collider::init();
     }
 
-	// Sets the material as the default one
-	Collider::init();
+
 }
+
+shared_ptr<Component> CapsuleCollider::clone() {
+    shared_ptr<CapsuleCollider> compClone = make_shared<CapsuleCollider>(orientation, halfHeight, radius, center);
+    
+    compClone->setPhysicsMaterial(getPhysicsMaterial());
+    
+    return compClone;
+};
 
 /** Get a description for the current component*/
 shared_ptr<ComponentDescription> CapsuleCollider::getComponentDescription()

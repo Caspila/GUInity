@@ -23,7 +23,7 @@ public:
 	virtual void init();
     
 	/** Prototype design pattern*/
-	virtual shared_ptr<Component> clone() { shared_ptr<BoxCollider> compClone = make_shared<BoxCollider>(halfExtent, center); return compClone; };
+	virtual shared_ptr<Component> clone() override;
 
 
 	/** Serialization region*/

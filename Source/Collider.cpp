@@ -1,6 +1,12 @@
 #include "Collider.hpp"
 #include <PhysicsMaterial.hpp>
 
+	/** Component Init override */
+void Collider::init()
+{
+    physicsMaterial = Physics::getDefaultMaterial();
+}
+
 /** Component setActive override */
 void Collider::setActive(bool isActive)
 {
@@ -38,7 +44,8 @@ void Collider::setPhysicsMaterial(shared_ptr<PhysicsMaterial> physMaterial)
 	PxMaterial* mat = physicsMaterial->getMaterial();
 	PxMaterial* const newMat = const_cast<PxMaterial* const>(mat);
 
-	shape->setMaterials(&newMat, 1);
+    if(shape)
+        shape->setMaterials(&newMat, 1);
 }
 /** physicsMaterial getter*/
 shared_ptr<PhysicsMaterial> Collider::getPhysicsMaterial()

@@ -32,3 +32,10 @@ ScriptComponent::~ScriptComponent()
 #endif
 }
 
+
+shared_ptr<Component> ScriptComponent::clone()
+{
+    shared_ptr<ScriptComponent> compClone = make_shared<ScriptComponent>();
+
+    return compClone;
+}

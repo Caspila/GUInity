@@ -36,7 +36,7 @@ public:
 
 
 	/** Prototype design pattern*/
-	virtual shared_ptr<Component> clone() override{ shared_ptr<MeshComponent> compClone = make_shared<MeshComponent>(); return compClone; };
+	virtual shared_ptr<Component> clone() = 0;
 
 	/** Serialization region*/
 	/** Get a description for the current component*/

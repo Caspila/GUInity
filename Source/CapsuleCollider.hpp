@@ -43,7 +43,7 @@ public:
 
 	
 	/** Prototype design pattern*/
-	virtual shared_ptr<Component> clone() { shared_ptr<CapsuleCollider> compClone = make_shared<CapsuleCollider>(orientation, halfHeight, radius, center); return compClone; };
+	virtual shared_ptr<Component> clone() override;
 
 	/** Serialization region*/
 	/** Get a description for the current component*/
