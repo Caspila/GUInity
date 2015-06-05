@@ -60,7 +60,7 @@ int GLFWGraphicsSystem::init(int width, int height)
     
     createDebugShader();
 
-	defaultTexture = AssetDatabase::createTexture(CommonData("white.png"));
+	defaultTexture = AssetDatabase::createTexture("white.png");
 
 	return 0;
 

@@ -60,7 +60,27 @@ public:
 	static void loadAllMetaFiles();
 
 	/** Search on the database for the asset with name==filename.*/
-	static shared_ptr<Asset> getAsset(string filename);
+//	static shared_ptr<Asset> getAsset(string filename);
+    template <class T>
+    static shared_ptr<T> getAsset(string name)
+    {
+        
+            map<string,shared_ptr<Asset>>::iterator it;
+            it = nameToAsset.find(name);
+            if(it!=nameToAsset.end())
+            {
+                shared_ptr<T> ptr = dynamic_pointer_cast<T>(nameToAsset[name]);
+//                if(!ptr)
+//                {
+//                    cout << "Could not get Asset as " << typeid(T).name() << endl;
+//                    return nullptr;
+//                }
+                return ptr;
+            }
+            
+            return nullptr;
+        
+    }
 	/** Search on the database for the asset with assetID==assetID.*/
 	static shared_ptr<Asset> getAsset(unsigned int assetID);
 

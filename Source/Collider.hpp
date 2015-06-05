@@ -23,7 +23,7 @@ protected:
 
 public:
 	/** Default Constructor */
-	Collider() {};
+	Collider() { shape = nullptr; };
 	/** Default Destructor. Virtual because it's parent class */
 	virtual ~Collider() {};
 

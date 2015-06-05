@@ -7,6 +7,7 @@
 
 RigidBody::RigidBody()
 {
+    physxRigidBody = nullptr;
 #ifdef GUINITY_DEBUG
 nCount++;
 #endif
@@ -15,6 +16,7 @@ nCount++;
 
 RigidBody::~RigidBody()
 {
+    
 #ifdef GUINITY_DEBUG
 	nCount--;
 	cout << "RigidBody destroyed (" << nCount << " remaining)" << endl;

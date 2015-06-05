@@ -42,5 +42,6 @@ void Texture::init()
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 
 	/** Once OpenGL data has been loaded, we can get rid of the Image buffer */
+    
 	delete[]data;
 }

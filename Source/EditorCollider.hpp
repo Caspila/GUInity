@@ -21,7 +21,7 @@ private:
 	PxRigidDynamic* physxRigidStatic;
 public:
 	/** Default Constructor */
-	EditorCollider() {};
+	EditorCollider() { physxRigidStatic = nullptr; };
 	/** Default Destructor. Virtual because inherits from Component */
 	virtual ~EditorCollider() {};
 

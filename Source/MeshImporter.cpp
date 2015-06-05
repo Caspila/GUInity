@@ -55,10 +55,10 @@ void MeshImporter::getVertexData(FbxMesh* m_pMesh, int uPoly, int uVertex, FbxVe
 shared_ptr<Mesh> MeshImporter::importFbxMesh(string filename)
 {
 
-	string lFilename = CommonData(filename);
+//	string lFilename = CommonData(filename);
 
 	// Initialize the importer.
-	bool lImportStatus = lImporter->Initialize(lFilename.c_str(), -1, fbxManager->GetIOSettings());
+	bool lImportStatus = lImporter->Initialize(filename.c_str(), -1, fbxManager->GetIOSettings());
 	if (!lImportStatus) {
 		printf("Call to FbxImporter::Initialize() failed.\n");
 		printf("Error returned: %s\n\n", lImporter->GetStatus().GetErrorString());
@@ -254,7 +254,7 @@ shared_ptr<Mesh> MeshImporter::importObjMesh(string filename)
 	vector <glm::vec3>out_normals;
 
 
-	bool loaded = loadOBJ(CommonData(filename).c_str(), out_vertices, out_uvs, out_normals);
+	bool loaded = loadOBJ(filename.c_str(), out_vertices, out_uvs, out_normals);
 
 	std::map<PackedOBJVertex, unsigned short> vertexMap;
 

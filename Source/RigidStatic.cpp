@@ -6,6 +6,7 @@
 
 RigidStatic::RigidStatic()
 {
+    physxRigidStatic = nullptr;
 }
 
 

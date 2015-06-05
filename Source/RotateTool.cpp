@@ -23,8 +23,8 @@ RotateTool::~RotateTool()
 void RotateTool::awake()
 {
     
-    shared_ptr<Mesh> cylinderMesh =dynamic_pointer_cast<Mesh>(AssetDatabase::getAsset("cylinder3.fbx"));
-    shared_ptr<Material> defaultMat = dynamic_pointer_cast<Material>(AssetDatabase::getAsset("DefaultMaterial.fbx"));
+    shared_ptr<Mesh> cylinderMesh = AssetDatabase::getAsset<Mesh>("cylinder3.fbx");
+    shared_ptr<Material> defaultMat = AssetDatabase::getAsset<Material>("DefaultMaterial.fbx");
 
 	shared_ptr<Actor> rightHandle = Factory::CreateEditorActor("RotateZAxisHandle");
     //    rightHandle->transform->setRotationQuat(glm::angleAxis(90*Deg2Radian,glm::vec3(0, 1, 0)));

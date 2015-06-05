@@ -163,13 +163,15 @@ int main(int argc, char *argv[]) {
 	//thread t (checkFilesOnCommonData);
 	//t.detach();
 
-	checkFilesOnCommonData();
-
-	AssetDatabase::init();
-
+    
     int notOK = GraphicsSystem::getInstance()->init(640,480);
 	if (notOK)
 		return 1;
+
+    AssetDatabase::init();
+    
+   	checkFilesOnCommonData();
+
     
     
     Input input(GraphicsSystem::getInstance()->getWindow());
@@ -246,10 +248,12 @@ int main(int argc, char *argv[]) {
 		shared_ptr<Mesh> quadMesh = AssetDatabase::createMesh(quadVertex, triangles);
 
 	//	shared_ptr<Texture> whiteTexture = AssetDatabase::createTexture(CommonData("white2.png"));
-		shared_ptr<Texture> texture = AssetDatabase::createTexture(CommonData("button.png"));
+		
+		shared_ptr<Font> font = AssetDatabase::createFont("arial.ttf",48);
 
-		shared_ptr<Font> font = AssetDatabase::createFont(CommonData("arial.ttf"),48);
+    shared_ptr<Texture> texture = AssetDatabase::getAsset<Texture>("button.png");
 
+    
 		/*shared_ptr<Sound> sound = AssetDatabase::createSound(CommonData("mp3test.mp3"));
 
 		SoundSystem::getInstance()->playSound(sound);
@@ -259,8 +263,11 @@ int main(int argc, char *argv[]) {
 
 		shared_ptr<Mesh> cubeMesh = AssetDatabase::createMeshFromFBX("box.fbx");
 
-		shared_ptr<Mesh> objMesh = AssetDatabase::createMeshFromOBJ("sphere.obj");
+//		shared_ptr<Mesh> objMesh = AssetDatabase::createMeshFromOBJ("sphere.obj");
 
+    shared_ptr<Mesh> objMesh =  AssetDatabase::getAsset<Mesh>("sphere.obj");
+
+    
 		//    vector<glm::vec3> fbxNonDup = fbxMesh->getNonDuplicateMeshVertex();
 		//    
 		//    for(int i = 0; i < fbxNonDup.size(); i++)
@@ -297,7 +304,7 @@ int main(int argc, char *argv[]) {
 		//shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsNoLight.fragmentshader"));
 
 		shared_ptr<Material> defaultMaterial = AssetDatabase::createMaterial("DefaultMaterial", diffuseShader);
-//		defaultMaterial->setParamTexture("_textureSampler", whiteTexture);
+		defaultMaterial->setParamTexture("_textureSampler", texture);
 		defaultMaterial->setParamVec4("_difuseColor", glm::vec4(1,1,1,1));
 		shared_ptr<Material> fontMaterial = AssetDatabase::createMaterial("FontMaterial", unlitShader);
 		fontMaterial->setParamTexture("_textureSampler", font->getFontTexture());
@@ -366,6 +373,8 @@ int main(int argc, char *argv[]) {
 		fontMesh->setText("hey there mate!");
 		meshRenderer = fontTest->AddComponent<MeshRenderer>();
 		meshRenderer->setMaterial(fontMaterial);
+
+//            fontTest->AddComponent<PlayerScript>();
 
 
 		//    int bla = 0;

@@ -445,75 +445,43 @@
 		464D8A861A4A5336007B0CDD /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				46B924361A81F40F00F84B7A /* Sound.hpp */,
-				46B924381A81F40F00F84B7A /* SoundSystem.hpp */,
+				465311B11B214C240022B98E /* Assets */,
+				465311AB1B214A1D0022B98E /* Component */,
+				465311AE1B214AE20022B98E /* ScriptComponent */,
 				4672BA651A78A164007BF293 /* Actor.hpp */,
-				4672BA671A78A164007BF293 /* AddForceScript.hpp */,
 				4672BA681A78A164007BF293 /* AnyClass.hpp */,
-				4672BA6A1A78A164007BF293 /* Asset.hpp */,
 				4672BA6C1A78A164007BF293 /* AssetDatabase.hpp */,
-				4672BA6F1A78A164007BF293 /* BoxCollider.hpp */,
-				4672BA711A78A164007BF293 /* Camera.hpp */,
-				4672BA731A78A164007BF293 /* CapsuleCollider.hpp */,
-				4672BA751A78A164007BF293 /* Collider.hpp */,
-				4672BA771A78A164007BF293 /* Component.hpp */,
 				4672BA791A78A164007BF293 /* Converter.hpp */,
 				4672BA7B1A78A164007BF293 /* Editor.hpp */,
-				4672BA7D1A78A164007BF293 /* EditorCameraControl.hpp */,
 				4672BA7F1A78A164007BF293 /* EditorCollider.hpp */,
 				4672BA801A78A164007BF293 /* Enums.hpp */,
 				4672BA821A78A164007BF293 /* Factory.hpp */,
-				4672BA841A78A164007BF293 /* Font.hpp */,
-				4672BA861A78A164007BF293 /* FontMesh.hpp */,
 				4672BA881A78A164007BF293 /* FSAuxiliar.hpp */,
 				4672BA8A1A78A164007BF293 /* Game.hpp */,
 				4672BA8C1A78A164007BF293 /* GLFWGraphicsSystem.hpp */,
 				4672BA8E1A78A164007BF293 /* GraphicsSystem.hpp */,
 				4672BA901A78A164007BF293 /* Holder.hpp */,
-				4672BA921A78A164007BF293 /* IncreaseColliderScript.hpp */,
 				4672BA941A78A164007BF293 /* Input.hpp */,
-				4672BA961A78A164007BF293 /* Light.hpp */,
-				4672BA9B1A78A164007BF293 /* Material.hpp */,
 				4672BA9D1A78A164007BF293 /* Math.hpp */,
 				4672BA9F1A78A164007BF293 /* MathStructs.hpp */,
-				4672BAA11A78A164007BF293 /* Mesh.hpp */,
-				4672BAA31A78A164007BF293 /* MeshCollider.hpp */,
-				4672BAA51A78A164007BF293 /* MeshComponent.hpp */,
-				4672BAA71A78A164007BF293 /* MeshFilter.hpp */,
 				4672BAA91A78A164007BF293 /* MeshImporter.hpp */,
-				4672BAAB1A78A164007BF293 /* MeshRenderer.hpp */,
 				4672BAAD1A78A164007BF293 /* Module.hpp */,
-				4672BAAF1A78A164007BF293 /* MoveHandle.hpp */,
-				4672BAB11A78A164007BF293 /* MoveTool.hpp */,
 				4672BAB31A78A164007BF293 /* Observer.hpp */,
 				4672BAB51A78A164007BF293 /* Physics.hpp */,
-				4672BAB71A78A164007BF293 /* PhysicsMaterial.hpp */,
 				4672BAB91A78A164007BF293 /* PhysXAllocatorCallback.h */,
 				4672BABB1A78A164007BF293 /* PhysXEventCallback.hpp */,
 				4672BABD1A78A164007BF293 /* PhysXInsertionCallback.h */,
-				4672BABF1A78A164007BF293 /* PlayerScript.hpp */,
 				4672BAC01A78A164007BF293 /* PointerHolder.hpp */,
 				4672BAC21A78A164007BF293 /* print.hpp */,
 				4672BAC41A78A164007BF293 /* QTGraphicsSystem.hpp */,
 				4672BAC61A78A164007BF293 /* Ray.hpp */,
 				4672BAC81A78A164007BF293 /* ReflectionTest.h */,
-				4672BACA1A78A164007BF293 /* Renderer.hpp */,
-				4672BACC1A78A164007BF293 /* RigidBody.hpp */,
-				4672BACE1A78A164007BF293 /* RigidStatic.hpp */,
-				4672BAD01A78A164007BF293 /* RotateHandle.hpp */,
-				4672BAD21A78A164007BF293 /* RotateOverTime.hpp */,
-				4672BAD41A78A164007BF293 /* RotateTool.hpp */,
-				4672BAD61A78A164007BF293 /* ScaleHandle.hpp */,
-				4672BAD81A78A164007BF293 /* ScaleTool.hpp */,
-				4672BADA1A78A164007BF293 /* ScriptComponent.hpp */,
 				4672BADB1A78A164007BF293 /* Serialization.hpp */,
 				4672BADD1A78A164007BF293 /* Serialization2.hpp */,
 				4672BADF1A78A164007BF293 /* SerializationStructs.hpp */,
-				4672BAE11A78A164007BF293 /* Shader.hpp */,
-				4672BAE31A78A164007BF293 /* SphereCollider.hpp */,
+				46B924381A81F40F00F84B7A /* SoundSystem.hpp */,
 				4672BAE51A78A164007BF293 /* StaticCounter.hpp */,
 				4672BAE71A78A164007BF293 /* Subject.hpp */,
-				4672BAE91A78A164007BF293 /* Texture.hpp */,
 				4672BAEB1A78A164007BF293 /* Time.hpp */,
 				4672BAED1A78A164007BF293 /* Transform.hpp */,
 				4672BAEF1A78A164007BF293 /* UIButton.hpp */,
@@ -528,72 +496,39 @@
 		464D8A871A4A5342007B0CDD /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				46B924351A81F40F00F84B7A /* Sound.cpp */,
-				46B924371A81F40F00F84B7A /* SoundSystem.cpp */,
+				465311B01B214BDF0022B98E /* Assets */,
+				465311AD1B214A8A0022B98E /* Components */,
+				465311AF1B214B2C0022B98E /* ScriptComponents */,
 				4672BA641A78A164007BF293 /* Actor.cpp */,
-				4672BA661A78A164007BF293 /* AddForceScript.cpp */,
-				4672BA691A78A164007BF293 /* Asset.cpp */,
 				4672BA6B1A78A164007BF293 /* AssetDatabase.cpp */,
-				4672BA6E1A78A164007BF293 /* BoxCollider.cpp */,
-				4672BA701A78A164007BF293 /* Camera.cpp */,
-				4672BA721A78A164007BF293 /* CapsuleCollider.cpp */,
-				4672BA741A78A164007BF293 /* Collider.cpp */,
-				4672BA761A78A164007BF293 /* Component.cpp */,
 				4672BA781A78A164007BF293 /* Converter.cpp */,
 				4672BA7A1A78A164007BF293 /* Editor.cpp */,
-				4672BA7C1A78A164007BF293 /* EditorCameraControl.cpp */,
-				4672BA7E1A78A164007BF293 /* EditorCollider.cpp */,
 				4672BA811A78A164007BF293 /* Factory.cpp */,
-				4672BA831A78A164007BF293 /* Font.cpp */,
-				4672BA851A78A164007BF293 /* FontMesh.cpp */,
 				4672BA871A78A164007BF293 /* FSAuxiliar.cpp */,
 				4672BA891A78A164007BF293 /* Game.cpp */,
 				4672BA8B1A78A164007BF293 /* GLFWGraphicsSystem.cpp */,
 				4672BA8D1A78A164007BF293 /* GraphicsSystem.cpp */,
 				4672BA8F1A78A164007BF293 /* Holder.cpp */,
-				4672BA911A78A164007BF293 /* IncreaseColliderScript.cpp */,
 				4672BA931A78A164007BF293 /* Input.cpp */,
-				4672BA951A78A164007BF293 /* Light.cpp */,
 				4672BA971A78A164007BF293 /* main.cpp */,
-				4672BA9A1A78A164007BF293 /* Material.cpp */,
 				4672BA9C1A78A164007BF293 /* Math.cpp */,
 				4672BA9E1A78A164007BF293 /* MathStructs.cpp */,
-				4672BAA01A78A164007BF293 /* Mesh.cpp */,
-				4672BAA21A78A164007BF293 /* MeshCollider.cpp */,
-				4672BAA41A78A164007BF293 /* MeshComponent.cpp */,
-				4672BAA61A78A164007BF293 /* MeshFilter.cpp */,
 				4672BAA81A78A164007BF293 /* MeshImporter.cpp */,
-				4672BAAA1A78A164007BF293 /* MeshRenderer.cpp */,
 				4672BAAC1A78A164007BF293 /* Module.cpp */,
-				4672BAAE1A78A164007BF293 /* MoveHandle.cpp */,
-				4672BAB01A78A164007BF293 /* MoveTool.cpp */,
 				4672BAB21A78A164007BF293 /* Observer.cpp */,
 				4672BAB41A78A164007BF293 /* Physics.cpp */,
-				4672BAB61A78A164007BF293 /* PhysicsMaterial.cpp */,
 				4672BAB81A78A164007BF293 /* PhysXAllocatorCallback.cpp */,
 				4672BABA1A78A164007BF293 /* PhysXEventCallback.cpp */,
 				4672BABC1A78A164007BF293 /* PhysXInsertionCallback.cpp */,
-				4672BABE1A78A164007BF293 /* PlayerScript.cpp */,
 				4672BAC11A78A164007BF293 /* print.cpp */,
 				4672BAC31A78A164007BF293 /* QTGraphicsSystem.cpp */,
 				4672BAC51A78A164007BF293 /* Ray.cpp */,
 				4672BAC71A78A164007BF293 /* ReflectionTest.cpp */,
-				4672BAC91A78A164007BF293 /* Renderer.cpp */,
-				4672BACB1A78A164007BF293 /* RigidBody.cpp */,
-				4672BACD1A78A164007BF293 /* RigidStatic.cpp */,
-				4672BACF1A78A164007BF293 /* RotateHandle.cpp */,
-				4672BAD11A78A164007BF293 /* RotateOverTime.cpp */,
-				4672BAD31A78A164007BF293 /* RotateTool.cpp */,
-				4672BAD51A78A164007BF293 /* ScaleHandle.cpp */,
-				4672BAD71A78A164007BF293 /* ScaleTool.cpp */,
-				4672BAD91A78A164007BF293 /* ScriptComponent.cpp */,
 				4672BADC1A78A164007BF293 /* Serialization2.cpp */,
 				4672BADE1A78A164007BF293 /* SerializationStructs.cpp */,
-				4672BAE01A78A164007BF293 /* Shader.cpp */,
-				4672BAE21A78A164007BF293 /* SphereCollider.cpp */,
+				46B924371A81F40F00F84B7A /* SoundSystem.cpp */,
 				4672BAE41A78A164007BF293 /* StaticCounter.cpp */,
 				4672BAE61A78A164007BF293 /* Subject.cpp */,
-				4672BAE81A78A164007BF293 /* Texture.cpp */,
 				4672BAEA1A78A164007BF293 /* Time.cpp */,
 				4672BAEC1A78A164007BF293 /* Transform.cpp */,
 				4672BAEE1A78A164007BF293 /* UIButton.cpp */,
@@ -696,6 +631,119 @@
 				464D8AB31A4A53B7007B0CDD /* libSimulationControllerPROFILE.a */,
 			);
 			name = Libs;
+			sourceTree = "<group>";
+		};
+		465311AB1B214A1D0022B98E /* Component */ = {
+			isa = PBXGroup;
+			children = (
+				4672BA6F1A78A164007BF293 /* BoxCollider.hpp */,
+				4672BA711A78A164007BF293 /* Camera.hpp */,
+				4672BA731A78A164007BF293 /* CapsuleCollider.hpp */,
+				4672BA751A78A164007BF293 /* Collider.hpp */,
+				4672BA771A78A164007BF293 /* Component.hpp */,
+				4672BA861A78A164007BF293 /* FontMesh.hpp */,
+				4672BA961A78A164007BF293 /* Light.hpp */,
+				4672BAA31A78A164007BF293 /* MeshCollider.hpp */,
+				4672BAA51A78A164007BF293 /* MeshComponent.hpp */,
+				4672BAA71A78A164007BF293 /* MeshFilter.hpp */,
+				4672BAAB1A78A164007BF293 /* MeshRenderer.hpp */,
+				4672BACA1A78A164007BF293 /* Renderer.hpp */,
+				4672BACC1A78A164007BF293 /* RigidBody.hpp */,
+				4672BACE1A78A164007BF293 /* RigidStatic.hpp */,
+				4672BADA1A78A164007BF293 /* ScriptComponent.hpp */,
+				4672BAE31A78A164007BF293 /* SphereCollider.hpp */,
+			);
+			name = Component;
+			sourceTree = "<group>";
+		};
+		465311AD1B214A8A0022B98E /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				4672BA6E1A78A164007BF293 /* BoxCollider.cpp */,
+				4672BA701A78A164007BF293 /* Camera.cpp */,
+				4672BA721A78A164007BF293 /* CapsuleCollider.cpp */,
+				4672BA741A78A164007BF293 /* Collider.cpp */,
+				4672BA761A78A164007BF293 /* Component.cpp */,
+				4672BA7E1A78A164007BF293 /* EditorCollider.cpp */,
+				4672BA851A78A164007BF293 /* FontMesh.cpp */,
+				4672BA951A78A164007BF293 /* Light.cpp */,
+				4672BAA21A78A164007BF293 /* MeshCollider.cpp */,
+				4672BAA41A78A164007BF293 /* MeshComponent.cpp */,
+				4672BAA61A78A164007BF293 /* MeshFilter.cpp */,
+				4672BAAA1A78A164007BF293 /* MeshRenderer.cpp */,
+				4672BAC91A78A164007BF293 /* Renderer.cpp */,
+				4672BACB1A78A164007BF293 /* RigidBody.cpp */,
+				4672BACD1A78A164007BF293 /* RigidStatic.cpp */,
+				4672BAD91A78A164007BF293 /* ScriptComponent.cpp */,
+				4672BAE21A78A164007BF293 /* SphereCollider.cpp */,
+			);
+			name = Components;
+			sourceTree = "<group>";
+		};
+		465311AE1B214AE20022B98E /* ScriptComponent */ = {
+			isa = PBXGroup;
+			children = (
+				4672BA671A78A164007BF293 /* AddForceScript.hpp */,
+				4672BA7D1A78A164007BF293 /* EditorCameraControl.hpp */,
+				4672BA921A78A164007BF293 /* IncreaseColliderScript.hpp */,
+				4672BAAF1A78A164007BF293 /* MoveHandle.hpp */,
+				4672BAB11A78A164007BF293 /* MoveTool.hpp */,
+				4672BABF1A78A164007BF293 /* PlayerScript.hpp */,
+				4672BAD01A78A164007BF293 /* RotateHandle.hpp */,
+				4672BAD21A78A164007BF293 /* RotateOverTime.hpp */,
+				4672BAD41A78A164007BF293 /* RotateTool.hpp */,
+				4672BAD61A78A164007BF293 /* ScaleHandle.hpp */,
+				4672BAD81A78A164007BF293 /* ScaleTool.hpp */,
+			);
+			name = ScriptComponent;
+			sourceTree = "<group>";
+		};
+		465311AF1B214B2C0022B98E /* ScriptComponents */ = {
+			isa = PBXGroup;
+			children = (
+				4672BA661A78A164007BF293 /* AddForceScript.cpp */,
+				4672BA7C1A78A164007BF293 /* EditorCameraControl.cpp */,
+				4672BA911A78A164007BF293 /* IncreaseColliderScript.cpp */,
+				4672BAAE1A78A164007BF293 /* MoveHandle.cpp */,
+				4672BAB01A78A164007BF293 /* MoveTool.cpp */,
+				4672BABE1A78A164007BF293 /* PlayerScript.cpp */,
+				4672BACF1A78A164007BF293 /* RotateHandle.cpp */,
+				4672BAD11A78A164007BF293 /* RotateOverTime.cpp */,
+				4672BAD31A78A164007BF293 /* RotateTool.cpp */,
+				4672BAD51A78A164007BF293 /* ScaleHandle.cpp */,
+				4672BAD71A78A164007BF293 /* ScaleTool.cpp */,
+			);
+			name = ScriptComponents;
+			sourceTree = "<group>";
+		};
+		465311B01B214BDF0022B98E /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				46B924351A81F40F00F84B7A /* Sound.cpp */,
+				4672BA691A78A164007BF293 /* Asset.cpp */,
+				4672BA831A78A164007BF293 /* Font.cpp */,
+				4672BA9A1A78A164007BF293 /* Material.cpp */,
+				4672BAB61A78A164007BF293 /* PhysicsMaterial.cpp */,
+				4672BAA01A78A164007BF293 /* Mesh.cpp */,
+				4672BAE01A78A164007BF293 /* Shader.cpp */,
+				4672BAE81A78A164007BF293 /* Texture.cpp */,
+			);
+			name = Assets;
+			sourceTree = "<group>";
+		};
+		465311B11B214C240022B98E /* Assets */ = {
+			isa = PBXGroup;
+			children = (
+				4672BAB71A78A164007BF293 /* PhysicsMaterial.hpp */,
+				46B924361A81F40F00F84B7A /* Sound.hpp */,
+				4672BA6A1A78A164007BF293 /* Asset.hpp */,
+				4672BA841A78A164007BF293 /* Font.hpp */,
+				4672BA9B1A78A164007BF293 /* Material.hpp */,
+				4672BAA11A78A164007BF293 /* Mesh.hpp */,
+				4672BAE11A78A164007BF293 /* Shader.hpp */,
+				4672BAE91A78A164007BF293 /* Texture.hpp */,
+			);
+			name = Assets;
 			sourceTree = "<group>";
 		};
 		4694EE2E1A4A3A16001E8C48 = {

@@ -8,7 +8,6 @@
 
 #include "AssetDatabase.hpp"
 #include "Asset.hpp"
-//#include "Mesh.hpp"
 #include "Material.hpp"
 #include "Shader.hpp"
 #include "Texture.hpp"
@@ -33,7 +32,6 @@ std::map<unsigned int,shared_ptr<Asset>> AssetDatabase::idToAsset;
 std::map<string,shared_ptr<Asset>> AssetDatabase::nameToAsset;
 
 
-
 /** init. Function that initializes the class. */
 void AssetDatabase::init()
 {
@@ -48,11 +46,10 @@ void AssetDatabase::shutdown()
 }
 
 
-
 /** createSerializationFile. Create a meta-file for an asset (Serialize an asset) */
 void AssetDatabase::createSerializationFile(shared_ptr<Asset> asset, string filename)
 {
-        std::ofstream ofs(filename.append(".desc"),std::fstream::binary | std::fstream::out);
+    std::ofstream ofs(filename.append(".desc"),std::fstream::binary | std::fstream::out);
     {
 
         
@@ -79,7 +76,7 @@ void AssetDatabase::readSerialiationFile(string fullPath)
 }
 
 /** Once serialization is done and working, the AssetDatabase should not reload all files
-everytime. It should load only the Asset Description (.meta<->.desc) file and check if it's up to date.
+everytime. It should load only the Asset Description (.meta//.desc) file and check if it's up to date.
 This function loads all the meta-files existing in the CommonData folder*/
 
 void AssetDatabase::loadAllMetaFiles()
@@ -100,17 +97,6 @@ void AssetDatabase::loadAllMetaFiles()
         
     }
  
-}
-
-/** Search on the database for the asset with name==Asset.name.*/
-shared_ptr<Asset> AssetDatabase::getAsset(string name)
-{
-    map<string,shared_ptr<Asset>>::iterator it;
-	it = nameToAsset.find(name);
-    if(it!=nameToAsset.end())
-		return nameToAsset[name];
-    
-    return nullptr;
 }
 
 /** Search on the database for the asset with assetID==Asset.assetID.*/
@@ -164,15 +150,18 @@ void AssetDatabase::assignCurrentID(T asset)
 shared_ptr<Asset> AssetDatabase::tryLoadAsset(string file, string extension)
 {
 	if (extension.compare(".fbx") == 0)
-		cout << "Load fbx: " << file << endl;
+        return AssetDatabase::createMeshFromFBX(file);
+//		cout << "Load fbx: " << file << endl;
 	else if (extension.compare(".png") == 0)
-		cout << "Load png: " << file << endl;
+        return AssetDatabase::createTexture(file);
+//		cout << "Should automatically load png: " << file << endl;
 	else if (extension.compare(".obj") == 0)
-		cout << "Load obj: " << file << endl;
+        return AssetDatabase::createMeshFromOBJ(file);
+//		cout << "Load obj: " << file << endl;
 	else if (extension.compare(".mp3") == 0)
-		cout << "Load mp3: " << file << endl;
+		cout << "Should automatically load mp3: " << file << endl;
 	else if (extension.compare(".ttf") == 0)
-		cout << "Load ttf: " << file << endl;
+		cout << "Should automatically load ttf: " << file << endl;
 
 	return nullptr;
 
@@ -205,7 +194,7 @@ shared_ptr<PhysicsMaterial> AssetDatabase::createPhysicsMaterial(string name, fl
 /** Create mesh from .fbx files*/
  shared_ptr<Mesh> AssetDatabase::createMeshFromFBX(string filename)
 {
-    shared_ptr<Mesh> mesh = meshImporter.importFbxMesh(filename);
+    shared_ptr<Mesh> mesh = meshImporter.importFbxMesh(CommonData(filename));
     assignCurrentID(mesh,filename);
     return mesh;
 }
@@ -213,7 +202,7 @@ shared_ptr<PhysicsMaterial> AssetDatabase::createPhysicsMaterial(string name, fl
  /** Create mesh from .obj files*/
  shared_ptr<Mesh> AssetDatabase::createMeshFromOBJ(string filename)
 {
-    shared_ptr<Mesh> mesh = meshImporter.importObjMesh(filename);
+    shared_ptr<Mesh> mesh = meshImporter.importObjMesh(CommonData(filename));
     assignCurrentID(mesh,filename);
     return mesh;
 }
@@ -242,16 +231,19 @@ shared_ptr<Texture> AssetDatabase::createTexture(string filename)
 
 	int width = 0;
 	int height = 0;
-	void *buffer = loadTexture(filename, width, height);
+	void *buffer = loadTexture(CommonData(filename), width, height);
 
 	shared_ptr<Texture> texture = make_shared<Texture>(buffer,width,height);
-	assignCurrentID(texture);
+	assignCurrentID(texture, filename);
 
 	return texture;
 }
 
 shared_ptr<Font> AssetDatabase::createFont(string filename, int fontSize)
 {
+    string commonDataFilename = CommonData(filename);
+
+    
 	FT_Library  library;
 
 	FT_Error error = FT_Init_FreeType(&library);
@@ -262,7 +254,7 @@ shared_ptr<Font> AssetDatabase::createFont(string filename, int fontSize)
 	}
 
 	FT_Face     face;      /* handle to face object */
-	error = FT_New_Face(library, filename.c_str(),
+	error = FT_New_Face(library, commonDataFilename.c_str(),
 		0,
 		&face);
 	if (error == FT_Err_Unknown_File_Format)
@@ -292,6 +284,7 @@ shared_ptr<Font> AssetDatabase::createFont(string filename, int fontSize)
 	shared_ptr<Font> font = make_shared<Font>(texture, charUVMap, fontSize);
 	assignCurrentID(font, filename);
 
+    
 	return font;
 
 	//TODO how to cleanup freetype library?
@@ -566,6 +559,8 @@ void AssetDatabase::getWidthHeightForAlphabet(FT_Face face, string alphabet, int
 		int charHeight = face->glyph->bitmap.rows + yPos;
 
 		height = max(height,charHeight);
+        
+        FT_Done_Glyph(glyph);
 
 	}
 }

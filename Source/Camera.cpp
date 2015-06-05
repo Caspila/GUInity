@@ -32,7 +32,6 @@ Camera::~Camera()
 	nCount--;
 	cout << "Camera destroyed (" << nCount << " remaining)" << endl;
 #endif
-	
 }
 
 /** Computes the current Model View Matrix */

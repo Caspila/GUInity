@@ -28,8 +28,8 @@ void PlayerScript::awake()
     
     actor = getActor();
     
-    objMeshRef = dynamic_pointer_cast<Mesh>(AssetDatabase::getAsset("sphere.obj"));
-    defaultMaterialRef = dynamic_pointer_cast<Material>(AssetDatabase::getAsset("DefaultMaterial"));
+    objMeshRef = AssetDatabase::getAsset<Mesh>("sphere.obj");
+    defaultMaterialRef = AssetDatabase::getAsset<Material>("DefaultMaterial");
     
     
     
@@ -95,7 +95,7 @@ void PlayerScript::tick(float deltaSeconds)
 	{
         shared_ptr<Actor> bulletActor = lock->clone();
         
-        bulletActor->transform->setScale(glm::vec3(0.2f,0.2f,0.2f));
+//        bulletActor->transform->setScale(glm::vec3(0.2f,0.2f,0.2f));
         
 		bulletActor->transform->setPosition(transform->getPosition() + transform->getUp() * (1.0f ));
         
