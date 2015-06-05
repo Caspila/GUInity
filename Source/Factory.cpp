@@ -70,6 +70,14 @@ shared_ptr<Actor> Factory::CreateActor(string name)
 	return actor;
 }
 
+/** Create a new Actor */
+void Factory::DestroyActor(weak_ptr<Actor> actor)
+{
+    shared_ptr<Actor> actorLock = actor.lock();
+    if(actorLock)
+        notify(ActorEventType::RemovedActor,actorLock,false);
+}
+
 
 
 /** Create reference actor. Every Actor in the Game World has a Reference Actor in the Editor World to allow them to be manipulated */

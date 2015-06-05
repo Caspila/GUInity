@@ -31,7 +31,7 @@ shared_ptr<Actor> Component::getActor()
 	// This should never happen because only the actor should have a handle to a component.
 	// If the actor does not exist anymore, this component should be automatically released
 	// because of smart pointer
-	cerr << "ScriptComponent trying to get an actor that does not exist" << endl;
+	cerr << "Component trying to get an actor that does not exist" << endl;
 
 	return nullptr;
 }

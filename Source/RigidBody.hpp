@@ -23,6 +23,7 @@ public:
 	virtual ~RigidBody();
 
 	virtual void init() override;
+    virtual void destroy() override;
 	virtual void tick(float deltaSecods) override;
 	virtual void setActive(bool isActive) override;
 

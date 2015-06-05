@@ -33,6 +33,8 @@ public:
 	virtual void init() override;
 	/** Component setActive override */
     virtual void setActive(bool isActive) override;
+    
+    virtual void destroy() override;
 
 	/** Is this collider a trigger or should it simulate real world physics? */
 	void setTrigger(bool isTrigger);

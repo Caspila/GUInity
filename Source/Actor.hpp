@@ -96,6 +96,9 @@ public:
 	/** addComponent. Attaches an existing component to the actor. This function is used for deserialization of Actors */
 	void addComponent(shared_ptr<Component> component);
 
+    
+    void destroyComponents();
+    
 	/** Generic AddComponent. This function creates a smart pointer to the desired component and returns it*/
 	template <typename T>
 	shared_ptr<T> AddComponent()

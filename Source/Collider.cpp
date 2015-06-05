@@ -7,6 +7,12 @@ void Collider::init()
     physicsMaterial = Physics::getDefaultMaterial();
 }
 
+void Collider::destroy()
+{
+    if(shape)
+        shape->release();
+}
+
 /** Component setActive override */
 void Collider::setActive(bool isActive)
 {

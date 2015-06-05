@@ -29,6 +29,10 @@ public:
     
 	/** Create a new Actor */
 	static shared_ptr<Actor> CreateActor(string name);
+    
+    /** Destroys an Actor */
+    static void DestroyActor(weak_ptr<Actor> actor);
+    
 	/** Create reference actor. Every Actor in the Game World has a Reference Actor in the Editor World to allow them to be manipulated */
 	static void CreateReferenceActor(shared_ptr<Actor> realActor);
 	/** Create a new Editor Actor, one that lives only in the Editor World */

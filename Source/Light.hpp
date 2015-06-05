@@ -34,6 +34,8 @@ public:
 	/** Component init override. Notifies that a new light has been created*/
 	virtual void init() override;
 
+   	virtual void destroy() override;
+    
 	/** Prototype design pattern*/
 	virtual shared_ptr<Component> clone() override;
 

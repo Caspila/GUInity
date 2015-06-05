@@ -29,6 +29,7 @@ public:
     shared_ptr<Material> getMaterial();
 	
     virtual void init() override;
+    virtual void destroy() override;
 
     
     virtual shared_ptr<ComponentDescription> getComponentDescription() override;

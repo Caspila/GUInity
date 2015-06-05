@@ -6,7 +6,7 @@
 enum ActorEventType{  NewActor,  RemovedActor};
 
 /** Used for notifying when Components are created or removed. */
-enum ComponentEventType{ NewMeshRenderer, NewCamera, NewLight, NewRigidBody, NewRigidStatic, NewEditorCollider, NewFontRenderer, RemovedRenderer, RemovedCamera, RemovedLight, RemovedRigidBody, RemovedRigidStatic ,RemovedFontRenderer};
+enum ComponentEventType{ NewMeshRenderer, NewCamera, NewLight, NewRigidBody, NewRigidStatic, NewEditorCollider, RemovedMeshRenderer, RemovedCamera, RemovedLight, RemovedRigidBody, RemovedRigidStatic};
 
 /** Types supported for shader and materials*/
 enum ShaderParamType {

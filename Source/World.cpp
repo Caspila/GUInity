@@ -61,21 +61,59 @@ void World::addMeshRenderer(shared_ptr<MeshRenderer> renderer)
 {
 	meshRenderers.push_back(renderer);
 }
+void World::removeMeshRenderer(shared_ptr<MeshRenderer> renderer)
+{
+    auto it = find(meshRenderers.begin(),meshRenderers.end(),renderer);
+    
+    if(it!=meshRenderers.end())
+    {
+        meshRenderers.erase(it);
+    }
+}
 
 void World::addCamera(shared_ptr<Camera> camera)
 {
 	cameras.push_back(camera);
 }
-
+void World::removeCamera(shared_ptr<Camera> camera)
+{
+    auto it = find(cameras.begin(),cameras.end(),camera);
+    
+    if(it!=cameras.end())
+    {
+        cameras.erase(it);
+    }
+}
 
 void World::addLight(shared_ptr<Light> light)
 {
 	lights.push_back(light);
 }
+void World::removeLight(shared_ptr<Light> light)
+{
+    auto it = find(lights.begin(),lights.end(),light);
+    
+    if(it!=lights.end())
+    {
+        lights.erase(it);
+    }
+}
 
 void World::addActor(shared_ptr<Actor> actor)
 {
 	actors.push_back(actor);
+}
+void World::removeActor(shared_ptr<Actor> actor)
+{
+    
+	auto index = find(actors.begin(), actors.end(), actor);
+    
+	if (index != actors.end())
+    {
+        actor->destroyComponents();
+		actors.erase(index);
+    }
+    
 }
 
 void World::transferNewActors()
@@ -99,13 +137,22 @@ void World::addActorDelayed(shared_ptr<Actor> actor)
 {
 	newActors.push_back(actor);
 }
-void World::removeActor(shared_ptr<Actor> actor)
+
+
+
+
+void World::removeDestroyedActors()
 {
-	//auto index = find(actors.begin, actors.end, actor);
-
-	//if (index != actors.end())
-	//	actors.erase(index);
-
+    for (auto& actor: toRemoveActors)
+    {
+        shared_ptr<Actor> actorLock = actor.lock();
+        
+        if(actorLock)
+            removeActor(actorLock);
+    }
+    
+  	toRemoveActors.erase(toRemoveActors.begin(),toRemoveActors.end());
+    
 }
 
 shared_ptr<Actor> World::findActor(string name)
@@ -168,6 +215,7 @@ void World::tick(float deltaTime)
 	}
 
 	transferNewActors();
+    removeDestroyedActors();
 
 //	Physics::tickScene(physicsScene);
 }
@@ -229,8 +277,28 @@ void World::onNotify(ComponentEventType type, shared_ptr<Component> component, b
 			physicsScene->addActor(*editorCollider->getRigidStatic());
 		break;
 	}
-	case NewFontRenderer:
-		cout << "TODO, NEWFONT RENDERER COMPONENT CREATED BUT NOTHING HAPPENS" << endl;
+        case RemovedMeshRenderer:
+        {
+            shared_ptr<MeshRenderer> meshRenderer = dynamic_pointer_cast<MeshRenderer>(component);
+            if (meshRenderer)
+                removeMeshRenderer(meshRenderer);
+            break;
+        }
+        case RemovedCamera:
+        {
+            shared_ptr<Camera> camera = dynamic_pointer_cast<Camera>(component);
+            if (camera)
+                removeCamera(camera);
+            break;
+        }
+        case RemovedLight:
+        {
+            shared_ptr<Light> light = dynamic_pointer_cast<Light>(component);
+            if (light)
+                removeLight(light);
+            break;
+        }
+            
 		break;
 	default:
 		break;
@@ -250,6 +318,8 @@ void World::onNotify(ActorEventType type, shared_ptr<Actor> actor, bool isEditor
             else
                 addActor(actor);
             break;
+        case RemovedActor:
+            toRemoveActors.push_back(actor);
         default:
             break;
 	}

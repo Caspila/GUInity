@@ -22,7 +22,7 @@ public:
     glm::vec3 velocity;
     
 	PlayerScript();
-	~PlayerScript();
+	virtual ~PlayerScript();
 
 	weak_ptr <Actor> actor;
     

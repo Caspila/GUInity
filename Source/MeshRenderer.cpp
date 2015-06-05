@@ -35,6 +35,11 @@ void MeshRenderer::init()
 	MeshRenderer::notify(ComponentEventType::NewMeshRenderer, shared_from_this(),getActor()->getEditorFlag());
 }
 
+void MeshRenderer::destroy()
+{
+ 	MeshRenderer::notify(ComponentEventType::RemovedMeshRenderer, shared_from_this(),getActor()->getEditorFlag());
+}
+
 void MeshRenderer::setMaterial(shared_ptr<Material> material)
 {
     this->material = material;

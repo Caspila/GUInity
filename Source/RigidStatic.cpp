@@ -22,6 +22,11 @@ void RigidStatic::init()
 
 	notify(NewRigidStatic, shared_from_this(), getActor()->getEditorFlag());
 }
+void RigidStatic::destroy()
+{
+    physxRigidStatic->release();
+//	notify(RemovedRigidStatic, shared_from_this(), getActor()->getEditorFlag());
+}
 
 void RigidStatic::tick(float deltaSeconds)
 {

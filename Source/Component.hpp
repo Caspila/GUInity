@@ -35,6 +35,8 @@ public:
 	Component();
 	/** Default Destructor. Virtual because is parent class*/
 	virtual ~Component();
+    
+    
 
     
     
@@ -45,7 +47,10 @@ public:
 	virtual void awake() {};
 	/** Called when actor is initialized */
 	virtual void init() {};
-	/** Called by actor every frame */
+	/** Called when actor is initialized */
+	virtual void destroy() {};
+	
+    /** Called by actor every frame */
 	virtual void tick(float deltaSecods) {};
 	
 	/** getter for Actor */

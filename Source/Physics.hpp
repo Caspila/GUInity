@@ -59,6 +59,8 @@ public:
     static PxShape* createSphereCollider(float radius, PxVec3 center, shared_ptr<Actor> actor);
 	static PxShape* createSphereCollider(shared_ptr<Actor> actor);
     
+
+    
     static void setCapsuleOrientation(PxShape* shape,RotateAxis orientation);
     static PxShape* createCapsuleCollider(float radius, float halfHeight, RotateAxis orientation, glm::vec3 center, shared_ptr<Actor> actor);
     static PxShape* createCapsuleCollider(float radius, float halfHeight, RotateAxis orientation, PxVec3 center, shared_ptr<Actor> actor);

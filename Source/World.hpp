@@ -23,12 +23,15 @@ public:
 
 	std::vector<shared_ptr<MeshRenderer>> meshRenderers;
 	void addMeshRenderer(shared_ptr<MeshRenderer> meshRenderer);
+  	void removeMeshRenderer(shared_ptr<MeshRenderer> meshRenderer);
 	
 	std::vector<shared_ptr<Camera>> cameras;
 	void addCamera(shared_ptr<Camera> camera);
+    void removeCamera(shared_ptr<Camera> camera);
 	
 	std::vector<shared_ptr<Light>> lights;
 	void addLight(shared_ptr<Light> light);
+   	void removeLight(shared_ptr<Light> light);
 	
 	std::vector<shared_ptr<Actor>> actors;
     
@@ -36,9 +39,11 @@ public:
 	void addActorDelayed(shared_ptr<Actor> actor);
 	void removeActor(shared_ptr<Actor> actor);
 	std::vector<shared_ptr<Actor>> newActors;
+	std::vector<weak_ptr<Actor>> toRemoveActors;
 
 	void transferNewActors();
-
+    void removeDestroyedActors();
+    
 	shared_ptr<Actor> findActor(string name);
 	shared_ptr<Actor> getSharedPtrActor(Actor* actor);
 	

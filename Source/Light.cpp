@@ -41,6 +41,12 @@ void Light::init()
 	Light::notify(ComponentEventType::NewLight, shared_from_this(), getActor()->getEditorFlag());
 }
 
+void Light::destroy()
+{
+	Light::notify(ComponentEventType::RemovedLight, shared_from_this(), getActor()->getEditorFlag());
+    
+}
+
 /** Prototype design pattern*/
 shared_ptr<Component> Light::clone()
 {

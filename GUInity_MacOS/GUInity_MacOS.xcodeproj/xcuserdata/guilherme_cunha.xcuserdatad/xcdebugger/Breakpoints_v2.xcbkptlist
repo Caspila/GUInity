@@ -298,11 +298,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/PlayerScript.cpp"
-            timestampString = "455096481.900681"
+            timestampString = "455227810.596481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "47"
-            endingLineNumber = "47"
+            startingLineNumber = "48"
+            endingLineNumber = "48"
             landmarkName = "PlayerScript::tick(float deltaSeconds)"
             landmarkType = "5">
          </BreakpointContent>
@@ -314,11 +314,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/PlayerScript.cpp"
-            timestampString = "455096481.900681"
+            timestampString = "455227810.596481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "33"
-            endingLineNumber = "33"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
             landmarkName = "PlayerScript::awake()"
             landmarkType = "5">
          </BreakpointContent>
@@ -330,11 +330,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/PlayerScript.cpp"
-            timestampString = "455165650.725737"
+            timestampString = "455227810.596481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "112"
-            endingLineNumber = "112"
+            startingLineNumber = "115"
+            endingLineNumber = "115"
             landmarkName = "PlayerScript::tick(float deltaSeconds)"
             landmarkType = "5">
          </BreakpointContent>
@@ -346,11 +346,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/RigidBody.cpp"
-            timestampString = "455179732.691834"
+            timestampString = "455226517.629902"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "150"
-            endingLineNumber = "150"
+            startingLineNumber = "157"
+            endingLineNumber = "157"
             landmarkName = "RigidBody::updateTransform(const PxTransform&amp; newTransform)"
             landmarkType = "5">
          </BreakpointContent>
@@ -362,11 +362,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/PlayerScript.cpp"
-            timestampString = "455165650.725737"
+            timestampString = "455227810.596481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "103"
-            endingLineNumber = "103"
+            startingLineNumber = "106"
+            endingLineNumber = "106"
             landmarkName = "PlayerScript::tick(float deltaSeconds)"
             landmarkType = "5">
          </BreakpointContent>
@@ -378,11 +378,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/World.cpp"
-            timestampString = "455100059.660928"
+            timestampString = "455227478.257538"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "167"
-            endingLineNumber = "167"
+            startingLineNumber = "214"
+            endingLineNumber = "214"
             landmarkName = "World::tick(float deltaTime)"
             landmarkType = "5">
          </BreakpointContent>
@@ -394,11 +394,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/World.cpp"
-            timestampString = "455100059.660928"
+            timestampString = "455227478.257538"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "251"
-            endingLineNumber = "251"
+            startingLineNumber = "319"
+            endingLineNumber = "319"
             landmarkName = "World::onNotify(ActorEventType type, shared_ptr&lt;Actor&gt; actor, bool isEditor)"
             landmarkType = "5">
          </BreakpointContent>
@@ -410,11 +410,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/World.cpp"
-            timestampString = "455099553.266776"
+            timestampString = "455227478.257538"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "100"
-            endingLineNumber = "100"
+            startingLineNumber = "138"
+            endingLineNumber = "138"
             landmarkName = "World::addActorDelayed(shared_ptr&lt;Actor&gt; actor)"
             landmarkType = "5">
          </BreakpointContent>
@@ -426,11 +426,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/PlayerScript.cpp"
-            timestampString = "455099574.766223"
+            timestampString = "455227810.596481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "83"
-            endingLineNumber = "83"
+            startingLineNumber = "84"
+            endingLineNumber = "84"
             landmarkName = "PlayerScript::tick(float deltaSeconds)"
             landmarkType = "5">
          </BreakpointContent>
@@ -442,11 +442,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/World.cpp"
-            timestampString = "455100059.660928"
+            timestampString = "455227478.257538"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "249"
-            endingLineNumber = "249"
+            startingLineNumber = "317"
+            endingLineNumber = "317"
             landmarkName = "World::onNotify(ActorEventType type, shared_ptr&lt;Actor&gt; actor, bool isEditor)"
             landmarkType = "5">
          </BreakpointContent>
@@ -458,11 +458,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/World.cpp"
-            timestampString = "455100059.660928"
+            timestampString = "455227478.257538"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "252"
-            endingLineNumber = "252"
+            startingLineNumber = "321"
+            endingLineNumber = "321"
             landmarkName = "World::onNotify(ActorEventType type, shared_ptr&lt;Actor&gt; actor, bool isEditor)"
             landmarkType = "5">
          </BreakpointContent>
@@ -474,11 +474,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/World.cpp"
-            timestampString = "455132322.640366"
+            timestampString = "455227478.257538"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "85"
-            endingLineNumber = "85"
+            startingLineNumber = "123"
+            endingLineNumber = "123"
             landmarkName = "World::transferNewActors()"
             landmarkType = "5">
          </BreakpointContent>
@@ -521,22 +521,6 @@
             shouldBeEnabled = "No"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "../Source/Game.cpp"
-            timestampString = "455143197.616206"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "Game::update(float deltaSeconds)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
             filePath = "../Source/Time.cpp"
             timestampString = "455162910.925694"
             startingColumnNumber = "9223372036854775807"
@@ -554,11 +538,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/PlayerScript.cpp"
-            timestampString = "455166141.742321"
+            timestampString = "455227810.596481"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "149"
-            endingLineNumber = "149">
+            startingLineNumber = "152"
+            endingLineNumber = "152">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -747,6 +731,52 @@
             endingLineNumber = "11"
             landmarkName = "SphereCollider::SphereCollider(float radius, PxVec3 center = PxVec3(0,0,0))"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/Component.cpp"
+            timestampString = "455219099.390688"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "34"
+            endingLineNumber = "34"
+            landmarkName = "Component::getActor()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/World.cpp"
+            timestampString = "455227478.257538"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "252"
+            endingLineNumber = "252"
+            landmarkName = "World::onNotify(ComponentEventType type, shared_ptr&lt;Component&gt; component, bool isEditor)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/Light.cpp"
+            timestampString = "455227939.869613"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

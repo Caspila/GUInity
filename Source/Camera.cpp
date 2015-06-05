@@ -178,6 +178,12 @@ void Camera::init()
 	Camera::notify(ComponentEventType::NewCamera, shared_from_this(), getActor()->getEditorFlag());
 }
 
+void Camera::destroy()
+{
+	Camera::notify(ComponentEventType::RemovedCamera, shared_from_this(), getActor()->getEditorFlag());
+    
+}
+
 /** Component awake override. Computes MVPMatrix */
 void Camera::awake()
 {

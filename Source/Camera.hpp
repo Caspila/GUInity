@@ -73,7 +73,11 @@ public:
 
 	/** Component init override. Notifies that a new camera has been created */
 	virtual void init() override;
-	/** Component awake override. Computes MVPMatrix */
+
+
+	virtual void destroy() override;
+	
+    /** Component awake override. Computes MVPMatrix */
 	virtual void awake() override;
 	/** Component tick override. Computes MVPMatrix */
 	virtual void tick(float deltaSecods) override;

@@ -7,6 +7,7 @@
 #include "MeshFilter.hpp"
 #include "MeshRenderer.hpp"
 #include "RigidBody.hpp"
+#include "Game.hpp"
 
 PlayerScript::PlayerScript()
 {
@@ -93,11 +94,13 @@ void PlayerScript::tick(float deltaSeconds)
     
     if (Input::getKeyPressed(GLFW_KEY_SPACE))
 	{
-        shared_ptr<Actor> bulletActor = lock->clone();
-        
-//        bulletActor->transform->setScale(glm::vec3(0.2f,0.2f,0.2f));
-        
-		bulletActor->transform->setPosition(transform->getPosition() + transform->getUp() * (1.0f ));
+        shared_ptr<Actor> actor = Game::world->findActor("Light");
+        Factory::DestroyActor(actor);
+//        shared_ptr<Actor> bulletActor = lock->clone();
+//        
+////        bulletActor->transform->setScale(glm::vec3(0.2f,0.2f,0.2f));
+//        
+//		bulletActor->transform->setPosition(transform->getPosition() + transform->getUp() * (1.0f ));
         
         /*
         shared_ptr<Actor> bulletActor = Factory::CreateActor("bullet");

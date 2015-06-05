@@ -63,6 +63,13 @@ void RigidBody::init()
 	notify(NewRigidBody, shared_from_this(), getActor()->getEditorFlag());
 }
 
+void RigidBody::destroy()
+{
+    physxRigidBody->release();
+}
+
+
+
 void RigidBody::tick(float deltaSeconds)
 {
 

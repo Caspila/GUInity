@@ -165,6 +165,21 @@ void Actor::addComponent(shared_ptr<Component> component)
     component->init();
 }
 
+void Actor::destroyComponents()
+{
+  	for (auto& x : components)
+	{
+        x->destroy();
+    }
+    
+    for (auto& x : children)
+	{
+		auto ptrLock = x.lock();
+		if (ptrLock)
+            ptrLock->destroyComponents();
+	}
+}
+
 shared_ptr<Actor> Actor::clone()
 {
     shared_ptr<Actor> newActor = Factory::CreateActor(name+"(Clone)");
