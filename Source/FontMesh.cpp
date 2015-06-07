@@ -95,7 +95,7 @@ void FontMesh::createMesh()
 		xOffset += letterWidth;
 	}
 
-	mesh->createBuffers3();
+	mesh->createBuffers();
 }
 
 /** Prototype design pattern*/

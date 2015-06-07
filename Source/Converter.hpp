@@ -4,6 +4,7 @@
 #include <glm/common.hpp>
 #include <glm/gtx/quaternion.hpp>
 #include <PxPhysicsAPI.h>
+#include <fbxsdk.h>
 
 /** Helper class that converts GLM mathematical structures to PhysX structures */
 
@@ -29,4 +30,7 @@ PxTransform transformToPhysXTransform(const shared_ptr<Transform>& transform);
 PxMat44 glmMat4ToPhysxMat4(const glm::mat4& mat4);
 
 /** Convert PhysX::PxMat44 to glm::mat4*/
-glm::mat4& mat4PhysXMat4ToglmMat4(const PxMat44& mat4);
+void PhysXMat4ToglmMat4(const PxMat44& mat4,glm::mat4& newMat);
+
+/** Convert FBX Matrix to glm::mat4*/
+void fbxMat4ToglmMat4(const FbxAMatrix& mat4, glm::mat4& newMat);

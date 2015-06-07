@@ -42,7 +42,7 @@ Mesh::Mesh(float* indices, float* normalPoints, float* uv, unsigned int *triangl
 	nCount++;
 #endif
 
-	createBuffers3();
+	createBuffers();
 }
 
 /** Constructor from vector of MeshVertex and triangles */
@@ -59,7 +59,7 @@ Mesh::Mesh(vector<MeshVertex> vertex, vector<unsigned short> triangles)
 	nCount++;
 #endif
     
-    createBuffers3();
+    createBuffers();
 }
 
 /** Constructor from vector of MeshVertex, subset of used Indexes and triangles */
@@ -83,7 +83,7 @@ Mesh::Mesh(vector<glm::vec3> vertices,vector<int> usedIndex,vector<int> usedTris
 #endif
                                
                                
-    createBuffers3();
+    createBuffers();
     
 }
 
@@ -124,6 +124,15 @@ void Mesh::addVertex(glm::vec3 position, glm::vec2 uv, glm::vec3 normal)
 void Mesh::addTriangle(int vertexIndex)
 {
 	triangles.push_back(vertexIndex);
+}
+
+void Mesh::setVertices(vector<MeshVertex> meshVertices)
+{
+    this->meshVertices = meshVertices;
+}
+void Mesh::setTriangles(vector<unsigned short> triangles)
+{
+    this->triangles = triangles;
 }
 
 /** scaleFactor Setter */
@@ -198,7 +207,7 @@ int Mesh::getVerticesCount()
 }
 
 /** Create OpenGL buffers */
-void Mesh::createBuffers3()
+void Mesh::createBuffers()
 {
 	//nPoints = meshVertices.size();
 
@@ -211,12 +220,12 @@ void Mesh::createBuffers3()
 	ibo = 0;
     GraphicsSystem::getInstance()->generateBuffer(1,ibo,GL_ELEMENT_ARRAY_BUFFER,triangles.size() * sizeof(unsigned short),&triangles[0],GL_STATIC_DRAW);
 
-	calculateBounds3();
+	calculateBounds();
 }
 
 
 /** Calculate mesh bounds */
-void Mesh::calculateBounds3()
+void Mesh::calculateBounds()
 {
 	float minX, minY, minZ, maxX, maxY, maxZ;
 

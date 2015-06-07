@@ -9,6 +9,7 @@
 using namespace fbxsdk_2015_1;
 
 class Mesh;
+class SkinnedMesh;
 
 // Fastvbo indexer idea: https://code.google.com/p/opengl-tutorial-org/source/browse/common/vboindexer.cpp
 struct PackedFBXVertex{
@@ -37,8 +38,17 @@ public:
 	void init();
 	void shutdown();
 	shared_ptr<Mesh> importFbxMesh(string filename);
+    void importFbxSkeleton(FbxSkeleton* skeletonNode);
+    void importFbxSkin(FbxSkin* skinNode);
+    
+    shared_ptr<Mesh> importFbxMesh(FbxScene* scene,FbxMesh * meshNode);
+    shared_ptr<SkinnedMesh
+    > importFbxSkinnedMesh(FbxScene* scene,FbxMesh * meshNode);
+    void importFbxAnimation(FbxScene* scene, FbxNode* node);
+    
 	shared_ptr<Mesh> importObjMesh(string filename);
 
+    bool isMeshSkinned(FbxMesh* meshNode);
 
 	void getVertexData(FbxMesh* m_pMesh, int uPoly, int uVertex, FbxVector4& fbxVertex, FbxVector4&  fbxNormal, FbxVector2& fbxUV);
 

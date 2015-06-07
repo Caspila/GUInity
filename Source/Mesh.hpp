@@ -24,6 +24,8 @@ struct MeshVertex
 	
 };
 
+
+
 /** Mesh is an Asset that represents a 3D Model. The vertexes are indexed, meaning that they're stored once only
 	and can be referenced in several faces (triangles).
 
@@ -111,11 +113,14 @@ public:
 	/** Adds a new index to the triangles list*/
 	void addTriangle(int vertexIndex);
 
+    void setVertices(vector<MeshVertex> meshVertices);
+    void setTriangles(vector<unsigned short> triangles);
+    
 	
 	/** Create OpenGL buffers */
-	void createBuffers3();
+	void createBuffers();
 	/** Calculate mesh bounds */
-	void calculateBounds3();
+	void calculateBounds();
 
     
 	/** Returns non duplicate mesh vertices based on position only. It does not take into consideration other parameters such as UV or normal.

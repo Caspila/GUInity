@@ -77,7 +77,7 @@ namespace boost {
             ar & mesh.avgCenter;
             
 
-            mesh.createBuffers3();
+            mesh.createBuffers();
         }
         template<class Archive>
         void save(Archive & ar,const Mesh & mesh, const unsigned int version)

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		462378331B23B5B300FEF3D4 /* SkinnedMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462378311B23B5B300FEF3D4 /* SkinnedMesh.cpp */; };
 		46389E071A6CEF5A000B0DEB /* PxTkBmpLoader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46389E021A6CEF5A000B0DEB /* PxTkBmpLoader.cpp */; };
 		46389E081A6CEF5A000B0DEB /* PxTkFPS.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46389E031A6CEF5A000B0DEB /* PxTkFPS.cpp */; };
 		46389E091A6CEF5A000B0DEB /* PxTkMatrixUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46389E041A6CEF5A000B0DEB /* PxTkMatrixUtils.cpp */; };
@@ -155,6 +156,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		462378311B23B5B300FEF3D4 /* SkinnedMesh.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SkinnedMesh.cpp; path = ../Source/SkinnedMesh.cpp; sourceTree = "<group>"; };
+		462378321B23B5B300FEF3D4 /* SkinnedMesh.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SkinnedMesh.hpp; path = ../Source/SkinnedMesh.hpp; sourceTree = "<group>"; };
 		46389E021A6CEF5A000B0DEB /* PxTkBmpLoader.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PxTkBmpLoader.cpp; path = "../../../physx-3.3.1_osx_sdk_core/Samples/PxToolkit/src/PxTkBmpLoader.cpp"; sourceTree = "<group>"; };
 		46389E031A6CEF5A000B0DEB /* PxTkFPS.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PxTkFPS.cpp; path = "../../../physx-3.3.1_osx_sdk_core/Samples/PxToolkit/src/PxTkFPS.cpp"; sourceTree = "<group>"; };
 		46389E041A6CEF5A000B0DEB /* PxTkMatrixUtils.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = PxTkMatrixUtils.cpp; path = "../../../physx-3.3.1_osx_sdk_core/Samples/PxToolkit/src/PxTkMatrixUtils.cpp"; sourceTree = "<group>"; };
@@ -445,9 +448,9 @@
 		464D8A861A4A5336007B0CDD /* Header */ = {
 			isa = PBXGroup;
 			children = (
-				465311B11B214C240022B98E /* Assets */,
-				465311AB1B214A1D0022B98E /* Component */,
-				465311AE1B214AE20022B98E /* ScriptComponent */,
+				465311B11B214C240022B98E /* _Assets */,
+				465311AB1B214A1D0022B98E /* _Component */,
+				465311AE1B214AE20022B98E /* _ScriptComponent */,
 				4672BA651A78A164007BF293 /* Actor.hpp */,
 				4672BA681A78A164007BF293 /* AnyClass.hpp */,
 				4672BA6C1A78A164007BF293 /* AssetDatabase.hpp */,
@@ -496,9 +499,9 @@
 		464D8A871A4A5342007B0CDD /* Source */ = {
 			isa = PBXGroup;
 			children = (
-				465311B01B214BDF0022B98E /* Assets */,
-				465311AD1B214A8A0022B98E /* Components */,
-				465311AF1B214B2C0022B98E /* ScriptComponents */,
+				465311B01B214BDF0022B98E /* _Assets */,
+				465311AD1B214A8A0022B98E /* _Components */,
+				465311AF1B214B2C0022B98E /* _ScriptComponents */,
 				4672BA641A78A164007BF293 /* Actor.cpp */,
 				4672BA6B1A78A164007BF293 /* AssetDatabase.cpp */,
 				4672BA781A78A164007BF293 /* Converter.cpp */,
@@ -633,7 +636,7 @@
 			name = Libs;
 			sourceTree = "<group>";
 		};
-		465311AB1B214A1D0022B98E /* Component */ = {
+		465311AB1B214A1D0022B98E /* _Component */ = {
 			isa = PBXGroup;
 			children = (
 				4672BA6F1A78A164007BF293 /* BoxCollider.hpp */,
@@ -653,10 +656,10 @@
 				4672BADA1A78A164007BF293 /* ScriptComponent.hpp */,
 				4672BAE31A78A164007BF293 /* SphereCollider.hpp */,
 			);
-			name = Component;
+			name = _Component;
 			sourceTree = "<group>";
 		};
-		465311AD1B214A8A0022B98E /* Components */ = {
+		465311AD1B214A8A0022B98E /* _Components */ = {
 			isa = PBXGroup;
 			children = (
 				4672BA6E1A78A164007BF293 /* BoxCollider.cpp */,
@@ -677,10 +680,10 @@
 				4672BAD91A78A164007BF293 /* ScriptComponent.cpp */,
 				4672BAE21A78A164007BF293 /* SphereCollider.cpp */,
 			);
-			name = Components;
+			name = _Components;
 			sourceTree = "<group>";
 		};
-		465311AE1B214AE20022B98E /* ScriptComponent */ = {
+		465311AE1B214AE20022B98E /* _ScriptComponent */ = {
 			isa = PBXGroup;
 			children = (
 				4672BA671A78A164007BF293 /* AddForceScript.hpp */,
@@ -695,10 +698,10 @@
 				4672BAD61A78A164007BF293 /* ScaleHandle.hpp */,
 				4672BAD81A78A164007BF293 /* ScaleTool.hpp */,
 			);
-			name = ScriptComponent;
+			name = _ScriptComponent;
 			sourceTree = "<group>";
 		};
-		465311AF1B214B2C0022B98E /* ScriptComponents */ = {
+		465311AF1B214B2C0022B98E /* _ScriptComponents */ = {
 			isa = PBXGroup;
 			children = (
 				4672BA661A78A164007BF293 /* AddForceScript.cpp */,
@@ -713,12 +716,13 @@
 				4672BAD51A78A164007BF293 /* ScaleHandle.cpp */,
 				4672BAD71A78A164007BF293 /* ScaleTool.cpp */,
 			);
-			name = ScriptComponents;
+			name = _ScriptComponents;
 			sourceTree = "<group>";
 		};
-		465311B01B214BDF0022B98E /* Assets */ = {
+		465311B01B214BDF0022B98E /* _Assets */ = {
 			isa = PBXGroup;
 			children = (
+				462378311B23B5B300FEF3D4 /* SkinnedMesh.cpp */,
 				46B924351A81F40F00F84B7A /* Sound.cpp */,
 				4672BA691A78A164007BF293 /* Asset.cpp */,
 				4672BA831A78A164007BF293 /* Font.cpp */,
@@ -728,10 +732,10 @@
 				4672BAE01A78A164007BF293 /* Shader.cpp */,
 				4672BAE81A78A164007BF293 /* Texture.cpp */,
 			);
-			name = Assets;
+			name = _Assets;
 			sourceTree = "<group>";
 		};
-		465311B11B214C240022B98E /* Assets */ = {
+		465311B11B214C240022B98E /* _Assets */ = {
 			isa = PBXGroup;
 			children = (
 				4672BAB71A78A164007BF293 /* PhysicsMaterial.hpp */,
@@ -740,39 +744,40 @@
 				4672BA841A78A164007BF293 /* Font.hpp */,
 				4672BA9B1A78A164007BF293 /* Material.hpp */,
 				4672BAA11A78A164007BF293 /* Mesh.hpp */,
+				462378321B23B5B300FEF3D4 /* SkinnedMesh.hpp */,
 				4672BAE11A78A164007BF293 /* Shader.hpp */,
 				4672BAE91A78A164007BF293 /* Texture.hpp */,
 			);
-			name = Assets;
+			name = _Assets;
 			sourceTree = "<group>";
 		};
 		4694EE2E1A4A3A16001E8C48 = {
 			isa = PBXGroup;
 			children = (
+				464D8A881A4A5346007B0CDD /* Content */,
+				46389E0C1A6CF71E000B0DEB /* libboost_filesystem.a */,
+				46389E0E1A6CF738000B0DEB /* libboost_filesystem.dylib */,
+				46389E101A6CF752000B0DEB /* libboost_system.a */,
+				46389E121A6CF767000B0DEB /* libboost_system.dylib */,
+				468B50C01A61E56700CD58A5 /* libfbxsdk.a */,
+				468B50BE1A61E54B00CD58A5 /* libfbxsdk.dylib */,
+				468B50C41A61E5E300CD58A5 /* libfmod.dylib */,
 				4672BB421A78A26D007BF293 /* libfreetype.6.dylib */,
 				4672BB401A78A25A007BF293 /* libfreetype.a */,
-				46389E121A6CF767000B0DEB /* libboost_system.dylib */,
-				46389E101A6CF752000B0DEB /* libboost_system.a */,
-				46389E0E1A6CF738000B0DEB /* libboost_filesystem.dylib */,
-				46389E0C1A6CF71E000B0DEB /* libboost_filesystem.a */,
+				466138EA1A64CFA800AB9D02 /* libpng16.16.dylib */,
+				466138E51A64CF4D00AB9D02 /* libpng16.a */,
+				464D8A891A4A53A4007B0CDD /* Libs */,
+				4694EE391A4A3A16001E8C48 /* opengl_testing_mag */,
+				4694EE381A4A3A16001E8C48 /* Products */,
+				464D8A861A4A5336007B0CDD /* Header */,
+				464D8A871A4A5342007B0CDD /* Source */,
 				46389E021A6CEF5A000B0DEB /* PxTkBmpLoader.cpp */,
 				46389E031A6CEF5A000B0DEB /* PxTkFPS.cpp */,
 				46389E041A6CEF5A000B0DEB /* PxTkMatrixUtils.cpp */,
 				46389E051A6CEF5A000B0DEB /* PxTkRandom.cpp */,
 				46389E061A6CEF5A000B0DEB /* PxTkStream.cpp */,
-				466138EA1A64CFA800AB9D02 /* libpng16.16.dylib */,
 				466138E71A64CF6100AB9D02 /* libpng16.16.dylib */,
-				466138E51A64CF4D00AB9D02 /* libpng16.a */,
-				468B50C41A61E5E300CD58A5 /* libfmod.dylib */,
 				468B50C21A61E5CC00CD58A5 /* libfmod.dylib */,
-				468B50C01A61E56700CD58A5 /* libfbxsdk.a */,
-				468B50BE1A61E54B00CD58A5 /* libfbxsdk.dylib */,
-				464D8A891A4A53A4007B0CDD /* Libs */,
-				464D8A881A4A5346007B0CDD /* Content */,
-				464D8A871A4A5342007B0CDD /* Source */,
-				464D8A861A4A5336007B0CDD /* Header */,
-				4694EE391A4A3A16001E8C48 /* opengl_testing_mag */,
-				4694EE381A4A3A16001E8C48 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -878,6 +883,7 @@
 				4672BAFF1A78A164007BF293 /* Collider.cpp in Sources */,
 				4672BB2E1A78A164007BF293 /* RotateTool.cpp in Sources */,
 				4672BB121A78A164007BF293 /* Material.cpp in Sources */,
+				462378331B23B5B300FEF3D4 /* SkinnedMesh.cpp in Sources */,
 				4672BB191A78A164007BF293 /* MeshImporter.cpp in Sources */,
 				4672BB231A78A164007BF293 /* PhysXInsertionCallback.cpp in Sources */,
 				4672BB0E1A78A164007BF293 /* Input.cpp in Sources */,
