@@ -29,13 +29,13 @@ void RotateTool::awake()
 	shared_ptr<Actor> rightHandle = Factory::CreateEditorActor("RotateZAxisHandle");
     //    rightHandle->transform->setRotationQuat(glm::angleAxis(90*Deg2Radian,glm::vec3(0, 1, 0)));
 //    rightHandle->transform->setPosition(glm::vec3(0, 0, 0));
-    rightHandle->transform->setRotationQuat(glm::angleAxis(90*Deg2Radian,glm::vec3(1, 0, 0)));
+    rightHandle->transform->setRotation(glm::angleAxis(90*Deg2Radian,glm::vec3(1, 0, 0)));
     rightHandle->transform->setScale(glm::vec3(1, 1, 0.1f));
     
 	shared_ptr<MeshFilter> meshFilter = rightHandle->AddComponent<MeshFilter>();
 	meshFilter->setMesh(cylinderMesh);
     shared_ptr<MeshRenderer> meshRenderer = rightHandle->AddComponent<MeshRenderer>();
-    meshRenderer->material = defaultMat;
+    meshRenderer->setMaterial( defaultMat);
     
     
     shared_ptr<MeshCollider> collider = rightHandle->AddComponent<MeshCollider>();
@@ -49,11 +49,11 @@ void RotateTool::awake()
 
 	shared_ptr<Actor> forwardHandle = Factory::CreateEditorActor("RotateXAxisHandle");
     forwardHandle->transform->setScale(glm::vec3(1, 1, 0.1f));
-    forwardHandle->transform->setRotationQuat(glm::angleAxis(90*Deg2Radian,glm::vec3(0, 1, 0)));
+    forwardHandle->transform->setRotation(glm::angleAxis(90*Deg2Radian,glm::vec3(0, 1, 0)));
     meshFilter = forwardHandle->AddComponent<MeshFilter>();
     meshFilter->setMesh(cylinderMesh);
     meshRenderer = forwardHandle->AddComponent<MeshRenderer>();
-    meshRenderer->material = defaultMat;
+    meshRenderer->setMaterial( defaultMat);
 	collider = forwardHandle->AddComponent<MeshCollider>();
 	collider->setQueryOnly(true);
 //	forwardHandle->transform->setPosition(glm::vec3(0, 0, 2));
@@ -67,7 +67,7 @@ void RotateTool::awake()
     meshFilter = upHandle->AddComponent<MeshFilter>();
 	meshFilter->setMesh(cylinderMesh);
     meshRenderer = upHandle->AddComponent<MeshRenderer>();
-    meshRenderer->material = defaultMat;
+    meshRenderer->setMaterial( defaultMat);
    	collider = upHandle->AddComponent<MeshCollider>();
 //	collider = upHandle->AddComponent<CapsuleCollider>();
 

@@ -48,7 +48,7 @@ shared_ptr<Actor> Factory::DeserializeActor(ActorDescription& desc)
     Factory::CreateEditorActor(desc.name) :
     Factory::CreateActor(desc.name);
     
-    actor->transform->rotationQuat = desc.transform.rotationQuat;
+    actor->transform->rotation = desc.transform.rotation;
     actor->transform->scale = desc.transform.scale;
     actor->transform->position = desc.transform.position;
     

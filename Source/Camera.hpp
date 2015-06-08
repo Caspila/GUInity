@@ -12,7 +12,7 @@ class Transform;
 
 using namespace std;
 
-/** Camera Component. This component simulates a camera in a 3D environment. It's the point of view used for rendering the Actors of the Game */
+/** Camera Component. This component simulates a camera in a 3D environment. It's the point of view used for rendering the Actors of the World */
 class Camera : public Component, public Subject<Camera>
 #ifdef GUINITY_DEBUG
 	, public StaticCounter<Camera>
@@ -73,8 +73,7 @@ public:
 
 	/** Component init override. Notifies that a new camera has been created */
 	virtual void init() override;
-
-
+    /** Component destroy override. Notifies that the camera has been destroyed */
 	virtual void destroy() override;
 	
     /** Component awake override. Computes MVPMatrix */
@@ -82,15 +81,27 @@ public:
 	/** Component tick override. Computes MVPMatrix */
 	virtual void tick(float deltaSecods) override;
    
+    
+    
 
-	/** Prototype design pattern*/
+    /** Clones current component (Prototype Design Pattern)
+     @return shared_ptr to cloned Camera Component
+     */
 	virtual shared_ptr<Component> clone() override;
 	
-	/** Serialization region*/
-	/** Get a description for the current component*/
-    virtual shared_ptr<ComponentDescription> getComponentDescription();
-	/** Deserialize a component description into this collider */
-    virtual void deserialize(shared_ptr<ComponentDescription> desc);
+    /** @defgroup serialization_functions Serialization Functions
+     *  Serialization Region
+     *  @{
+     */
+#pragma region Serialization Functions
+    
+	/** Creates a description for the Component*/
+	virtual shared_ptr<ComponentDescription> getComponentDescription() override;
+    /** Deserializes a description to a Component */
+    virtual void deserialize(shared_ptr<ComponentDescription> desc) override;
+    
+#pragma endregion
+    /** @} */ // end of serialization_functions
 
 };
 

@@ -88,7 +88,6 @@
 		4672BB261A78A164007BF293 /* QTGraphicsSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAC31A78A164007BF293 /* QTGraphicsSystem.cpp */; };
 		4672BB271A78A164007BF293 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAC51A78A164007BF293 /* Ray.cpp */; };
 		4672BB281A78A164007BF293 /* ReflectionTest.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAC71A78A164007BF293 /* ReflectionTest.cpp */; };
-		4672BB291A78A164007BF293 /* Renderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAC91A78A164007BF293 /* Renderer.cpp */; };
 		4672BB2A1A78A164007BF293 /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BACB1A78A164007BF293 /* RigidBody.cpp */; };
 		4672BB2B1A78A164007BF293 /* RigidStatic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BACD1A78A164007BF293 /* RigidStatic.cpp */; };
 		4672BB2C1A78A164007BF293 /* RotateHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BACF1A78A164007BF293 /* RotateHandle.cpp */; };
@@ -120,6 +119,7 @@
 		4694EE3D1A4A3A16001E8C48 /* opengl_testing_mag.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4694EE3C1A4A3A16001E8C48 /* opengl_testing_mag.1 */; };
 		46B924391A81F40F00F84B7A /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924351A81F40F00F84B7A /* Sound.cpp */; };
 		46B9243A1A81F40F00F84B7A /* SoundSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924371A81F40F00F84B7A /* SoundSystem.cpp */; };
+		46D2DD521B24D9D1006335D3 /* Spline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46D2DD501B24D9D1006335D3 /* Spline.cpp */; };
 		46FFC2311A52880100FCFAC4 /* libboost_serialization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FFC2301A52880100FCFAC4 /* libboost_serialization.a */; };
 		46FFC2351A52886500FCFAC4 /* libboost_serialization.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */; };
 /* End PBXBuildFile section */
@@ -340,8 +340,6 @@
 		4672BAC61A78A164007BF293 /* Ray.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Ray.hpp; path = ../Source/Ray.hpp; sourceTree = "<group>"; };
 		4672BAC71A78A164007BF293 /* ReflectionTest.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = ReflectionTest.cpp; path = ../Source/ReflectionTest.cpp; sourceTree = "<group>"; };
 		4672BAC81A78A164007BF293 /* ReflectionTest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ReflectionTest.h; path = ../Source/ReflectionTest.h; sourceTree = "<group>"; };
-		4672BAC91A78A164007BF293 /* Renderer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Renderer.cpp; path = ../Source/Renderer.cpp; sourceTree = "<group>"; };
-		4672BACA1A78A164007BF293 /* Renderer.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Renderer.hpp; path = ../Source/Renderer.hpp; sourceTree = "<group>"; };
 		4672BACB1A78A164007BF293 /* RigidBody.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RigidBody.cpp; path = ../Source/RigidBody.cpp; sourceTree = "<group>"; };
 		4672BACC1A78A164007BF293 /* RigidBody.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = RigidBody.hpp; path = ../Source/RigidBody.hpp; sourceTree = "<group>"; };
 		4672BACD1A78A164007BF293 /* RigidStatic.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = RigidStatic.cpp; path = ../Source/RigidStatic.cpp; sourceTree = "<group>"; };
@@ -399,6 +397,8 @@
 		46B924361A81F40F00F84B7A /* Sound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Sound.hpp; path = ../Source/Sound.hpp; sourceTree = "<group>"; };
 		46B924371A81F40F00F84B7A /* SoundSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundSystem.cpp; path = ../Source/SoundSystem.cpp; sourceTree = "<group>"; };
 		46B924381A81F40F00F84B7A /* SoundSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SoundSystem.hpp; path = ../Source/SoundSystem.hpp; sourceTree = "<group>"; };
+		46D2DD501B24D9D1006335D3 /* Spline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Spline.cpp; path = ../Source/Spline.cpp; sourceTree = "<group>"; };
+		46D2DD511B24D9D1006335D3 /* Spline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Spline.hpp; path = ../Source/Spline.hpp; sourceTree = "<group>"; };
 		46FFC2271A523C2200FCFAC4 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = "../../../FMOD Programmers API/api/lowlevel/lib/libfmod.dylib"; sourceTree = "<group>"; };
 		46FFC2291A523C3D00FCFAC4 /* libfbxsdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfbxsdk.a; path = "/Applications/Autodesk/FBX SDK/2015.1/lib/clang/debug/libfbxsdk.a"; sourceTree = "<absolute>"; };
 		46FFC22B1A523C7400FCFAC4 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = "../../../FMOD Programmers API/api/lowlevel/lib/libfmod.dylib"; sourceTree = "<group>"; };
@@ -456,7 +456,6 @@
 				4672BA6C1A78A164007BF293 /* AssetDatabase.hpp */,
 				4672BA791A78A164007BF293 /* Converter.hpp */,
 				4672BA7B1A78A164007BF293 /* Editor.hpp */,
-				4672BA7F1A78A164007BF293 /* EditorCollider.hpp */,
 				4672BA801A78A164007BF293 /* Enums.hpp */,
 				4672BA821A78A164007BF293 /* Factory.hpp */,
 				4672BA881A78A164007BF293 /* FSAuxiliar.hpp */,
@@ -492,6 +491,7 @@
 				4672BAF31A78A164007BF293 /* UILayout.hpp */,
 				4672BAF51A78A164007BF293 /* UIWidget.hpp */,
 				4672BAF71A78A164007BF293 /* World.hpp */,
+				46D2DD511B24D9D1006335D3 /* Spline.hpp */,
 			);
 			name = Header;
 			sourceTree = "<group>";
@@ -507,6 +507,7 @@
 				4672BA781A78A164007BF293 /* Converter.cpp */,
 				4672BA7A1A78A164007BF293 /* Editor.cpp */,
 				4672BA811A78A164007BF293 /* Factory.cpp */,
+				46D2DD501B24D9D1006335D3 /* Spline.cpp */,
 				4672BA871A78A164007BF293 /* FSAuxiliar.cpp */,
 				4672BA891A78A164007BF293 /* Game.cpp */,
 				4672BA8B1A78A164007BF293 /* GLFWGraphicsSystem.cpp */,
@@ -639,18 +640,18 @@
 		465311AB1B214A1D0022B98E /* _Component */ = {
 			isa = PBXGroup;
 			children = (
+				4672BA771A78A164007BF293 /* Component.hpp */,
 				4672BA6F1A78A164007BF293 /* BoxCollider.hpp */,
 				4672BA711A78A164007BF293 /* Camera.hpp */,
 				4672BA731A78A164007BF293 /* CapsuleCollider.hpp */,
 				4672BA751A78A164007BF293 /* Collider.hpp */,
-				4672BA771A78A164007BF293 /* Component.hpp */,
 				4672BA861A78A164007BF293 /* FontMesh.hpp */,
+				4672BA7F1A78A164007BF293 /* EditorCollider.hpp */,
 				4672BA961A78A164007BF293 /* Light.hpp */,
 				4672BAA31A78A164007BF293 /* MeshCollider.hpp */,
 				4672BAA51A78A164007BF293 /* MeshComponent.hpp */,
 				4672BAA71A78A164007BF293 /* MeshFilter.hpp */,
 				4672BAAB1A78A164007BF293 /* MeshRenderer.hpp */,
-				4672BACA1A78A164007BF293 /* Renderer.hpp */,
 				4672BACC1A78A164007BF293 /* RigidBody.hpp */,
 				4672BACE1A78A164007BF293 /* RigidStatic.hpp */,
 				4672BADA1A78A164007BF293 /* ScriptComponent.hpp */,
@@ -674,7 +675,6 @@
 				4672BAA41A78A164007BF293 /* MeshComponent.cpp */,
 				4672BAA61A78A164007BF293 /* MeshFilter.cpp */,
 				4672BAAA1A78A164007BF293 /* MeshRenderer.cpp */,
-				4672BAC91A78A164007BF293 /* Renderer.cpp */,
 				4672BACB1A78A164007BF293 /* RigidBody.cpp */,
 				4672BACD1A78A164007BF293 /* RigidStatic.cpp */,
 				4672BAD91A78A164007BF293 /* ScriptComponent.cpp */,
@@ -871,6 +871,7 @@
 				4672BB3D1A78A164007BF293 /* UILayout.cpp in Sources */,
 				4672BB061A78A164007BF293 /* Font.cpp in Sources */,
 				4672BB361A78A164007BF293 /* StaticCounter.cpp in Sources */,
+				46D2DD521B24D9D1006335D3 /* Spline.cpp in Sources */,
 				4672BAFA1A78A164007BF293 /* Asset.cpp in Sources */,
 				4672BB321A78A164007BF293 /* Serialization2.cpp in Sources */,
 				4672BB101A78A164007BF293 /* main.cpp in Sources */,
@@ -887,7 +888,6 @@
 				4672BB191A78A164007BF293 /* MeshImporter.cpp in Sources */,
 				4672BB231A78A164007BF293 /* PhysXInsertionCallback.cpp in Sources */,
 				4672BB0E1A78A164007BF293 /* Input.cpp in Sources */,
-				4672BB291A78A164007BF293 /* Renderer.cpp in Sources */,
 				46389E091A6CEF5A000B0DEB /* PxTkMatrixUtils.cpp in Sources */,
 				46B924391A81F40F00F84B7A /* Sound.cpp in Sources */,
 				4672BB161A78A164007BF293 /* MeshCollider.cpp in Sources */,
@@ -1032,6 +1032,7 @@
 					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Source/foundation/include",
 					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include/foundation",
 					"/Users/guilherme_cunha/Dev/freetype-2.4.0/include",
+					"/Users/guilherme_cunha/Dev/alglib-3.9.0/cpp/src",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
@@ -1075,6 +1076,7 @@
 					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Source/foundation/include",
 					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include/foundation",
 					"/Users/guilherme_cunha/Dev/freetype-2.4.0/include",
+					"/Users/guilherme_cunha/Dev/alglib-3.9.0/cpp/src",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",

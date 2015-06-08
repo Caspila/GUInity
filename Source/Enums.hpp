@@ -27,6 +27,17 @@ enum class TransformMode {move, rotate, scale, none};
 
 /** Editor related enums */
 enum class TransformAxis { x, y, z };
+enum class TransformConstrainAxis { MoveLockX = 0,
+    MoveLockY = (1 << 1),
+    MoveLockZ = (1 << 2),
+    RotateLockX = (1 << 3),
+    RotateLockY = (1 << 4),
+    RotateLockZ = (1 << 5)};
+
+TransformConstrainAxis operator|(TransformConstrainAxis lhs, TransformConstrainAxis rhs) {
+    return (TransformConstrainAxis) ((int)lhs| (int)rhs);
+}
+
 enum RotateAxis { x, y, z };
 enum MoveAxis { up, right, forward };
 enum MoveMode { global, pivot };

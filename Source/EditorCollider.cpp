@@ -34,7 +34,7 @@ void EditorCollider::tick(float deltaSeconds)
 	shared_ptr<Actor> myActor = getActor();
 
 	myActor->transform->position = gameActorLock->transform->position;
-	myActor->transform->rotationQuat = gameActorLock->transform->rotationQuat;
+	myActor->transform->rotation = gameActorLock->transform->rotation;
 }
 
 /** physxRigidStatic getter*/
@@ -42,4 +42,15 @@ PxRigidDynamic* EditorCollider::getRigidStatic()
 {
 	return physxRigidStatic;
 }
+
+/** Clones current component (Prototype Design Pattern)
+ @return nullptr, EditorColliders are not supposed to be cloned
+ */
+shared_ptr<Component> EditorCollider::clone()
+{
+    cout << "Error: Since EditorCollider reference to one object it's not supposed to be cloned!" << endl;
+    
+    return nullptr;
+}
+
 

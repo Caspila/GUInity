@@ -119,6 +119,9 @@ void CapsuleCollider::init()
 
 }
 
+/** Clones current component (Prototype Design Pattern)
+ @return shared_ptr to cloned CapsuleCollider Component
+ */
 shared_ptr<Component> CapsuleCollider::clone() {
     shared_ptr<CapsuleCollider> compClone = make_shared<CapsuleCollider>(orientation, halfHeight, radius, center);
     

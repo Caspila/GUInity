@@ -37,10 +37,15 @@ shared_ptr<Font> FontMesh::getFont()
 /** text setter */
 void FontMesh::setText(string text)
 {
+    // Do nothing if text is not changed
+    if(this->text.compare(text)==0)
+        return;
+    
 	this->text = text;
 
 	createMesh();
 }
+
 /** text getter */
 string FontMesh::getText()
 {
@@ -98,7 +103,10 @@ void FontMesh::createMesh()
 	mesh->createBuffers();
 }
 
-/** Prototype design pattern*/
+/** Clones current component (Prototype Design Pattern)
+ @return shared_ptr to cloned FontMesh Component
+ */
+
 shared_ptr<Component> FontMesh::clone()
 {
     shared_ptr<FontMesh> compClone = make_shared<FontMesh>();
@@ -109,14 +117,3 @@ shared_ptr<Component> FontMesh::clone()
     return compClone;
 };
 
-
-/** Get a description for the current component*/
-shared_ptr<ComponentDescription> FontMesh::getComponentDescription()
-{
-	return nullptr;
-}
-/** Deserialize a component description to a collider */
-void FontMesh::deserialize(shared_ptr<ComponentDescription> desc)
-{
-
-}

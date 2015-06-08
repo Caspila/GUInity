@@ -99,7 +99,7 @@ void ScaleTool::tick(float deltaSeconds)
 	{
         //        cout << "Align" << endl;
 		actor->transform->position = currentActor->transform->position;
-		actor->transform->rotationQuat = currentActor->transform->rotationQuat;
+		actor->transform->rotation = currentActor->transform->rotation;
 	}
     
     //    cout << "Rotating" << endl;

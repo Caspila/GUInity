@@ -51,7 +51,7 @@ void RotateHandle::tick(float deltaSeconds)
 	if (myParent)
 	{
 		myParent->transform->position = currentActor->transform->position;
-		myParent->transform->rotationQuat = currentActor->transform->rotationQuat;
+		myParent->transform->rotation = currentActor->transform->rotation;
 	}
 
 	Ray r = Editor::cameraComponent->screenPointToRay(Input::mousePos);
@@ -126,7 +126,7 @@ void RotateHandle::tick(float deltaSeconds)
 			//cout << "Dot" << dot << endl;
 //			cout << "lastDot" << lastDot << endl;
 
-			glm::vec3 eulerAngles = glm::eulerAngles(currentActor->transform->rotationQuat);
+			glm::vec3 eulerAngles = glm::eulerAngles(currentActor->transform->rotation);
 			
 			//cout << "eulerAngles.z" << eulerAngles.z << endl;
 			
@@ -139,7 +139,7 @@ void RotateHandle::tick(float deltaSeconds)
 
 //			currentActor->transform->rotationQuat = glm::angleAxis(f * deltaSeconds, rotationAxis) * currentActor->transform->rotationQuat;
 
-            currentActor->transform->rotationQuat = glm::angleAxis(f * deltaSeconds, dirAxis) * currentActor->transform->rotationQuat;
+            currentActor->transform->rotation = glm::angleAxis(f * deltaSeconds, dirAxis) * currentActor->transform->rotation;
             
 
 			lastDot = dot;

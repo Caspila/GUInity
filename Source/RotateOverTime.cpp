@@ -14,5 +14,5 @@
 void RotateOverTime::tick(float deltaSeconds)
 {
     std:: cout << "Rotating" << endl;
-    getActor()->transform->rotationQuat =  glm::angleAxis(deltaSeconds, glm::vec3(1, 0, 0))* getActor()->transform->rotationQuat;
+    getActor()->transform->rotation =  glm::angleAxis(deltaSeconds, glm::vec3(1, 0, 0))* getActor()->transform->rotation;
 }

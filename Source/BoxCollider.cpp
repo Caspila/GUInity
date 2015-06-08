@@ -40,6 +40,8 @@ BoxCollider::~BoxCollider()
 /** Init component override. Create a new Box Shape in the PhysX scene. */
 void BoxCollider::init()
 {
+    Component::init();
+    
 	// Deserializing
     if(initWithData)
     {
@@ -64,9 +66,12 @@ void BoxCollider::init()
         // Sets the material as the default one
         Collider::init();
     }
-
+    
 }
 
+/** Clones current component (Prototype Design Pattern)
+ @return shared_ptr to cloned BoxCollider Component
+ */
 shared_ptr<Component> BoxCollider::clone()
 {
     shared_ptr<BoxCollider> compClone = make_shared<BoxCollider>(halfExtent, center);
@@ -74,13 +79,13 @@ shared_ptr<Component> BoxCollider::clone()
     return compClone;
 }
 
-/** Get a description for the current component*/
+/** Creates a description for the Component*/
 shared_ptr<ComponentDescription> BoxCollider::getComponentDescription()
 {
     return make_shared<BoxColliderDescription>(halfExtent);
 }
 
-/** Deserialize a component description into this collider */
+/** Deserializes a description to a Component */
 void BoxCollider::deserialize(shared_ptr<ComponentDescription> desc)
 {
     

@@ -196,6 +196,9 @@ void Camera::tick(float deltaSecods)
 	computeModelViewMatrix();
 }
 
+/** Clones current component (Prototype Design Pattern)
+ @return shared_ptr to cloned Camera Component
+ */
 shared_ptr<Component> Camera::clone()
 {
     shared_ptr<Camera> compClone = make_shared<Camera>(nearClipPlane,farClipPlane,fov,ratio);

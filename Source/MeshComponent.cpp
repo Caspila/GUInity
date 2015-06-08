@@ -37,22 +37,6 @@ shared_ptr<Mesh> MeshComponent::getMesh()
 	return mesh;
 }
 
-/** Get a description for the current component*/
-shared_ptr<ComponentDescription> MeshComponent::getComponentDescription()
-{
-	//return make_shared<MeshFilterDescription>(mesh->assetID);
-	return nullptr;
-}
-
-/** Deserialize a component description to a collider */
-void MeshComponent::deserialize(shared_ptr<ComponentDescription> desc)
-{
-
-	//shared_ptr< MeshFilterDescription> meshFilterDesc = dynamic_pointer_cast<MeshFilterDescription>(desc);
-	//cout << "MeshFilterDesc mesh id" << meshFilterDesc->meshID << endl;
-	//mesh = dynamic_pointer_cast<Mesh>(AssetDatabase::idToAsset[meshFilterDesc->meshID]);
-}
-
 
 /** Gets the center and the AABB size for the Actor that this component is attached to */
 void MeshComponent::getBoxSize(shared_ptr<Actor> actor, PxVec3& boxSize, PxVec3& center)

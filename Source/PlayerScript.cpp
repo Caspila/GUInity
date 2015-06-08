@@ -9,6 +9,9 @@
 #include "RigidBody.hpp"
 #include "Game.hpp"
 
+/*!
+ * Your documentation comment will go here
+ */
 PlayerScript::PlayerScript()
 {
 
@@ -22,7 +25,7 @@ PlayerScript::~PlayerScript()
 
 void PlayerScript::awake()
 {
-	moveSpeed = 1;
+	moveSpeed = 0.1f;
     rotateSpeed = 2;
     
     cout << "Move speed set to 10!" << endl;
@@ -32,6 +35,24 @@ void PlayerScript::awake()
     objMeshRef = AssetDatabase::getAsset<Mesh>("sphere.obj");
     defaultMaterialRef = AssetDatabase::getAsset<Material>("DefaultMaterial");
     
+    
+    shared_ptr<Actor> actorLock = actor.lock();
+    
+    shared_ptr<Actor> bulletSpawnPoint = Factory::CreateActor("BulletSpawnPoint");
+
+    bulletSpawnPoint->transform->setPosition(actorLock->transform->getUp() * 1.5f + actorLock->transform->getPosition());
+    
+    actorLock->addChildren(bulletSpawnPoint);
+    
+    this->bulletSpawnPoint = bulletSpawnPoint;
+
+//    shared_ptr<Actor> bulletSpawnChild = Factory::CreateActor("BulletSpawnPointChild");
+//    
+//    bulletSpawnChild->transform->setPosition(bulletSpawnPoint->transform->getUp() * 1.5f + bulletSpawnPoint->transform->getPosition());
+//    
+//    bulletSpawnPoint->addChildren(bulletSpawnChild);
+//    
+//    this->bulletSpawnPoint = bulletSpawnChild;
     
     
 //	sphereReference = World::findActor("Sphere");
@@ -67,19 +88,19 @@ void PlayerScript::tick(float deltaSeconds)
 	{
 //        velocity.x -= moveSpeed;
         
-		glm::quat rot = transform->getRotationQuat();
+		glm::quat rot = transform->getRotation();
 //
         glm::quat left = glm::angleAxis(deltaSeconds * rotateSpeed, transform->getForward());
         //
         //
         
         //		transform->setRotationQuat(glm::slerp(rot, right, deltaSeconds));
-        transform->setRotationQuat(left * rot);
+        transform->setRotation(left * rot);
 	}
 	if (Input::getKey(GLFW_KEY_RIGHT))
 	{
 //        velocity.x -= moveSpeed;
-		glm::quat rot = transform->getRotationQuat();
+		glm::quat rot = transform->getRotation();
 //
 //		glm::quat right(-transform->getRight());
 //        glm::quat newRot;
@@ -88,21 +109,21 @@ void PlayerScript::tick(float deltaSeconds)
 //
         
 //		transform->setRotationQuat(glm::slerp(rot, right, deltaSeconds));
-        transform->setRotationQuat(right * rot);
+        transform->setRotation(right * rot);
 //                transform->setRotationQuat(right);
 	}
     
     if (Input::getKeyPressed(GLFW_KEY_SPACE))
 	{
-        shared_ptr<Actor> actor = Game::world->findActor("Light");
-        Factory::DestroyActor(actor);
+//        shared_ptr<Actor> actor = Game::world->findActor("Light");
+//        Factory::DestroyActor(actor);
 //        shared_ptr<Actor> bulletActor = lock->clone();
-//        
-////        bulletActor->transform->setScale(glm::vec3(0.2f,0.2f,0.2f));
-//        
+//
+//        bulletActor->transform->setScale(glm::vec3(0.2f,0.2f,0.2f));
+//
 //		bulletActor->transform->setPosition(transform->getPosition() + transform->getUp() * (1.0f ));
         
-        /*
+        
         shared_ptr<Actor> bulletActor = Factory::CreateActor("bullet");
 		shared_ptr<MeshFilter> meshFilter = bulletActor->AddComponent<MeshFilter>();
 		meshFilter->setMesh(objMeshRef);
@@ -110,14 +131,21 @@ void PlayerScript::tick(float deltaSeconds)
 
         bulletActor->transform->setScale(glm::vec3(0.2f,0.2f,0.2f));
         
-		meshRenderer->material = defaultMaterialRef;
+		meshRenderer->setMaterial(defaultMaterialRef);
         
-        bulletActor->transform->setPosition(transform->getPosition() + transform->getUp() * (1.0f ));
+        shared_ptr<Actor> bulletSpawnLock = bulletSpawnPoint.lock();
+        
+        bulletActor->transform->setPosition(bulletSpawnLock->transform->getWorldPosition());
+        
         
         shared_ptr<RigidBody> rb = bulletActor->AddComponent<RigidBody>();
-        rb->addForce(transform->getUp() * 500.0f);
+
+        cout << "transform up:" << transform->getUp()<< endl;
+        glm::vec3 forceVec = transform->getUp() * 250.0f;
+        rb->addForce(forceVec);
+        cout << "Force added:" << forceVec<< endl;
         rb->setGravity(false);
-        */
+        
 	}
     
     glm::vec3 position = transform->getPosition();
@@ -126,14 +154,14 @@ void PlayerScript::tick(float deltaSeconds)
 	
     transform->setPosition(position);
     
-    applyDrag();
+    applyDrag(deltaSeconds);
 
 
 }
 
-void PlayerScript::applyDrag()
+void PlayerScript::applyDrag(float deltaSeconds)
 {
-    velocity -= velocity * 0.1f;
+    velocity -= velocity * 0.01f;
 }
 
 void PlayerScript::onCollision(Actor* actor)

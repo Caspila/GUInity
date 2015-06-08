@@ -56,7 +56,9 @@ void MeshCollider::tick(float deltaSeconds)
     shape->setGeometry(geo);
     
 }
-
+/** Clones current component (Prototype Design Pattern)
+ @return shared_ptr to cloned MeshCollider Component
+ */
 shared_ptr<Component> MeshCollider::clone()
 {
     shared_ptr<MeshCollider> compClone = make_shared<MeshCollider>();
@@ -68,14 +70,4 @@ shared_ptr<Component> MeshCollider::clone()
 };
 
 
-/** Get a description for the current component*/
-shared_ptr<ComponentDescription> MeshCollider::getComponentDescription()
-{
-	return nullptr;
-}
-/** Deserialize a component description into this collider */
-void MeshCollider::deserialize(shared_ptr<ComponentDescription> desc)
-{
-
-}
 

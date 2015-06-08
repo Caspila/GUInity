@@ -4,7 +4,9 @@
 #include "Converter.hpp"
 #include <map>
 #include <glm/gtx/spline.hpp>
+#include <interpolation.h>
 
+using namespace alglib;
 
 MeshImporter::MeshImporter()
 {
@@ -184,9 +186,6 @@ shared_ptr<Mesh> MeshImporter::importFbxMesh(FbxScene* scene,FbxMesh* meshNode)
 void MeshImporter::importFbxAnimation(FbxScene* scene, FbxNode* node)
 {
     
-//    glm::gtx::spline
-    glm::cubic(<#const genType &v1#>, <#const genType &v2#>, <#const genType &v3#>, <#const genType &v4#>, <#const typename genType::value_type &s#>)
-    
     int numStacks = scene->GetSrcObjectCount(FbxCriteria::ObjectType(FbxAnimLayer::ClassId));
     for(int j = 0; j < numStacks; j++)
     {
@@ -204,6 +203,8 @@ void MeshImporter::importFbxAnimation(FbxScene* scene, FbxNode* node)
             FbxAnimCurve* animCurveY = node->LclTranslation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Y);
             FbxAnimCurve* animCurveZ = node->LclTranslation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Z);
             
+            if(!animCurveX)
+                continue;
             
             int animCurveXCount = animCurveX->KeyGetCount();
             for(int x = 0; x < animCurveXCount; x++)
@@ -327,7 +328,7 @@ shared_ptr<SkinnedMesh> MeshImporter::importFbxSkinnedMesh(FbxScene* scene,FbxMe
                 FbxCluster* cluster = skin->GetCluster(j);
                 
                 
-                importFbxAnimation(scene,cluster->GetLink());
+//                importFbxAnimation(scene,cluster->GetLink());
                 
                 FbxAMatrix matrix;
                 cluster->GetTransformMatrix(matrix);
@@ -349,7 +350,7 @@ shared_ptr<SkinnedMesh> MeshImporter::importFbxSkinnedMesh(FbxScene* scene,FbxMe
                     }
                     
                     
-                    cout << cluster->GetLink()->GetNameOnly()<< " bone: " << j << " Vertex: " <<controlPoints[clusterIndex] << " weight: " << weights[clusterIndex] << endl;
+//                    cout << cluster->GetLink()->GetNameOnly()<< " bone: " << j << " Vertex: " <<controlPoints[clusterIndex] << " weight: " << weights[clusterIndex] << endl;
                     
                 }
                 

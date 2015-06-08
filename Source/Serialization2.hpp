@@ -250,7 +250,7 @@ namespace boost {
             
             ar & transformDescription.scale;
             
-            ar & transformDescription.rotationQuat;
+            ar & transformDescription.rotation;
             //boost::serialization::split_free(ar, rigidBody, version);
         }
         

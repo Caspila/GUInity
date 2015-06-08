@@ -10,6 +10,9 @@
 class Material;
 class Mesh;
 
+/*!
+ * Your documentation comment will go here
+ */
 class PlayerScript : public ScriptComponent
 {
 public:
@@ -26,11 +29,11 @@ public:
 
 	weak_ptr <Actor> actor;
     
-    void applyDrag();
+    void applyDrag(float deltaSeconds);
     
     shared_ptr<Material> defaultMaterialRef;
     shared_ptr<Mesh> objMeshRef;
-    
+    weak_ptr<Actor> bulletSpawnPoint;
 	
 	virtual void onCollision(Actor* actor) override;
 	virtual void onTrigger(Actor* actor) override;

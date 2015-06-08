@@ -41,13 +41,16 @@ void Light::init()
 	Light::notify(ComponentEventType::NewLight, shared_from_this(), getActor()->getEditorFlag());
 }
 
+    /** Component destroy override. Notifies that this light has been destroyed*/
 void Light::destroy()
 {
 	Light::notify(ComponentEventType::RemovedLight, shared_from_this(), getActor()->getEditorFlag());
     
 }
 
-/** Prototype design pattern*/
+/** Clones current component (Prototype Design Pattern)
+ @return shared_ptr to cloned Light Component
+ */
 shared_ptr<Component> Light::clone()
 {
     shared_ptr<Light> compClone = make_shared<Light>(getColor());

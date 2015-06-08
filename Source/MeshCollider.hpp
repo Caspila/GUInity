@@ -1,6 +1,7 @@
 #pragma once
 #include "Collider.hpp"
 
+/** BoxCollider uses a Mesh as the volume collider. Can either be real physics simulated or trigger only. */
 class MeshCollider : public Collider
 #ifdef GUINITY_DEBUG
 	, public StaticCounter<MeshCollider>
@@ -18,14 +19,24 @@ public:
 	/** Component tick override. Updates the scale of the Mesh Shape in the PhysX scene. */
 	virtual void tick(float deltaSeconds) override;
 
-	/** Prototype design pattern*/
+    /** Clones current component (Prototype Design Pattern)
+     @return shared_ptr to cloned MeshCollider Component
+     */
 	virtual shared_ptr<Component> clone() override;
 
-	/** Serialization region*/
-	/** Get a description for the current component*/
-	virtual shared_ptr<ComponentDescription> getComponentDescription();
-	/** Deserialize a component description into this collider */
-	virtual void deserialize(shared_ptr<ComponentDescription> desc);
+    /** @defgroup serialization_functions Serialization Functions
+     *  Serialization Region
+     *  @{
+     */
+#pragma region Serialization Functions
+    
+	/** Creates a description for the Component*/
+	virtual shared_ptr<ComponentDescription> getComponentDescription() override {return nullptr;}
+    /** Deserializes a description to a Component */
+    virtual void deserialize(shared_ptr<ComponentDescription> desc) override {};
+    
+#pragma endregion
+    /** @} */ // end of serialization_functions
     
 };
 

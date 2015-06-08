@@ -24,20 +24,22 @@ public:
 	~Transform();
 
 	void setPosition(glm::vec3 position);
-	void setRotationQuat(glm::quat rotationQuat);
+	void setRotation(glm::quat rotation);
 	void setScale(glm::vec3 scale);
 
-	glm::vec3 getGlobalPosition();
+	glm::vec3 getWorldPosition();
 	glm::vec3 getPosition();
-	glm::vec3 getScale();
-	glm::quat getRotationQuat();
 
+	glm::vec3 getScale();
+	glm::quat getRotation();
+    glm::quat getWorldRotation();
+    
 	glm::mat4 getModelMatrix();
 	glm::mat4 getPosRotMatrix();
 
 	glm::vec3 position;
 	glm::vec3 scale;
-	glm::quat rotationQuat;
+	glm::quat rotation;
 
 
 	weak_ptr<Actor> actor;

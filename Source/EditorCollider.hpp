@@ -25,8 +25,6 @@ public:
 	/** Default Destructor. Virtual because inherits from Component */
 	virtual ~EditorCollider() {};
 
-	
-
 	/** Component init override. Initializes the rigid body in the PhysX scene. */
 	virtual void init() override;
 	/** Component tick override. Updates the fake collider position and rotation to match the real Game Actor */
@@ -39,6 +37,24 @@ public:
 	/** physxRigidStatic getter*/
 	PxRigidDynamic* getRigidStatic();
 
+    /** Clones current component (Prototype Design Pattern)
+     @return nullptr, EditorColliders are not supposed to be cloned
+     */
+	virtual shared_ptr<Component> clone() override;
+    
+    /** @defgroup serialization_functions Serialization Functions
+     *  Serialization Region
+     *  @{
+     */
+#pragma region Serialization Functions
+    
+	/** Creates a description for the Component*/
+	virtual shared_ptr<ComponentDescription> getComponentDescription() override {return nullptr;}
+    /** Deserializes a description to a Component */
+    virtual void deserialize(shared_ptr<ComponentDescription> desc) override {};
+    
+#pragma endregion
+    /** @} */ // end of serialization_functions
 
 };
 

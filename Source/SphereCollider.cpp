@@ -21,7 +21,7 @@ SphereCollider::SphereCollider(float radius, PxVec3 center = PxVec3(0,0,0))
 /** Default Constructor*/
 SphereCollider::SphereCollider()
 {
-
+    
     setCopyMode(false);
     
 #ifdef GUINITY_DEBUG
@@ -38,25 +38,27 @@ SphereCollider::~SphereCollider()
 #endif
 }
 
-/** radius Getter*/
+/** radius Getter
+ @return radius of the sphere */
 float SphereCollider::getRadius()
 {
 	return radius;
 }
 
-/** radius Setter*/
+/** radius Setter
+ @param [in] newRadius the radius of the sphere */
 void SphereCollider::setRadius(float newRadius)
 {
 	this->radius = newRadius;
-
+    
 	// Update PhysX scene
 	PxSphereGeometry sphereGeometry;
 	shape->getSphereGeometry(sphereGeometry);
-
+    
 	sphereGeometry.radius = newRadius;
-
+    
 	shape->setGeometry(sphereGeometry);
-
+    
 }
 
 /** Init component override. Create a new Sphere Shape in the PhysX scene. */
@@ -80,20 +82,23 @@ void SphereCollider::init()
         
         if(meshFilter)
             meshFilter->getSphereSize(getActor(), radius, center);
-            
+        
         shape = Physics::createSphereCollider(radius,center,getActor());
         // Sets the material as the default one
         Collider::init();
         
     }
-
+    
 }
 
-	shared_ptr<Component> SphereCollider::clone() {
-        shared_ptr<SphereCollider> compClone = make_shared<SphereCollider>(radius,center);
-        compClone->setPhysicsMaterial(getPhysicsMaterial());
-        return compClone;
-    };
+/** Clones current component (Prototype Design Pattern)
+ @return shared_ptr to cloned SphereCollider Component
+ */
+shared_ptr<Component> SphereCollider::clone() {
+    shared_ptr<SphereCollider> compClone = make_shared<SphereCollider>(radius,center);
+    compClone->setPhysicsMaterial(getPhysicsMaterial());
+    return compClone;
+};
 
 /** Get a description for the current component*/
 shared_ptr<ComponentDescription> SphereCollider::getComponentDescription()

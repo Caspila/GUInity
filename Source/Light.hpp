@@ -33,18 +33,28 @@ public:
 
 	/** Component init override. Notifies that a new light has been created*/
 	virtual void init() override;
-
+    /** Component destroy override. Notifies that this light has been destroyed*/
    	virtual void destroy() override;
     
-	/** Prototype design pattern*/
+    /** Clones current component (Prototype Design Pattern)
+     @return shared_ptr to cloned Light Component
+     */
 	virtual shared_ptr<Component> clone() override;
 
 
-	/** Serialization region*/
-	/** Get a description for the current component*/
-    virtual shared_ptr<ComponentDescription> getComponentDescription();
-	/** Deserialize a description into this instance*/
-	virtual void deserialize(shared_ptr<ComponentDescription> desc);
+    /** @defgroup serialization_functions Serialization Functions
+     *  Serialization Region
+     *  @{
+     */
+#pragma region Serialization Functions
+    
+	/** Creates a description for the Component*/
+	virtual shared_ptr<ComponentDescription> getComponentDescription() override;
+    /** Deserializes a description to a Component */
+    virtual void deserialize(shared_ptr<ComponentDescription> desc) override;
+    
+#pragma endregion
+    /** @} */ // end of serialization_functions
 
 };
 

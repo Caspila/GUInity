@@ -33,6 +33,10 @@ public:
     Actor() {}
 	/** Constructor with actor name */
 	Actor(string name);
+    
+    /** Prevent move constructor */
+    Actor ( Actor && ) = delete;
+    
 	/** Default Destructor */
 	virtual ~Actor();
 

@@ -329,7 +329,7 @@ int main(int argc, char *argv[]) {
 		//meshFilter->mesh = dynamic_pointer_cast<Mesh>(objMesh);
 		meshFilter->setMesh(objMesh);
 		shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
-		meshRenderer->material = defaultMaterial;
+		meshRenderer->setMaterial(defaultMaterial);
 //		shared_ptr<RigidBody> rigidBody = fbxTest->AddComponent<RigidBody>();
         fbxTest->AddComponent<PlayerScript>();
 	/*	rigidBody->setRotateEnabled(TransformAxis::x, false);
@@ -363,7 +363,7 @@ int main(int argc, char *argv[]) {
 
 		meshFilter->setMesh(cubeMesh);
 		meshRenderer = floor->AddComponent<MeshRenderer>();
-		meshRenderer->material = defaultMaterial;
+		meshRenderer->setMaterial(defaultMaterial);
 		collider = floor->AddComponent<BoxCollider>();
 		collider->setPhysicsMaterial(bouncyPhysMaterial);
 
@@ -489,7 +489,7 @@ int main(int argc, char *argv[]) {
 
 		shared_ptr<Actor> myCamera = Factory::CreateActor("Camera");// , meshRenderer4);
 		myCamera->transform->setPosition(glm::vec3(0, 0, 10));
-		myCamera->transform->setRotationQuat(glm::quat(glm::vec3(0, 180 * Deg2Radian, 0)));
+		myCamera->transform->setRotation(glm::quat(glm::vec3(0, 180 * Deg2Radian, 0)));
 		myCamera->AddComponent<Camera>();
 		myCamera->AddComponent<EditorCameraControl>();
 
@@ -523,7 +523,7 @@ int main(int argc, char *argv[]) {
             engineMode = EngineMode::game;
         
         float fps = Time::frameEnd();
-        cout << "FPS:" << 1.0f/fps << endl;
+//        cout << "FPS:" << 1.0f/fps << endl;
     }
 
     physics.shutdown();

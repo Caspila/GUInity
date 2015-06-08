@@ -200,12 +200,12 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 
         shared_ptr<Actor> actor = meshRenderer->getActor();
 
-		shared_ptr<MeshComponent> meshComponent = meshRenderer->meshComponent.lock();
+		shared_ptr<MeshComponent> meshComponent = meshRenderer->getMeshComponent();
 		if (!meshComponent)
 			continue;
 
 
-        GLuint shaderProgram = meshRenderer->material->getShaderProgram();
+        GLuint shaderProgram = meshRenderer->getMaterial()->getShaderProgram();
 //        cout << "Get data:" <<       Time::stopwatchEnd() << endl;
 
 //        Time::stopwatchStart();
@@ -241,7 +241,7 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 
         }
 
-        vector<Material::StringTexPair> stringTexPairs = meshRenderer->material->getAllTextureParams();
+        vector<Material::StringTexPair> stringTexPairs = meshRenderer->getMaterial()->getAllTextureParams();
 
         disableNonUsedTextures(stringTexPairs.size());
         int texCount = 0;
@@ -254,7 +254,7 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
             texCount++;
         }
 
-		vector<Material::StringVec4Pair> stringVec4Pairs = meshRenderer->material->getAllVec4Params();
+		vector<Material::StringVec4Pair> stringVec4Pairs = meshRenderer->getMaterial()->getAllVec4Params();
 		for (auto& stringVec4Pair : stringVec4Pairs)
 		{
 			setUniform4fv(shaderProgram, stringVec4Pair.first.c_str(), 1, &stringVec4Pair.second[0]);

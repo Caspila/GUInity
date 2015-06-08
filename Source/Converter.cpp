@@ -26,7 +26,7 @@ glm::quat PhysXQuatToglmQuat(const PxQuat& quat)
 /** Convert Transform (position and rotation) to Physx::PxTransform*/
 PxTransform transformToPhysXTransform(const shared_ptr<Transform>& transform)
 {
-	return PxTransform(glmVec3ToPhysXVec3(transform->getGlobalPosition()), glmQuatToPhysXQuat(transform->rotationQuat));
+	return PxTransform(glmVec3ToPhysXVec3(transform->getWorldPosition()), glmQuatToPhysXQuat(transform->rotation));
 }
 
 /** Convert glm::mat4 to PhysX::PxMat44*/

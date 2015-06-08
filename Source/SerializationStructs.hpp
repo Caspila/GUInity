@@ -25,7 +25,7 @@ class Actor;
 struct TransformDescription
 {
     glm::vec3 position, scale;
-    glm::quat rotationQuat;
+    glm::quat rotation;
 };
 
 struct ActorDescription

@@ -35,14 +35,24 @@ public:
 	void getCapsuleGeometry(shared_ptr<Actor>actor, float &radius, float &halfHeight, RotateAxis&orientation, PxVec3& center);
 
 
-	/** Prototype design pattern*/
+    /** Pure virtual function. Clones current component (Prototype Design Pattern)
+     @return shared_ptr to cloned MeshComponent Component
+     */
 	virtual shared_ptr<Component> clone() = 0;
 
-	/** Serialization region*/
-	/** Get a description for the current component*/
-	virtual shared_ptr<ComponentDescription> getComponentDescription() override;
-	/** Deserialize a component description to a collider */
-	void deserialize(shared_ptr<ComponentDescription> desc) override;
+    /** @defgroup serialization_functions Serialization Functions
+     *  Serialization Region
+     *  @{
+     */
+#pragma region Serialization Functions
+    
+	/** Creates a description for the Component*/
+	virtual shared_ptr<ComponentDescription> getComponentDescription() override {return nullptr;}
+    /** Deserializes a description to a Component */
+    virtual void deserialize(shared_ptr<ComponentDescription> desc) override {}
+    
+#pragma endregion
+    /** @} */ // end of serialization_functions
 
 	
 };

@@ -14,7 +14,7 @@
 TransformDescription getTransformDescription(shared_ptr<Transform> t)
 
 {
-    return TransformDescription {t->position,t->scale,t->rotationQuat};
+    return TransformDescription {t->position,t->scale,t->rotation};
 }
 
 ActorDescription getActorDescription(shared_ptr<Actor> actor)

@@ -100,10 +100,13 @@ shared_ptr<Actor> Actor::getParent()
 /** Add children to list */
 void Actor::addChildren(shared_ptr<Actor> children)
 {
+    
 	this->children.push_back(children);
+    
+    
 	children->setParent(shared_from_this());
-  
     children->setActive(isActive);
+    
 }
 
 /** isActive setter */
@@ -186,7 +189,7 @@ shared_ptr<Actor> Actor::clone()
     
     newActor->transform->setPosition(transform->getPosition());
     newActor->transform->setScale(transform->getScale());
-    newActor->transform->setRotationQuat(transform->getRotationQuat());
+    newActor->transform->setRotation(transform->getRotation());
     
   	for (auto& x : components)
 	{

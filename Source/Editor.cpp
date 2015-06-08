@@ -58,7 +58,7 @@ void Editor::init()
 
 	cameraActor = Factory::CreateEditorActor("CameraEditor");
 	cameraActor->transform->setPosition(glm::vec3(0, 0, 10));
-	cameraActor->transform->setRotationQuat(glm::quat(glm::vec3(0, 180 * Deg2Radian, 0)));
+	cameraActor->transform->setRotation(glm::quat(glm::vec3(0, 180 * Deg2Radian, 0)));
 	cameraComponent = cameraActor->AddComponent<Camera>();
 	cameraActor->AddComponent<EditorCameraControl>();
 
