@@ -33,15 +33,12 @@ void RigidBody::init()
     Component::init();
 	
 	physxRigidBody = Physics::createRigidDynamic(getActor());
+    
+    
     if(initWithData)
     {
-        setMoveEnabled(TransformAxis::x, lockMoveX);
-        setMoveEnabled(TransformAxis::y, lockMoveY);
-        setMoveEnabled(TransformAxis::z, lockMoveZ);
+        setConstraintsFlags(lockConstraints);
         
-        setRotateEnabled(TransformAxis::x, lockRotateX);
-        setRotateEnabled(TransformAxis::y, lockRotateY);
-        setMoveEnabled(TransformAxis::z, lockRotateZ);
         
         setKinematic(isKinematic);
         setGravity(gravityEnabled);
@@ -49,22 +46,10 @@ void RigidBody::init()
     }
     else
     {
-        lockMoveX = lockMoveY = lockMoveZ = lockRotateX = lockRotateY = lockRotateZ = false;
+        
+        lockConstraints = 0;
         
     }
-    //    d6Joint = Physics::createD6Joint(getActor(),physxRigidBody);
-    
-    
-    
-    //    physxRigidBody->setRigidDynamicFlag(PxRigidDynamicFlag::, <#bool value#>)
-    //    physxRigidBody->setClientBehaviorFlags(PxActorClientBehaviorFlags)
-    //    physxRigidBody->setc
-    
-    
-    
-    
-    
-    //    physxRigidBody->setBaseFlag(PxBaseFlag::, <#bool value#>)
     
 	notify(NewRigidBody, shared_from_this(), getActor()->getEditorFlag());
 }
@@ -84,8 +69,6 @@ void RigidBody::tick(float deltaSeconds)
     Component::tick(deltaSeconds);
 	shared_ptr<Actor> actor = getActor();
     
-    
-    //	physxRigidBody->setGlobalPose(transformToPhysXTransform(actor->transform));
     physxRigidBody->setGlobalPose(PxTransform(glmMat4ToPhysxMat4(actor->transform->getModelMatrix())));
 }
 
@@ -123,8 +106,6 @@ void RigidBody::setKinematic(bool isKinematic)
 bool RigidBody::getKinematic()
 {
     return isKinematic;
-    
-    //    return physxRigidBody->getRigidBodyFlags() & (PxRigidBodyFlag::eKINEMATIC);
 }
 
 /** gravity setter
@@ -139,62 +120,20 @@ void RigidBody::setGravity(bool enabled)
 bool RigidBody::getGravity()
 {
     return gravityEnabled;
-    //	return physxRigidBody->getActorFlags() & (PxActorFlag::eDISABLE_GRAVITY);
 }
 
-/** Allow or constrain translation in one of the 3 axis
- @param [in] axis one of the 3 axis (X,Y,Z)
- @param [in] true to allow, false to constrain */
-void RigidBody::setMoveEnabled(TransformAxis axis, bool enabled)
+
+int RigidBody::getConstraintsFlags()
 {
-    PxD6Motion::Enum d6Motion = enabled ? PxD6Motion::eFREE : PxD6Motion::eLOCKED;
-    
-    switch(axis)
-    {
-        case TransformAxis::x:
-            
-            //            d6Joint->setMotion(PxD6Axis::eX, d6Motion);
-            lockMoveX = !enabled;
-            break;
-        case TransformAxis::y:
-            //                        d6Joint->setMotion(PxD6Axis::eY, d6Motion);
-            lockMoveY = !enabled;
-            break;
-        case TransformAxis::z:
-            //                        d6Joint->setMotion(PxD6Axis::eZ, d6Motion);
-            lockMoveZ = !enabled;
-            break;
-            
-            
-    }
+    return lockConstraints;
 }
 
-/** Allow or constrain rotation in one of the 3 axis
- @param [in] axis one of the 3 axis (X,Y,Z)
- @param [in] true to allow, false to constrain */
-void RigidBody::setRotateEnabled(TransformAxis axis, bool enabled)
+void RigidBody::setConstraintsFlags(int constraintFlags)
 {
-    PxD6Motion::Enum d6Motion = enabled ? PxD6Motion::eFREE : PxD6Motion::eLOCKED;
-    
-    switch(axis)
-    {
-        case TransformAxis::x:
-            
-            //            d6Joint->setMotion(PxD6Axis::eTWIST, d6Motion);
-            lockRotateX = !enabled;
-            break;
-        case TransformAxis::y:
-            //            d6Joint->setMotion(PxD6Axis::eSWING1, d6Motion);
-            lockRotateY = !enabled;
-            break;
-        case TransformAxis::z:
-            //            d6Joint->setMotion(PxD6Axis::eSWING2, d6Motion);
-            lockRotateZ = !enabled;
-            break;
-            
-            
-    }
+    lockConstraints = constraintFlags;
+
 }
+
 
 /** Update the transform based on the PhysX physics simulation and current constraints
  @param [in] the PhysX transform*/
@@ -211,33 +150,38 @@ void RigidBody::updateTransform(const PxTransform& newTransform)
     PxVec3 currentVelocity = physxRigidBody->getLinearVelocity();
     PxVec3 angularVelocity = physxRigidBody->getAngularVelocity();
     
-    if(lockMoveX)
+    if(lockConstraints & TransformConstraintAxis::MoveLockX)
     {
         newPosition.x = position.x;
         currentVelocity.x = 0;
     }
-    if(lockMoveY)
+    if(lockConstraints & TransformConstraintAxis::MoveLockY)
+
     {
         newPosition.y = position.y;
         currentVelocity.y = 0;
     }
-    if(lockMoveZ)
+    if(lockConstraints & TransformConstraintAxis::MoveLockZ)
+
     {
         newPosition.z = position.z;
         currentVelocity.z = 0;
     }
     
-    if(lockRotateX)
+    if(lockConstraints & TransformConstraintAxis::RotateLockX)
+
     {
         newRotationEuler.x = rotationEuler.x;
         angularVelocity.x = 0;
     }
-    if(lockRotateY)
+    if(lockConstraints & TransformConstraintAxis::RotateLockY)
+
     {
         newRotationEuler.y = rotationEuler.y;
         angularVelocity.y = 0;
     }
-    if(lockRotateZ)
+    if(lockConstraints & TransformConstraintAxis::RotateLockZ)
+
     {
         newRotationEuler.z = rotationEuler.z;
         angularVelocity.z = 0;
@@ -279,13 +223,8 @@ shared_ptr<Component> RigidBody::clone()
     shared_ptr<RigidBody> compClone = make_shared<RigidBody>();
     
     compClone->setCopyMode(true);
-    compClone->lockMoveX = lockMoveX;
-    compClone->lockMoveY = lockMoveY;
-    compClone->lockMoveZ = lockMoveZ;
-    
-    compClone->lockRotateX = lockRotateX;
-    compClone->lockRotateY = lockRotateY;
-    compClone->lockRotateZ = lockRotateZ;
+    compClone->setConstraintsFlags(lockConstraints);
+
     
     compClone->isKinematic = isKinematic;
     
@@ -295,13 +234,13 @@ shared_ptr<Component> RigidBody::clone()
 };
 
 
-	/** Creates a description for the Component*/
+/** Creates a description for the Component*/
 shared_ptr<ComponentDescription> RigidBody::getComponentDescription()
 {
     return make_shared<RigidBodyDescription>(getKinematic());
 }
 
-    /** Deserializes a description to a Component */
+/** Deserializes a description to a Component */
 void RigidBody::deserialize(shared_ptr<ComponentDescription> desc)
 {
     

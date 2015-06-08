@@ -30,23 +30,23 @@ shared_ptr<PhysicsMaterial> Physics::defaultPhysicsMaterial;
 map<shared_ptr<Mesh>,PxConvexMesh*> Physics::convexMeshes;
 
 PxFilterFlags CustomSimulationFilterShader(
-	PxFilterObjectAttributes attribute0, PxFilterData filterData0,
-	PxFilterObjectAttributes attribute1, PxFilterData filterData1,
-	PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
+                                           PxFilterObjectAttributes attribute0, PxFilterData filterData0,
+                                           PxFilterObjectAttributes attribute1, PxFilterData filterData1,
+                                           PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
 {
 	
-
+    
 	if ((attribute0 & PxFilterObjectFlag::eTRIGGER) != 0 || (attribute1 & PxFilterObjectFlag::eTRIGGER) != 0)
 	{
 		pairFlags = PxPairFlag::eTRIGGER_DEFAULT;
 		//return pairFlags;
-
+        
 		//cout << "aqu1" << endl;
 		return PxFilterFlags();
 	}
-
+    
 	//cout << "aquo222" << endl;
-
+    
 	pairFlags = PxPairFlag::eCONTACT_DEFAULT | PxPairFlag::eNOTIFY_TOUCH_FOUND;
 	//return pairFlags;
 	return PxFilterFlags();
@@ -66,37 +66,37 @@ int Physics::init()
 {
 	gFoundation = NULL;
 	gPhysicsSDK = NULL;
-
+    
 	//Creating foundation for PhysX
 	gFoundation = PxCreateFoundation
-		(PX_PHYSICS_VERSION, gDefaultAllocatorCallback,
-		gDefaultErrorCallback);
-
-
+    (PX_PHYSICS_VERSION, gDefaultAllocatorCallback,
+     gDefaultErrorCallback);
+    
+    
 	//Creating instance of PhysX SDK
 	gPhysicsSDK = PxCreatePhysics
-		(PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale());
+    (PX_PHYSICS_VERSION, *gFoundation, PxTolerancesScale());
 	if (gPhysicsSDK == NULL)
 	{
 		cerr << "Error creating PhysX3 device, Exiting..." << endl;
 		return 1;
 	}
-
+    
 	physxEventCallback = new PhysXEventCallback();
-
+    
 	//gScene->setSimulationEventCallback(&);
 	//PxScene* gScene = NULL;
-
+    
 	//gPhysicsSDK->createRigidStatic(();
-
+    
     
 	defaultPhysicsMaterial = AssetDatabase::createPhysicsMaterial("default",0.5f, 0.5f, 0.1f);
-
+    
 	//defaultPhysicsMaterial = gPhysicsSDK->createMaterial(0.5f, 0.5f, 0.1f);
-
+    
     return 0;
 }
-	
+
 shared_ptr<PhysicsMaterial> Physics::getDefaultMaterial()
 {
 	return defaultPhysicsMaterial;
@@ -106,39 +106,39 @@ PxMaterial* Physics::createMaterial(float friction, float dynamicFriction, float
 {
 	//shared_ptr<PxMaterial> material;
 	//material.reset(gPhysicsSDK->createMaterial(friction, dynamicFriction, restitution), releaseMaterial);
-
+    
 	//shared_ptr<PhysicsMaterial> physics = make_shared<PhysicsMaterial>(friction, dynamicFriction, restitution, material);
-
+    
 	//return physics;
-
+    
 	return gPhysicsSDK->createMaterial(friction, dynamicFriction, restitution);
 }
 
 PxRigidDynamic* Physics::createRigidDynamic(shared_ptr<Actor> actor)
 {
 	PxTransform physxTransform = transformToPhysXTransform(actor->transform);
-
+    
 	PxRigidDynamic* rigidDynamic = gPhysicsSDK->createRigidDynamic(physxTransform);
-
+    
 	rigidDynamic->userData = static_cast<void*> (actor.get()); //(void*)actor.get();
-
+    
 	//scene->addActor(*rigidDynamic);
-
-
+    
+    
     
     
 	return rigidDynamic;
 }
 PxD6Joint* Physics::createD6Joint(shared_ptr<Actor> actor,PxRigidBody* rigidBody)
 {
-//    PxD6Joint* d6Joint = PxD6JointCreate(*gPhysicsSDK, rigidBody, PxTransform::createIdentity(), nullptr, rigidBody->getGlobalPose());
+    //    PxD6Joint* d6Joint = PxD6JointCreate(*gPhysicsSDK, rigidBody, PxTransform::createIdentity(), nullptr, rigidBody->getGlobalPose());
     PxD6Joint* d6Joint = PxD6JointCreate(*gPhysicsSDK, rigidBody,rigidBody->getGlobalPose(), nullptr, PxTransform::createIdentity());
-  
-
-//    nxDesc.actor[0]                         = desc.actor[0];
-//    nxDesc.actor[1]                         = desc.actor[1];
-//    PxConstraintDesc myDesc;
-//    desc..
+    
+    
+    //    nxDesc.actor[0]                         = desc.actor[0];
+    //    nxDesc.actor[1]                         = desc.actor[1];
+    //    PxConstraintDesc myDesc;
+    //    desc..
     
     
     d6Joint->setMotion(PxD6Axis::eX, PxD6Motion::eFREE);
@@ -148,7 +148,7 @@ PxD6Joint* Physics::createD6Joint(shared_ptr<Actor> actor,PxRigidBody* rigidBody
     d6Joint->setMotion(PxD6Axis::eSWING1, PxD6Motion::eFREE);
     d6Joint->setMotion(PxD6Axis::eSWING2, PxD6Motion::eFREE);
     
-//    d6Joint->setBreakForce(1000, 1000);
+    //    d6Joint->setBreakForce(1000, 1000);
     //d6Joint->s
     
     return d6Joint;
@@ -158,24 +158,24 @@ PxD6Joint* Physics::createD6Joint(shared_ptr<Actor> actor,PxRigidBody* rigidBody
 PxVec3 getBoxSize(shared_ptr<Actor> actor, shared_ptr<MeshFilter> meshFilter)
 {
 	shared_ptr<Mesh> mesh = meshFilter->getMesh();
-
+    
 	glm::vec3 boundsMax = mesh->getBoundsMax();
 	glm::vec3 boundsMin = mesh->getBoundsMin();
-
+    
 	PxVec3 boxSize(boundsMax.x - boundsMin.x,
-		boundsMax.y - boundsMin.y,
-		boundsMax.z - boundsMin.z);
-
+                   boundsMax.y - boundsMin.y,
+                   boundsMax.z - boundsMin.z);
+    
 	boxSize = boxSize / 2;
-
+    
 	boxSize.x = std::fmaxf(boxSize.x, 0.001f);
 	boxSize.y = std::fmaxf(boxSize.y, 0.001f);
 	boxSize.z = std::fmaxf(boxSize.z, 0.001f);
-
+    
 	boxSize.x *= actor->transform->scale.x;
 	boxSize.y *= actor->transform->scale.y;
 	boxSize.z *= actor->transform->scale.z;
-
+    
 	return boxSize;
 }
 
@@ -183,27 +183,27 @@ PxVec3 getBoxSize(shared_ptr<Actor> actor, shared_ptr<MeshFilter> meshFilter)
 float getSphereSize(shared_ptr<Actor> actor, shared_ptr<MeshFilter> meshFilter)
 {
 	shared_ptr<Mesh> mesh = meshFilter->getMesh();
-
+    
 	glm::vec3 boundsMax = mesh->getBoundsMax();
 	glm::vec3 boundsMin = mesh->getBoundsMin();
-
+    
 	PxVec3 boxSize(boundsMax.x - boundsMin.x,
-		boundsMax.y - boundsMin.y,
-		boundsMax.z - boundsMin.z);
+                   boundsMax.y - boundsMin.y,
+                   boundsMax.z - boundsMin.z);
 	
-		boxSize = boxSize / 2;
+    boxSize = boxSize / 2;
 	
-		boxSize.x = std::fmaxf(boxSize.x, 0.001f);
-		boxSize.y = std::fmaxf(boxSize.y, 0.001f);
-		boxSize.z = std::fmaxf(boxSize.z, 0.001f);
+    boxSize.x = std::fmaxf(boxSize.x, 0.001f);
+    boxSize.y = std::fmaxf(boxSize.y, 0.001f);
+    boxSize.z = std::fmaxf(boxSize.z, 0.001f);
 	
-		boxSize.x *= actor->transform->scale.x;
-		boxSize.y *= actor->transform->scale.y;
-		boxSize.z *= actor->transform->scale.z;
+    boxSize.x *= actor->transform->scale.x;
+    boxSize.y *= actor->transform->scale.y;
+    boxSize.z *= actor->transform->scale.z;
 	
-		float radius = fmaxf(boxSize.x, boxSize.y);
-		radius = fmaxf(radius, boxSize.z);
-
+    float radius = fmaxf(boxSize.x, boxSize.y);
+    radius = fmaxf(radius, boxSize.z);
+    
 	return radius;
 }
 
@@ -240,7 +240,7 @@ PxShape* Physics::createBoxCollider(PxVec3 halfExtent, PxVec3 center, shared_ptr
 PxShape* Physics::createBoxCollider(shared_ptr<Actor> actor)
 {
 	shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
-
+    
 	PxVec3 center(0, 0, 0);
 	PxVec3 boxSize(0.5f, 0.5f, 0.5f);
 	if (meshFilter)
@@ -248,7 +248,7 @@ PxShape* Physics::createBoxCollider(shared_ptr<Actor> actor)
 		boxSize = getBoxSize(actor, meshFilter);
 		center = PxVec3(glmVec3ToPhysXVec3( meshFilter->getMesh()->getAverageCenter()));
 	}
-
+    
     return createBoxCollider(boxSize,center,actor);
     
 	
@@ -292,13 +292,13 @@ PxShape* Physics::createSphereCollider(shared_ptr<Actor> actor)
 {
 	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
 	shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
-
+    
 	PxVec3 center(0,0,0);
 	float radius = 0.5f;// PxVec3 boxSize(0.5f, 0.5f, 0.5f);
 	if (meshFilter)
 	{
 		radius = getSphereSize(actor, meshFilter);
-
+        
 		center = PxVec3(glmVec3ToPhysXVec3(meshFilter->getMesh()->getAverageCenter()));
 	}
     return createSphereCollider(radius, center, actor);
@@ -308,13 +308,13 @@ PxShape* Physics::createSphereCollider(shared_ptr<Actor> actor)
 void getCapsuleGeometry(shared_ptr<Actor>actor,shared_ptr<MeshFilter>meshFilter,float &radius,float &halfHeight,RotateAxis&orientation)
 {
 	shared_ptr<Mesh> mesh = meshFilter->getMesh();
-
+    
 	glm::vec3 boundsMax = mesh->getBoundsMax();
 	glm::vec3 boundsMin = mesh->getBoundsMin();
-
+    
 	PxVec3 boxSize(boundsMax.x - boundsMin.x,
-		boundsMax.y - boundsMin.y,
-		boundsMax.z - boundsMin.z);
+                   boundsMax.y - boundsMin.y,
+                   boundsMax.z - boundsMin.z);
 	
     boxSize = boxSize / 2;
 	
@@ -410,7 +410,7 @@ PxShape* Physics::createCapsuleCollider(float radius, float halfHeight, RotateAx
 PxShape* Physics::createCapsuleCollider(shared_ptr<Actor> actor)
 {
 	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
-
+    
     shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
     
 	PxVec3 center(0,0,0);
@@ -446,60 +446,60 @@ PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
     
     if(convexMeshComputed(mesh))
         return convexMeshes[mesh];
-
+    
 	//desc.points.
-//    vector<glm::vec3> nonDupVertex = mesh->getNonDuplicateMeshVertex();
-//
-//	PxVec3* mMeshVertices = new physx::PxVec3[nonDupVertex.size()];
-//	for (int i = 0; i < nonDupVertex.size(); i++)
-//	{
-//		mMeshVertices[i] = PxVec3(nonDupVertex[i].position.x, nonDupVertex[i].position.y, mesh->meshVertices[i].position.z);
-//	}
-
-//    vector<glm::vec3> vertexNoDup = mesh->getNonDuplicateMeshVertex();
-//    vector<int> usedIndexes;
-//    vector<int> tris;
-//    
-//    convexHull(vertexNoDup, usedIndexes, tris);
-//    
-//    	PxVec3* mMeshVertices = new physx::PxVec3[usedIndexes.size()];
-//    	for (int i = 0; i < usedIndexes.size(); i++)
-//    	{
-//            mMeshVertices[i] = glmVec3ToPhysXVec3(vertexNoDup[usedIndexes[i]]);
-//            
-//    		//mMeshVertices[i] = PxVec3(mesh->meshVertices[i].position.x, mesh->meshVertices[i].position.y, mesh->meshVertices[i].position.z);
-//    	}
-//    	PxU32* triangles = new PxU32[mesh->triangles.size()];
-//    	for (int i = 0; i < tris.size(); i++)
-//    	{
-//    		triangles[i] = tris[i];
-//    	}
+    //    vector<glm::vec3> nonDupVertex = mesh->getNonDuplicateMeshVertex();
+    //
+    //	PxVec3* mMeshVertices = new physx::PxVec3[nonDupVertex.size()];
+    //	for (int i = 0; i < nonDupVertex.size(); i++)
+    //	{
+    //		mMeshVertices[i] = PxVec3(nonDupVertex[i].position.x, nonDupVertex[i].position.y, mesh->meshVertices[i].position.z);
+    //	}
+    
+    //    vector<glm::vec3> vertexNoDup = mesh->getNonDuplicateMeshVertex();
+    //    vector<int> usedIndexes;
+    //    vector<int> tris;
+    //
+    //    convexHull(vertexNoDup, usedIndexes, tris);
+    //
+    //    	PxVec3* mMeshVertices = new physx::PxVec3[usedIndexes.size()];
+    //    	for (int i = 0; i < usedIndexes.size(); i++)
+    //    	{
+    //            mMeshVertices[i] = glmVec3ToPhysXVec3(vertexNoDup[usedIndexes[i]]);
+    //
+    //    		//mMeshVertices[i] = PxVec3(mesh->meshVertices[i].position.x, mesh->meshVertices[i].position.y, mesh->meshVertices[i].position.z);
+    //    	}
+    //    	PxU32* triangles = new PxU32[mesh->triangles.size()];
+    //    	for (int i = 0; i < tris.size(); i++)
+    //    	{
+    //    		triangles[i] = tris[i];
+    //    	}
     
     
     vector<glm::vec3> nonDupVertex = mesh->getNonDuplicateMeshVertex();
     
-//	PxVec3* mMeshVertices = new physx::PxVec3[mesh->meshVertices.size()];
-//	for (int i = 0; i < mesh->meshVertices.size(); i++)
-//	{
-//		mMeshVertices[i] = PxVec3(mesh->meshVertices[i].position.x, mesh->meshVertices[i].position.y, mesh->meshVertices[i].position.z);
-//	}
-//	PxU32* triangles = new PxU32[mesh->triangles.size()];
-//	for (int i = 0; i < mesh->triangles.size(); i++)
-//	{
-//		triangles[i] = mesh->triangles[i];
-//	}
-
-//	PxSimpleTriangleMesh triangleMesh;
-//	//desc.
-//	//PxSimpleTriangleMesh triangleMesh;
-//	triangleMesh.points.count = mesh->meshVertices.size();
-//	triangleMesh.points.stride = sizeof(PxVec3);
-//	triangleMesh.points.data = mMeshVertices;
-
-//	triangleMesh.triangles.count = mesh->triangles.size();
-//	triangleMesh.triangles.stride = 3*sizeof(PxU32);
-//	triangleMesh.triangles.data = triangles;
-
+    //	PxVec3* mMeshVertices = new physx::PxVec3[mesh->meshVertices.size()];
+    //	for (int i = 0; i < mesh->meshVertices.size(); i++)
+    //	{
+    //		mMeshVertices[i] = PxVec3(mesh->meshVertices[i].position.x, mesh->meshVertices[i].position.y, mesh->meshVertices[i].position.z);
+    //	}
+    //	PxU32* triangles = new PxU32[mesh->triangles.size()];
+    //	for (int i = 0; i < mesh->triangles.size(); i++)
+    //	{
+    //		triangles[i] = mesh->triangles[i];
+    //	}
+    
+    //	PxSimpleTriangleMesh triangleMesh;
+    //	//desc.
+    //	//PxSimpleTriangleMesh triangleMesh;
+    //	triangleMesh.points.count = mesh->meshVertices.size();
+    //	triangleMesh.points.stride = sizeof(PxVec3);
+    //	triangleMesh.points.data = mMeshVertices;
+    
+    //	triangleMesh.triangles.count = mesh->triangles.size();
+    //	triangleMesh.triangles.stride = 3*sizeof(PxU32);
+    //	triangleMesh.triangles.data = triangles;
+    
 	PxSimpleTriangleMesh triangleMesh;
 	//desc.
 	//PxSimpleTriangleMesh triangleMesh;
@@ -507,71 +507,71 @@ PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
 	triangleMesh.points.stride = sizeof(glm::vec3);
 	triangleMesh.points.data = &nonDupVertex[0];
     
-//	triangleMesh.triangles.count = tris.size();
-//	triangleMesh.triangles.stride = 3*sizeof(PxU32);
-//	triangleMesh.triangles.data = triangles;
+    //	triangleMesh.triangles.count = tris.size();
+    //	triangleMesh.triangles.stride = 3*sizeof(PxU32);
+    //	triangleMesh.triangles.data = triangles;
     
 	//triangleMesh.flags = PxMeshFlag::eFLIPNORMALS;
-
+    
 	bool ok = triangleMesh.isValid();
-
-
-//	PhysXAllocatorCallback callback;
-
+    
+    
+    //	PhysXAllocatorCallback callback;
+    
 	PxCooking *cooking = PxCreateCooking(PX_PHYSICS_VERSION, PxGetFoundation(), PxCookingParams(PxTolerancesScale()));
-
-//    physx::PxConvexMesh* convexMesh2 = PxToolkit::createConvexMesh(*gPhysicsSDK, *cooking, mMeshVertices, usedIndexes.size(), PxConvexFlag::eCOMPUTE_CONVEX);
-//    physx::PxConvexMesh* convexMesh2 = PxToolkit::createConvexMesh(*gPhysicsSDK, *cooking, mMeshVertices, mesh->meshVertices.size(),  PxConvexFlag::eCOMPUTE_CONVEX);
-//    
-//
-//    if(convexMesh2 == nullptr)
-//    {
-//        convexMesh2 = PxToolkit::createConvexMesh(*gPhysicsSDK, *cooking, mMeshVertices, mesh->meshVertices.size(),  PxConvexFlag::eINFLATE_CONVEX | PxConvexFlag::eCOMPUTE_CONVEX);
-//        
-//    }
-//    
-//    cooking->release();
-//    delete []mMeshVertices;
-//    
-//    return convexMesh2;
+    
+    //    physx::PxConvexMesh* convexMesh2 = PxToolkit::createConvexMesh(*gPhysicsSDK, *cooking, mMeshVertices, usedIndexes.size(), PxConvexFlag::eCOMPUTE_CONVEX);
+    //    physx::PxConvexMesh* convexMesh2 = PxToolkit::createConvexMesh(*gPhysicsSDK, *cooking, mMeshVertices, mesh->meshVertices.size(),  PxConvexFlag::eCOMPUTE_CONVEX);
+    //
+    //
+    //    if(convexMesh2 == nullptr)
+    //    {
+    //        convexMesh2 = PxToolkit::createConvexMesh(*gPhysicsSDK, *cooking, mMeshVertices, mesh->meshVertices.size(),  PxConvexFlag::eINFLATE_CONVEX | PxConvexFlag::eCOMPUTE_CONVEX);
+    //
+    //    }
+    //
+    //    cooking->release();
+    //    delete []mMeshVertices;
+    //
+    //    return convexMesh2;
 	
     //PxPhysicsInsertionCallback
-
+    
 	//cooking->createTriangleMesh(triangleMeshDesc,pxdefaultinser)
-
-//	PxU32 nbVertices, nbIndices, nbPolygons ;
-//	PxU32 *indices ;
-//	PxHullPolygon *polygons;
-//	PxVec3 *vertices;
-
+    
+    //	PxU32 nbVertices, nbIndices, nbPolygons ;
+    //	PxU32 *indices ;
+    //	PxHullPolygon *polygons;
+    //	PxVec3 *vertices;
+    
 	
-//    PxDefaultAllocator defaultAllocator;
+    //    PxDefaultAllocator defaultAllocator;
     
 	//cooking->cre
 	//cooking->createTriangleMesh()
 	//bool status = cooking->computeHullPolygons(triangleMesh, defaultAllocator, nbVertices, vertices, nbIndices, indices, nbPolygons, polygons);
-
+    
     PxConvexMeshDesc convexDesc;
 	convexDesc.points.count = nonDupVertex.size();
 	convexDesc.points.stride = sizeof(glm::vec3);
 	convexDesc.points.data = &nonDupVertex[0];
-
     
-//	PxConvexMeshDesc convexDesc;
-//	convexDesc.points.count = nbVertices;
-//	convexDesc.points.stride = sizeof(PxVec3);
-//	convexDesc.points.data = vertices;
+    
+    //	PxConvexMeshDesc convexDesc;
+    //	convexDesc.points.count = nbVertices;
+    //	convexDesc.points.stride = sizeof(PxVec3);
+    //	convexDesc.points.data = vertices;
 	
-//	convexDesc.indices.count = nbIndices;
-//	convexDesc.indices.stride = sizeof(PxU32);
-//	convexDesc.indices.data = indices;
-//
-//	convexDesc.polygons.count = nbPolygons;
-//	convexDesc.polygons.stride = sizeof(PxHullPolygon);
-//	convexDesc.polygons.data = polygons;
+    //	convexDesc.indices.count = nbIndices;
+    //	convexDesc.indices.stride = sizeof(PxU32);
+    //	convexDesc.indices.data = indices;
+    //
+    //	convexDesc.polygons.count = nbPolygons;
+    //	convexDesc.polygons.stride = sizeof(PxHullPolygon);
+    //	convexDesc.polygons.data = polygons;
     
     convexDesc.flags = PxConvexFlag::eCOMPUTE_CONVEX;
-
+    
 	PxDefaultMemoryOutputStream output;
 	
 	bool status = cooking->cookConvexMesh(convexDesc, output);
@@ -585,7 +585,7 @@ PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
         status = cooking->cookConvexMesh(convexDesc, output);
         if(!status)
         {
-                    cout << "Was not able create Convex Mesh for Mesh Collider using eInflate." << endl;
+            cout << "Was not able create Convex Mesh for Mesh Collider using eInflate." << endl;
             
             return nullptr;
         }
@@ -597,9 +597,9 @@ PxConvexMesh* Physics::getPxConvexMesh(shared_ptr<Mesh> mesh)
     convexMeshes[mesh] = convexMesh;
 	
 	cooking->release();
-
+    
 	return convexMesh;
-
+    
 	//PxU32* mMeshFaces = new physx::PxU32[mIndexCount];
 }
 
@@ -607,7 +607,7 @@ PxShape* Physics::createMeshCollider(shared_ptr<Actor> actor)
 {
 	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
 	shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
-
+    
     if(!meshFilter)
     {
         cerr << "Trying to add a MeshCollider to an actor that has no MeshFilter" << endl;
@@ -621,11 +621,11 @@ PxShape* Physics::createMeshCollider(shared_ptr<Actor> actor)
 	{
 		
 		shape = rigidBody->getRigidbody()->createShape(geo, *defaultPhysicsMaterial->getMaterial());
-	
+        
 	}
 	else
 	{
-
+        
 		shared_ptr<RigidStatic> rigidStatic = actor->GetComponent<RigidStatic>();
 		if (!rigidStatic)
 			rigidStatic = actor->AddComponent<RigidStatic>();
@@ -633,7 +633,7 @@ PxShape* Physics::createMeshCollider(shared_ptr<Actor> actor)
 		shape = rigidStatic->getRigidDynamic()->createShape(geo, *defaultPhysicsMaterial->getMaterial());
 		//shape->userData = (void*)actor.get();
 	}
-
+    
 	return shape;
 }
 
@@ -641,15 +641,15 @@ void Physics::updateActorsTransform(PxScene* scene)
 {
 	PxU32 nActiveTransforms;
 	const PxActiveTransform* activeTransforms = scene->getActiveTransforms(nActiveTransforms);
-
+    
 	for (int i = 0; i < nActiveTransforms; i++)
 	{
 		const PxActiveTransform activeTransform = activeTransforms[i];
-
+        
 		Actor*a = (Actor*)(activeTransform.userData);
 		a->transform->updateTransform(activeTransform.actor2World);
-
-
+        
+        
 	}
 }
 
@@ -672,41 +672,50 @@ bool Physics::rayCast(PxScene* scene, const Ray& r, const float distance, PxRayc
 	return scene->raycast(glmVec3ToPhysXVec3(r.origin), glmVec3ToPhysXVec3(r.direction), distance, hitCallback);
 }
 
-void Physics::applyRigidBodyConstraints(PxScene* scene)
-{
-	PxU32 nActiveTransforms;
-	const PxActiveTransform* activeTransforms = scene->getActiveTransforms(nActiveTransforms);
-    
-	for (int i = 0; i < nActiveTransforms; i++)
-	{
-		const PxActiveTransform activeTransform = activeTransforms[i];
-        
-		Actor*a = (Actor*)(activeTransform.userData);
-	
-        shared_ptr<RigidBody> rigidBody = a->GetComponent<RigidBody>();
-        
-        
-		PxVec3 currentVelocity = rigidBody->getRigidbody()->getLinearVelocity();
-		PxVec3 angularVelocity = rigidBody->getRigidbody()->getAngularVelocity();
-        if(rigidBody->lockMoveX)
-            currentVelocity.x = 0;
-        if(rigidBody->lockMoveY)
-            currentVelocity.y = 0;
-        if(rigidBody->lockMoveZ)
-            currentVelocity.z = 0;
-
-        if(rigidBody->lockRotateX)
-            angularVelocity.x = 0;
-        if(rigidBody->lockRotateY)
-            angularVelocity.y = 0;
-        if(rigidBody->lockRotateZ)
-            angularVelocity.z = 0;
-        
-		rigidBody->getRigidbody()->setLinearVelocity(currentVelocity);
-		rigidBody->getRigidbody()->setAngularVelocity(angularVelocity);
-        
-	}
-}
+//void Physics::applyRigidBodyConstraints(PxScene* scene)
+//{
+//	PxU32 nActiveTransforms;
+//	const PxActiveTransform* activeTransforms = scene->getActiveTransforms(nActiveTransforms);
+//    
+//	for (int i = 0; i < nActiveTransforms; i++)
+//	{
+//		const PxActiveTransform activeTransform = activeTransforms[i];
+//        
+//		Actor*a = (Actor*)(activeTransform.userData);
+//        
+//        shared_ptr<RigidBody> rigidBody = a->GetComponent<RigidBody>();
+//        
+//        
+//		PxVec3 currentVelocity = rigidBody->getRigidbody()->getLinearVelocity();
+//		PxVec3 angularVelocity = rigidBody->getRigidbody()->getAngularVelocity();
+//        
+//        int lockConstraints =rigidBody->getConstraintsFlags();
+//        
+//        //        if(rigidBody->lockMoveX)
+//        if(lockConstraints & (int)TransformConstraintAxis::MoveLockX)
+//            currentVelocity.x = 0;
+//        //        if(rigidBody->lockMoveY)
+//        if(lockConstraints & (int)TransformConstraintAxis::MoveLockY)
+//            currentVelocity.y = 0;
+//        //        if(rigidBody->lockMoveZ)
+//        if(lockConstraints & (int)TransformConstraintAxis::MoveLockZ)
+//            currentVelocity.z = 0;
+//        
+//        //        if(rigidBody->lockRotateX)
+//        if(lockConstraints & (int)TransformConstraintAxis::RotateLockX)
+//            angularVelocity.x = 0;
+//        //        if(rigidBody->lockRotateY)
+//        if(lockConstraints & (int)TransformConstraintAxis::RotateLockY)
+//            angularVelocity.y = 0;
+//        //        if(rigidBody->lockRotateZ)
+//        if(lockConstraints & (int)TransformConstraintAxis::RotateLockZ)
+//            angularVelocity.z = 0;
+//        
+//		rigidBody->getRigidbody()->setLinearVelocity(currentVelocity);
+//		rigidBody->getRigidbody()->setAngularVelocity(angularVelocity);
+//        
+//	}
+//}
 
 void Physics::tickScene(PxScene* scene)
 {
@@ -725,7 +734,7 @@ void Physics::shutdown()
 {
     convexMeshes.clear();
     
-//	scene->release();
+    //	scene->release();
 	gPhysicsSDK->release();
 	gFoundation->release();
 	
@@ -733,7 +742,7 @@ void Physics::shutdown()
 
 PxScene* Physics::createPhysicsScene()
 {
-
+    
 	//Creating scene
 	PxSceneDesc sceneDesc(gPhysicsSDK->getTolerancesScale());
 	sceneDesc.flags = PxSceneFlag::eENABLE_ACTIVETRANSFORMS;
@@ -743,16 +752,16 @@ PxScene* Physics::createPhysicsScene()
 	//sceneDesc.filterShader = PxDefaultSimulationFilterShader;
 	sceneDesc.filterShader = CustomSimulationFilterShader;
 	//gScene = gPhysicsSDK->createScene(sceneDesc);
-
+    
 	//shared_ptr<PxScene>gScene;
 	//gScene.reset(
 	PxScene* scene = gPhysicsSDK->createScene(sceneDesc);// , releaseScene);
-
+    
 	scene->setSimulationEventCallback(physxEventCallback);
 	scene->setVisualizationParameter(PxVisualizationParameter::eSCALE, 1.0f);
 	scene->setVisualizationParameter(PxVisualizationParameter::eACTOR_AXES, 2.0f);
 	scene->setVisualizationParameter(PxVisualizationParameter::eCOLLISION_SHAPES, 1.0f);
-
+    
 	return scene;
 }
 

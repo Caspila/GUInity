@@ -108,10 +108,10 @@ BOOST_CLASS_EXPORT_GUID(CapsuleColliderDescription, "CapsuleColliderDescription"
 
 
 void checkFilesOnCommonData(){
-
+    
     //while(true)
     {
-//        cout << "OI" <<endl;
+        //        cout << "OI" <<endl;
         
         
         vector<path> files = getFilesInDirectory(CommonData(""));
@@ -124,11 +124,11 @@ void checkFilesOnCommonData(){
             //shared_ptr<Asset> asset = AssetDatabase::getAsset(filename);
             
 			shared_ptr<Asset> asset = AssetDatabase::tryLoadAsset(file.filename().string(), file.extension().string());
-
+            
             //if(asset)
             //{
             //    int crc = getCRC(file.string());
-            //    
+            //
             //    if(crc == asset->crc)
             //        cout << "CRC Matches!" << endl;
             //    else
@@ -138,245 +138,248 @@ void checkFilesOnCommonData(){
         }
         
         
-//        path p(CommonData(""));
-//        
-//        if(is_directory(p))
-//        {
-//                      // so we can sort them later
-//            vector<path> vec;             // store paths,
-//            
-//            copy(directory_iterator(p), directory_iterator(), back_inserter(vec));
-//
-//            for(auto& file : vec)
-//            {
-//                int crc = AssetDatabase::getCRC(CommonData(file));
-//            }
-//            
-//        }
+        //        path p(CommonData(""));
+        //
+        //        if(is_directory(p))
+        //        {
+        //                      // so we can sort them later
+        //            vector<path> vec;             // store paths,
+        //
+        //            copy(directory_iterator(p), directory_iterator(), back_inserter(vec));
+        //
+        //            for(auto& file : vec)
+        //            {
+        //                int crc = AssetDatabase::getCRC(CommonData(file));
+        //            }
+        //
+        //        }
     }
     
 }
 
 int main(int argc, char *argv[]) {
-  
-
+    
+    
 	//thread t (checkFilesOnCommonData);
 	//t.detach();
-
+    
     
     int notOK = GraphicsSystem::getInstance()->init(640,480);
 	if (notOK)
 		return 1;
-
+    
     AssetDatabase::init();
     
    	checkFilesOnCommonData();
-
+    
     
     
     Input input(GraphicsSystem::getInstance()->getWindow());
 	
 	
 	SoundSystem::getInstance()->init();
-
+    
 	
-
+    
     Physics physics;
     physics.init();
     
     EngineMode engineMode = EngineMode::editor;
     
 	
-
+    
 	
-		vector<MeshVertex> quadVertex;
-		MeshVertex meshVertex;
-		meshVertex.position.x = -0.5;
-		meshVertex.position.y = -0.5;
-		meshVertex.position.z = 0;
-		meshVertex.normal.x = 0;
-		meshVertex.normal.y = 0;
-		meshVertex.normal.z = 1;
-		meshVertex.uv.x = 0;
-		meshVertex.uv.y = 0;
-
-		quadVertex.push_back(meshVertex);
-
-		meshVertex.position.x = -0.5;
-		meshVertex.position.y = 0.5;
-		meshVertex.position.z = 0;
-		meshVertex.normal.x = 0;
-		meshVertex.normal.y = 0;
-		meshVertex.normal.z = 1;
-		meshVertex.uv.x = 0;
-		meshVertex.uv.y = 1;
-
-		quadVertex.push_back(meshVertex);
-
-		meshVertex.position.x = 0.5;
-		meshVertex.position.y = -0.5;
-		meshVertex.position.z = 0;
-		meshVertex.normal.x = 0;
-		meshVertex.normal.y = 0;
-		meshVertex.normal.z = 1;
-		meshVertex.uv.x = 1;
-		meshVertex.uv.y = 0;
-
-		quadVertex.push_back(meshVertex);
-
-		meshVertex.position.x = 0.5;
-		meshVertex.position.y = 0.5;
-		meshVertex.position.z = 0;
-		meshVertex.normal.x = 0;
-		meshVertex.normal.y = 0;
-		meshVertex.normal.z = 1;
-		meshVertex.uv.x = 1;
-		meshVertex.uv.y = 1;
-
-		quadVertex.push_back(meshVertex);
-
-		vector<unsigned short> triangles;
-		triangles.push_back(0);
-		triangles.push_back(1);
-		triangles.push_back(2);
-		triangles.push_back(2);
-		triangles.push_back(1);
-		triangles.push_back(3);
-
-		shared_ptr<PhysicsMaterial> bouncyPhysMaterial = AssetDatabase::createPhysicsMaterial("bouncy", 0.0f, 0.0f, 1.0f);
-
-		shared_ptr<Mesh> quadMesh = AssetDatabase::createMesh(quadVertex, triangles);
-
+    vector<MeshVertex> quadVertex;
+    MeshVertex meshVertex;
+    meshVertex.position.x = -0.5;
+    meshVertex.position.y = -0.5;
+    meshVertex.position.z = 0;
+    meshVertex.normal.x = 0;
+    meshVertex.normal.y = 0;
+    meshVertex.normal.z = 1;
+    meshVertex.uv.x = 0;
+    meshVertex.uv.y = 0;
+    
+    quadVertex.push_back(meshVertex);
+    
+    meshVertex.position.x = -0.5;
+    meshVertex.position.y = 0.5;
+    meshVertex.position.z = 0;
+    meshVertex.normal.x = 0;
+    meshVertex.normal.y = 0;
+    meshVertex.normal.z = 1;
+    meshVertex.uv.x = 0;
+    meshVertex.uv.y = 1;
+    
+    quadVertex.push_back(meshVertex);
+    
+    meshVertex.position.x = 0.5;
+    meshVertex.position.y = -0.5;
+    meshVertex.position.z = 0;
+    meshVertex.normal.x = 0;
+    meshVertex.normal.y = 0;
+    meshVertex.normal.z = 1;
+    meshVertex.uv.x = 1;
+    meshVertex.uv.y = 0;
+    
+    quadVertex.push_back(meshVertex);
+    
+    meshVertex.position.x = 0.5;
+    meshVertex.position.y = 0.5;
+    meshVertex.position.z = 0;
+    meshVertex.normal.x = 0;
+    meshVertex.normal.y = 0;
+    meshVertex.normal.z = 1;
+    meshVertex.uv.x = 1;
+    meshVertex.uv.y = 1;
+    
+    quadVertex.push_back(meshVertex);
+    
+    vector<unsigned short> triangles;
+    triangles.push_back(0);
+    triangles.push_back(1);
+    triangles.push_back(2);
+    triangles.push_back(2);
+    triangles.push_back(1);
+    triangles.push_back(3);
+    
+    shared_ptr<PhysicsMaterial> bouncyPhysMaterial = AssetDatabase::createPhysicsMaterial("bouncy", 0.0f, 0.0f, 1.0f);
+    
+    shared_ptr<Mesh> quadMesh = AssetDatabase::createMesh(quadVertex, triangles);
+    
 	//	shared_ptr<Texture> whiteTexture = AssetDatabase::createTexture(CommonData("white2.png"));
-		
-		shared_ptr<Font> font = AssetDatabase::createFont("arial.ttf",48);
-
+    
+    shared_ptr<Font> font = AssetDatabase::createFont("arial.ttf",48);
+    
     shared_ptr<Texture> texture = AssetDatabase::getAsset<Texture>("button.png");
-
     
-		/*shared_ptr<Sound> sound = AssetDatabase::createSound(CommonData("mp3test.mp3"));
-
-		SoundSystem::getInstance()->playSound(sound);
-*/
-
-		shared_ptr<Mesh> cylinderMesh = AssetDatabase::createMeshFromFBX("cylinder3.fbx");
-
-		shared_ptr<Mesh> cubeMesh = AssetDatabase::createMeshFromFBX("box.fbx");
-
-//		shared_ptr<Mesh> objMesh = AssetDatabase::createMeshFromOBJ("sphere.obj");
-
+    
+    /*shared_ptr<Sound> sound = AssetDatabase::createSound(CommonData("mp3test.mp3"));
+     
+     SoundSystem::getInstance()->playSound(sound);
+     */
+    
+    shared_ptr<Mesh> cylinderMesh = AssetDatabase::createMeshFromFBX("cylinder3.fbx");
+    
+    shared_ptr<Mesh> cubeMesh = AssetDatabase::createMeshFromFBX("box.fbx");
+    
+    //		shared_ptr<Mesh> objMesh = AssetDatabase::createMeshFromOBJ("sphere.obj");
+    
     shared_ptr<Mesh> objMesh =  AssetDatabase::getAsset<Mesh>("sphere.obj");
-
     
-		//    vector<glm::vec3> fbxNonDup = fbxMesh->getNonDuplicateMeshVertex();
-		//    
-		//    for(int i = 0; i < fbxNonDup.size(); i++)
-		//    {
-		//        cout << i << " " << fbxNonDup[i]<< endl;
-		//    }
-		//    
-		//    vector<glm::vec3> hullTest = {
-		//        glm::vec3(0,0,0), //p0
-		//        glm::vec3(0,1,0), //p1
-		//        glm::vec3(1,1,0), //p2
-		//        glm::vec3(1,0,0), //p3
-		//        glm::vec3(0,0,1), //p4
-		//        glm::vec3(1,0,1), //p5
-		//        glm::vec3(1,1,1), //p6
-		//        glm::vec3(0,1,1), //p7
-		//        //glm::vec3(0.5f,2,0.5f), //p8
-		//        //glm::vec3(0.5f,-1,0.5f), //p9
-		//        glm::vec3(2.0f,0.5f,0.5f), //p8
-		//    //    glm::vec3(2,0 ,1)
-		//    }; //p9
-		//    
-		//    vector<int> usedIndex;
-		//    vector<int> usedTris;
-		//    
-		//    convexHull(fbxNonDup, usedIndex, usedTris);
-		//
-		//    shared_ptr<Mesh> tryMesh = AssetDatabase::createMesh(fbxNonDup,usedIndex,usedTris);
-		//    
-
-
-		shared_ptr<Shader> diffuseShader = AssetDatabase::createShader("LightShader", CommonData("vsLight.vs"), CommonData("fsLight.fragmentshader"));
-		shared_ptr<Shader> unlitShader = AssetDatabase::createShader("UnlitShader", CommonData("vsUnlit.vs"), CommonData("fsUnlit.fragmentshader"));
-		//shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsNoLight.fragmentshader"));
-
-		shared_ptr<Material> defaultMaterial = AssetDatabase::createMaterial("DefaultMaterial", diffuseShader);
-		defaultMaterial->setParamTexture("_textureSampler", texture);
-		defaultMaterial->setParamVec4("_difuseColor", glm::vec4(1,1,1,1));
-		shared_ptr<Material> fontMaterial = AssetDatabase::createMaterial("FontMaterial", unlitShader);
-		fontMaterial->setParamTexture("_textureSampler", font->getFontTexture());
-		fontMaterial->setParamVec4("_difuseColor", glm::vec4(1, 1, 1,1));
-
-		shared_ptr<Editor> editor = make_shared<Editor>();
-		editor->init();
-
-		shared_ptr<Game> game = make_shared<Game>();
-		game->init();
-		{
+    
+    //    vector<glm::vec3> fbxNonDup = fbxMesh->getNonDuplicateMeshVertex();
+    //
+    //    for(int i = 0; i < fbxNonDup.size(); i++)
+    //    {
+    //        cout << i << " " << fbxNonDup[i]<< endl;
+    //    }
+    //
+    //    vector<glm::vec3> hullTest = {
+    //        glm::vec3(0,0,0), //p0
+    //        glm::vec3(0,1,0), //p1
+    //        glm::vec3(1,1,0), //p2
+    //        glm::vec3(1,0,0), //p3
+    //        glm::vec3(0,0,1), //p4
+    //        glm::vec3(1,0,1), //p5
+    //        glm::vec3(1,1,1), //p6
+    //        glm::vec3(0,1,1), //p7
+    //        //glm::vec3(0.5f,2,0.5f), //p8
+    //        //glm::vec3(0.5f,-1,0.5f), //p9
+    //        glm::vec3(2.0f,0.5f,0.5f), //p8
+    //    //    glm::vec3(2,0 ,1)
+    //    }; //p9
+    //
+    //    vector<int> usedIndex;
+    //    vector<int> usedTris;
+    //
+    //    convexHull(fbxNonDup, usedIndex, usedTris);
+    //
+    //    shared_ptr<Mesh> tryMesh = AssetDatabase::createMesh(fbxNonDup,usedIndex,usedTris);
+    //
+    
+    
+    shared_ptr<Shader> diffuseShader = AssetDatabase::createShader("LightShader", CommonData("vsLight.vs"), CommonData("fsLight.fragmentshader"));
+    shared_ptr<Shader> unlitShader = AssetDatabase::createShader("UnlitShader", CommonData("vsUnlit.vs"), CommonData("fsUnlit.fragmentshader"));
+    //shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsNoLight.fragmentshader"));
+    
+    shared_ptr<Material> defaultMaterial = AssetDatabase::createMaterial("DefaultMaterial", diffuseShader);
+    defaultMaterial->setParamTexture("_textureSampler", texture);
+    defaultMaterial->setParamVec4("_difuseColor", glm::vec4(1,1,1,1));
+    shared_ptr<Material> fontMaterial = AssetDatabase::createMaterial("FontMaterial", unlitShader);
+    fontMaterial->setParamTexture("_textureSampler", font->getFontTexture());
+    fontMaterial->setParamVec4("_difuseColor", glm::vec4(1, 1, 1,1));
+    
+    shared_ptr<Editor> editor = make_shared<Editor>();
+    editor->init();
+    
+    shared_ptr<Game> game = make_shared<Game>();
+    game->init();
+    {
 		// create and open a character archive for output
 		std::ofstream ofs(CommonData("filename"));
-
-
+        
+        
 		shared_ptr<Actor> fbxTest = Factory::CreateActor("FBXTest");// , meshRenderer1);
-
+        
 		//fbxTest->transform->setScale(glm::vec3(10,10,10));
 		//    fbxTest->transform->setRotationQuat(glm::quat(glm::vec3(45 * Deg2Radian, 45 * Deg2Radian, 45 * Deg2Radian)));
 		shared_ptr<MeshFilter> meshFilter = fbxTest->AddComponent<MeshFilter>();
-
+        
 		//meshFilter->mesh = dynamic_pointer_cast<Mesh>(objMesh);
 		meshFilter->setMesh(objMesh);
 		shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
 		meshRenderer->setMaterial(defaultMaterial);
 //		shared_ptr<RigidBody> rigidBody = fbxTest->AddComponent<RigidBody>();
+        
+//        rigidBody->setConstraintsFlags((int)TransformConstraintAxis::MoveLockY);
+        
         fbxTest->AddComponent<PlayerScript>();
-	/*	rigidBody->setRotateEnabled(TransformAxis::x, false);
-		rigidBody->setRotateEnabled(TransformAxis::y, false);
-		rigidBody->setRotateEnabled(TransformAxis::z, false);
-		rigidBody->setGravity(true);
-*/
+        /*	rigidBody->setRotateEnabled(TransformAxis::x, false);
+         rigidBody->setRotateEnabled(TransformAxis::y, false);
+         rigidBody->setRotateEnabled(TransformAxis::z, false);
+         rigidBody->setGravity(true);
+         */
 		shared_ptr<Collider> collider = fbxTest->AddComponent<SphereCollider>();
 		collider->setPhysicsMaterial(bouncyPhysMaterial);
 		
 		//rigidBody->setMoveEnabled(TransformAxis::y, false);
 		//    rigidBody->setMoveEnabled(TransformAxis::z, false);
 		//        rigidBody->setMoveEnabled(TransformAxis::x, false);
-
+        
 		//     rigidBody->setRotateEnabled(TransformAxis::x, false);
 		//     rigidBody->setRotateEnabled(TransformAxis::y, false);
 		//     rigidBody->setRotateEnabled(TransformAxis::z, false);
-
-
+        
+        
 		//fbxTest->AddComponent<RigidBody>();
 		//fbxTest->AddComponent<SphereCollider>();
 		//fbxTest->AddComponent<AddForceScript>();
 		//fbxTest->AddComponent<SphereCollider>();
-
+        
 		shared_ptr<Actor> floor = Factory::CreateActor("Floor");
-
+        
 		meshFilter = floor->AddComponent<MeshFilter>();
 		floor->transform->setPosition(glm::vec3(0, -4, -2));
 		//floor->transform->setRotationQuat(glm::quat(glm::vec3(0, 0, 45 * Deg2Radian)));
 		floor->transform->setScale(glm::vec3(5, 0.1f, 5.0f));
-
+        
 		meshFilter->setMesh(cubeMesh);
 		meshRenderer = floor->AddComponent<MeshRenderer>();
 		meshRenderer->setMaterial(defaultMaterial);
 		collider = floor->AddComponent<BoxCollider>();
 		collider->setPhysicsMaterial(bouncyPhysMaterial);
-
+        
 		shared_ptr<Actor> fontTest = Factory::CreateActor("FontTest");// , meshRenderer1);
 		shared_ptr<FontMesh> fontMesh = fontTest->AddComponent<FontMesh>();
 		fontMesh->setFont(font);
 		fontMesh->setText("hey there mate!");
 		meshRenderer = fontTest->AddComponent<MeshRenderer>();
 		meshRenderer->setMaterial(fontMaterial);
-
-//            fontTest->AddComponent<PlayerScript>();
-
-
+        
+        //            fontTest->AddComponent<PlayerScript>();
+        
+        
 		//    int bla = 0;
 		//    //while(bla == 0)
 		//    for(int i = 0; i < fbxNonDup.size(); i++)
@@ -394,10 +397,10 @@ int main(int argc, char *argv[]) {
 		//        meshFilter->mesh = objMesh;
 		//            shared_ptr<MeshRenderer> meshRenderer = fbxTest->AddComponent<MeshRenderer>();
 		//        meshRenderer->material = m;
-		//        
+		//
 		//        bla++;
 		//    }
-
+        
 		//    shared_ptr<MeshFilter> meshFilter = fbxTest->AddComponent<MeshFilter>();
 		//    //meshFilter->mesh = dynamic_pointer_cast<Mesh>(objMesh);
 		//    meshFilter->mesh = tryMesh;
@@ -405,19 +408,19 @@ int main(int argc, char *argv[]) {
 		//    meshRenderer->material = m;
 		//    fbxTest->AddComponent<RigidBody>();
 		//    fbxTest->AddComponent<BoxCollider>();
-
-
-
-
+        
+        
+        
+        
 		//    floor->AddComponent<RotateOverTime>();
 		//    floor->AddComponent<RigidSta>();
-
-
+        
+        
 		//    //fbxTest = nullptr;
-		//	
-		//    
+		//
+		//
 		// //   shared_ptr<World> testWorld = game->world;
-		//    
+		//
 		// //   shared_ptr<RigidBody> rigidBody = fbxTest->AddComponent<RigidBody>();
 		//    // save data to archive
 		//    {
@@ -425,23 +428,23 @@ int main(int argc, char *argv[]) {
 		//        // write class instance to archive
 		//        oa & AssetDatabase::idToAsset;
 		//        oa & AssetDatabase::currentID;
-		//        
+		//
 		//        //oa & rigidBody;
 		//        //oa & fbxTest;
 		////        oa & fbxTest->components;
-		//        
+		//
 		//        ActorDescription desc = getActorDescription(fbxTest);
-		//        
+		//
 		//        oa & desc;
 		//        vector<shared_ptr<ComponentDescription>> compDescs = getActorComponentsDescription(fbxTest);
 		//        oa & compDescs;
-		//        
+		//
 		//        //oa & game->world;
 		//        // archive and stream closed when destructors are called
 		//    }
 		//  //  exit(0);
-		//    
-		//    
+		//
+		//
 		//    //Actor x;
 		//    shared_ptr<Actor> serializeTest;
 		//    {
@@ -456,65 +459,65 @@ int main(int argc, char *argv[]) {
 		//        //ia & fbxTest;
 		//        //ia & x;
 		//        //ia & testWorld;
-		//        
+		//
 		//       // ia & game->world;
-		//        
+		//
 		//        ActorDescription desc;// = getActorDescription(*fbxTest);
-		//        
+		//
 		//        ia & desc;
-		//        
+		//
 		//        serializeTest = Factory::DeserializeActor(desc);
-		//        
+		//
 		//        vector<shared_ptr<ComponentDescription>> compDescs;
 		//        ia & compDescs;
-		//        
+		//
 		//        Factory::DeserializeComponents(serializeTest,compDescs);
 		//    }
 		//
 		//    shared_ptr<Asset> loadedObjMesh = dynamic_pointer_cast<Mesh>(AssetDatabase::idToAsset[1]);///AssetDatabase::createMeshFromOBJ("sphere.obj");
 		//
 		//     shared_ptr<Shader> loadedShader = dynamic_pointer_cast<Shader>(AssetDatabase::idToAsset[2]);///
-		//    
+		//
 		//    shared_ptr<Material> loadedMaterial = dynamic_pointer_cast<Material>(AssetDatabase::idToAsset[3]);///
-		//    
-		//    
+		//
+		//
 		//    shared_ptr<MeshFilter> meshFilter2 = serializeTest->AddComponent<MeshFilter>();
 		//    meshFilter2->mesh = dynamic_pointer_cast<Mesh>(loadedObjMesh);
 		//    shared_ptr<MeshRenderer> meshRenderer2 = serializeTest->AddComponent<MeshRenderer>();
 		//    meshRenderer2->material = loadedMaterial;
-
+        
 		shared_ptr<Actor> myLight = Factory::CreateActor("Light");// , meshRenderer4);
 		myLight->transform->setPosition(glm::vec3(0, 10, 10));
 		myLight->AddComponent<Light>();
-
+        
 		shared_ptr<Actor> myCamera = Factory::CreateActor("Camera");// , meshRenderer4);
 		myCamera->transform->setPosition(glm::vec3(0, 0, 10));
 		myCamera->transform->setRotation(glm::quat(glm::vec3(0, 180 * Deg2Radian, 0)));
 		myCamera->AddComponent<Camera>();
 		myCamera->AddComponent<EditorCameraControl>();
-
+        
 		//shared_ptr<PhysicsMaterial> physMaterial = physics.createMaterial(0.5f, 0.5f, 0.75f);
 	}
-
+    
     editor->world->awake();
     game->world->awake();
-
+    
     while (!glfwWindowShouldClose(GraphicsSystem::getInstance()->getWindow().get())) {
         Time::frameStart();
-
+        
         Input::updateInputState();
-
+        
         
         switch (engineMode)
         {
-        case EngineMode::editor:
-            editor->update(Time::deltaTime,game->world);
-            break;
-        case EngineMode::game:
-            game->update(Time::deltaTime);
-            break;
-        default:
-            break;
+            case EngineMode::editor:
+                editor->update(Time::deltaTime,game->world);
+                break;
+            case EngineMode::game:
+                game->update(Time::deltaTime);
+                break;
+            default:
+                break;
         }
 		
         if (Input::getKeyPressed(GLFW_KEY_1))
@@ -523,19 +526,19 @@ int main(int argc, char *argv[]) {
             engineMode = EngineMode::game;
         
         float fps = Time::frameEnd();
-//        cout << "FPS:" << 1.0f/fps << endl;
+        //        cout << "FPS:" << 1.0f/fps << endl;
     }
-
+    
     physics.shutdown();
 	
     editor->shutdown();
-
+    
     game->shutdown();
-
+    
     // close GL context and any other GLFW resources
     GraphicsSystem::getInstance()->shutdown();
 	SoundSystem::getInstance()->shutdown();
-
-
+    
+    
 	return 0;
 }	

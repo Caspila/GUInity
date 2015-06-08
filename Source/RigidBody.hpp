@@ -20,19 +20,9 @@ private:
     /** The PhysX RigidBody */
 	PxRigidBody* physxRigidBody;
     
-    /** Is movement locked in the X axis? */
-    bool lockMoveX;
-    /** Is movement locked in the Y axis? */
-    bool lockMoveY;
-    /** Is movement locked in the Z axis? */
-    bool lockMoveZ;
+    /** The lock constraints of the rigidbody */
+    int lockConstraints;
     
-    /** Is rotation locked in the X axis? */
-    bool lockRotateX;
-    /** Is rotation locked in the X axis? */
-    bool lockRotateY;
-    /** Is rotation locked in the X axis? */
-    bool lockRotateZ;
     /** Is the object being simulated using physics */
     bool isKinematic;
     /** Is the object affected by gravity? */
@@ -72,16 +62,15 @@ public:
     /** gravity getter
      @return true if gravity is enabled, false otherwise */
 	bool getGravity();
+
     
-    /** Allow or constrain translation in one of the 3 axis
-     @param [in] axis one of the 3 axis (X,Y,Z)
-     @param [in] true to allow, false to constrain */
-    void setMoveEnabled(TransformAxis axis, bool enabled);
-    /** Allow or constrain rotation in one of the 3 axis
-     @param [in] axis one of the 3 axis (X,Y,Z)
-     @param [in] true to allow, false to constrain */
-    void setRotateEnabled(TransformAxis axis, bool enabled);
+    /** Set the translation/rotation constraints of the rigidbody.
+     @param [in] flags to constrain */
+    void setConstraintsFlags(int constraintFlags);
     
+    /** Set the translation/rotation constraints of the rigidbody.
+     @return current constraints of the rigidbody s*/
+    int getConstraintsFlags();
     
     /** Update the transform based on the PhysX physics simulation and current constraints
      @param [in] the PhysX transform*/

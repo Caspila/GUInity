@@ -40,7 +40,7 @@ public:
 
 	//static PxTransform getActorTransform(shared_ptr<Actor> actor);
 
-    static void applyRigidBodyConstraints(PxScene* scene);
+//    static void applyRigidBodyConstraints(PxScene* scene);
 	static void updateActorsTransform(PxScene* scene);
 	//static void createSphereRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic);
 	//static void createBoxRigidBody(shared_ptr<Actor> actor, shared_ptr<PhysicsMaterial> physicsMaterial, bool isKinematic);
