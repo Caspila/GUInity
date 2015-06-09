@@ -221,9 +221,9 @@ void MeshImporter::importFbxAnimation(FbxScene* scene, FbxNode* node)
                 
                 time.GetTime(pHour, pMinute, pSecond, pFrame, pField, pResidual);
                 
-                cout << "frameRate:"<< frameRate << endl;
-                cout << "Frame:"<< pFrame << endl;
-                cout << "Value:"<<curveKey.GetValue() << endl;
+//                cout << "frameRate:"<< frameRate << endl;
+//                cout << "Frame:"<< pFrame << endl;
+//                cout << "Value:"<<curveKey.GetValue() << endl;
             }
             
         }

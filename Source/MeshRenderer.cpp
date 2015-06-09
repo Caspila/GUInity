@@ -87,8 +87,7 @@ void MeshRenderer::deserialize(shared_ptr<ComponentDescription> desc)
     
     cout << "MeshRendererDesc material id" << meshRendDesc->materialID << endl;
     
-    
-	material = dynamic_pointer_cast<Material>(AssetDatabase::getAsset(meshRendDesc->materialID));
+	material = AssetDatabase::getAsset<Material>(meshRendDesc->materialID);
     
 }
 

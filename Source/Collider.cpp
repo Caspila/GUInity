@@ -63,13 +63,17 @@ bool Collider::getQueryOnly()
  @param [in] reference to PhysicsMaterial */
 void Collider::setPhysicsMaterial(shared_ptr<PhysicsMaterial> physMaterial)
 {
-	physicsMaterial = physMaterial;
-    
-	PxMaterial* mat = physicsMaterial->getMaterial();
-	PxMaterial* const newMat = const_cast<PxMaterial* const>(mat);
-    
-    if(shape)
-        shape->setMaterials(&newMat, 1);
+    if(physMaterial!=nullptr)
+    {
+        
+        physicsMaterial = physMaterial;
+        
+        PxMaterial* mat = physicsMaterial->getMaterial();
+        PxMaterial* const newMat = const_cast<PxMaterial* const>(mat);
+        
+        if(shape)
+            shape->setMaterials(&newMat, 1);
+    }
 }
 /** physicsMaterial getter
  @return referente to PhysicsMaterial */
@@ -77,3 +81,6 @@ shared_ptr<PhysicsMaterial> Collider::getPhysicsMaterial()
 {
 	return physicsMaterial;
 }
+
+
+

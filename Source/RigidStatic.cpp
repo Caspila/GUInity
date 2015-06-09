@@ -77,5 +77,7 @@ shared_ptr<ComponentDescription> RigidStatic::getComponentDescription()
 
 void RigidStatic::deserialize(shared_ptr<ComponentDescription> desc)
 {
+    shared_ptr<RigidStaticDescription> rigidBodyDesc = dynamic_pointer_cast<RigidStaticDescription>(desc);
     
+    setCopyMode(true);
 }

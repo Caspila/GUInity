@@ -27,3 +27,13 @@ shared_ptr<Component> MeshFilter::clone()
     return compClone;
 }
 
+/** Creates a description for the Component*/
+shared_ptr<ComponentDescription> MeshFilter::getComponentDescription()
+{
+    return make_shared<MeshFilterDescription>(mesh->getAssetID());
+}
+/** Deserializes a description to a Component */
+void MeshFilter::deserialize(shared_ptr<ComponentDescription> desc)
+{
+    mesh = AssetDatabase::getAsset<Mesh>(dynamic_pointer_cast<MeshFilterDescription>(desc)->meshID);
+}

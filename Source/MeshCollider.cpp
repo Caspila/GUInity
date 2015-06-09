@@ -63,7 +63,9 @@ shared_ptr<Component> MeshCollider::clone()
 {
     shared_ptr<MeshCollider> compClone = make_shared<MeshCollider>();
     
-    compClone->setPhysicsMaterial(getPhysicsMaterial());
+    if(physicsMaterial!=nullptr)
+        compClone->setPhysicsMaterial(getPhysicsMaterial());
+    
     compClone->setCopyMode(true);
     
     return compClone;

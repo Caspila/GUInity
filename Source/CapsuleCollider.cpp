@@ -3,6 +3,9 @@
 #include "Math.hpp"
 #include "Actor.hpp"
 #include "MeshFilter.hpp"
+#include "PhysicsMaterial.hpp"
+#include "AssetDatabase.hpp"
+
 /** Deserialization Constructor*/
 CapsuleCollider::CapsuleCollider(RotateAxis orientation, float halfHeight, float radius,PxVec3 center = PxVec3(0,0,0))
 {
@@ -95,7 +98,8 @@ void CapsuleCollider::init()
         shape = Physics::createCapsuleCollider(radius,halfHeight,orientation,center,getActor());
         
         // The physics material is set but it's not yet linked to the shape
-        setPhysicsMaterial(getPhysicsMaterial());
+        if(physicsMaterial!=nullptr)
+            setPhysicsMaterial(getPhysicsMaterial());
     }
     // Create new one
 	else
@@ -125,8 +129,8 @@ void CapsuleCollider::init()
 shared_ptr<Component> CapsuleCollider::clone() {
     shared_ptr<CapsuleCollider> compClone = make_shared<CapsuleCollider>(orientation, halfHeight, radius, center);
     
-    compClone->setPhysicsMaterial(getPhysicsMaterial());
-    
+    if(physicsMaterial!=nullptr)
+        compClone->setPhysicsMaterial(getPhysicsMaterial());
     return compClone;
 };
 
@@ -137,7 +141,7 @@ shared_ptr<ComponentDescription> CapsuleCollider::getComponentDescription()
     PxCapsuleGeometry geo;
     shape->getCapsuleGeometry(geo);
     
-    return make_shared<CapsuleColliderDescription>(geo.halfHeight, geo.radius,orientation);
+    return make_shared<CapsuleColliderDescription>(center,isTrigger,isQueryOnly,getPhysicsMaterial()->getAssetID(),geo.halfHeight, geo.radius,orientation);
 }
 
 /** Deserialize a component description into this collider */
@@ -147,6 +151,12 @@ void CapsuleCollider::deserialize(shared_ptr<ComponentDescription> desc)
     this->radius = capsuleColDesc->radius;
     this->halfHeight = capsuleColDesc->halfHeight;
     this->orientation = capsuleColDesc->orientation;
+
     this->center = capsuleColDesc->center;
-    initWithData = true;
+    this->isQueryOnly = capsuleColDesc->isQueryOnly;
+    this->isTrigger = capsuleColDesc->isTrigger;
+    
+        setPhysicsMaterial(AssetDatabase::getAsset<PhysicsMaterial>(capsuleColDesc->physicsMaterialID));
+    
+    setCopyMode(true);
 }

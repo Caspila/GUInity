@@ -15,6 +15,8 @@
 #include "RigidBody.hpp"
 #include "RigidStatic.hpp"
 #include "Light.hpp"
+#include "World.hpp"
+#include "FontMesh.hpp"
 
 /**  The model of each Component for the Prototype Design Pattern. */
 vector<shared_ptr<Component>> Factory::prototypes =
@@ -26,7 +28,8 @@ make_shared<RigidStatic>(),
 make_shared<Light>(),
 make_shared<BoxCollider>(),
 make_shared<SphereCollider>(),
-make_shared<CapsuleCollider>()};
+make_shared<CapsuleCollider>(),
+make_shared<FontMesh>()};
 
 
 /** Deserialize a list of Components and attaches them to an Actor */
@@ -51,6 +54,13 @@ shared_ptr<Actor> Factory::DeserializeActor(ActorDescription& desc)
     actor->transform->rotation = desc.transform.rotation;
     actor->transform->scale = desc.transform.scale;
     actor->transform->position = desc.transform.position;
+    
+    DeserializeComponents(actor,desc.components);
+    
+    for(auto& x: desc.children)
+    {
+        actor->addChildren(DeserializeActor(x));
+    }
     
     return actor;
 }
@@ -102,4 +112,59 @@ shared_ptr<Actor> Factory::CreateEditorActor(string name)
 	notify(ActorEventType::NewActor, actor, true);
 
 	return actor;
+}
+
+TransformDescription Factory::getTransformDescription(shared_ptr<Transform> t)
+
+{
+    return TransformDescription {t->position,t->scale,t->rotation};
+}
+
+ActorDescription Factory::getActorDescription(shared_ptr<Actor> actor)
+{
+    ActorDescription desc;
+    
+    desc.name = actor->name;
+    desc.isActive = actor->getIsActive();
+    desc.editorFlag = actor->getEditorFlag();
+    desc.transform = getTransformDescription(actor->transform);
+    
+    desc.components = getActorComponentsDescription(actor);
+    
+    for(auto &x:actor->children)
+    {
+        shared_ptr<Actor> childrenLock = x.lock();
+        
+        desc.children.push_back(getActorDescription(childrenLock));
+    }
+    
+    return desc;
+
+}
+
+vector<shared_ptr<ComponentDescription>> Factory::getActorComponentsDescription(shared_ptr<Actor> actor)
+{
+    vector<shared_ptr<ComponentDescription>> descs;
+    
+    for(auto&x : actor->components)
+        descs.push_back((x->getComponentDescription()));
+    
+    return descs;
+}
+ vector<ActorDescription> Factory::getSceneDescription(shared_ptr<World> world)
+{
+    vector<ActorDescription> sceneDesc;
+    for(auto &x: world->actors)
+    {
+        sceneDesc.push_back(getActorDescription(x));
+    }
+    
+    return sceneDesc;
+}
+ void Factory::loadSceneDescription(vector<ActorDescription> sceneDesc)
+{
+    for(auto &x: sceneDesc)
+    {
+        DeserializeActor(x);
+    }
 }

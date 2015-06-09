@@ -38,6 +38,7 @@ public:
 	/** text getter */
 	string getText();
 
+    
 	/** create the mesh according to the font and text */
 	void createMesh();
 
@@ -53,9 +54,9 @@ public:
 #pragma region Serialization Functions
     
 	/** Creates a description for the Component*/
-	virtual shared_ptr<ComponentDescription> getComponentDescription() override {return nullptr;}
+	virtual shared_ptr<ComponentDescription> getComponentDescription() override;
     /** Deserializes a description to a Component */
-    virtual void deserialize(shared_ptr<ComponentDescription> desc) override {}
+    virtual void deserialize(shared_ptr<ComponentDescription> desc) override;
     
 #pragma endregion
     /** @} */ // end of serialization_functions

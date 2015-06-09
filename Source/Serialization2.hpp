@@ -33,6 +33,8 @@
 #include "Material.hpp"
 #include <memory>
 #include "print.hpp"
+#include "Texture.hpp"
+#include "Font.hpp"
 
 #include <iostream>
 
@@ -63,7 +65,7 @@ namespace boost {
             boost::serialization::split_free(ar, asset, version);
             
         }
-
+        
         
         template<class Archive>
         void load(Archive & ar, Mesh & mesh, const unsigned int version)
@@ -76,13 +78,13 @@ namespace boost {
             ar & mesh.boundsMax;
             ar & mesh.avgCenter;
             
-
+            
             mesh.createBuffers();
         }
         template<class Archive>
         void save(Archive & ar,const Mesh & mesh, const unsigned int version)
         {
-      
+            
             ar & boost::serialization::base_object<Asset>(mesh);
             ar & mesh.triangles;
             ar & mesh.meshVertices;
@@ -103,20 +105,20 @@ namespace boost {
         template<class Archive>
         void serialize(Archive & ar, PxVec3 & v, const unsigned int version)
         {
-
+            
             ar & v.x;
             ar & v.y;
             ar & v.z;
             
         }
-
+        
         template<class Archive>
         void serialize(Archive & ar, glm::vec3 & v, const unsigned int version)
         {
             ar & v.x;
             ar & v.y;
             ar & v.z;
-
+            
         }
         
         template<class Archive>
@@ -132,37 +134,37 @@ namespace boost {
         template<class Archive>
         void serialize(Archive & ar, glm::vec2 & v, const unsigned int version)
         {
-                                    static int myCont = 0;
+            static int myCont = 0;
             ar & v.x;
             ar & v.y;
             myCont++;
-
+            
             cout << myCont << endl;
         }
         
         template<class Archive>
         void save(Archive & ar,const MeshVertex & mv, const unsigned int version)
         {
-  //          string desc = "pos";
-    //        ar & desc;
+            //          string desc = "pos";
+            //        ar & desc;
             ar & mv.position;
-     //       desc = "uv";
-     //       ar & desc;
+            //       desc = "uv";
+            //       ar & desc;
             ar & mv.uv;
-     //       desc = "normal";
-     //       ar & desc;
+            //       desc = "normal";
+            //       ar & desc;
             ar & mv.normal;
         }
         
         template<class Archive>
         void load(Archive & ar, MeshVertex & mv, const unsigned int version)
         {
- //           string desc;
-   //         ar & desc;
+            //           string desc;
+            //         ar & desc;
             ar & mv.position;
-     //       ar & desc;
+            //       ar & desc;
             ar & mv.uv;
-       //     ar & desc;
+            //     ar & desc;
             ar & mv.normal;
             
             //MeshVertex m(mv);
@@ -222,14 +224,45 @@ namespace boost {
             
             ar & shaderID;
             
-            mat.setShader(dynamic_pointer_cast<Shader>(AssetDatabase::getAsset(shaderID)));
+            mat.setShader(AssetDatabase::getAsset<Shader>(shaderID));
         }
         template<class Archive>
         void serialize(Archive & ar, Material & mat, const unsigned int version)
         {
             boost::serialization::split_free(ar, mat, version);
         }
+        
+        
+        template<class Archive>
+        void save(Archive & ar, const Font & font, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Asset>(font);
+            
+   			unsigned int textureID = font.getFontTexture()->getAssetID();
 
+			ar & textureID;
+            
+            
+        }
+        template<class Archive>
+        void load(Archive & ar, Font & font, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Asset>(font);
+            
+   			unsigned int textureID;
+            
+            ar & textureID;
+            
+            font.setFontTexture(AssetDatabase::getAsset<Texture>(textureID));
+
+        }
+        template<class Archive>
+        void serialize(Archive & ar, Font & font, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, font, version);
+        }
+        
+        
         template<class Archive>
         void serialize(Archive & ar, ActorDescription & actorDescription, const unsigned int version)
         {
@@ -240,8 +273,12 @@ namespace boost {
             ar & actorDescription.isActive;
             
             ar & actorDescription.transform;
+            
+            ar & actorDescription.components;
+            
+            ar & actorDescription.children;
         }
-
+        
         template<class Archive>
         void serialize(Archive & ar, TransformDescription & transformDescription, const unsigned int version)
         {
@@ -251,7 +288,7 @@ namespace boost {
             ar & transformDescription.scale;
             
             ar & transformDescription.rotation;
-            //boost::serialization::split_free(ar, rigidBody, version);
+
         }
         
         template<class Archive>
@@ -266,8 +303,10 @@ namespace boost {
             
             ar & boost::serialization::base_object<ComponentDescription>(meshFilterDesc);
             ar & meshFilterDesc.meshID;
+            
+            
         }
-
+        
         
         template<class Archive>
         void serialize(Archive & ar, MeshRendererDescription & meshRendererDesc, const unsigned int version)
@@ -281,22 +320,25 @@ namespace boost {
             ar & boost::serialization::base_object<ComponentDescription>(cameraDesc);
             ar & cameraDesc.nearClipPlane;
             ar & cameraDesc.farClipPlane;
-             ar & cameraDesc.ratio;
-             ar & cameraDesc.fov;
+            ar & cameraDesc.ratio;
+            ar & cameraDesc.fov;
         }
         template<class Archive>
         void serialize(Archive & ar, LightDescription & lightDesc, const unsigned int version)
         {
             ar & boost::serialization::base_object<ComponentDescription>(lightDesc);
             ar & lightDesc.color;
-
+            
         }
         template<class Archive>
         void serialize(Archive & ar, RigidBodyDescription & rigidBodyDesc, const unsigned int version)
         {
             ar & boost::serialization::base_object<ComponentDescription>(rigidBodyDesc);
             ar & rigidBodyDesc.isKinematic;
-           
+            ar & rigidBodyDesc.lockConstraints;
+            ar & rigidBodyDesc.gravityEnabled;
+            
+            
         }
         template<class Archive>
         void serialize(Archive & ar, RigidStaticDescription & rigidStaticDesc, const unsigned int version)
@@ -308,6 +350,8 @@ namespace boost {
         void serialize(Archive & ar, ColliderDescription & col, const unsigned int version)
         {
             ar & col.center;
+            ar & col.isTrigger;
+            ar & col.isQueryOnly;
         }
         template<class Archive>
         void serialize(Archive & ar, BoxColliderDescription & boxColDesc, const unsigned int version)
@@ -328,18 +372,26 @@ namespace boost {
             ar & capsuleColDesc.halfHeight;
             ar & capsuleColDesc.radius;
         }
+        template<class Archive>
+        void serialize(Archive & ar, FontMeshDescription & fontMeshDesc, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<ComponentDescription>(fontMeshDesc);
+            ar & fontMeshDesc.text;
+            ar & fontMeshDesc.fontID;
+        }
         
-   //        template<class Archive>
-//        void save(Archive & ar, const RigidBody & rigidBody, const unsigned int version)
-//        {
-//            ar & boost::serialization::base_object<Component>(rigidBody);
-//        }
-//        template<class Archive>
-//        void load(Archive & ar, RigidBody & rigidBody, const unsigned int version)
-//        {
-//            ar & boost::serialization::base_object<Component>(rigidBody);            
-//            
-//        }
+        
+        //        template<class Archive>
+        //        void save(Archive & ar, const RigidBody & rigidBody, const unsigned int version)
+        //        {
+        //            ar & boost::serialization::base_object<Component>(rigidBody);
+        //        }
+        //        template<class Archive>
+        //        void load(Archive & ar, RigidBody & rigidBody, const unsigned int version)
+        //        {
+        //            ar & boost::serialization::base_object<Component>(rigidBody);            
+        //            
+        //        }
         
         
     } // namespace serialization

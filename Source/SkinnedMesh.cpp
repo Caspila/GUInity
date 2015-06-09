@@ -16,10 +16,10 @@ void SkinnedMesh::setVerticesWeight(vector<vector<float>> weights)
     
     for(int i = 0; i < weights.size(); i++)
     {
-        cout << "Vertex: " << i << endl;
+//        cout << "Vertex: " << i << endl;
         for(int j= 0; j < weights[i].size(); j++)
         {
-            cout << "Bone ("<<j<<")"<<":"<<weights[i][j]<<endl;
+//            cout << "Bone ("<<j<<")"<<":"<<weights[i][j]<<endl;
         }
     }
 }

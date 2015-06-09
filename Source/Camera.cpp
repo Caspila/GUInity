@@ -228,4 +228,6 @@ shared_ptr<ComponentDescription> Camera::getComponentDescription()
     ratio = cameraDesc->ratio;
     fov = cameraDesc->fov;
     
+    setCopyMode(true);
+    
 }

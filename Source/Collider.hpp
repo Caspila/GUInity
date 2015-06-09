@@ -28,7 +28,7 @@ protected:
     
 public:
 	/** Default Constructor */
-	Collider() { shape = nullptr; };
+	Collider() { shape = nullptr; isTrigger = false; isQueryOnly = false; };
 	/** Default Destructor. Virtual because it's parent class */
 	virtual ~Collider() {};
     

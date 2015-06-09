@@ -20,6 +20,7 @@ public:
 	virtual void awake() override;
 	virtual void tick(float deltaSecods) override;
 
+    float dragFactor;
 	float moveSpeed;
     float rotateSpeed;
     glm::vec3 velocity;

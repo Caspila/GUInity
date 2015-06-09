@@ -49,6 +49,9 @@ int getCRC(string fullPath)
             boost::crc_basic<32>  crc_ccitt1( 0x1021, 0xFFFF, 0, false, false );
             crc_ccitt1.process_bytes( fileContents, fileSize );
             
+            delete []fileContents;
+            file.close();
+            
             int checkSum = crc_ccitt1.checksum();
             //cout << checkSum << endl;
             return checkSum;

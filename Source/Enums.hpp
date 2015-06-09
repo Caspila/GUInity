@@ -27,22 +27,17 @@ enum class TransformMode {move, rotate, scale, none};
 
 /** Editor related enums */
 enum class TransformAxis { x, y, z };
-//enum TransformConstraintAxis { MoveLockX = 1,
-//    MoveLockY = (1 << 2),
-//    MoveLockZ = (1 << 3),
-//    RotateLockX = (1 << 4),
-//    RotateLockY = (1 << 5),
-//    RotateLockZ = (1 << 6)};
+
 
 struct TransformConstraintAxis
 {
     enum Enum {
-        MoveLockX = 1,
-        MoveLockY = (1 << 2),
-        MoveLockZ = (1 << 3),
-        RotateLockX = (1 << 4),
-        RotateLockY = (1 << 5),
-        RotateLockZ = (1 << 6)
+        X_MOVE_LOCK = 1,
+        Y_MOVE_LOCK = (1 << 2),
+        Z_MOVE_LOCK = (1 << 3),
+        X_ROTATE_LOCK = (1 << 4),
+        Y_ROTATE_LOCK = (1 << 5),
+        Z_ROTATE_LOCK = (1 << 6)
     };
 };
 

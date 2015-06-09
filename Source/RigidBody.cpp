@@ -10,6 +10,9 @@ RigidBody::RigidBody()
 {
     setCopyMode(false);
     physxRigidBody = nullptr;
+    lockConstraints = 0;
+    isKinematic = false;
+    gravityEnabled = true;
 #ifdef GUINITY_DEBUG
     nCount++;
 #endif
@@ -113,7 +116,7 @@ bool RigidBody::getKinematic()
 void RigidBody::setGravity(bool enabled)
 {
     this->gravityEnabled = enabled;
-	physxRigidBody->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, true);
+	physxRigidBody->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, !enabled);
 }
 /** gravity getter
  @return true if gravity is enabled, false otherwise */
@@ -150,37 +153,37 @@ void RigidBody::updateTransform(const PxTransform& newTransform)
     PxVec3 currentVelocity = physxRigidBody->getLinearVelocity();
     PxVec3 angularVelocity = physxRigidBody->getAngularVelocity();
     
-    if(lockConstraints & TransformConstraintAxis::MoveLockX)
+    if(lockConstraints & TransformConstraintAxis::X_MOVE_LOCK)
     {
         newPosition.x = position.x;
         currentVelocity.x = 0;
     }
-    if(lockConstraints & TransformConstraintAxis::MoveLockY)
+    if(lockConstraints & TransformConstraintAxis::Y_MOVE_LOCK)
 
     {
         newPosition.y = position.y;
         currentVelocity.y = 0;
     }
-    if(lockConstraints & TransformConstraintAxis::MoveLockZ)
+    if(lockConstraints & TransformConstraintAxis::Z_MOVE_LOCK)
 
     {
         newPosition.z = position.z;
         currentVelocity.z = 0;
     }
     
-    if(lockConstraints & TransformConstraintAxis::RotateLockX)
+    if(lockConstraints & TransformConstraintAxis::X_ROTATE_LOCK)
 
     {
         newRotationEuler.x = rotationEuler.x;
         angularVelocity.x = 0;
     }
-    if(lockConstraints & TransformConstraintAxis::RotateLockY)
+    if(lockConstraints & TransformConstraintAxis::Y_ROTATE_LOCK)
 
     {
         newRotationEuler.y = rotationEuler.y;
         angularVelocity.y = 0;
     }
-    if(lockConstraints & TransformConstraintAxis::RotateLockZ)
+    if(lockConstraints & TransformConstraintAxis::Z_ROTATE_LOCK)
 
     {
         newRotationEuler.z = rotationEuler.z;
@@ -211,10 +214,6 @@ void RigidBody::addForce(glm::vec3 axis)
 
 
 
-
-
-
-
 /** Clones current component (Prototype Design Pattern)
  @return shared_ptr to cloned RigidBody Component
  */
@@ -237,12 +236,18 @@ shared_ptr<Component> RigidBody::clone()
 /** Creates a description for the Component*/
 shared_ptr<ComponentDescription> RigidBody::getComponentDescription()
 {
-    return make_shared<RigidBodyDescription>(getKinematic());
+    return make_shared<RigidBodyDescription>(getKinematic(),lockConstraints,gravityEnabled);
 }
 
 /** Deserializes a description to a Component */
 void RigidBody::deserialize(shared_ptr<ComponentDescription> desc)
 {
+    shared_ptr<RigidBodyDescription> rigidBodyDesc = dynamic_pointer_cast<RigidBodyDescription>(desc);
+    this->lockConstraints = rigidBodyDesc->lockConstraints;
+    this->gravityEnabled = rigidBodyDesc->gravityEnabled;
+    this->isKinematic = rigidBodyDesc->isKinematic;
+    
+    setCopyMode(true);
     
 }
 

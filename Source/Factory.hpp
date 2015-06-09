@@ -5,9 +5,11 @@
 #include "Serialization2.hpp"
 #include <map>
 
+
 class Actor;
 class Script;
 class MeshRenderer;
+class World;
 
 /** Actor Factory 
 
@@ -21,6 +23,12 @@ private:
 	/**  The model of each Component for the Prototype Design Pattern. */
 	static vector<shared_ptr<Component>> prototypes;
 
+    static TransformDescription getTransformDescription(shared_ptr<Transform> t);
+    static vector<shared_ptr<ComponentDescription>> getActorComponentsDescription(shared_ptr<Actor> actor);
+    
+	/** Deserialize a list of Components and attaches them to an Actor */
+    static void DeserializeComponents(shared_ptr<Actor> actor, vector<shared_ptr<ComponentDescription>> compDescs);
+    
 public:
 	/** Default Constructor*/
 	Factory() {}
@@ -37,12 +45,15 @@ public:
 	static void CreateReferenceActor(shared_ptr<Actor> realActor);
 	/** Create a new Editor Actor, one that lives only in the Editor World */
 	static shared_ptr<Actor> CreateEditorActor(string name);
-    
-	/** Deserialize a list of Components and attaches them to an Actor */
-    static void DeserializeComponents(shared_ptr<Actor> actor, vector<shared_ptr<ComponentDescription>> compDescs);
+
 	/** Deserialize an Actor*/
     static shared_ptr<Actor> DeserializeActor(ActorDescription& desc);
+    
+    static ActorDescription getActorDescription(shared_ptr<Actor> actor);
 
+    static vector<ActorDescription> getSceneDescription(shared_ptr<World> world);
+
+    static void loadSceneDescription(vector<ActorDescription> sceneDesc);
     
 };
 

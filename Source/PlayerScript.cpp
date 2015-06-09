@@ -25,8 +25,9 @@ PlayerScript::~PlayerScript()
 
 void PlayerScript::awake()
 {
-	moveSpeed = 0.1f;
-    rotateSpeed = 2;
+  	dragFactor = 0.01f;
+	moveSpeed = 0.2f;
+    rotateSpeed = 5;
     
     cout << "Move speed set to 10!" << endl;
     
@@ -161,7 +162,7 @@ void PlayerScript::tick(float deltaSeconds)
 
 void PlayerScript::applyDrag(float deltaSeconds)
 {
-    velocity -= velocity * 0.01f;
+    velocity -= velocity * dragFactor;
 }
 
 void PlayerScript::onCollision(Actor* actor)

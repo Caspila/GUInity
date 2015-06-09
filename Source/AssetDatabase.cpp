@@ -52,7 +52,6 @@ void AssetDatabase::createSerializationFile(shared_ptr<Asset> asset, string file
     std::ofstream ofs(filename.append(".desc"),std::fstream::binary | std::fstream::out);
     {
 
-        
         boost::archive::binary_oarchive oa(ofs);
         
         oa & asset;
@@ -99,16 +98,16 @@ void AssetDatabase::loadAllMetaFiles()
  
 }
 
-/** Search on the database for the asset with assetID==Asset.assetID.*/
-shared_ptr<Asset> AssetDatabase::getAsset(unsigned int assetID)
-{
-	map<unsigned int, shared_ptr<Asset>>::iterator it;
-	it = idToAsset.find(assetID);
-	if (it != idToAsset.end())
-		return idToAsset[assetID];
-
-	return nullptr;
-}
+///** Search on the database for the asset with assetID==Asset.assetID.*/
+//shared_ptr<Asset> AssetDatabase::getAsset(unsigned int assetID)
+//{
+//	map<unsigned int, shared_ptr<Asset>>::iterator it;
+//	it = idToAsset.find(assetID);
+//	if (it != idToAsset.end())
+//		return idToAsset[assetID];
+//
+//	return nullptr;
+//}
 
 
 /** assignCurrentID. Increments the primary key and add the Asset to the maps with the proper name. */
@@ -229,6 +228,8 @@ shared_ptr<Sound> AssetDatabase::createSound(string filename)
 shared_ptr<Texture> AssetDatabase::createTexture(string filename)
 {
 
+    cout << "Filename Tex bug:" << filename << endl;
+    
 	int width = 0;
 	int height = 0;
 	void *buffer = loadTexture(CommonData(filename), width, height);

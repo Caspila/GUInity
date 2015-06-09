@@ -2,6 +2,8 @@
 #include "Mesh.hpp"
 #include "Font.hpp"
 #include "Actor.hpp"
+#include "Texture.hpp"
+#include "AssetDatabase.hpp"
 
 /** Default Constructor*/
 FontMesh::FontMesh()
@@ -52,6 +54,11 @@ string FontMesh::getText()
 	return text;
 }
 
+
+void Font::setFontTexture(shared_ptr<Texture> fontTexture)
+{
+    this->fontTexture = fontTexture;
+}
 
 /** create the mesh according to the font and text */
 void FontMesh::createMesh()
@@ -116,4 +123,19 @@ shared_ptr<Component> FontMesh::clone()
     
     return compClone;
 };
+
+/** Creates a description for the Component*/
+shared_ptr<ComponentDescription> FontMesh::getComponentDescription()
+{
+    return make_shared<FontMeshDescription>(text,font->getAssetID());
+}
+/** Deserializes a description to a Component */
+void FontMesh::deserialize(shared_ptr<ComponentDescription> desc)
+{
+    shared_ptr<FontMeshDescription> fontMeshDesc = dynamic_pointer_cast<FontMeshDescription>(desc);
+    
+    setFont(AssetDatabase::getAsset<Font>(fontMeshDesc->fontID));
+    
+    setText(fontMeshDesc->text);
+}
 

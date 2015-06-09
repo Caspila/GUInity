@@ -3,6 +3,8 @@
 #include "Actor.hpp"
 #include "Converter.hpp"
 #include "MeshFilter.hpp"
+#include "PhysicsMaterial.hpp"
+#include "AssetDatabase.hpp"
 
 using namespace physx;
 
@@ -48,7 +50,8 @@ void BoxCollider::init()
         shape = Physics::createBoxCollider(halfExtent,center,getActor());
         
         // The physics material is set but it's not yet linked to the shape
-        setPhysicsMaterial(getPhysicsMaterial());
+        if(physicsMaterial!=nullptr)
+            setPhysicsMaterial(getPhysicsMaterial());
     }
 	// Create new
     else
@@ -75,14 +78,16 @@ void BoxCollider::init()
 shared_ptr<Component> BoxCollider::clone()
 {
     shared_ptr<BoxCollider> compClone = make_shared<BoxCollider>(halfExtent, center);
-    compClone->setPhysicsMaterial(getPhysicsMaterial());
+    
+    if(physicsMaterial!=nullptr)
+        compClone->setPhysicsMaterial(getPhysicsMaterial());
     return compClone;
 }
 
 /** Creates a description for the Component*/
 shared_ptr<ComponentDescription> BoxCollider::getComponentDescription()
 {
-    return make_shared<BoxColliderDescription>(halfExtent);
+    return make_shared<BoxColliderDescription>(center,isTrigger,isQueryOnly,getPhysicsMaterial()->getAssetID(),halfExtent);
 }
 
 /** Deserializes a description to a Component */
@@ -92,5 +97,10 @@ void BoxCollider::deserialize(shared_ptr<ComponentDescription> desc)
     shared_ptr<BoxColliderDescription> boxColDesc = dynamic_pointer_cast<BoxColliderDescription>(desc);
     this->halfExtent = boxColDesc->halfExtent;
     this->center = boxColDesc->center;
-    initWithData = true;
+    this->isQueryOnly = boxColDesc->isQueryOnly;
+    this->isTrigger = boxColDesc->isTrigger;
+    
+    setPhysicsMaterial(AssetDatabase::getAsset<PhysicsMaterial>(boxColDesc->physicsMaterialID));
+
+    setCopyMode(true);
 }

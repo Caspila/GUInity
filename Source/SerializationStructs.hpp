@@ -21,6 +21,7 @@ using namespace physx;
 
 class Transform;
 class Actor;
+class ComponentDescription;
 
 struct TransformDescription
 {
@@ -34,10 +35,13 @@ struct ActorDescription
     bool isActive;
     bool editorFlag;
     TransformDescription transform;
+    
+    vector<shared_ptr<ComponentDescription>> components;
+    vector<ActorDescription> children;
 };
 
 enum ComponentType
-{ COMPONENT_MESHFILTER = 0, COMPONENT_MESHRENDERER = 1, COMPONENT_CAMERA = 2, COMPONENT_RIGIDBODY = 3, COMPONENT_RIGIDSTATIC = 4, COMPONENT_LIGHT = 5, COMPONENT_BOXCOLLIDER=6, COMPONENT_SPHERECOLLIDER=7, COMPONENT_CAPSULECOLLIDER=8};
+{ COMPONENT_MESHFILTER = 0, COMPONENT_MESHRENDERER = 1, COMPONENT_CAMERA = 2, COMPONENT_RIGIDBODY = 3, COMPONENT_RIGIDSTATIC = 4, COMPONENT_LIGHT = 5, COMPONENT_BOXCOLLIDER=6, COMPONENT_SPHERECOLLIDER=7, COMPONENT_CAPSULECOLLIDER=8, COMPONENT_FONTMESH=9};
 
 class ComponentDescription
 {
@@ -53,7 +57,7 @@ public:
     
     int meshID;
     MeshFilterDescription(){};
-
+    
     MeshFilterDescription(int id) : meshID {id} { type = COMPONENT_MESHFILTER;};
     virtual ~MeshFilterDescription() {};
 };
@@ -95,9 +99,11 @@ class RigidBodyDescription : public ComponentDescription
 {
 public:
     bool isKinematic;
+    int lockConstraints;
+    bool gravityEnabled;
     
     RigidBodyDescription(){};
-    RigidBodyDescription(bool  kinematic) : isKinematic {kinematic} {type = COMPONENT_RIGIDBODY;};
+    RigidBodyDescription(bool  isKinematic, int lockConstraints, bool gravityEnabled ) : isKinematic {isKinematic}, lockConstraints{lockConstraints}, gravityEnabled{gravityEnabled} {type = COMPONENT_RIGIDBODY;};
     virtual ~RigidBodyDescription() {};
 };
 
@@ -114,7 +120,11 @@ class ColliderDescription : public ComponentDescription
     
 public:
     PxVec3 center;
-    ColliderDescription(){};
+    bool isTrigger;
+    bool isQueryOnly;
+    int physicsMaterialID;
+    ColliderDescription() {}
+    ColliderDescription(PxVec3 center, bool isTrigger, bool isQueryOnly,int physicsMaterialID) : center {center}, isTrigger {isTrigger}, isQueryOnly {isQueryOnly}, physicsMaterialID{physicsMaterialID} {};
     virtual ~ColliderDescription() {};
 };
 
@@ -123,8 +133,11 @@ class BoxColliderDescription : public ColliderDescription
 public:
     PxVec3 halfExtent;
     
-    BoxColliderDescription(){};
-    BoxColliderDescription(PxVec3 halfExt) : halfExtent {halfExt} {type = COMPONENT_BOXCOLLIDER;};
+    BoxColliderDescription() {}
+    BoxColliderDescription(PxVec3 center, bool isTrigger, bool isQueryOnly, int physicsMaterialID,PxVec3 halfExt) :
+    ColliderDescription(center,isTrigger,isQueryOnly,physicsMaterialID),
+    halfExtent {halfExt}
+    {type = COMPONENT_BOXCOLLIDER;};
     virtual ~BoxColliderDescription() {};
 };
 class SphereColliderDescription : public ColliderDescription
@@ -132,8 +145,12 @@ class SphereColliderDescription : public ColliderDescription
 public:
     float radius;
     
-    SphereColliderDescription(){};
-    SphereColliderDescription(float r) : radius {r} {type = COMPONENT_SPHERECOLLIDER;};
+    SphereColliderDescription() {}
+    SphereColliderDescription(PxVec3 center, bool isTrigger, bool isQueryOnly, int physicsMaterialID,float r) :
+    ColliderDescription(center,isTrigger,isQueryOnly,physicsMaterialID),
+    radius {r}
+    
+    {type = COMPONENT_SPHERECOLLIDER;};
     virtual ~SphereColliderDescription() {};
 };
 class CapsuleColliderDescription : public ColliderDescription
@@ -143,9 +160,23 @@ public:
     float halfHeight;
     RotateAxis orientation;
     
-    CapsuleColliderDescription(){};
-    CapsuleColliderDescription(float halfH,float r, RotateAxis o) :halfHeight{halfH}, radius {r} { orientation = o;type = COMPONENT_CAPSULECOLLIDER;};
+    CapsuleColliderDescription() {}
+    CapsuleColliderDescription(PxVec3 center, bool isTrigger, bool isQueryOnly, int physicsMaterialID, float halfH,float r, RotateAxis o) :ColliderDescription(center,isTrigger,isQueryOnly,physicsMaterialID),
+    halfHeight{halfH},
+    radius {r}
+    { orientation = o;type = COMPONENT_CAPSULECOLLIDER;};
     virtual ~CapsuleColliderDescription() {};
+};
+
+class FontMeshDescription : public ComponentDescription
+{
+public:
+    string text;
+    int fontID;
+    
+    FontMeshDescription() {}
+    FontMeshDescription(string text, int fontID ) :text {text}, fontID{fontID}    {;type = COMPONENT_FONTMESH;};
+    virtual ~FontMeshDescription() {};
 };
 
 

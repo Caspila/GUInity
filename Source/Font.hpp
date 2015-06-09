@@ -46,8 +46,11 @@ public:
 	virtual ~Font() {}
 	
 	/** fontTexture getter*/
-	shared_ptr<Texture> getFontTexture();
-	/** fontSize getter*/
+	shared_ptr<Texture> getFontTexture() const;
+	/** fontTexture getter*/
+    void setFontTexture(shared_ptr<Texture> fontTexture);
+	
+    /** fontSize getter*/
 	int getFontSize();
 	/** charUVMap getter*/
 	map<char, LetterFontUV> getCharUVMap();

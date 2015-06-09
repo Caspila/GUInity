@@ -3,7 +3,8 @@
 #include "Actor.hpp"
 #include "Converter.hpp"
 #include "MeshFilter.hpp"
-
+#include "PhysicsMaterial.hpp"
+#include "AssetDatabase.hpp"
 
 /** Deserialization Constructor*/
 SphereCollider::SphereCollider(float radius, PxVec3 center = PxVec3(0,0,0))
@@ -70,7 +71,8 @@ void SphereCollider::init()
         shape = Physics::createSphereCollider(radius,center,getActor());
         
         // The physics material is set but it's not yet linked to the shape
-        setPhysicsMaterial(getPhysicsMaterial());
+        if(physicsMaterial!=nullptr)
+            setPhysicsMaterial(getPhysicsMaterial());
     }
     // Create a new one
 	else
@@ -96,7 +98,10 @@ void SphereCollider::init()
  */
 shared_ptr<Component> SphereCollider::clone() {
     shared_ptr<SphereCollider> compClone = make_shared<SphereCollider>(radius,center);
-    compClone->setPhysicsMaterial(getPhysicsMaterial());
+    
+    if(physicsMaterial!=nullptr)
+        compClone->setPhysicsMaterial(getPhysicsMaterial());
+
     return compClone;
 };
 
@@ -106,7 +111,7 @@ shared_ptr<ComponentDescription> SphereCollider::getComponentDescription()
     PxSphereGeometry geo;
     shape->getSphereGeometry(geo);
     
-    return make_shared<SphereColliderDescription>(geo.radius);
+    return make_shared<SphereColliderDescription>(center,isTrigger,isQueryOnly,getPhysicsMaterial()->getAssetID(),geo.radius);
 }
 
 /** Deserialize a component description into this collider */
@@ -114,6 +119,12 @@ void SphereCollider::deserialize(shared_ptr<ComponentDescription> desc)
 {
     shared_ptr<SphereColliderDescription> sphereColDesc = dynamic_pointer_cast<SphereColliderDescription>(desc);
     this->radius = sphereColDesc->radius;
+
     this->center = sphereColDesc->center;
-    initWithData = true;
+    this->isQueryOnly = sphereColDesc->isQueryOnly;
+    this->isTrigger = sphereColDesc->isTrigger;
+    
+    setPhysicsMaterial(AssetDatabase::getAsset<PhysicsMaterial>(sphereColDesc->physicsMaterialID));
+    
+    setCopyMode(true);
 }

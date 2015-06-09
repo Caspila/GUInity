@@ -10,7 +10,7 @@ Font::Font(shared_ptr<Texture> fontTexture, map<char, LetterFontUV> charUVMap, i
 }
 
 /** fontTexture getter*/
-shared_ptr<Texture> Font::getFontTexture()
+shared_ptr<Texture> Font::getFontTexture() const
 {
 	return fontTexture;
 }
