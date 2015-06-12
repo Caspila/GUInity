@@ -38,6 +38,7 @@ public:
 	void addActor(shared_ptr<Actor> actor);
 	void addActorDelayed(shared_ptr<Actor> actor);
 	void removeActor(shared_ptr<Actor> actor);
+    void removeActorDelayed(shared_ptr<Actor> actor);
 	std::vector<shared_ptr<Actor>> newActors;
 	std::vector<weak_ptr<Actor>> toRemoveActors;
 

@@ -68,25 +68,47 @@ glm::mat4 Camera::getViewMatrix()
 	return view;
 }
 /** near clip Getter*/
-float Camera::getNearClip()
+float Camera::getNearClip() const
 {
 	return nearClipPlane;
 }
 /** far clip Getter*/
-float Camera::getFarClip()
+float Camera::getFarClip() const
 {
 	return farClipPlane;
 }
 /** fov Getter*/
-float Camera::getFOV()
+float Camera::getFOV() const
 {
 	return fov;
 }
 /** screen ratio Getter*/
-float Camera::getScreenRatio()
+float Camera::getScreenRatio() const
 {
 	return ratio;
 }
+
+/** near clip Setter*/
+void Camera::setNearClip(float nearClipPlane)
+{
+    this->nearClipPlane = nearClipPlane;
+}
+/** far clip Setter*/
+void Camera::setFarClip(float farClipPlane)
+{
+    this->farClipPlane = farClipPlane;
+}
+/** fov Setter*/
+void Camera::setFOV(float fov)
+{
+    this->fov = fov;
+}
+/** screen ratio Setter*/
+void Camera::setScreenRatio(float ratio)
+{
+    this->ratio = ratio;
+}
+
 
 /** Transforms a screen point to a world point. Commonly used for transforming mouse position into world points */
 glm::vec3 Camera::screenPointToWorld(glm::vec2 pos)
@@ -208,11 +230,6 @@ shared_ptr<Component> Camera::clone()
 /** Get a description for the current component*/
 shared_ptr<ComponentDescription> Camera::getComponentDescription()
 {
-    
-    float nearClipPlane, farClipPlane;
-	float fov;
-	float ratio;
-
     return make_shared<CameraDescription>(nearClipPlane,farClipPlane,fov,ratio);
     
 }

@@ -34,14 +34,21 @@ public:
     
 
     
+    /** center setter
+     @param [in] center the center of the physics shape */
+	void setCenter(PxVec3 center);
+	/** center getter
+     @return center of the physics shape
+     */
+	PxVec3 getCenter() const;
     
 	/** isTrigger setter
      @param [in] isTrigger - true if it's just a trigger, false if it physics simulated */
-	void setTrigger(bool isTrigger);
+	void setIsTrigger(bool isTrigger);
 	/** isTrigger getter
      @return true if it's just a trigger, false if it physics simulated
      */
-	bool getIsTrigger();
+	bool getIsTrigger() const;
     
 	/** isQueryOnly getter
      @param [in] queryOnly true if this object is only used in queries, false otherwise */
@@ -49,7 +56,14 @@ public:
 	/** isQueryOnly getter
      @return true if this object is only used in queries, false otherwise
      */
-	bool getQueryOnly();
+	bool getQueryOnly() const;
+    
+    /** physicsMaterial getter
+     @param [in] reference to PhysicsMaterial */
+	void setPhysicsMaterial(const shared_ptr<PhysicsMaterial> physMaterial);
+	/** physicsMaterial getter
+     @return referente to PhysicsMaterial */
+	shared_ptr<PhysicsMaterial> getPhysicsMaterial() const;
     
     /** Component init override */
 	virtual void init() override;
@@ -61,13 +75,7 @@ public:
 	/** Component setActive override. Changes PhysX settings */
     virtual void setActive(bool isActive) override;
     
-    
-	/** physicsMaterial getter
-     @param [in] reference to PhysicsMaterial */
-	void setPhysicsMaterial(const shared_ptr<PhysicsMaterial> physMaterial);
-	/** physicsMaterial getter
-     @return referente to PhysicsMaterial */
-	shared_ptr<PhysicsMaterial> getPhysicsMaterial();
+
     
     /** Pure virtual function. Clones current component (Prototype Design Pattern)
         @return shared_ptr to cloned Collider Component

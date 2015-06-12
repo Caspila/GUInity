@@ -35,6 +35,21 @@
 #include "print.hpp"
 #include "Texture.hpp"
 #include "Font.hpp"
+#include "Component.hpp"
+#include "MeshComponent.hpp"
+#include "MeshFilter.hpp"
+#include "MeshRenderer.hpp"
+#include "Collider.hpp"
+#include "BoxCollider.hpp"
+#include "SphereCollider.hpp"
+#include "CapsuleCollider.hpp"
+#include "PhysicsMaterial.hpp"
+#include "RigidBody.hpp"
+#include "RigidStatic.hpp"
+#include "FontMesh.hpp"
+#include "Camera.hpp"
+#include "Light.hpp"
+#include "ScriptComponent.hpp"
 
 #include <iostream>
 
@@ -43,65 +58,7 @@
 namespace boost {
     namespace serialization {
         
-        template<class Archive>
-        void save(Archive & ar, const Asset & asset, const unsigned int version)
-        {
-			unsigned int id = asset.getAssetID();
-			ar & id;
-        }
-        template<class Archive>
-        void load(Archive & ar, Asset & asset, const unsigned int version)
-        {
-			int assetID;
-			ar & assetID;
-			asset.setAssetID(assetID);
-            
-        }
-        
-        template <class Archive>
-        void serialize(Archive & ar, Asset & asset, const unsigned int version)
-        {
-            
-            boost::serialization::split_free(ar, asset, version);
-            
-        }
-        
-        
-        template<class Archive>
-        void load(Archive & ar, Mesh & mesh, const unsigned int version)
-        {
-			ar & boost::serialization::base_object<Asset>(mesh);
-            ar & mesh.triangles;
-            ar & mesh.meshVertices;
-            ar & mesh.scaleFactor;
-            ar & mesh.boundsMin;
-            ar & mesh.boundsMax;
-            ar & mesh.avgCenter;
-            
-            
-            mesh.createBuffers();
-        }
-        template<class Archive>
-        void save(Archive & ar,const Mesh & mesh, const unsigned int version)
-        {
-            
-            ar & boost::serialization::base_object<Asset>(mesh);
-            ar & mesh.triangles;
-            ar & mesh.meshVertices;
-            ar & mesh.scaleFactor;
-            ar & mesh.boundsMin;
-            ar & mesh.boundsMax;
-            ar & mesh.avgCenter;
-        }
-        template <class Archive>
-        void serialize(Archive & ar, Mesh & mesh, const unsigned int version)
-        
-        {
-            
-            boost::serialization::split_free(ar, mesh, version);
-            
-        }
-        
+        /** STRUCTS SERIALIZATION **/
         template<class Archive>
         void serialize(Archive & ar, PxVec3 & v, const unsigned int version)
         {
@@ -177,6 +134,71 @@ namespace boost {
         {
             boost::serialization::split_free(ar, meshVertex, version);
         }
+        /** END STRUCTS SERIALIZATION **/
+        
+        
+        
+        /** ASSET SERIALIZATION **/
+        
+        template<class Archive>
+        void save(Archive & ar, const Asset & asset, const unsigned int version)
+        {
+			unsigned int id = asset.getAssetID();
+			ar & id;
+        }
+        template<class Archive>
+        void load(Archive & ar, Asset & asset, const unsigned int version)
+        {
+			int assetID;
+			ar & assetID;
+			asset.setAssetID(assetID);
+            
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar, Asset & asset, const unsigned int version)
+        {
+            
+            boost::serialization::split_free(ar, asset, version);
+            
+        }
+        
+        
+        template<class Archive>
+        void load(Archive & ar, Mesh & mesh, const unsigned int version)
+        {
+			ar & boost::serialization::base_object<Asset>(mesh);
+            ar & mesh.triangles;
+            ar & mesh.meshVertices;
+            ar & mesh.scaleFactor;
+            ar & mesh.boundsMin;
+            ar & mesh.boundsMax;
+            ar & mesh.avgCenter;
+            
+            
+            mesh.createBuffers();
+        }
+        template<class Archive>
+        void save(Archive & ar,const Mesh & mesh, const unsigned int version)
+        {
+            
+            ar & boost::serialization::base_object<Asset>(mesh);
+            ar & mesh.triangles;
+            ar & mesh.meshVertices;
+            ar & mesh.scaleFactor;
+            ar & mesh.boundsMin;
+            ar & mesh.boundsMax;
+            ar & mesh.avgCenter;
+        }
+        template <class Archive>
+        void serialize(Archive & ar, Mesh & mesh, const unsigned int version)
+        
+        {
+            
+            boost::serialization::split_free(ar, mesh, version);
+            
+        }
+        
         
         template<class Archive>
         void save(Archive & ar, const Shader & shader, const unsigned int version)
@@ -239,7 +261,7 @@ namespace boost {
             ar & boost::serialization::base_object<Asset>(font);
             
    			unsigned int textureID = font.getFontTexture()->getAssetID();
-
+            
 			ar & textureID;
             
             
@@ -254,15 +276,17 @@ namespace boost {
             ar & textureID;
             
             font.setFontTexture(AssetDatabase::getAsset<Texture>(textureID));
-
+            
         }
         template<class Archive>
         void serialize(Archive & ar, Font & font, const unsigned int version)
         {
             boost::serialization::split_free(ar, font, version);
         }
+        /** END ASSET SERIALIZATION **/
         
         
+        /** SERIALIZATION FROM DESCRIPTION **/
         template<class Archive>
         void serialize(Archive & ar, ActorDescription & actorDescription, const unsigned int version)
         {
@@ -288,7 +312,7 @@ namespace boost {
             ar & transformDescription.scale;
             
             ar & transformDescription.rotation;
-
+            
         }
         
         template<class Archive>
@@ -379,20 +403,568 @@ namespace boost {
             ar & fontMeshDesc.text;
             ar & fontMeshDesc.fontID;
         }
+        /** END SERIALIZATION FROM DESCRIPTION **/
+        
+        /** SERIALIZATION FROM POINTERS **/
+        template<class Archive>
+        void save(Archive & ar, const Actor & actor, const unsigned int version)
+        {
+            string name = actor.name;
+            bool isActive = actor.getIsActive();
+            bool editorFlag = actor.getEditorFlag();
+		
+            ar & name;
+            ar & isActive;
+            ar & editorFlag;
+            ar & actor.transform;
+            ar & actor.components;
+            
+        }
+        template<class Archive>
+        void load(Archive & ar, Actor & actor, const unsigned int version)
+        {
+            string name;
+            bool isActive;
+            bool editorFlag;
+            ar & name;
+		    ar & isActive;
+            ar & editorFlag;
+            ar & actor.transform;
+            
+            vector<std::shared_ptr<Component>> components;
+            ar & components;
+//            ar & actor.components;
+            
+
+            actor.setComponents(components);
+            actor.name = name;
+            actor.isActive = isActive;
+            actor.editorFlag = editorFlag;
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar, Actor & actor, const unsigned int version)
+        {
+            
+            boost::serialization::split_free(ar, actor, version);
+            
+        }
+        
+        template<class Archive>
+        void save(Archive & ar, const Transform & transform, const unsigned int version)
+        {
+            
+			ar & transform.position;
+   			ar & transform.rotation;
+   			ar & transform.scale;
+            
+            ar & transform.actor;
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  Transform & transform, const unsigned int version)
+        {
+            glm::vec3 position, scale;
+            glm::quat rotation;
+            
+			ar & position;
+            ar & rotation;
+            ar & scale;
+            
+            transform.setPosition(position);
+            transform.setRotation(rotation);
+            transform.setScale(scale);
+            
+            ar & transform.actor;
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  Transform & transform, const unsigned int version)
+        {
+            
+            boost::serialization::split_free(ar, transform, version);
+            
+        }
+        
+        template<class Archive>
+        void save(Archive & ar, const Component & component, const unsigned int version)
+        {
+//            ar & component.actor;
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  Component & component, const unsigned int version)
+        {
+//            ar & component.actor;
+            
+            component.setCopyMode(true);
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  Component & component, const unsigned int version)
+        {
+            
+            boost::serialization::split_free(ar, component, version);
+            
+        }
         
         
-        //        template<class Archive>
-        //        void save(Archive & ar, const RigidBody & rigidBody, const unsigned int version)
-        //        {
-        //            ar & boost::serialization::base_object<Component>(rigidBody);
-        //        }
-        //        template<class Archive>
-        //        void load(Archive & ar, RigidBody & rigidBody, const unsigned int version)
-        //        {
-        //            ar & boost::serialization::base_object<Component>(rigidBody);            
-        //            
-        //        }
+        template<class Archive>
+        void save(Archive & ar, const MeshComponent & meshComponent, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(meshComponent);
+            unsigned int id =meshComponent.getMesh()->getAssetID();
+            ar & id;
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  MeshComponent & meshComponent, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(meshComponent);
+            
+            unsigned int id;
+            ar & id;
+            meshComponent.setMesh(AssetDatabase::getAsset<Mesh>(id));
+        }
         
+        template <class Archive>
+        void serialize(Archive & ar,  MeshComponent & meshComponent, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, meshComponent, version);
+        }
+        
+        
+        template<class Archive>
+        void save(Archive & ar, const MeshFilter & meshFilter, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<MeshComponent>(meshFilter);
+            
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  MeshFilter & meshFilter, const unsigned int version)
+        {
+            
+            ar & boost::serialization::base_object<MeshComponent>(meshFilter);
+            
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  MeshFilter & meshFilter, const unsigned int version)
+        {
+            
+            boost::serialization::split_free(ar, meshFilter, version);
+            
+        }
+        
+        template<class Archive>
+        void save(Archive & ar, const MeshRenderer & meshRenderer, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(meshRenderer);
+            unsigned int id =meshRenderer.getMaterial()->getAssetID();
+            ar & id;
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  MeshRenderer & meshRenderer, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(meshRenderer);
+            
+            unsigned int id;
+            ar & id;
+            meshRenderer.setMaterial(AssetDatabase::getAsset<Material>(id));
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  MeshRenderer & meshRenderer, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, meshRenderer, version);
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        template<class Archive>
+        void save(Archive & ar, const Collider & collider, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(collider);
+            unsigned int id = collider.getPhysicsMaterial()->getAssetID();
+            bool isQueryOnly = collider.getQueryOnly();
+            bool isTrigger = collider.getIsTrigger();
+            PxVec3 center = collider.getCenter();
+            
+            
+            ar & id;
+            ar & isQueryOnly;
+            ar & isTrigger;
+            ar & center;
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  Collider & collider, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(collider);
+            
+            unsigned int id;
+            bool isQueryOnly;
+            bool isTrigger;
+            PxVec3 center;
+            
+            ar & id;
+            ar & isQueryOnly;
+            ar & isTrigger;
+            ar & center;
+            
+            collider.setPhysicsMaterial(AssetDatabase::getAsset<PhysicsMaterial>(id));
+            collider.setIsTrigger(isTrigger);
+            collider.setQueryOnly(isQueryOnly);
+            collider.setCenter(center);
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  Collider & collider, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, collider, version);
+        }
+        
+        
+        
+        
+        
+        
+        template<class Archive>
+        void save(Archive & ar, const BoxCollider & boxCollider, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Collider>(boxCollider);
+            
+            PxVec3 halfExtent =boxCollider.getHalfExtent();
+            
+            ar & halfExtent;
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  BoxCollider & boxCollider, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Collider>(boxCollider);
+            
+            PxVec3 halfExtent;
+            
+            ar & halfExtent;
+            
+            boxCollider.setHalfExtent(halfExtent);
+            
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  BoxCollider & boxCollider, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, boxCollider, version);
+        }
+        
+        
+        
+        
+        
+        
+        template<class Archive>
+        void save(Archive & ar, const SphereCollider & sphereCollider, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Collider>(sphereCollider);
+            
+            float radius = sphereCollider.getRadius();
+            ar & radius;
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  SphereCollider & sphereCollider, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Collider>(sphereCollider);
+            
+            float radius;
+            
+            ar & radius;
+            
+            sphereCollider.setRadius(radius);
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  SphereCollider & sphereCollider, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, sphereCollider, version);
+        }
+        
+        
+        
+        
+        
+        
+        template<class Archive>
+        void save(Archive & ar, const CapsuleCollider & capsuleCollider, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Collider>(capsuleCollider);
+            
+            float height =capsuleCollider.getHeight();
+            float radius = capsuleCollider.getRadius();
+            RotateAxis axis = capsuleCollider.getOrientation();
+            
+            ar & height;
+            ar & radius;
+            ar & axis;
+            
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  CapsuleCollider & capsuleCollider, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Collider>(capsuleCollider);
+            
+            float height;
+            float radius;
+            RotateAxis axis;
+            
+            ar & height;
+            ar & radius;
+            ar & axis;
+            
+            capsuleCollider.setHeight(height);
+            capsuleCollider.setRadius(radius);
+            capsuleCollider.setOrientation(axis);
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  CapsuleCollider & capsuleCollider, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, capsuleCollider, version);
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        template<class Archive>
+        void save(Archive & ar, const RigidBody & rigidBody, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(rigidBody);
+            
+            int lockConstraints  =rigidBody.getConstraintsFlags();
+            bool isKinematic  =rigidBody.getKinematic();
+            bool gravityEnabled  =rigidBody.getGravity();
+            
+            
+            
+            ar & lockConstraints;
+            ar & isKinematic;
+            ar & gravityEnabled;
+            
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  RigidBody & rigidBody, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(rigidBody);
+            
+            int lockConstraints;
+            bool isKinematic;
+            bool gravityEnabled;
+            
+            ar & lockConstraints;
+            ar & isKinematic;
+            ar & gravityEnabled;
+            
+            rigidBody.setConstraintsFlags(lockConstraints);
+            rigidBody.setKinematic(isKinematic);
+            rigidBody.setGravity(gravityEnabled);
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  RigidBody & rigidBody, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, rigidBody, version);
+        }
+        
+        
+        
+        
+        
+        
+        
+        template<class Archive>
+        void save(Archive & ar, const RigidStatic & rigidStatic, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(rigidStatic);
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  RigidStatic & rigidStatic, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(rigidStatic);
+            
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  RigidStatic & rigidStatic, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, rigidStatic, version);
+        }
+        
+        
+        
+        
+        template<class Archive>
+        void save(Archive & ar, const Camera & camera, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(camera);
+            
+            float nearClipPlane = camera.getNearClip();
+            float farClipPlane = camera.getFarClip();
+            float fov = camera.getFOV();
+            float ratio = camera.getScreenRatio();
+            
+            ar & nearClipPlane;
+            ar & farClipPlane;
+            ar & fov;
+            ar & ratio;
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  Camera & camera, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(camera);
+            
+            float nearClipPlane;
+            float farClipPlane;
+            float fov;
+            float ratio;
+            
+            ar & nearClipPlane;
+            ar & farClipPlane;
+            ar & fov;
+            ar & ratio;
+            
+            
+            camera.setNearClip(nearClipPlane);
+            camera.setFarClip(farClipPlane);
+            camera.setFOV(fov);
+            camera.setScreenRatio(ratio);
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  Camera & camera, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, camera, version);
+        }
+        
+        
+        
+        
+        
+        
+        
+        template<class Archive>
+        void save(Archive & ar, const FontMesh & fontMesh, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<MeshComponent>(fontMesh);
+            
+            unsigned int fontID = fontMesh.getFont()->getAssetID();
+            string text = fontMesh.getText();
+            
+            ar & fontID;
+            ar & text;
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  FontMesh & fontMesh, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<MeshComponent>(fontMesh);
+            
+            unsigned int fontID;
+            string text;
+            
+            ar & fontID;
+            ar & text;
+            
+            
+            fontMesh.setFont(AssetDatabase::getAsset<Font>(fontID));
+            fontMesh.setText(text);
+            
+            
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  FontMesh & fontMesh, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, fontMesh, version);
+        }
+        
+        
+        
+        template<class Archive>
+        void save(Archive & ar, const Light & light, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(light);
+            
+            glm::vec3 color = light.getColor();
+            
+            ar & color;
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  Light & light, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(light);
+            
+            glm::vec3 color;
+            
+            ar & color;
+            
+            light.setColor(color);
+            
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  Light & light, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, light, version);
+        }
+        
+        
+        
+        
+        template<class Archive>
+        void save(Archive & ar, const ScriptComponent & scriptComponent, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(scriptComponent);
+            
+            
+        }
+        template<class Archive>
+        void load(Archive & ar,  ScriptComponent & scriptComponent, const unsigned int version)
+        {
+            ar & boost::serialization::base_object<Component>(scriptComponent);
+            
+            
+        }
+        
+        template <class Archive>
+        void serialize(Archive & ar,  ScriptComponent & scriptComponent, const unsigned int version)
+        {
+            boost::serialization::split_free(ar, scriptComponent, version);
+        }
+        
+        
+        
+        
+        /** END SERIALIZATION FROM POINTERS **/
         
     } // namespace serialization
 } // namespace boost

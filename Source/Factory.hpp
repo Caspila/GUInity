@@ -55,6 +55,8 @@ public:
 
     static void loadSceneDescription(vector<ActorDescription> sceneDesc);
     
+    static void ActorDeserialized(shared_ptr<Actor> actor);
+    
 };
 
 

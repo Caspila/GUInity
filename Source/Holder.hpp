@@ -22,9 +22,12 @@ class Holder {
 private:
 	/** The float value*/
 	float floatValue;
-	/** The vec3 value*/
+	/** The vec4 value*/
 	glm::vec4 vec4Value;
-	/** The Texture pointer value*/
+	/** The vec2 value*/
+	glm::vec2 vec2Value;
+	
+    /** The Texture pointer value*/
 	weak_ptr<Texture> texValue;
 
 	/** The type of the instance*/
@@ -37,6 +40,8 @@ public:
 	explicit Holder(ShaderParamType type, float val);
 	/** Constructor for a vec4*/
 	explicit Holder(ShaderParamType type,const glm::vec4& val);
+	/** Constructor for a vec4*/
+	explicit Holder(ShaderParamType type,const glm::vec2& val);
 	/** Constructor for a Texture*/
 	explicit Holder(ShaderParamType type,shared_ptr<Texture> val);
 	~Holder() {
@@ -47,10 +52,14 @@ public:
 	bool isFloat() const;
 	/** returns true if it is a vec4 value */
 	bool isVec4() const;
+	/** returns true if it is a vec2 value */
+	bool isVec2() const;
 	/** returns true if it is a Texture value */
 	bool isTexture() const;
 	/** returns the float value */
 	float getFloat() const;
+	/** returns the vec4 value */
+    glm::vec2 getVec2() const;
 	/** returns the vec4 value */
     glm::vec4 getVec4() const;
 	/** returns the Texture value */

@@ -22,6 +22,15 @@ public:
     /** Init component override. Create a new Box Shape in the PhysX scene. */
 	virtual void init();
     
+    /** halfExtent getter
+     @return half extent of the AABB
+     */
+    PxVec3 getHalfExtent() const;
+    /** halfExtent setter
+     @param [in] halfExtent half extent of the AABB
+     */
+    void setHalfExtent(PxVec3 halfExtent);
+    
     
     /** Clones current component (Prototype Design Pattern)
      @return shared_ptr to cloned BoxCollider Component

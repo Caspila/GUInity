@@ -7,6 +7,7 @@ uniform vec3 lightPos ;
 uniform vec3 lightIntensity ;
 uniform sampler2D _textureSampler;
 uniform vec4 _difuseColor ;
+uniform vec2 _offset ;
 
 in vec3 fragVert;
 in vec3 fragNormal;
@@ -42,7 +43,6 @@ void main(){
 	//finalColor = vec4(finalColor.xyz + +ambientLight,1);
 	//finalColor = vec4(1,1,1,1);
 
-    //finalColor = finalColor * vec4(texture( _textureSampler, UV ).rgb,1);
-	finalColor = finalColor * texture( _textureSampler, UV ).rgba;
+	finalColor = finalColor * texture( _textureSampler, UV + _offset ).rgba;
     //finalColor = vec4(texture( _textureSampler, UV ).rgb,1);
 }

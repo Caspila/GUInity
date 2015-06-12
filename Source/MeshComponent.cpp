@@ -32,7 +32,7 @@ void MeshComponent::setMesh(shared_ptr<Mesh> mesh)
 }
 
 /** mesh Getter */
-shared_ptr<Mesh> MeshComponent::getMesh()
+shared_ptr<Mesh> MeshComponent::getMesh() const
 {
 	return mesh;
 }

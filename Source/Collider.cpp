@@ -1,5 +1,6 @@
 #include "Collider.hpp"
 #include <PhysicsMaterial.hpp>
+#include "Converter.hpp"
 
 /** Component Init override */
 void Collider::init()
@@ -7,7 +8,14 @@ void Collider::init()
     Component::init();
     
     physicsMaterial = Physics::getDefaultMaterial();
+    if(initWithData)
+    {
+        setIsTrigger(isTrigger);
+        setQueryOnly(isQueryOnly);
+        setCenter(center);
+    }
 }
+
 
 /** Component destroy override */
 void Collider::destroy()
@@ -23,22 +31,46 @@ void Collider::setActive(bool isActive)
 {
     Component::setActive(isActive);
     
-	shape->setFlag(PxShapeFlag::eVISUALIZATION, isActive);
+    if(shape)
+        shape->setFlag(PxShapeFlag::eVISUALIZATION, isActive);
+}
+
+
+/** center setter
+ @param [in] center the center of the physics shape */
+void Collider::setCenter(PxVec3 center)
+{
+    this->center = center;
+    
+//    if(shape)
+//    {
+//        shape->setLocalPose(PxTransform(this->center));
+//    }
+}
+/** center getter
+ @return center of the physics shape
+ */
+PxVec3 Collider::getCenter() const
+{
+    return center;
 }
 
 /** isTrigger setter
  @param [in] isTrigger - true if it's just a trigger, false if it physics simulated */
-void Collider::setTrigger(bool isTrigger)
+void Collider::setIsTrigger(bool isTrigger)
 {
     this->isTrigger = isTrigger;
     
-	shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, !isTrigger);
-	shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, isTrigger);
+    if(shape)
+    {
+        shape->setFlag(PxShapeFlag::eSIMULATION_SHAPE, !isTrigger);
+        shape->setFlag(PxShapeFlag::eTRIGGER_SHAPE, isTrigger);
+    }
 }
 /** isTrigger getter
  @return true if it's just a trigger, false if it physics simulated
  */
-bool Collider::getIsTrigger()
+bool Collider::getIsTrigger() const
 {
 	return isTrigger;
 }
@@ -50,11 +82,12 @@ bool Collider::getIsTrigger()
 void Collider::setQueryOnly(bool isQueryOnly)
 {
     this->isQueryOnly = isQueryOnly;
-	shape->setFlag(PxShapeFlag::eSCENE_QUERY_SHAPE, isQueryOnly);
+    if(shape)
+        shape->setFlag(PxShapeFlag::eSCENE_QUERY_SHAPE, isQueryOnly);
 }
 /** isQueryOnly getter
  @param [in] queryOnly true if this object is only used in queries, false otherwise */
-bool Collider::getQueryOnly()
+bool Collider::getQueryOnly() const
 {
 	return isQueryOnly;
 }
@@ -77,7 +110,7 @@ void Collider::setPhysicsMaterial(shared_ptr<PhysicsMaterial> physMaterial)
 }
 /** physicsMaterial getter
  @return referente to PhysicsMaterial */
-shared_ptr<PhysicsMaterial> Collider::getPhysicsMaterial()
+shared_ptr<PhysicsMaterial> Collider::getPhysicsMaterial() const
 {
 	return physicsMaterial;
 }

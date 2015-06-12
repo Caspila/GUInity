@@ -21,8 +21,6 @@ public:
     string vsFilename;
     string fsFilename;
     
-	//vector<string> floatParam;
-	//vector<string> vec3Params;
 
 	map<string, ShaderParamType> params;
 	map<string, GLuint> paramID;

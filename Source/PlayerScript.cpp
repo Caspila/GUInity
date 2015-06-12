@@ -34,7 +34,7 @@ void PlayerScript::awake()
     actor = getActor();
     
     objMeshRef = AssetDatabase::getAsset<Mesh>("sphere.obj");
-    defaultMaterialRef = AssetDatabase::getAsset<Material>("DefaultMaterial");
+    defaultMaterialRef = AssetDatabase::getAsset<Material>("SpaceBKGMaterial");
     
     
     shared_ptr<Actor> actorLock = actor.lock();
@@ -149,11 +149,15 @@ void PlayerScript::tick(float deltaSeconds)
         
 	}
     
-    glm::vec3 position = transform->getPosition();
+//    glm::vec3 position = transform->getPosition();
 	
-    position += velocity * deltaSeconds;
+//    position += velocity * deltaSeconds;
 	
-    transform->setPosition(position);
+//    transform->setPosition(position);
+    
+    glm::vec2 offset = defaultMaterialRef->getParamVec2("_offset");
+    offset += glm::vec2(velocity.x,velocity.y) * deltaSeconds * moveSpeed * 0.1f;
+    defaultMaterialRef->setParamVec2("_offset", offset);
     
     applyDrag(deltaSeconds);
 
@@ -185,4 +189,6 @@ shared_ptr<Component> PlayerScript::clone()
     
     return compClone;
 }
+
+//IMPLEMENT_SERIALIZATION(PlayerScript);
 

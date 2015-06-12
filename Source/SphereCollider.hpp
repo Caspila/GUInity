@@ -24,7 +24,7 @@ public:
 	
 	/** radius Getter
      @return radius of the sphere */
-	float getRadius();
+	float getRadius() const;
 	/** radius Setter
      @param [in] newRadius the radius of the sphere */
 	void setRadius(float newRadius);

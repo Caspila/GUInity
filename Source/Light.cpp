@@ -25,7 +25,7 @@ Light::~Light()
 
 
 /** color setter*/
-glm::vec3 Light::getColor()
+glm::vec3 Light::getColor() const
 {
 	return color;
 }

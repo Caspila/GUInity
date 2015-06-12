@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <iostream>
 
+//IMPLEMENT_COMPONENT_SCRIPT(Test);
 
 //
 //int main()

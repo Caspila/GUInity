@@ -5,6 +5,8 @@
 #include <glm/common.hpp>
 #include <glm/geometric.hpp>
 #include <map>
+#include "AnimationCurve.hpp"
+#include "Enums.hpp"
 
 using namespace fbxsdk_2015_1;
 
@@ -44,7 +46,10 @@ public:
     shared_ptr<Mesh> importFbxMesh(FbxScene* scene,FbxMesh * meshNode);
     shared_ptr<SkinnedMesh
     > importFbxSkinnedMesh(FbxScene* scene,FbxMesh * meshNode);
-    void importFbxAnimation(FbxScene* scene, FbxNode* node);
+    
+    void readFbxAnimationCurve(std::map<CurveAnimationType,AnimationCurve>& animationMap, CurveAnimationType animationType, FbxAnimCurve* fbxCurve);
+
+    std::map<CurveAnimationType,AnimationCurve> importFbxAnimation(FbxScene* scene, FbxNode* node);
     
 	shared_ptr<Mesh> importObjMesh(string filename);
 

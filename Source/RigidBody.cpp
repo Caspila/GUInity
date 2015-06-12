@@ -45,6 +45,7 @@ void RigidBody::init()
         
         setKinematic(isKinematic);
         setGravity(gravityEnabled);
+        setActive(isActive);
         
     }
     else
@@ -81,16 +82,18 @@ void RigidBody::setActive(bool isActive)
 {
     Component::setActive(isActive);
     
+        if(physxRigidBody)
+        {
     physxRigidBody->setActorFlag(PxActorFlag::eVISUALIZATION, isActive);
 	physxRigidBody->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, !isActive);
-    
+        }
     
 }
 
 
 /** physxRigidBody getter
  @return pointer to PhysX RigidBody*/
-PxRigidBody* RigidBody::getRigidbody()
+PxRigidBody* RigidBody::getRigidbody() const
 {
 	return physxRigidBody;
 }
@@ -101,12 +104,13 @@ void RigidBody::setKinematic(bool isKinematic)
 {
     this->isKinematic = isKinematic;
     
-	physxRigidBody->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, isKinematic);
+    if(physxRigidBody)
+        physxRigidBody->setRigidBodyFlag(PxRigidBodyFlag::eKINEMATIC, isKinematic);
 }
 
 /** isKinematic getter
  @return true if physics is being simulated, false if it's not */
-bool RigidBody::getKinematic()
+bool RigidBody::getKinematic() const
 {
     return isKinematic;
 }
@@ -116,17 +120,19 @@ bool RigidBody::getKinematic()
 void RigidBody::setGravity(bool enabled)
 {
     this->gravityEnabled = enabled;
-	physxRigidBody->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, !enabled);
+    
+    if(physxRigidBody)
+        physxRigidBody->setActorFlag(PxActorFlag::eDISABLE_GRAVITY, !enabled);
 }
 /** gravity getter
  @return true if gravity is enabled, false otherwise */
-bool RigidBody::getGravity()
+bool RigidBody::getGravity() const
 {
     return gravityEnabled;
 }
 
 
-int RigidBody::getConstraintsFlags()
+int RigidBody::getConstraintsFlags() const
 {
     return lockConstraints;
 }

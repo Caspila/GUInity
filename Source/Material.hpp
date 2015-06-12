@@ -45,7 +45,13 @@ public:
 
 	/** Checks if param exists on params map*/
 	bool paramExists(string paramName);
-	/** Set a vec4 param that has name paramName*/
+    	/** Set a vec2 param that has name paramName*/
+    void setParamVec2(string paramName,const glm::vec2& paramValue);
+    /** Set a vec2 param that has name paramName*/
+    glm::vec2 getParamVec2(string paramName);
+	
+    
+    /** Set a vec4 param that has name paramName*/
 	void setParamVec4(string paramName, const glm::vec4& paramValue);
 	/** Set a float param that has name paramName*/
 	void setParamFloat(string paramName, float paramValue);
@@ -54,11 +60,16 @@ public:
     
     typedef pair<string, shared_ptr<Texture>> StringTexPair;
 	typedef pair<string, glm::vec4> StringVec4Pair;
+   	typedef pair<string, glm::vec2> StringVec2Pair;
+    
 	/** Gets all Texture params*/
 	vector<StringTexPair> getAllTextureParams();
 	/** Gets all Vec4 params*/
 	vector<StringVec4Pair> getAllVec4Params();
+	/** Gets all Vec2 params*/
+	vector<StringVec2Pair> getAllVec2Params();
 
+    
 
 };
 

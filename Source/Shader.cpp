@@ -163,7 +163,7 @@ void Shader::LoadShaders(){
 
 void Shader::checkLine(const string& Line)
 {
-	std::regex vec3Regex("uniform +(vec4|sampler2D) +(_[a-z|A-Z|0-9]+) *;");// [a - z | A - Z | 0 - 9] + +; ");// (sub)(.*)");
+	std::regex vec3Regex("uniform +(vec2|vec4|sampler2D) +(_[a-z|A-Z|0-9]+) *;");// [a - z | A - Z | 0 - 9] + +; ");// (sub)(.*)");
 	std::smatch res;
 	if (std::regex_search(Line, res, vec3Regex))
 	{
@@ -176,6 +176,8 @@ void Shader::checkLine(const string& Line)
 				params.insert(pair<string, ShaderParamType>(res[2].str(), ShaderParamType::VEC4));
 			else if (res[1].str().compare("sampler2D")==0)
 				params.insert(pair<string, ShaderParamType>(res[2].str(), ShaderParamType::TEXTURE));
+            else if (res[1].str().compare("vec2")==0)
+				params.insert(pair<string, ShaderParamType>(res[2].str(), ShaderParamType::VEC2));
 		}
 	
 	}

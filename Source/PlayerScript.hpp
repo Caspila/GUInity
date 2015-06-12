@@ -4,6 +4,7 @@
 #include "ScriptComponent.hpp"
 #include "Input.hpp"
 #include "Transform.hpp"
+#include "ReflectionTest.h"
 //#include "Script.hpp"
 
 
@@ -41,6 +42,11 @@ public:
     
     virtual shared_ptr<Component> clone() override;
 
+//    PROPERTY(float, dragFactor);
+//    CREATE_TABLE(MEMBER(float, dragFactor));
+    
+//    DECLARE_SERIALIZATION(PlayerScript);
+    
 private:
 	
 	

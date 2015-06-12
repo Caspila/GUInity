@@ -120,6 +120,8 @@
 		46B924391A81F40F00F84B7A /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924351A81F40F00F84B7A /* Sound.cpp */; };
 		46B9243A1A81F40F00F84B7A /* SoundSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924371A81F40F00F84B7A /* SoundSystem.cpp */; };
 		46D2DD521B24D9D1006335D3 /* Spline.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46D2DD501B24D9D1006335D3 /* Spline.cpp */; };
+		46EA076B1B2A027A00AA619A /* AnimationCurve.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EA07691B2A027A00AA619A /* AnimationCurve.cpp */; };
+		46EA076E1B2A67CB00AA619A /* Animation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46EA076C1B2A67CB00AA619A /* Animation.cpp */; };
 		46FFC2311A52880100FCFAC4 /* libboost_serialization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FFC2301A52880100FCFAC4 /* libboost_serialization.a */; };
 		46FFC2351A52886500FCFAC4 /* libboost_serialization.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */; };
 /* End PBXBuildFile section */
@@ -399,6 +401,10 @@
 		46B924381A81F40F00F84B7A /* SoundSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SoundSystem.hpp; path = ../Source/SoundSystem.hpp; sourceTree = "<group>"; };
 		46D2DD501B24D9D1006335D3 /* Spline.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Spline.cpp; path = ../Source/Spline.cpp; sourceTree = "<group>"; };
 		46D2DD511B24D9D1006335D3 /* Spline.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Spline.hpp; path = ../Source/Spline.hpp; sourceTree = "<group>"; };
+		46EA07691B2A027A00AA619A /* AnimationCurve.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AnimationCurve.cpp; path = ../Source/AnimationCurve.cpp; sourceTree = "<group>"; };
+		46EA076A1B2A027A00AA619A /* AnimationCurve.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AnimationCurve.hpp; path = ../Source/AnimationCurve.hpp; sourceTree = "<group>"; };
+		46EA076C1B2A67CB00AA619A /* Animation.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Animation.cpp; path = ../Source/Animation.cpp; sourceTree = "<group>"; };
+		46EA076D1B2A67CB00AA619A /* Animation.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Animation.hpp; path = ../Source/Animation.hpp; sourceTree = "<group>"; };
 		46FFC2301A52880100FCFAC4 /* libboost_serialization.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_serialization.a; path = ../../../boost_1_57_0/stage/lib/libboost_serialization.a; sourceTree = "<group>"; };
 		46FFC2321A52884900FCFAC4 /* libboost_serialization.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_serialization.dylib; path = ../../../boost_1_57_0/stage/lib/libboost_serialization.dylib; sourceTree = "<group>"; };
 		46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_serialization.dylib; path = ../../../boost_1_57_0/stage/lib/libboost_serialization.dylib; sourceTree = "<group>"; };
@@ -478,8 +484,10 @@
 				4672BADD1A78A164007BF293 /* Serialization2.hpp */,
 				4672BADF1A78A164007BF293 /* SerializationStructs.hpp */,
 				46B924381A81F40F00F84B7A /* SoundSystem.hpp */,
+				46EA076A1B2A027A00AA619A /* AnimationCurve.hpp */,
 				4672BAE51A78A164007BF293 /* StaticCounter.hpp */,
 				4672BAE71A78A164007BF293 /* Subject.hpp */,
+				46EA076D1B2A67CB00AA619A /* Animation.hpp */,
 				4672BAEB1A78A164007BF293 /* Time.hpp */,
 				4672BAED1A78A164007BF293 /* Transform.hpp */,
 				4672BAEF1A78A164007BF293 /* UIButton.hpp */,
@@ -495,6 +503,7 @@
 		464D8A871A4A5342007B0CDD /* Source */ = {
 			isa = PBXGroup;
 			children = (
+				46EA07691B2A027A00AA619A /* AnimationCurve.cpp */,
 				465311B01B214BDF0022B98E /* _Assets */,
 				465311AD1B214A8A0022B98E /* _Components */,
 				465311AF1B214B2C0022B98E /* _ScriptComponents */,
@@ -536,6 +545,7 @@
 				4672BAF21A78A164007BF293 /* UILayout.cpp */,
 				4672BAF41A78A164007BF293 /* UIWidget.cpp */,
 				4672BAF61A78A164007BF293 /* World.cpp */,
+				46EA076C1B2A67CB00AA619A /* Animation.cpp */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -796,6 +806,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 4694EE401A4A3A16001E8C48 /* Build configuration list for PBXNativeTarget "GUInity_Editor" */;
 			buildPhases = (
+				461B340D1B27F4E600E3BFC3 /* ShellScript */,
 				4694EE331A4A3A16001E8C48 /* Sources */,
 				4694EE341A4A3A16001E8C48 /* Frameworks */,
 				4694EE351A4A3A16001E8C48 /* CopyFiles */,
@@ -838,6 +849,19 @@
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		461B340D1B27F4E600E3BFC3 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
 		46486D791B25FE34003D9E2D /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -882,6 +906,7 @@
 				4672BB361A78A164007BF293 /* StaticCounter.cpp in Sources */,
 				46D2DD521B24D9D1006335D3 /* Spline.cpp in Sources */,
 				4672BAFA1A78A164007BF293 /* Asset.cpp in Sources */,
+				46EA076B1B2A027A00AA619A /* AnimationCurve.cpp in Sources */,
 				4672BB321A78A164007BF293 /* Serialization2.cpp in Sources */,
 				4672BB101A78A164007BF293 /* main.cpp in Sources */,
 				4672BB141A78A164007BF293 /* MathStructs.cpp in Sources */,
@@ -922,6 +947,7 @@
 				46389E0A1A6CEF5A000B0DEB /* PxTkRandom.cpp in Sources */,
 				4672BB001A78A164007BF293 /* Component.cpp in Sources */,
 				4672BB331A78A164007BF293 /* SerializationStructs.cpp in Sources */,
+				46EA076E1B2A67CB00AA619A /* Animation.cpp in Sources */,
 				4672BB1B1A78A164007BF293 /* Module.cpp in Sources */,
 				4672BAF91A78A164007BF293 /* AddForceScript.cpp in Sources */,
 				4672BB041A78A164007BF293 /* EditorCollider.cpp in Sources */,

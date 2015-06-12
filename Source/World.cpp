@@ -116,6 +116,14 @@ void World::removeActor(shared_ptr<Actor> actor)
     
 }
 
+void World::removeActorDelayed(shared_ptr<Actor> actor)
+{
+    toRemoveActors.push_back(actor);
+}
+
+
+
+
 void World::transferNewActors()
 {
 	for (auto& a : newActors)
@@ -319,7 +327,10 @@ void World::onNotify(ActorEventType type, shared_ptr<Actor> actor, bool isEditor
                 addActor(actor);
             break;
         case RemovedActor:
-            toRemoveActors.push_back(actor);
+            if(isAwake)
+                removeActorDelayed(actor);
+            else
+                removeActor(actor);
         default:
             break;
 	}

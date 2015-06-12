@@ -97,6 +97,21 @@ BOOST_CLASS_EXPORT_GUID(SphereColliderDescription, "SphereColliderDescription")
 BOOST_CLASS_EXPORT_GUID(CapsuleColliderDescription, "CapsuleColliderDescription")
 BOOST_CLASS_EXPORT_GUID(FontMeshDescription, "FontMeshDescription")
 
+BOOST_CLASS_EXPORT_GUID(MeshComponent, "MeshComponent")
+BOOST_CLASS_EXPORT_GUID(MeshRenderer, "MeshRenderer")
+BOOST_CLASS_EXPORT_GUID(MeshFilter, "MeshFilter")
+BOOST_CLASS_EXPORT_GUID(Component, "Component")
+BOOST_CLASS_EXPORT_GUID(Collider, "Collider")
+BOOST_CLASS_EXPORT_GUID(SphereCollider, "SphereCollider")
+BOOST_CLASS_EXPORT_GUID(BoxCollider, "BoxCollider")
+BOOST_CLASS_EXPORT_GUID(CapsuleCollider, "CapsuleCollider")
+BOOST_CLASS_EXPORT_GUID(Camera, "Camera")
+BOOST_CLASS_EXPORT_GUID(FontMesh, "FontMesh")
+BOOST_CLASS_EXPORT_GUID(Light, "Light")
+BOOST_CLASS_EXPORT_GUID(ScriptComponent, "ScriptComponent")
+BOOST_CLASS_EXPORT_GUID(RigidBody, "RigidBody")
+BOOST_CLASS_EXPORT_GUID(RigidStatic, "RigidStatic")
+
 
 
 
@@ -104,6 +119,7 @@ BOOST_CLASS_EXPORT_GUID(FontMeshDescription, "FontMeshDescription")
 //#include "mainwindow.h"
 //#include <QApplication>
 //#include <qsurfaceformat.h>
+#include "AnimationCurve.hpp"
 
 
 
@@ -267,12 +283,12 @@ int main(int argc, char *argv[]) {
     //		shared_ptr<Mesh> objMesh = AssetDatabase::createMeshFromOBJ("sphere.obj");
     
     shared_ptr<Mesh> sphereMesh =  AssetDatabase::getAsset<Mesh>("sphere.obj");
-
-        shared_ptr<Mesh> spaceShipMesh =  AssetDatabase::getAsset<Mesh>("spaceShipBlender2.fbx");
+    
+    shared_ptr<Mesh> spaceShipMesh =  AssetDatabase::getAsset<Mesh>("spaceShipBlender2.fbx");
     
     shared_ptr<Texture> spaceShipTexture = AssetDatabase::getAsset<Texture>("sh3.png");
+    shared_ptr<Texture> spaceBKGTexture = AssetDatabase::getAsset<Texture>("star-space-tile.png");
     
-
     
     //    vector<glm::vec3> fbxNonDup = fbxMesh->getNonDuplicateMeshVertex();
     //
@@ -309,15 +325,20 @@ int main(int argc, char *argv[]) {
     shared_ptr<Shader> unlitShader = AssetDatabase::createShader("UnlitShader", CommonData("vsUnlit.vs"), CommonData("fsUnlit.fragmentshader"));
     //shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsNoLight.fragmentshader"));
     
-    shared_ptr<Material> defaultMaterial = AssetDatabase::createMaterial("DefaultMaterial", diffuseShader);
-    defaultMaterial->setParamTexture("_textureSampler", spaceShipTexture);
-    defaultMaterial->setParamVec4("_difuseColor", glm::vec4(1,1,1,1));
+    shared_ptr<Material> spaceShipMaterial = AssetDatabase::createMaterial("SpaceShipMaterial", diffuseShader);
+    spaceShipMaterial->setParamTexture("_textureSampler", spaceShipTexture);
+    spaceShipMaterial->setParamVec4("_difuseColor", glm::vec4(1,1,1,1));
+    spaceShipMaterial->setParamVec2("_offset", glm::vec2(0,0));
+    
+    shared_ptr<Material> spaceBKGMaterial = AssetDatabase::createMaterial("SpaceBKGMaterial", diffuseShader);
+    spaceBKGMaterial->setParamTexture("_textureSampler", spaceBKGTexture);
+    spaceBKGMaterial->setParamVec4("_difuseColor", glm::vec4(1,1,1,1));
+    spaceBKGMaterial->setParamVec2("_offset", glm::vec2(0,0));
+    
     shared_ptr<Material> fontMaterial = AssetDatabase::createMaterial("FontMaterial", unlitShader);
     fontMaterial->setParamTexture("_textureSampler", font->getFontTexture());
     fontMaterial->setParamVec4("_difuseColor", glm::vec4(1, 1, 1,1));
     
-    shared_ptr<Material> spaceShipMaterial = AssetDatabase::createMaterial("SpaceShipMaterial",diffuseShader);
-    spaceShipMaterial->setParamTexture("_textureSampler", spaceShipTexture);
     
     shared_ptr<Editor> editor = make_shared<Editor>();
     editor->init();
@@ -327,40 +348,56 @@ int main(int argc, char *argv[]) {
     {
 		
         
+        /** SHIP WITH ROOT CHILDREN **/
+        //		shared_ptr<Actor> spaceShipRoot = Factory::CreateActor("SpaceShipRoot");// , meshRenderer1);
+        //
+        //        shared_ptr<Actor> spaceShipChildren = Factory::CreateActor("SpaceShipChildren");
+        //
+        //        shared_ptr<MeshFilter> meshFilter = spaceShipChildren->AddComponent<MeshFilter>();
+        //        meshFilter->setMesh(spaceShipMesh);
+        //        shared_ptr<MeshRenderer> meshRenderer =spaceShipChildren->AddComponent<MeshRenderer>();
+        //        meshRenderer->setMaterial(spaceShipMaterial);
+        //
+        //        spaceShipChildren->transform->setRotation(glm::quat(glm::vec3(90*Deg2Radian,0,-90*Deg2Radian)));
+        //
+        //        spaceShipChildren->transform->setScale(glm::vec3(2,2,2));
+        //
+        //        spaceShipRoot->addChildren(spaceShipChildren);
+        /** END SHIP WITH ROOT CHILDREN **/
         
-		shared_ptr<Actor> spaceShipRoot = Factory::CreateActor("SpaceShipRoot");// , meshRenderer1);
-        
-//        shared_ptr<Actor> spaceShipChildren = Factory::CreateActor("SpaceShipChildren");
-        
-//        spaceShipChildren->transform->setRotation(glm::quat(glm::vec3(90*Deg2Radian,0,-90*Deg2Radian)));
-        
-//        spaceShipChildren->transform->setScale(glm::vec3(2,2,2));
-        
-//        spaceShipRoot->addChildren(spaceShipChildren);
+        shared_ptr<Actor> spaceShipRoot = Factory::CreateActor("SpaceShipRoot");// , meshRenderer1);
+        shared_ptr<MeshFilter> meshFilter = spaceShipRoot->AddComponent<MeshFilter>();
+        meshFilter->setMesh(spaceShipMesh);
+        shared_ptr<MeshRenderer> meshRenderer = spaceShipRoot->AddComponent<MeshRenderer>();
+        meshRenderer->setMaterial(spaceShipMaterial);
+        spaceShipRoot->AddComponent<RigidBody>();
+        shared_ptr<Collider> collider = spaceShipRoot->AddComponent<SphereCollider>();
+        collider->setPhysicsMaterial(bouncyPhysMaterial);
         
 		//fbxTest->transform->setScale(glm::vec3(10,10,10));
 		//    fbxTest->transform->setRotationQuat(glm::quat(glm::vec3(45 * Deg2Radian, 45 * Deg2Radian, 45 * Deg2Radian)));
-		shared_ptr<MeshFilter> meshFilter = spaceShipRoot->AddComponent<MeshFilter>();
+        //		shared_ptr<MeshFilter> meshFilter = spaceShipRoot->AddComponent<MeshFilter>();
         
 		//meshFilter->mesh = dynamic_pointer_cast<Mesh>(objMesh);
-		meshFilter->setMesh(sphereMesh);
-		shared_ptr<MeshRenderer> meshRenderer = spaceShipRoot->AddComponent<MeshRenderer>();
-		meshRenderer->setMaterial(spaceShipMaterial);
+        //		meshFilter->setMesh(spaceShipMesh);
+        //		shared_ptr<MeshRenderer> meshRenderer = spaceShipRoot->AddComponent<MeshRenderer>();
+        //		meshRenderer->setMaterial(spaceShipMaterial);
         
         
         
-		shared_ptr<RigidBody> rigidBody = spaceShipRoot->AddComponent<RigidBody>();
+        //		shared_ptr<RigidBody> rigidBody = spaceShipRoot->AddComponent<RigidBody>();
         
-//        rigidBody->setConstraintsFlags((int)TransformConstraintAxis::MoveLockY);
+        //        rigidBody->setConstraintsFlags((int)TransformConstraintAxis::MoveLockY);
         
-//        spaceShipRoot->AddComponent<PlayerScript>();
+        //        spaceShipRoot->AddComponent<PlayerScript>();
+//        spaceShipRoot->transform->setPosition(glm::vec3(1,0,0));
         /*	rigidBody->setRotateEnabled(TransformAxis::x, false);
          rigidBody->setRotateEnabled(TransformAxis::y, false);
          rigidBody->setRotateEnabled(TransformAxis::z, false);
          rigidBody->setGravity(true);
          */
-		shared_ptr<Collider> collider = spaceShipRoot->AddComponent<SphereCollider>();
-//		collider->setPhysicsMaterial(bouncyPhysMaterial);
+        //		shared_ptr<Collider> collider = spaceShipRoot->AddComponent<SphereCollider>();
+        //		collider->setPhysicsMaterial(bouncyPhysMaterial);
 		
 		//rigidBody->setMoveEnabled(TransformAxis::y, false);
 		//    rigidBody->setMoveEnabled(TransformAxis::z, false);
@@ -376,68 +413,80 @@ int main(int argc, char *argv[]) {
 		//fbxTest->AddComponent<AddForceScript>();
 		//fbxTest->AddComponent<SphereCollider>();
         
-		shared_ptr<Actor> floor = Factory::CreateActor("Floor");
+        //		shared_ptr<Actor> floor = Factory::CreateActor("Floor");
+        //
+        //		meshFilter = floor->AddComponent<MeshFilter>();
+        //		floor->transform->setPosition(glm::vec3(0, -4, -2));
+        //		//floor->transform->setRotationQuat(glm::quat(glm::vec3(0, 0, 45 * Deg2Radian)));
+        //		floor->transform->setScale(glm::vec3(5, 0.1f, 5.0f));
+        //		meshFilter->setMesh(cubeMesh);
+        //		meshRenderer = floor->AddComponent<MeshRenderer>();
+        //		meshRenderer->setMaterial(defaultMaterial);
+        //        collider = floor->AddComponent<BoxCollider>();
+        //		collider->setPhysicsMaterial(bouncyPhysMaterial);
         
-		meshFilter = floor->AddComponent<MeshFilter>();
-		floor->transform->setPosition(glm::vec3(0, -4, -2));
-		//floor->transform->setRotationQuat(glm::quat(glm::vec3(0, 0, 45 * Deg2Radian)));
-		floor->transform->setScale(glm::vec3(5, 0.1f, 5.0f));
-        
-		meshFilter->setMesh(cubeMesh);
-		meshRenderer = floor->AddComponent<MeshRenderer>();
-		meshRenderer->setMaterial(defaultMaterial);
-        collider = floor->AddComponent<BoxCollider>();
-		collider->setPhysicsMaterial(bouncyPhysMaterial);
-        
-		shared_ptr<Actor> fontTest = Factory::CreateActor("FontTest");// , meshRenderer1);
-		shared_ptr<FontMesh> fontMesh = fontTest->AddComponent<FontMesh>();
-		fontMesh->setFont(font);
-		fontMesh->setText("hey there mate!");
-		meshRenderer = fontTest->AddComponent<MeshRenderer>();
-		meshRenderer->setMaterial(fontMaterial);
-        
-        
-        ActorDescription desc = Factory::getActorDescription(spaceShipRoot);
-        
-        //save data to archive
-        {
-            // create and open a character archive for output
-            std::ofstream ofs(CommonData("spaceShipRootDesc"));
-            
-            boost::archive::text_oarchive oa(ofs);
-            // write class instance to archive
-            ActorDescription desc = Factory::getActorDescription(spaceShipRoot);
-            
-            oa & desc;
-            
-            
-            //oa & game->world;
-            // archive and stream closed when destructors are called
-        }
-
-        ActorDescription desc2;// =
-        //load data from archive
-        {
-            // create and open a character archive for output
-            std::ifstream ifs(CommonData("spaceShipRootDesc"));
-            
-            
-            boost::archive::text_iarchive ia(ifs);
-            
-            ia & desc2;
-            
-            //oa & game->world;
-            // archive and stream closed when destructors are called
-        }
-
+//        shared_ptr<Actor> background = Factory::CreateActor("Background");
+//        
+//		shared_ptr<MeshFilter> meshFilter = background->AddComponent<MeshFilter>();
+//		background->transform->setPosition(glm::vec3(0, 0, -2));
+//		background->transform->setScale(glm::vec3(2.0f, 2.0f, 0.1f));
+//        meshFilter->setMesh(cubeMesh);
+//		shared_ptr<MeshRenderer> meshRenderer = background->AddComponent<MeshRenderer>();
+//		meshRenderer->setMaterial(spaceBKGMaterial);
         
         
-        shared_ptr<Actor> actorCopy = Factory::DeserializeActor(desc);
-        actorCopy->name = "SpaceShipRoot (Copy)";
+        		shared_ptr<Actor> fontTest = Factory::CreateActor("FontTest");// , meshRenderer1);
+    		shared_ptr<FontMesh> fontMesh = fontTest->AddComponent<FontMesh>();
+        		fontMesh->setFont(font);
+        		fontMesh->setText("hey there mate!");
+        		meshRenderer = fontTest->AddComponent<MeshRenderer>();
+        		meshRenderer->setMaterial(fontMaterial);
         
-        actorCopy->transform->setPosition(glm::vec3(3,0,0));
-
+        // START ACTOR SE/DESERIALIZATION AND CLONE
         
+        //
+        //        ActorDescription desc = Factory::getActorDescription(spaceShipRoot);
+        //
+        //        //save data to archive
+        //        {
+        //            // create and open a character archive for output
+        //            std::ofstream ofs(CommonData("spaceShipRootDesc"));
+        //
+        //            boost::archive::text_oarchive oa(ofs);
+        //            // write class instance to archive
+        //            ActorDescription desc = Factory::getActorDescription(spaceShipRoot);
+        //
+        //            oa & desc;
+        //
+        //
+        //            //oa & game->world;
+        //            // archive and stream closed when destructors are called
+        //        }
+        //
+        //        ActorDescription desc2;// =
+        //        //load data from archive
+        //        {
+        //            // create and open a character archive for output
+        //            std::ifstream ifs(CommonData("spaceShipRootDesc"));
+        //
+        //
+        //            boost::archive::text_iarchive ia(ifs);
+        //
+        //            ia & desc2;
+        //
+        //            //oa & game->world;
+        //            // archive and stream closed when destructors are called
+        //        }
+        //
+        //
+        //
+        //        shared_ptr<Actor> actorCopy = Factory::DeserializeActor(desc);
+        //        actorCopy->name = "SpaceShipRoot (Copy)";
+        //
+        //        actorCopy->transform->setPosition(glm::vec3(3,0,0));
+        //
+        
+        // END ACTOR SE/DESERIALIZATION AND CLONE
         
         //            fontTest->AddComponent<PlayerScript>();
         
@@ -470,6 +519,7 @@ int main(int argc, char *argv[]) {
 		//    meshRenderer->material = m;
 		//    fbxTest->AddComponent<RigidBody>();
 		//    fbxTest->AddComponent<BoxCollider>();
+        
         
         
         
@@ -556,44 +606,79 @@ int main(int argc, char *argv[]) {
 		myCamera->transform->setPosition(glm::vec3(0, 0, 10));
 		myCamera->transform->setRotation(glm::quat(glm::vec3(0, 180 * Deg2Radian, 0)));
 		myCamera->AddComponent<Camera>();
-//		myCamera->AddComponent<EditorCameraControl>();
+        //		myCamera->AddComponent<EditorCameraControl>();
         
-        vector<ActorDescription> sceneDesc = Factory::getSceneDescription(game->world);
-        
-        //save data to archive
-        {
-            // create and open a character archive for output
-            std::ofstream ofs(CommonData("sceneDesc"));
-            
-            boost::archive::text_oarchive oa(ofs);
-
-            
-            oa & sceneDesc;
-            
-            
-            //oa & game->world;
-            // archive and stream closed when destructors are called
-        }
-        
-
+////        /******* SCENE SERIALIZATION ****/
+////        vector<ActorDescription> sceneDesc = Factory::getSceneDescription(game->world);
+//        
+//        //save data to archive
+//        {
+//            // create and open a character archive for output
+//            std::ofstream ofs(CommonData("sceneDesc"));
+//            
+//            boost::archive::text_oarchive oa(ofs);
+//            
+//            
+//            oa & spaceShipRoot;
+//            
+//            //            oa & sceneDesc;
+//            
+//            
+//            //oa & game->world;
+//            // archive and stream closed when destructors are called
+//        }
+////        /******* END SCENE SERIALIZATION ****/
+////        
+////        
+////        
+////        Factory::DestroyActor(spaceShipRoot);
+//        
+//        shared_ptr<Actor> actorDeserialized;
+//        //save data to archive
+//        {
+//            // create and open a character archive for output
+//            std::ifstream ifs(CommonData("sceneDesc"));
+//            
+//            boost::archive::text_iarchive ia(ifs);
+//            
+//            
+//            ia & actorDeserialized;
+//            
+//            actorDeserialized->initComponents();
+//            
+//            cout << "bla" << endl;
+//            
+//            //            oa & sceneDesc;
+//            
+//            
+//            //oa & game->world;
+//            // archive and stream closed when destructors are called
+//        }
+//        Factory::ActorDeserialized(actorDeserialized);
+//
+//        actorDeserialized->name = "Copy";
+//        actorDeserialized->transform->setPosition(glm::vec3(2,0,0));
 	}
     
     
-//    vector<ActorDescription> sceneDesc;
-//    
-//    //load data from archive
-//    {
-//        // create and open a character archive for output
-//        std::ifstream ifs(CommonData("sceneDesc"));
-//        
-//        
-//        boost::archive::text_iarchive ia(ifs);
-//        
-//        ia & sceneDesc;
-//        
-//    }
     
-//    Factory::loadSceneDescription(sceneDesc);
+    /******* SCENE DESERIALIZATION ****/
+    //    vector<ActorDescription> sceneDesc;
+    //
+    //    //load data from archive
+    //    {
+    //        // create and open a character archive for output
+    //        std::ifstream ifs(CommonData("sceneDesc"));
+    //
+    //
+    //        boost::archive::text_iarchive ia(ifs);
+    //
+    //        ia & sceneDesc;
+    //
+    //    }
+    //
+    //    Factory::loadSceneDescription(sceneDesc);
+    /******* END SCENE DESERIALIZATION ****/
     
     editor->world->awake();
     game->world->awake();
@@ -622,7 +707,7 @@ int main(int argc, char *argv[]) {
             engineMode = EngineMode::game;
         
         float fps = Time::frameEnd();
-        //        cout << "FPS:" << 1.0f/fps << endl;
+        cout << "FPS:" << 1.0f/fps << endl;
     }
     
     physics.shutdown();

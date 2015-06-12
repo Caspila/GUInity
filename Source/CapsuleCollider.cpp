@@ -44,12 +44,13 @@ CapsuleCollider::~CapsuleCollider()
 /** orientation Setter*/
 void CapsuleCollider::setOrientation(RotateAxis orientation)
 {
-	Physics::setCapsuleOrientation(shape, orientation);
+    if(shape)
+        Physics::setCapsuleOrientation(shape, orientation);
 
 	this->orientation = orientation;
 }
 /** orientation Getter*/
-RotateAxis CapsuleCollider::getOrientation()
+RotateAxis CapsuleCollider::getOrientation() const
 {
 	return orientation;
 }
@@ -57,16 +58,20 @@ RotateAxis CapsuleCollider::getOrientation()
 /** height Setter*/
 void CapsuleCollider::setHeight(float height)
 {
+    this->halfHeight = halfHeight;
+    if(shape)
+    {
 	PxCapsuleGeometry geometry;
 	shape->getCapsuleGeometry(geometry);
 
 	geometry.halfHeight = height;
 
 	shape->setGeometry(geometry);
+    }
 
 }
 /** height Getter*/
-float CapsuleCollider::getHeight()
+float CapsuleCollider::getHeight() const
 {
 	return halfHeight;
 }
@@ -74,16 +79,19 @@ float CapsuleCollider::getHeight()
 /** radius Setter*/
 void CapsuleCollider::setRadius(float radius)
 {
-
+    this->radius = radius;
+    if(shape)
+    {
 	PxCapsuleGeometry geometry;
 	shape->getCapsuleGeometry(geometry);
 
 	geometry.radius = radius;
 
 	shape->setGeometry(geometry);
+    }
 }
 /** radius Getter*/
-float CapsuleCollider::getRadius()
+float CapsuleCollider::getRadius() const
 {
 	return radius;
 }
@@ -100,6 +108,11 @@ void CapsuleCollider::init()
         // The physics material is set but it's not yet linked to the shape
         if(physicsMaterial!=nullptr)
             setPhysicsMaterial(getPhysicsMaterial());
+        
+        setOrientation(orientation);
+        setRadius(radius);
+        setHeight(halfHeight);
+        
     }
     // Create new one
 	else

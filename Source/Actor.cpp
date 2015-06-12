@@ -91,7 +91,7 @@ void Actor::setParent(shared_ptr<Actor> parent)
 	this->parent = parent;
 }
 /** Parent getter */
-shared_ptr<Actor> Actor::getParent()
+shared_ptr<Actor> Actor::getParent() const
 {
 	shared_ptr<Actor> parentLock = parent.lock();
 	return parentLock;
@@ -131,7 +131,7 @@ void Actor::setActive(bool isActive)
 }
 
 /** isActive getter */
-bool Actor::getIsActive()
+bool Actor::getIsActive() const
 {
 	return isActive;
 }
@@ -143,7 +143,7 @@ void Actor::setEditorFlag(bool isEditor)
 }
 
 /** editorFlag setter */
-bool Actor::getEditorFlag()
+bool Actor::getEditorFlag() const
 {
 	return editorFlag;
 }
@@ -151,13 +151,22 @@ bool Actor::getEditorFlag()
 /** initComponents. This function is called to Initialize all the components attached to the actor */
 void Actor::initComponents()
 {
+    
   	for (auto& x : components)
 	{
 		x->init();
 	}
 }
 
-
+void Actor::setComponents(vector<shared_ptr<Component>> components)
+{
+    this->components = std::move(components);
+    
+    for(auto&x : this->components)
+    {
+        x->actor = shared_from_this();
+    }
+}
 
 
 /** addComponent. Attaches an existing component to the actor. This function is used for deserialization of Actors */

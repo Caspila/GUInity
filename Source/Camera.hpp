@@ -56,14 +56,24 @@ public:
 	/** view Matrix Getter*/
 	glm::mat4 getViewMatrix();
 	/** near clip Getter*/
-	float getNearClip();
+	float getNearClip() const;
 	/** far clip Getter*/
-	float getFarClip();
+	float getFarClip() const;
 	/** fov Getter*/
-	float getFOV();
+	float getFOV() const;
 	/** screen ratio Getter*/
-	float getScreenRatio();
+	float getScreenRatio() const;
 
+    /** near clip Setter*/
+	void setNearClip(float nearClipPlane) ;
+	/** far clip Setter*/
+	void setFarClip(float farClipPlane) ;
+	/** fov Setter*/
+	void setFOV(float fov) ;
+	/** screen ratio Setter*/
+	void setScreenRatio(float ratio) ;
+    
+    
 	/** Transforms a screen point to a world point. Commonly used for transforming mouse position into world points */
 	glm::vec3 screenPointToWorld(glm::vec2 pos);
 	/** Transforms a screen point to Ray. Commonly used for transforming mouse position into a Ray */

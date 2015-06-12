@@ -14,17 +14,14 @@ class Actor;
 class Component : public enable_shared_from_this<Component>
 {
     
-private:
+public:
 	/** Reference to the actor that owns this component */
 	weak_ptr<Actor> actor;
     
 protected:
     /** Used when been deserialized or cloned*/
 	bool initWithData;
-    /** Used when been deserialized or cloned
-     @param [in] initWithData true if this component data will come from clone of deserialization, false if it's a new component being creates
-     */
-    void setCopyMode(bool initWithData);
+
     
     /** Is component active */
     bool isActive;
@@ -56,6 +53,11 @@ public:
      */
 	virtual void tick(float deltaSecods) {};
 	
+    /** Used when been deserialized or cloned
+     @param [in] initWithData true if this component data will come from clone of deserialization, false if it's a new component being creates
+     */
+    void setCopyMode(bool initWithData);
+    
 	/** Getter for owner Actor
      @return shared_ptr for the owner */
 	shared_ptr<Actor> getActor();

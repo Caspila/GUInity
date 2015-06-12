@@ -47,21 +47,21 @@ public:
     
     /** physxRigidBody getter
      @return pointer to PhysX RigidBody*/
-	PxRigidBody* getRigidbody();
+	PxRigidBody* getRigidbody() const;
 	
     /** isKinematic setter
      @param true if physics should be not be simulated, false if it should */
 	void setKinematic(bool isKinematic);
     /** isKinematic getter
      @return true if physics is being simulated, false if it's not */
-    bool getKinematic();
+    bool getKinematic() const;
     
     /** gravity setter
      @param [in] enabled true if gravity is enabled, false otherwise */
 	void setGravity(bool enabled);
     /** gravity getter
      @return true if gravity is enabled, false otherwise */
-	bool getGravity();
+	bool getGravity() const;
 
     
     /** Set the translation/rotation constraints of the rigidbody.
@@ -70,7 +70,7 @@ public:
     
     /** Set the translation/rotation constraints of the rigidbody.
      @return current constraints of the rigidbody s*/
-    int getConstraintsFlags();
+    int getConstraintsFlags() const;
     
     /** Update the transform based on the PhysX physics simulation and current constraints
      @param [in] the PhysX transform*/

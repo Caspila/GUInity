@@ -49,7 +49,9 @@ void Game::update(float deltaSeconds)
 	world->tick(deltaSeconds);
 
 	Physics::tickScene(world->physicsScene);
-	Physics::updateActorsTransform(world->physicsScene);
+    Physics::updateActorsTransform(world->physicsScene);
+
+//	Physics::updateActorsTransform(world->physicsScene);
 
 	GraphicsSystem::getInstance()->clear();
 

@@ -281,7 +281,6 @@ PxShape* Physics::createSphereCollider(float radius, PxVec3 center, shared_ptr<A
         shape->userData = (void*)actor.get();
     }
     
-    
 	shape->setLocalPose(PxTransform(center, PxQuat::createIdentity()));
     
 	return shape;

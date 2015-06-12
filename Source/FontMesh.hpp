@@ -31,12 +31,12 @@ public:
 	/** font setter */
 	void setFont(shared_ptr<Font> font);
 	/** font getter */
-	shared_ptr<Font> getFont();
+	shared_ptr<Font> getFont() const;
 	
 	/** text setter */
-	void setText(string text);
+	void setText(string text) ;
 	/** text getter */
-	string getText();
+	string getText() const;
 
     
 	/** create the mesh according to the font and text */

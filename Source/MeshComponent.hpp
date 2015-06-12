@@ -25,7 +25,7 @@ public:
 	/** mesh Getter */
 	void setMesh(shared_ptr<Mesh> mesh);
 	/** mesh Setter */
-	shared_ptr<Mesh> getMesh();
+	shared_ptr<Mesh> getMesh() const;
 
 	/** Gets the center and the AABB size for the Actor that this component is attached to */
 	void getBoxSize(shared_ptr<Actor> actor, PxVec3& boxSize, PxVec3& center);

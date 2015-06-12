@@ -12,6 +12,7 @@
 #include <iostream>
 #include "Mesh.hpp"
 #include <glm/glm.hpp>
+#include "Animation.hpp"
 
 using namespace std;
 
@@ -21,6 +22,7 @@ private:
     vector<vector<float>> weights;
     vector<glm::mat4> initialPos;
     int nBones;
+    Animation animation;
     
 public:
     SkinnedMesh() {};
@@ -33,6 +35,8 @@ public:
     void setVerticesWeight(vector<vector<float>> weights);
     void setInitialPosition(vector<glm::mat4> initialPos);
 
+    
+    void setAnimation(Animation animation);
     
 };
 

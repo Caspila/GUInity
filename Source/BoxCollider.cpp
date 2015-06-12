@@ -52,6 +52,9 @@ void BoxCollider::init()
         // The physics material is set but it's not yet linked to the shape
         if(physicsMaterial!=nullptr)
             setPhysicsMaterial(getPhysicsMaterial());
+        
+        setHalfExtent(halfExtent);
+        
     }
 	// Create new
     else
@@ -70,6 +73,33 @@ void BoxCollider::init()
         Collider::init();
     }
     
+}
+
+/** halfExtent getter
+ @return half extent of the AABB
+ */
+PxVec3 BoxCollider::getHalfExtent() const
+{
+    return halfExtent;
+}
+/** halfExtent setter
+ @param [in] halfExtent half extent of the AABB
+ */
+void BoxCollider::setHalfExtent(PxVec3 halfExtent)
+{
+    this->halfExtent = halfExtent;
+    
+    if(shape)
+    {
+        // Update PhysX scene
+        PxBoxGeometry boxGeometry;
+        
+        shape->getBoxGeometry(boxGeometry);
+        
+        boxGeometry.halfExtents = halfExtent;
+        
+        shape->setGeometry(boxGeometry);
+    }
 }
 
 /** Clones current component (Prototype Design Pattern)

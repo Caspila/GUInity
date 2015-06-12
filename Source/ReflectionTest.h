@@ -14,6 +14,8 @@
 #include <stdlib.h>
 #include <string>
 #include <vector>
+
+#include "SerializationStructs.hpp"
 using namespace std;
 
 #define CREATE_MEMBERS_TABLE()\
@@ -56,6 +58,7 @@ x = value;\
 
 //{ ##x, get_type(this->x) },
 
+
 #define CREATE_TABLE(x)\
 static MemberInfo* getMembers()\
 {\
@@ -83,10 +86,61 @@ get##param();
 set##param(value);
 
 
+#define DECLARE_SERIALIZATION(className)\
+public:\
+shared_ptr<ComponentDescription> getComponentDescription();\
+void deserialize(shared_ptr<ComponentDescription> desc);
+
+
+#define DECLARE_COMPONENT_SCRIPT(className)\
+class className##_COMPONENT_DESCRIPTION\
+{\
+public:\
+    className##_COMPONENT_DESCRIPTION() {}\
+    virtual ~className##_COMPONENT_DESCRIPTION() {};\
+}
+
+
+//#define IMPLEMENT_COMPONENT_SCRIPT(className)\
+//shared_ptr<ComponentDescription> className##_COMPONENT_DESCRIPTION::getComponentDescription()\
+//{\
+//    return nullptr;\
+//}\
+//void className##_COMPONENT_DESCRIPTION::deserialize(shared_ptr<ComponentDescription> desc)\
+//{\
+//}
+
+//DECLARE_COMPONENT_SCRIPT(Test);
+
+#define DECLARE_SUB_CLASS(sub_class_name, base_class_name) \
+class sub_class_name##_ASD:base_class_name \
+{ \
+public: \
+virtual int initialize(const void *); \
+virtual int run(const void *); \
+virtual void reset(); \
+virtual int output(const char*); \
+virtual void terminate(); \
+};
+
+//class nope_COMPONENTDESCRIPTION;
+
+//class bla_COMPONENTDESCRIPTION
+//{
+//    nope_COMPONENTDESCRIPTION a;
+
+//    className_COMPONENTDESCRIPTION a;
+//};
+
+
+
 class Person
 {
  
 public:
+//    Test_COMPONENT_DESCRIPTION a;
+    
+//    nopeCOMPONENTDESCRIPTION a;
     
     string name;
     int age;
@@ -99,5 +153,10 @@ public:
     //CREATE_PUBLIC_ACCESS()
 
 };
+
+
+
+
+
 
 #endif

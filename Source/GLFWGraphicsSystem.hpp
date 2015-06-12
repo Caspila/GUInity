@@ -74,7 +74,7 @@ public:
 	/** Disable Textures that have are not needed for the current draw call */
     void disableNonUsedTextures(int nTextures) const;
 
-
+    bool setUniform2fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value);
 	bool  setUniform4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value);
 	bool  setUniform3fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value);
 	bool  setUniform1f(const GLuint& shaderProgram, const GLchar* uniformName, GLfloat value);

@@ -31,7 +31,7 @@ void FontMesh::setFont(shared_ptr<Font> font)
 	this->font = font;
 }
 /** font getter */
-shared_ptr<Font> FontMesh::getFont()
+shared_ptr<Font> FontMesh::getFont() const
 {
 	return font;
 }
@@ -49,7 +49,7 @@ void FontMesh::setText(string text)
 }
 
 /** text getter */
-string FontMesh::getText()
+string FontMesh::getText() const
 {
 	return text;
 }

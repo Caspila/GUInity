@@ -46,7 +46,7 @@ void MeshRenderer::setMaterial(shared_ptr<Material> material)
     this->material = material;
 }
 /** material getter */
-shared_ptr<Material> MeshRenderer::getMaterial()
+shared_ptr<Material> MeshRenderer::getMaterial()  const
 {
     return material;
 }
@@ -56,7 +56,7 @@ void MeshRenderer::setMeshComponent(shared_ptr<MeshComponent> meshComponent)
     this->meshComponent = meshComponent;
 }
 /** meshComponent getter */
-shared_ptr<MeshComponent> MeshRenderer::getMeshComponent()
+shared_ptr<MeshComponent> MeshRenderer::getMeshComponent()  const
 {
     return meshComponent.lock();
 }

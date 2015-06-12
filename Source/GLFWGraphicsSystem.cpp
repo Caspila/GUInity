@@ -260,6 +260,13 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 			setUniform4fv(shaderProgram, stringVec4Pair.first.c_str(), 1, &stringVec4Pair.second[0]);
 			//glUniform4fv(getUniformLocation(shaderProgram, stringVec4Pair.first.c_str()), 1, &stringVec4Pair.second[0]);
 		}
+        vector<Material::StringVec2Pair> stringVec2Pairs = meshRenderer->getMaterial()->getAllVec2Params();
+		for (auto& stringVec2Pair : stringVec2Pairs)
+		{
+			setUniform2fv(shaderProgram, stringVec2Pair.first.c_str(), 1, &stringVec2Pair.second[0]);
+			//glUniform4fv(getUniformLocation(shaderProgram, stringVec4Pair.first.c_str()), 1, &stringVec4Pair.second[0]);
+		}
+        
 //        
 //         cout << "Set shader data:" <<       Time::stopwatchEnd() << endl;
         
@@ -455,6 +462,18 @@ shared_ptr<Texture> GLFWGraphicsSystem::getDefaultTexture()
 	return defaultTexture;
 }
 
+bool  GLFWGraphicsSystem::setUniform2fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value)
+{
+	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
+    
+	if (uniformLocation != -1)
+	{
+		glUniform2fv(uniformLocation, count, value);
+		return true;
+	}
+    
+	return false;
+}
 
 bool  GLFWGraphicsSystem::setUniform4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value)
 {

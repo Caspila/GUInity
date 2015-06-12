@@ -22,7 +22,7 @@ class Actor : public std::enable_shared_from_this<Actor>
 
 {
 
-private:
+public:
 	/** An actor can admit two states, active or not active. Non-active actors disable all their components, increasing overall performance */
 	bool isActive;
 	/** editorFlag indicates if this actor belongs to the Editor realm */
@@ -44,6 +44,8 @@ public:
     
 	/** Name of the Actor */
 	string name;
+    
+    void setComponents(vector<shared_ptr<Component>> components);
 	
 	/** Transform of the Actor. By default every Actor has a transform. For further improvements, it could be
 	considered to treat Transform as any other component*/
@@ -71,7 +73,7 @@ public:
 	/** Weak_ptr because we don't want this object to prevent an Actor to be destroyed */
 	weak_ptr<Actor> parent;
 	/** Parent getter */
-	shared_ptr<Actor> getParent();
+	shared_ptr<Actor> getParent() const;
 	/** Parent setter */
 	void setParent(shared_ptr<Actor> parent);
 
@@ -86,12 +88,12 @@ public:
 	/** isActive setter */
 	void setActive(bool isActive);
 	/** isActive getter */
-	bool getIsActive();
+	bool getIsActive() const;
 
 	/** editorFlat setter */
 	void setEditorFlag(bool isEditor);
 	/** editorFlat getter */
-	bool getEditorFlag();
+	bool getEditorFlag() const;
 
 
 	/** initComponents. This function is called to Initialize all the components attached to the actor */

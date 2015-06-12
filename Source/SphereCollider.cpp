@@ -41,7 +41,7 @@ SphereCollider::~SphereCollider()
 
 /** radius Getter
  @return radius of the sphere */
-float SphereCollider::getRadius()
+float SphereCollider::getRadius() const
 {
 	return radius;
 }
@@ -52,13 +52,17 @@ void SphereCollider::setRadius(float newRadius)
 {
 	this->radius = newRadius;
     
+    if(shape)
+    {
 	// Update PhysX scene
 	PxSphereGeometry sphereGeometry;
+    
 	shape->getSphereGeometry(sphereGeometry);
     
 	sphereGeometry.radius = newRadius;
     
 	shape->setGeometry(sphereGeometry);
+    }
     
 }
 
@@ -73,6 +77,9 @@ void SphereCollider::init()
         // The physics material is set but it's not yet linked to the shape
         if(physicsMaterial!=nullptr)
             setPhysicsMaterial(getPhysicsMaterial());
+        
+        setRadius(radius);
+        
     }
     // Create a new one
 	else

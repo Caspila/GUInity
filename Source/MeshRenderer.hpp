@@ -32,12 +32,12 @@ public:
     /** material setter */
     void setMaterial(shared_ptr<Material> material);
     /** material getter */
-    shared_ptr<Material> getMaterial();
+    shared_ptr<Material> getMaterial()  const;
 	
     /** meshComponent setter */
     void setMeshComponent(shared_ptr<MeshComponent> mesh);
     /** meshComponent getter */
-    shared_ptr<MeshComponent> getMeshComponent();
+    shared_ptr<MeshComponent> getMeshComponent() const;
 	
     /** Component init override. Tries to get a MeshComponent from the owner Actor and notifies that a new MeshRenderer has been created */
     virtual void init() override;

@@ -168,3 +168,9 @@ vector<shared_ptr<ComponentDescription>> Factory::getActorComponentsDescription(
         DeserializeActor(x);
     }
 }
+
+void Factory::ActorDeserialized(shared_ptr<Actor> actor)
+{
+    notify(ActorEventType::NewActor, actor, false);
+
+}

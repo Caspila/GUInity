@@ -26,7 +26,7 @@ public:
 	~Light();
 
 	/** color setter*/
-	glm::vec3 getColor();
+	glm::vec3 getColor() const;
 	/** color setter*/
 	void setColor(glm::vec3);
 

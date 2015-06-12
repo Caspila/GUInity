@@ -27,17 +27,17 @@ public:
 	/** orientation Setter*/
 	void setOrientation(RotateAxis orientation);
 	/** orientation Getter*/
-	RotateAxis getOrientation();
+	RotateAxis getOrientation() const;
 
 	/** height Setter*/
 	void setHeight(float height);
 	/** height Getter*/
-	float getHeight();
+	float getHeight() const;
 
 	/** radius Setter*/
 	void setRadius(float radius);
 	/** radius Getter*/
-	float getRadius();
+	float getRadius() const;
 
 	/** Component init override. Create a new Capsule Shape in the PhysX scene. */
 	virtual void init();
