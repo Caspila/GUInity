@@ -42,27 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/GLFWGraphicsSystem.cpp"
-            timestampString = "455964016.278654"
+            timestampString = "456001859.587023"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "228"
-            endingLineNumber = "228"
-            landmarkName = "GLFWGraphicsSystem::render(shared_ptr&lt;Camera&gt; camera, vector &lt; shared_ptr&lt;MeshRenderer&gt;&gt;&amp; renderers, vector&lt;shared_ptr&lt;Light&gt;&gt;&amp; lights)"
-            landmarkType = "5">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            shouldBeEnabled = "No"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "../Source/GLFWGraphicsSystem.cpp"
-            timestampString = "455964016.278654"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "233"
-            endingLineNumber = "233"
+            startingLineNumber = "232"
+            endingLineNumber = "232"
             landmarkName = "GLFWGraphicsSystem::render(shared_ptr&lt;Camera&gt; camera, vector &lt; shared_ptr&lt;MeshRenderer&gt;&gt;&amp; renderers, vector&lt;shared_ptr&lt;Light&gt;&gt;&amp; lights)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +74,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/GLFWGraphicsSystem.cpp"
-            timestampString = "455964016.278654"
+            timestampString = "456001859.587023"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "277"
-            endingLineNumber = "277"
+            startingLineNumber = "260"
+            endingLineNumber = "260"
             landmarkName = "GLFWGraphicsSystem::render(shared_ptr&lt;Camera&gt; camera, vector &lt; shared_ptr&lt;MeshRenderer&gt;&gt;&amp; renderers, vector&lt;shared_ptr&lt;Light&gt;&gt;&amp; lights)"
             landmarkType = "5">
          </BreakpointContent>
@@ -344,11 +328,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/GLFWGraphicsSystem.cpp"
-            timestampString = "455964071.455191"
+            timestampString = "456001859.587023"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "477"
-            endingLineNumber = "477"
+            startingLineNumber = "457"
+            endingLineNumber = "457"
             landmarkName = "GLFWGraphicsSystem::getUniformLocation(const GLuint shaderProgram, const GLchar* uniformName)"
             landmarkType = "5">
          </BreakpointContent>
@@ -447,6 +431,52 @@
             endingLineNumber = "59"
             landmarkName = "MoveTool::awake()"
             landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/Editor.cpp"
+            timestampString = "455999993.115555"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "Editor::update(float deltaSeconds, shared_ptr&lt;World&gt; gameWorld)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/Editor.cpp"
+            timestampString = "456000039.319071"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "294"
+            endingLineNumber = "294"
+            landmarkName = "Editor::update(float deltaSeconds, shared_ptr&lt;World&gt; gameWorld)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/RotateHandle.hpp"
+            timestampString = "456002234.797241"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "26"
+            endingLineNumber = "26">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

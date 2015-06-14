@@ -7,6 +7,7 @@
 #include "Ray.hpp"
 #include "Component.hpp"
 #include "Subject.hpp"
+#include "MathStructs.hpp"
 
 class Transform;
 
@@ -76,7 +77,11 @@ public:
     
 	/** Transforms a screen point to a world point. Commonly used for transforming mouse position into world points */
 	glm::vec3 screenPointToWorld(glm::vec2 pos);
-	/** Transforms a screen point to Ray. Commonly used for transforming mouse position into a Ray */
+
+    /** Transforms a screen point to a world point. Commonly used for transforming mouse position into world points */
+	glm::vec3 screenPointToPlane(Plane p, glm::vec2 pos);
+    
+    /** Transforms a screen point to Ray. Commonly used for transforming mouse position into a Ray */
 	Ray screenPointToRay(glm::vec2 pos);
 	/** Transforms a screen point to Ray. Commonly used for transforming mouse position into a Ray */
 	Ray screenPointToRay2(glm::vec2 pos);

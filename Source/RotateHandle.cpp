@@ -6,6 +6,7 @@
 #include "CapsuleCollider.hpp"
 #include "Math.hpp"
 #include "Transform.hpp"
+#include "Factory.hpp"
 
 RotateHandle::RotateHandle()
 {
@@ -67,6 +68,10 @@ void RotateHandle::tick(float deltaSeconds)
 		{
 			isPressed = true;
 		}
+        
+    
+
+        
 	}
 	else if (Input::getMouseButtonReleased(GLFW_MOUSE_BUTTON_1))
 		isPressed = false;
@@ -77,115 +82,62 @@ void RotateHandle::tick(float deltaSeconds)
 		glm::vec2 mouseDelta = Input::mouseDelta;
 		if (glm::length(mouseDelta) > 0)
 		{
-			glm::vec3 point1 = currentActor->transform->position;
-			glm::vec3 point2 = point1 + currentActor->transform->getUp();
-			glm::vec3 point3 = point1 + currentActor->transform->getRight();
-
-			Plane p(point1, point2, point3);
-
-			glm::vec3 newWorldPos = Editor::cameraComponent->screenPointToWorld(Input::mousePos);
-			glm::vec3 oldWorldPos = Editor::cameraComponent->screenPointToWorld(Input::mousePos - Input::mouseDelta);
-
-//			glm::vec3 newWorldProj = projectOnPlane(newWorldPos - point1, p);
-//			glm::vec3 oldWorldProj = projectOnPlane(oldWorldPos - point1, p);
-
-			glm::vec3 mouseWorldDir = newWorldPos - oldWorldPos;
-			mouseWorldDir = glm::normalize(mouseWorldDir);
-
-			//cout << "newWorldProj" << newWorldProj << endl;
-			//cout << "oldWorldProj" << oldWorldProj << endl;
-
-			//float dot = glm::dot(newWorldPos, oldWorldPos);
-			//float dot = glm::dot(newWorldProj, oldWorldProj);
+            glm::vec3 point1 = currentActor->transform->position;
+            glm::vec3 point2;
+            glm::vec3 point3;
+           
 
 			glm::vec3 dirAxis;
-            //glm::vec3 dotAxis;
-            
 
 			switch (axis)
 			{
 			case RotateAxis::z:
-//                    dotAxis = -currentActor->transform->getRight();
-				dirAxis = currentActor->transform->getUp();
+                    point2 = point1 + currentActor->transform->getUp();
+                    point3 = point1 + currentActor->transform->getRight();
+                    dirAxis = currentActor->transform->getForward();
+
 				break;
 			case RotateAxis::y:
-				dirAxis = currentActor->transform->getForward();
-//                    dotAxis = currentActor->transform->getUp();
+                    point2 = point1 + currentActor->transform->getRight();
+                    point3 = point1 + currentActor->transform->getForward();
+                    
+                    dirAxis = currentActor->transform->getUp();
+
 				break;
 			case RotateAxis::x:
+                    point2 = point1 + currentActor->transform->getUp();
+                    point3 = point1 + currentActor->transform->getForward();
+
 				dirAxis = currentActor->transform->getRight();
-//                    dotAxis = -currentActor->transform->getRight();
 				break;
 			default:
 				break;
 			}
 
-			float dot = glm::dot(mouseWorldDir, dirAxis);
-//			cout <<"Dot" << dot - lastDot << endl;
 
-			//cout << "Dot" << dot << endl;
-//			cout << "lastDot" << lastDot << endl;
-
-			glm::vec3 eulerAngles = glm::eulerAngles(currentActor->transform->rotation);
-			
-			//cout << "eulerAngles.z" << eulerAngles.z << endl;
-			
-			//
-			//eulerAngles.z += (dot - lastDot) * 100 * deltaSeconds;
-			//
-			//float f = Math::sgn(dot - lastDot);
-			float f = sgn(dot);
-//			cout << "f" << f << endl;
-
-//			currentActor->transform->rotationQuat = glm::angleAxis(f * deltaSeconds, rotationAxis) * currentActor->transform->rotationQuat;
-
-            currentActor->transform->rotation = glm::angleAxis(f * deltaSeconds, dirAxis) * currentActor->transform->rotation;
             
+            Plane p(point1, point2, point3);
+            
+            glm::vec3 newWorldPlane = Editor::cameraComponent->screenPointToPlane(p, Input::mousePos);
+            glm::vec3 oldWorldPlane = Editor::cameraComponent->screenPointToPlane(p, Input::mousePos - Input::mouseDelta);
+            
+            float dot = 1 - glm::dot((newWorldPlane-point1), (oldWorldPlane-point1));
+            dot = fabs(dot);
+            
+            glm::vec3 cross = glm::cross(newWorldPlane, oldWorldPlane);
+            
+            int clockwise = -sgn(cross.z);
+            
+            float rotateAmount = deltaSeconds * 5 * dot;
+            if(rotateAmount > 0.1f)
+                rotateAmount = 0.1f;
+            
+            rotateAmount *= clockwise;
+            
+            currentActor->transform->rotation = glm::angleAxis(rotateAmount, dirAxis) * currentActor->transform->rotation;
 
-			lastDot = dot;
-
-			//cout << 
-
-
-			//glm::vec3 mouseWorldDir = newWorldPos - oldWorldPos;
-			//mouseWorldDir = glm::normalize(mouseWorldDir);
-
-			////cout << "new: " << oldWorldPos << endl;
-			////cout << "old: " << newWorldPos << endl;
-
-			////cout << "mouseWorldDir: " << mouseWorldDir << endl;
-
-			//glm::vec3 dirAxis;
-
-			//switch (axis)
-			//{
-			//case RotateAxis::x:
-			//	dirAxis = currentActor->transform->getUp();
-			//	break;
-			//case RotateAxis::y:
-			//	dirAxis = currentActor->transform->getRight();
-			//	break;
-			//case RotateAxis::z:
-			//	dirAxis = currentActor->transform->getForward();
-			//	break;
-			//default:
-			//	break;
-			//}
-
-
-			////cout << "dirAxis: " << dirAxis << endl;
-
-			//glm::vec3 delta = dirAxis * glm::dot(mouseWorldDir, dirAxis) * 0.1f;
-
-			//cout << "dotDekta: " << delta << endl;
-
-//            cout << "Mouse click on ME!" << getActor()->name << endl;
-
-			////if (mouseDelta.x > 0)
-			////	cout << "Move" << endl;
-			//currentActor->transform->position = currentActor->transform->position + delta;
 
 		}
-		//getActor()->transform->position = getActor()->transform->position + axis;
+
 	}
 }

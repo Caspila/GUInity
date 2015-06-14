@@ -364,7 +364,7 @@ int main(int argc, char *argv[]) {
     
     shared_ptr<Game> game = make_shared<Game>();
     game->init();
-    {
+//    {
 		
         
         /** SHIP WITH ROOT CHILDREN **/
@@ -677,7 +677,7 @@ int main(int argc, char *argv[]) {
 //
 //        actorDeserialized->name = "Copy";
 //        actorDeserialized->transform->setPosition(glm::vec3(2,0,0));
-	}
+//	}
     
     
     
@@ -726,7 +726,8 @@ int main(int argc, char *argv[]) {
             engineMode = EngineMode::game;
         
         float fps = Time::frameEnd();
-        cout << "FPS:" << 1.0f/fps << endl;
+//        fontMesh->setText(to_string((1.0f/fps)));
+//        cout << "FPS:" << 1.0f/fps << endl;
     }
     
     physics.shutdown();

@@ -64,6 +64,13 @@ public:
 	/** Setter for owner Actor
      @param owner Actor*/
 	void setActor(weak_ptr<Actor> actor);
+
+    /** isActive Getter
+     @return true if Component is Active, false otherwise */
+    bool getIsActive();
+	/** isActive Setter
+     @param[in] true if Component should be Active, false otherwise */
+	void setIsActive(bool isActive);
     
     /** Pure virtual function. Clones current component (Prototype Design Pattern)
      @return shared_ptr to cloned Component

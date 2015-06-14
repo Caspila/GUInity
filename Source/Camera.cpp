@@ -134,6 +134,18 @@ glm::vec3 Camera::screenPointToWorld(glm::vec2 pos)
 
 	return ray_wor;
 }
+
+/** Transforms a screen point to a world point. Commonly used for transforming mouse position into world points */
+glm::vec3 Camera::screenPointToPlane(Plane p, glm::vec2 pos)
+{
+    Ray r = screenPointToRay(pos);
+   
+    float t = glm::dot(p.normal,p.point - r.origin)/glm::dot(p.normal, r.direction);
+    glm::vec3 intersection = r.origin + t* r.direction;
+    
+    return intersection;
+}
+
 /** Transforms a screen point to Ray. Commonly used for transforming mouse position into a Ray */
 Ray Camera::screenPointToRay(glm::vec2 pos)
 {

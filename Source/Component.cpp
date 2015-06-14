@@ -6,6 +6,7 @@ int Component::count = 0;
 
 /** Default Constructor*/
 Component::Component()
+: isActive{true}
 {
 #ifdef GUINITY_DEBUG
 	count++;
@@ -52,5 +53,18 @@ void Component::setActor(weak_ptr<Actor> actor)
 	this->actor = actor;
 }
 
+
+/** isActive Getter
+ @return true if Component is Active, false otherwise */
+bool Component::getIsActive()
+{
+    return  isActive;
+}
+/** isActive Setter
+ @param[in] true if Component should be Active, false otherwise */
+void Component::setIsActive(bool isActive)
+{
+    this->isActive = isActive;
+}
 
 

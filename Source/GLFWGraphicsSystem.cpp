@@ -145,6 +145,9 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         
         meshRenderer = renderers[i];
         
+        if(!meshRenderer->getIsActive())
+            continue;
+        
         actor = meshRenderer->getActor();
         
 		meshComponent = meshRenderer->getMeshComponent();
@@ -225,55 +228,35 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         {
             useBones = 1;
             
-            GLenum error =glGetError() ;
-            if ( error != GL_NO_ERROR )
-                std::cout <<  error << "Pre-existing error" << std::endl;
-            
             
             glBindBuffer(GL_ARRAY_BUFFER, skinnedMesh->getBonesVBO());
             
-            error =glGetError() ;
-            if ( error != GL_NO_ERROR )
-                std::cout <<  error << "Pre-existing error" << std::endl;
+
             
             glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(VertexBoneVec), (void*)(0));
             
-            error =glGetError() ;
-            if ( error != GL_NO_ERROR )
-                std::cout <<  error << "Pre-existing error" << std::endl;
+
             
             // Bone weights
             glEnableVertexAttribArray(4);
             
-            error =glGetError() ;
-            if ( error != GL_NO_ERROR )
-                std::cout <<  error << "Pre-existing error" << std::endl;
+
             
             
             glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, sizeof(VertexBoneVec), (void*)(sizeof(glm::vec3)));
             
-            error =glGetError() ;
-            if ( error != GL_NO_ERROR )
-                std::cout <<  error << "Pre-existing error" << std::endl;
+
             
             // Bone weights
             glEnableVertexAttribArray(5);
-            
-            error =glGetError() ;
-            if ( error != GL_NO_ERROR )
-                std::cout <<  error << "Pre-existing error" << std::endl;
-            
-            
+         
             //            glEnableVertexAttribArray(4);
             //            glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginUV));
             
             
             
             
-            error =glGetError() ;
-            if ( error != GL_NO_ERROR )
-                std::cout <<  error << "Pre-existing error" << std::endl;
-            
+          
             setUniformMatrix4fv(shaderProgram, "boneTransform",10,GL_FALSE, glm::value_ptr(skinnedMesh->getDeltaPos()[0]));
         }
 
@@ -293,10 +276,7 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         glDisableVertexAttribArray(4);
         glDisableVertexAttribArray(5);
         
-        GLenum error =glGetError() ;
-        if ( error != GL_NO_ERROR )
-            std::cout <<  error << "Pre-existing error" << std::endl;
-        
+       
         //           cout << "Set attribs:" <<       Time::stopwatchEnd() << endl;
         
     }

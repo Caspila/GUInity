@@ -25,13 +25,6 @@ void MoveHandle::tick(float deltaSeconds)
 	shared_ptr<Actor> currentActor = Editor::currentSelectedActor;
 	if (!currentActor)
 		return;
-//
-//	shared_ptr<Actor> myParent = getActor()->getParent();
-//	if (myParent)
-//	{
-//		myParent->transform->position = currentActor->transform->position;
-//		myParent->transform->rotationQuat = currentActor->transform->rotationQuat;
-//	}
 
 	Ray r = Editor::cameraComponent->screenPointToRay(Input::mousePos);
 
@@ -63,11 +56,6 @@ void MoveHandle::tick(float deltaSeconds)
 			glm::vec3 mouseWorldDir = newWorldPos - oldWorldPos;
 			mouseWorldDir = glm::normalize(mouseWorldDir);
 
-			//cout << "new: " << oldWorldPos << endl;
-			//cout << "old: " << newWorldPos << endl;
-
-			//cout << "mouseWorldDir: " << mouseWorldDir << endl;
-
 			glm::vec3 dirAxis;
 
 			switch (axis)
@@ -85,19 +73,12 @@ void MoveHandle::tick(float deltaSeconds)
 				break;
 			}
 
-
-			//cout << "dirAxis: " << dirAxis << endl;
-
 			glm::vec3 delta = dirAxis * glm::dot(mouseWorldDir, dirAxis) * 0.1f;
 
-			//cout << "dotDekta: " << delta << endl;
 
 			cout << "Mouse click on ME!" << getActor()->name << endl;
 
-			//if (mouseDelta.x > 0)
-			//	cout << "Move" << endl;
 			currentActor->transform->position = currentActor->transform->position + delta;
 		}
-		//getActor()->transform->position = getActor()->transform->position + axis;
 	}
 }

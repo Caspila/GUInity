@@ -8,6 +8,8 @@
 #include <glm/geometric.hpp>
 #include "MathStructs.hpp"
 #include <vector>
+#include <math.h>
+#include <algorithm>
 
 using namespace std;
 
@@ -49,6 +51,10 @@ shared_ptr<MeshTriangle> createMeshTriangle(vector<glm::vec3> vertices, int i1, 
 
 template <typename T> static int sgn(T val) {
     return (T(0) < val) - (val < T(0));
+}
+
+template <class T> const T& min (const T& a, const T& b) {
+    return !(b<a)?a:b;     // or: return !comp(b,a)?a:b; for version (2)
 }
 
 #endif

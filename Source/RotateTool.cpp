@@ -23,62 +23,55 @@ RotateTool::~RotateTool()
 void RotateTool::awake()
 {
     
-    shared_ptr<Mesh> cylinderMesh = AssetDatabase::getAsset<Mesh>("cylinder3.fbx");
-    shared_ptr<Material> defaultMat = AssetDatabase::getAsset<Material>("DefaultMaterial");
+    shared_ptr<Mesh> cylinderMesh = AssetDatabase::getAsset<Mesh>("rotateHandle.fbx");
 
-	shared_ptr<Actor> rightHandle = Factory::CreateEditorActor("RotateZAxisHandle");
-    //    rightHandle->transform->setRotationQuat(glm::angleAxis(90*Deg2Radian,glm::vec3(0, 1, 0)));
-//    rightHandle->transform->setPosition(glm::vec3(0, 0, 0));
-    rightHandle->transform->setRotation(glm::angleAxis(90*Deg2Radian,glm::vec3(1, 0, 0)));
-    rightHandle->transform->setScale(glm::vec3(1, 1, 0.1f));
+
+    shared_ptr<Material> redMaterial = AssetDatabase::getAsset<Material>("RedDefaultMaterial");
+    redMaterial->setParamVec4("_difuseColor",glm::vec4(1,0,0,1));
+    shared_ptr<Material> blueMaterial = AssetDatabase::getAsset<Material>("BlueDefaultMaterial");
+    blueMaterial->setParamVec4("_difuseColor",glm::vec4(0,0,1,1));
+    shared_ptr<Material> greenMaterial = AssetDatabase::getAsset<Material>("GreenDefaultMaterial");
+    greenMaterial->setParamVec4("_difuseColor",glm::vec4(0,1,0,1));
     
-	shared_ptr<MeshFilter> meshFilter = rightHandle->AddComponent<MeshFilter>();
+    
+	shared_ptr<Actor> xHandle = Factory::CreateEditorActor("RotateXAxisHandle");
+    xHandle->transform->setRotation(glm::quat(glm::vec3(0,0,90*Deg2Radian)));
+    shared_ptr<MeshFilter> meshFilter = xHandle->AddComponent<MeshFilter>();
 	meshFilter->setMesh(cylinderMesh);
-    shared_ptr<MeshRenderer> meshRenderer = rightHandle->AddComponent<MeshRenderer>();
-    meshRenderer->setMaterial( defaultMat);
-    
-    
-    shared_ptr<MeshCollider> collider = rightHandle->AddComponent<MeshCollider>();
-    //shared_ptr<CapsuleCollider> collider = rightHandle->AddComponent<CapsuleCollider>();
+    shared_ptr<MeshRenderer> meshRenderer = xHandle->AddComponent<MeshRenderer>();
+    meshRenderer->setMaterial( redMaterial);
+    shared_ptr<MeshCollider> collider = xHandle->AddComponent<MeshCollider>();
 	collider->setQueryOnly(true);
-	//collider->setOrientation(RotateAxis::x);
-	//collider->setHeight(0.01f);
-
-	shared_ptr<RotateHandle> handleScript = rightHandle->AddComponent<RotateHandle>();
-	handleScript->setAxis(RotateAxis::z);
-
-	shared_ptr<Actor> forwardHandle = Factory::CreateEditorActor("RotateXAxisHandle");
-    forwardHandle->transform->setScale(glm::vec3(1, 1, 0.1f));
-    forwardHandle->transform->setRotation(glm::angleAxis(90*Deg2Radian,glm::vec3(0, 1, 0)));
-    meshFilter = forwardHandle->AddComponent<MeshFilter>();
-    meshFilter->setMesh(cylinderMesh);
-    meshRenderer = forwardHandle->AddComponent<MeshRenderer>();
-    meshRenderer->setMaterial( defaultMat);
-	collider = forwardHandle->AddComponent<MeshCollider>();
-	collider->setQueryOnly(true);
-//	forwardHandle->transform->setPosition(glm::vec3(0, 0, 2));
-	handleScript = forwardHandle->AddComponent<RotateHandle>();
+	shared_ptr<RotateHandle> handleScript = xHandle->AddComponent<RotateHandle>();
 	handleScript->setAxis(RotateAxis::x);
-	//
 
-	shared_ptr<Actor> upHandle = Factory::CreateEditorActor("RotateYAxisHandle");
-    upHandle->transform->setScale(glm::vec3(1, 1, 0.1f));
-//    upHandle->transform->setRotationQuat(glm::angleAxis(90*Deg2Radian,glm::vec3(1, 0, 0)));
-    meshFilter = upHandle->AddComponent<MeshFilter>();
-	meshFilter->setMesh(cylinderMesh);
-    meshRenderer = upHandle->AddComponent<MeshRenderer>();
-    meshRenderer->setMaterial( defaultMat);
-   	collider = upHandle->AddComponent<MeshCollider>();
-//	collider = upHandle->AddComponent<CapsuleCollider>();
-
+    
+	shared_ptr<Actor> yHandle = Factory::CreateEditorActor("RotateYAxisHandle");
+    yHandle->transform->setScale(glm::vec3(1,1,1)*0.9);
+    meshFilter = yHandle->AddComponent<MeshFilter>();
+    meshFilter->setMesh(cylinderMesh);
+    meshRenderer = yHandle->AddComponent<MeshRenderer>();
+    meshRenderer->setMaterial( greenMaterial);
+	collider = yHandle->AddComponent<MeshCollider>();
 	collider->setQueryOnly(true);
-//	upHandle->transform->setPosition(glm::vec3(0, 2, 0));
-	handleScript = upHandle->AddComponent<RotateHandle>();
+	handleScript = yHandle->AddComponent<RotateHandle>();
 	handleScript->setAxis(RotateAxis::y);
-	//
-	getActor()->addChild(rightHandle);
-	getActor()->addChild(forwardHandle);
-	getActor()->addChild(upHandle);
+
+	shared_ptr<Actor> zHandle = Factory::CreateEditorActor("RotateZAxisHandle");
+    zHandle->transform->setRotation(glm::quat(glm::vec3(90*Deg2Radian,0,0)));
+        zHandle->transform->setScale(glm::vec3(1,1,1)*0.8);
+    shared_ptr<MeshFilter>  meshFilterZ = zHandle->AddComponent<MeshFilter>();
+	meshFilterZ->setMesh(cylinderMesh);
+    shared_ptr<MeshRenderer>   meshRendererZ = zHandle->AddComponent<MeshRenderer>();
+    meshRendererZ->setMaterial( blueMaterial);
+   	shared_ptr<MeshCollider> colliderZ = zHandle->AddComponent<MeshCollider>();
+	colliderZ->setQueryOnly(true);
+	shared_ptr<RotateHandle> handleScriptZ = zHandle->AddComponent<RotateHandle>();
+	handleScriptZ->setAxis(RotateAxis::z);
+
+	getActor()->addChild(xHandle);
+	getActor()->addChild(yHandle);
+	getActor()->addChild(zHandle);
 }
 
 void RotateTool::tick(float deltaSeconds)
