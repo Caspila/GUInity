@@ -322,6 +322,7 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     //open file as binary
     FILE *fp = fopen(filename.c_str(), "rb");
     if (!fp) {
+        cout << "Erro TEXTURE_LOAD_ERROR 1" << endl;
 //        return TEXTURE_LOAD_ERROR;
     }
     
@@ -331,6 +332,7 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     //test if png
     int is_png = !png_sig_cmp(header, 0, 8);
     if (!is_png) {
+        cout << "Erro TEXTURE_LOAD_ERROR 2" << endl;
         fclose(fp);
 //        return TEXTURE_LOAD_ERROR;
     }
@@ -340,6 +342,7 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
                                                  NULL, NULL);
     if (!png_ptr) {
         fclose(fp);
+                cout << "Erro TEXTURE_LOAD_ERROR3" << endl;
 //        return (TEXTURE_LOAD_ERROR);
     }
     
@@ -348,6 +351,7 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     if (!info_ptr) {
         png_destroy_read_struct(&png_ptr, (png_infopp) NULL, (png_infopp) NULL);
         fclose(fp);
+                cout << "Erro TEXTURE_LOAD_ERROR4" << endl;
 //        return (TEXTURE_LOAD_ERROR);
     }
     
@@ -356,6 +360,7 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     if (!end_info) {
         png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp) NULL);
         fclose(fp);
+                cout << "Erro TEXTURE_LOAD_ERROR5" << endl;
 //        return (TEXTURE_LOAD_ERROR);
     }
     
@@ -363,6 +368,7 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     if (setjmp(png_jmpbuf(png_ptr))) {
         png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
         fclose(fp);
+                cout << "Erro TEXTURE_LOAD_ERROR6" << endl;
 //        return (TEXTURE_LOAD_ERROR);
     }
     
@@ -399,6 +405,7 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
         //clean up memory and close stuff
         png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
         fclose(fp);
+                cout << "Erro TEXTURE_LOAD_ERROR7" << endl;
 //        return TEXTURE_LOAD_ERROR;
     }
     
@@ -409,6 +416,7 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
         png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
         delete[] image_data;
         fclose(fp);
+                cout << "Erro TEXTURE_LOAD_ERROR8" << endl;
 //        return TEXTURE_LOAD_ERROR;
     }
     // set the individual row_pointers to point at the correct offsets of image_data

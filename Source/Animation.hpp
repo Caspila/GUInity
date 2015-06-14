@@ -14,6 +14,7 @@
 #include "AnimationCurve.hpp"
 #include <map>
 #include "Enums.hpp"
+#include "Math.hpp"
 
 
 class Animation
@@ -49,7 +50,7 @@ public:
     {   
         std::map<CurveAnimationType,AnimationCurve> node = animationCurveMap[nodeIndex];
         
-        glm::vec3 pos;
+        glm::vec3 pos(0,0,0);
         auto it = node.find(CurveAnimationType::X_MOVE);
         if(it!= node.end())
             pos.x = it->second.evaluate(time);
@@ -64,22 +65,22 @@ public:
         
         
         
-        glm::vec3 rot;
+        glm::vec3 rot(0,0,0);
         it = node.find(CurveAnimationType::X_ROTATE);
         if(it!= node.end())
-            rot.x = it->second.evaluate(time);
+            rot.x = it->second.evaluate(time) * Deg2Radian;
         
         it = node.find(CurveAnimationType::Y_ROTATE);
         if(it!= node.end())
-            rot.y = it->second.evaluate(time);
+            rot.y = it->second.evaluate(time) * Deg2Radian;
         
         it = node.find( CurveAnimationType::Z_ROTATE);
         if(it!= node.end())
-            rot.z = it->second.evaluate(time);
+            rot.z = it->second.evaluate(time) * Deg2Radian;
         glm::quat rotQuat(rot);
         
         
-        glm::vec3 scale;
+        glm::vec3 scale(1,1,1);
         it = node.find( CurveAnimationType::X_SCALE);
         if(it!= node.end())
             scale.x = it->second.evaluate(time);

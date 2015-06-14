@@ -13,30 +13,120 @@
 #include "Mesh.hpp"
 #include <glm/glm.hpp>
 #include "Animation.hpp"
+#include <queue>
+#include <algorithm>
 
 using namespace std;
+
+
+
+struct VertexBoneVec
+{
+    glm::vec3 boneIndex;
+    glm::vec3 weight;
+//    int boneIndex;
+//    float weight;
+    
+public:
+//    VertexBoneWeight() : boneIndex{0}, weight{0}
+//    {
+//    }
+    VertexBoneVec(int boneIndex1,int boneIndex2, int boneIndex3,
+                     float weight1,float weight2,float weight3) : boneIndex{boneIndex1,boneIndex2,boneIndex3}, weight{weight1,weight2,weight3}
+    {
+    }
+};
+
+struct VertexBoneWeight
+{
+    int boneIndex;
+    float weight;
+    
+public:
+    VertexBoneWeight() : boneIndex{0}, weight{0}
+    {
+    }
+    VertexBoneWeight(int boneIndex,float weight) : boneIndex{boneIndex}, weight{weight}
+    {
+    }
+};
+
+struct VertexBoneWeightComparer
+{
+    inline bool operator() (const VertexBoneWeight& struct1, const VertexBoneWeight& struct2)
+    {
+        return (struct1.weight > struct2.weight);
+    }
+};
+
+struct VertexBone
+{
+    std::vector<VertexBoneWeight> weights;
+
+    
+public:
+
+    void init(int nBones)
+    {
+        weights.resize(nBones);
+    }
+    void addWeight(int boneIndex, float weight)
+    {
+        weights.at(boneIndex) = VertexBoneWeight(boneIndex,weight);
+    }
+    void sortWeight()
+    {
+        std::sort(weights.begin(),weights.end(),VertexBoneWeightComparer());
+    }
+    
+};
 
 class SkinnedMesh : public Mesh
 {
 private:
-    vector<vector<float>> weights;
+    vector<VertexBone> weights;
+    vector<VertexBoneVec> weights2;
     vector<glm::mat4> initialPos;
+    
+    vector<float> test;
+    
     int nBones;
     Animation animation;
     
+    glm::mat4 boneTransform[10];
+    float xDelta = 0.0f;
+    
+    GLuint boneVBO;
+    GLuint testVBO;
+    
+    /** Vertex data array*/
+//	GLuint animbo;
 public:
-    SkinnedMesh() {};
+    SkinnedMesh(){
+        for(int i= 0; i < 10; i++)
+            boneTransform[i] = glm::mat4();
+        xDelta = 6;
+    };
+
     virtual ~SkinnedMesh() {};
     
     
     void setNBones(int nBones);
     int getNBones();
     
-    void setVerticesWeight(vector<vector<float>> weights);
+    GLuint getTestVBO();
+    GLuint getBonesVBO();
+    
+    void setVerticesWeight(vector<VertexBone> weights);
     void setInitialPosition(vector<glm::mat4> initialPos);
 
     
     void setAnimation(Animation animation);
+    
+//    GLuint getSkelArrayID() {return animbo;}
+    
+    void tickDelta();
+    glm::mat4* getDeltaPos();
     
 };
 

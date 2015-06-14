@@ -78,8 +78,9 @@ public:
 	bool  setUniform4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value);
 	bool  setUniform3fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value);
 	bool  setUniform1f(const GLuint& shaderProgram, const GLchar* uniformName, GLfloat value);
+    	bool  setUniform1i(const GLuint& shaderProgram, const GLchar* uniformName, GLint value);
 	bool  setUniformMatrix4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLboolean transpose, GLfloat* value);
-	
+	bool setUniform1fv(const GLuint& shaderProgram, const GLchar* uniformName,int vertexSize, GLfloat* vertex);
 };
 
 #endif // GLFWGRAPHICSYSTEM_H

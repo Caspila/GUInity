@@ -21,6 +21,7 @@
 #include "AssetDatabase.hpp"
 #include "Texture.hpp"
 #include "Time.hpp"
+#include "SkinnedMesh.hpp"
 
 /** Initialize the system, create the window and such*/
 int GLFWGraphicsSystem::init(int width, int height)
@@ -223,8 +224,9 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         float ambientLight = 0.1f;
         glm::vec3 ambientLightColor(1.0, 1.0, 1.0);
 
-		setUniform3fv(shaderProgram, "ambientLightColor", 1, &ambientLightColor[0]);
+		setUniform3fv(shaderProgram, "ambientLightColor", 1, glm::value_ptr(ambientLightColor));
 		setUniform1f(shaderProgram, "ambientLightIntensity", ambientLight);
+
 
 
 		setUniformMatrix4fv(shaderProgram, "camera", 1, GL_FALSE, &camera->getMVPMatrix()[0][0]);
@@ -258,19 +260,14 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 		for (auto& stringVec4Pair : stringVec4Pairs)
 		{
 			setUniform4fv(shaderProgram, stringVec4Pair.first.c_str(), 1, &stringVec4Pair.second[0]);
-			//glUniform4fv(getUniformLocation(shaderProgram, stringVec4Pair.first.c_str()), 1, &stringVec4Pair.second[0]);
 		}
         vector<Material::StringVec2Pair> stringVec2Pairs = meshRenderer->getMaterial()->getAllVec2Params();
 		for (auto& stringVec2Pair : stringVec2Pairs)
 		{
 			setUniform2fv(shaderProgram, stringVec2Pair.first.c_str(), 1, &stringVec2Pair.second[0]);
-			//glUniform4fv(getUniformLocation(shaderProgram, stringVec4Pair.first.c_str()), 1, &stringVec4Pair.second[0]);
+
 		}
         
-//        
-//         cout << "Set shader data:" <<       Time::stopwatchEnd() << endl;
-        
-//                        Time::stopwatchStart();
         
 		glBindVertexArray(meshComponent->getMesh()->getVertexArrayID());
 
@@ -292,7 +289,74 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         glEnableVertexAttribArray(3);
         glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginUV));
         
-		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshComponent->getMesh()->getTrianglesBuffer());
+		
+        shared_ptr<SkinnedMesh> skinnedMesh = dynamic_pointer_cast<SkinnedMesh>(meshRenderer->getMeshComponent()->getMesh());
+        
+        
+        if(skinnedMesh)
+        {
+            setUniform1i(shaderProgram, "nBones", 1);
+            
+            GLenum error =glGetError() ;
+            if ( error != GL_NO_ERROR )
+                std::cout <<  error << "Pre-existing error" << std::endl;
+            
+            
+            glBindBuffer(GL_ARRAY_BUFFER, skinnedMesh->getBonesVBO());
+            
+            error =glGetError() ;
+            if ( error != GL_NO_ERROR )
+                std::cout <<  error << "Pre-existing error" << std::endl;
+            
+            glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(VertexBoneVec), (void*)(0));
+            
+            error =glGetError() ;
+            if ( error != GL_NO_ERROR )
+                std::cout <<  error << "Pre-existing error" << std::endl;
+            
+            // Bone weights
+            glEnableVertexAttribArray(4);
+            
+            error =glGetError() ;
+            if ( error != GL_NO_ERROR )
+                std::cout <<  error << "Pre-existing error" << std::endl;
+            
+            
+            glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, sizeof(VertexBoneVec), (void*)(sizeof(glm::vec3)));
+            
+            error =glGetError() ;
+            if ( error != GL_NO_ERROR )
+                std::cout <<  error << "Pre-existing error" << std::endl;
+            
+            // Bone weights
+            glEnableVertexAttribArray(5);
+            
+            error =glGetError() ;
+            if ( error != GL_NO_ERROR )
+                std::cout <<  error << "Pre-existing error" << std::endl;
+            
+       
+//            glEnableVertexAttribArray(4);
+//            glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginUV));
+            
+
+
+            
+            error =glGetError() ;
+            if ( error != GL_NO_ERROR )
+                std::cout <<  error << "Pre-existing error" << std::endl;
+            
+            setUniformMatrix4fv(shaderProgram, "boneTransform",10,GL_FALSE, glm::value_ptr(skinnedMesh->getDeltaPos()[0]));
+        }
+        else
+        {
+           setUniform1i(shaderProgram, "nBones", 0);
+        }
+        
+        
+//        		setUniformMatrix4fv(shaderProgram, "camera", 1, GL_FALSE, &camera->getMVPMatrix()[0][0]);
+        
+        glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshComponent->getMesh()->getTrianglesBuffer());
 
         // draw points 0-3 from the currently bound VAO with current in-use shader
 		glDrawElements(GL_TRIANGLES, meshComponent->getMesh()->getTrianglesCount(), GL_UNSIGNED_SHORT, NULL);
@@ -300,6 +364,12 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(2);
         glDisableVertexAttribArray(3);
+        glDisableVertexAttribArray(4);
+        glDisableVertexAttribArray(5);
+        
+        GLenum error =glGetError() ;
+        if ( error != GL_NO_ERROR )
+            std::cout <<  error << "Pre-existing error" << std::endl;
 
 //           cout << "Set attribs:" <<       Time::stopwatchEnd() << endl;
 
@@ -512,15 +582,42 @@ bool  GLFWGraphicsSystem::setUniform1f(const GLuint& shaderProgram, const GLchar
 	return false;
 }
 
+bool  GLFWGraphicsSystem::setUniform1fv(const GLuint& shaderProgram, const GLchar* uniformName,int vertexSize, GLfloat* vertex)
+{
+	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
+    
+	if (uniformLocation != -1)
+	{
+		glUniform1fv(uniformLocation,vertexSize, &vertex[0]);
+		return true;
+	}
+    
+	return false;
+}
+
 bool  GLFWGraphicsSystem::setUniformMatrix4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLboolean transpose, GLfloat* value)
 {
 	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
 
 	if (uniformLocation != -1)
 	{
-		glUniformMatrix4fv(uniformLocation, 1, transpose, value);
+		glUniformMatrix4fv(uniformLocation, count, transpose, value);
 		return true;
 	}
 
+	return false;
+}
+
+
+bool  GLFWGraphicsSystem::setUniform1i(const GLuint& shaderProgram, const GLchar* uniformName, GLint value)
+{
+	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
+    
+	if (uniformLocation != -1)
+	{
+		glUniform1i(uniformLocation, value);
+		return true;
+	}
+    
 	return false;
 }

@@ -431,12 +431,12 @@ namespace boost {
             ar & editorFlag;
             ar & actor.transform;
             
-            vector<std::shared_ptr<Component>> components;
-            ar & components;
-//            ar & actor.components;
+//            vector<std::shared_ptr<Component>> components;
+//            ar & components;
+            ar & actor.components;
             
 
-            actor.setComponents(components);
+//            actor.setComponents(components);
             actor.name = name;
             actor.isActive = isActive;
             actor.editorFlag = editorFlag;
@@ -489,13 +489,13 @@ namespace boost {
         template<class Archive>
         void save(Archive & ar, const Component & component, const unsigned int version)
         {
-//            ar & component.actor;
+            ar & component.actor;
             
         }
         template<class Archive>
         void load(Archive & ar,  Component & component, const unsigned int version)
         {
-//            ar & component.actor;
+            ar & component.actor;
             
             component.setCopyMode(true);
         }

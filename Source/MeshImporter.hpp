@@ -47,9 +47,9 @@ public:
     shared_ptr<SkinnedMesh
     > importFbxSkinnedMesh(FbxScene* scene,FbxMesh * meshNode);
     
-    void readFbxAnimationCurve(std::map<CurveAnimationType,AnimationCurve>& animationMap, CurveAnimationType animationType, FbxAnimCurve* fbxCurve);
+    void readFbxAnimationCurve(std::map<CurveAnimationType,AnimationCurve>& animationMap, CurveAnimationType animationType, FbxAnimCurve* fbxCurve, float initialValue);
 
-    std::map<CurveAnimationType,AnimationCurve> importFbxAnimation(FbxScene* scene, FbxNode* node);
+    std::map<CurveAnimationType,AnimationCurve> importFbxAnimation(FbxScene* scene, FbxNode* node, FbxAMatrix& initialPose);
     
 	shared_ptr<Mesh> importObjMesh(string filename);
 

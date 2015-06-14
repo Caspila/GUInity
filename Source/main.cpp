@@ -97,23 +97,37 @@ BOOST_CLASS_EXPORT_GUID(SphereColliderDescription, "SphereColliderDescription")
 BOOST_CLASS_EXPORT_GUID(CapsuleColliderDescription, "CapsuleColliderDescription")
 BOOST_CLASS_EXPORT_GUID(FontMeshDescription, "FontMeshDescription")
 
-BOOST_CLASS_EXPORT_GUID(MeshComponent, "MeshComponent")
-BOOST_CLASS_EXPORT_GUID(MeshRenderer, "MeshRenderer")
-BOOST_CLASS_EXPORT_GUID(MeshFilter, "MeshFilter")
-BOOST_CLASS_EXPORT_GUID(Component, "Component")
-BOOST_CLASS_EXPORT_GUID(Collider, "Collider")
-BOOST_CLASS_EXPORT_GUID(SphereCollider, "SphereCollider")
-BOOST_CLASS_EXPORT_GUID(BoxCollider, "BoxCollider")
-BOOST_CLASS_EXPORT_GUID(CapsuleCollider, "CapsuleCollider")
-BOOST_CLASS_EXPORT_GUID(Camera, "Camera")
-BOOST_CLASS_EXPORT_GUID(FontMesh, "FontMesh")
-BOOST_CLASS_EXPORT_GUID(Light, "Light")
-BOOST_CLASS_EXPORT_GUID(ScriptComponent, "ScriptComponent")
-BOOST_CLASS_EXPORT_GUID(RigidBody, "RigidBody")
-BOOST_CLASS_EXPORT_GUID(RigidStatic, "RigidStatic")
+//BOOST_CLASS_EXPORT_GUID(MeshComponent, "MeshComponent")
+//BOOST_CLASS_EXPORT_GUID(MeshRenderer, "MeshRenderer")
+//BOOST_CLASS_EXPORT_GUID(MeshFilter, "MeshFilter")
+//BOOST_CLASS_EXPORT_GUID(Component, "Component")
+//BOOST_CLASS_EXPORT_GUID(Collider, "Collider")
+//BOOST_CLASS_EXPORT_GUID(SphereCollider, "SphereCollider")
+//BOOST_CLASS_EXPORT_GUID(BoxCollider, "BoxCollider")
+//BOOST_CLASS_EXPORT_GUID(CapsuleCollider, "CapsuleCollider")
+//BOOST_CLASS_EXPORT_GUID(Camera, "Camera")
+//BOOST_CLASS_EXPORT_GUID(FontMesh, "FontMesh")
+//BOOST_CLASS_EXPORT_GUID(Light, "Light")
+//BOOST_CLASS_EXPORT_GUID(ScriptComponent, "ScriptComponent")
+//BOOST_CLASS_EXPORT_GUID(RigidBody, "RigidBody")
+//BOOST_CLASS_EXPORT_GUID(RigidStatic, "RigidStatic")
 
-
-
+BOOST_SHARED_POINTER_EXPORT_GUID(RigidStatic,"RigidStatic")
+BOOST_SHARED_POINTER_EXPORT_GUID(MeshComponent, "MeshComponent")
+BOOST_SHARED_POINTER_EXPORT_GUID(MeshRenderer, "MeshRenderer")
+BOOST_SHARED_POINTER_EXPORT_GUID(MeshFilter, "MeshFilter")
+BOOST_SHARED_POINTER_EXPORT_GUID(Component, "Component")
+BOOST_SHARED_POINTER_EXPORT_GUID(Collider, "Collider")
+BOOST_SHARED_POINTER_EXPORT_GUID(SphereCollider, "SphereCollider")
+BOOST_SHARED_POINTER_EXPORT_GUID(BoxCollider, "BoxCollider")
+BOOST_SHARED_POINTER_EXPORT_GUID(CapsuleCollider, "CapsuleCollider")
+BOOST_SHARED_POINTER_EXPORT_GUID(Camera, "Camera")
+BOOST_SHARED_POINTER_EXPORT_GUID(FontMesh, "FontMesh")
+BOOST_SHARED_POINTER_EXPORT_GUID(Light, "Light")
+BOOST_SHARED_POINTER_EXPORT_GUID(ScriptComponent, "ScriptComponent")
+BOOST_SHARED_POINTER_EXPORT_GUID(RigidBody, "RigidBody")
+BOOST_SHARED_POINTER_EXPORT_GUID(Actor, "Actor")
+BOOST_SHARED_POINTER_EXPORT_GUID(Transform, "Transform")
 
 //#define _GLFW_USE_MENUBAR
 //#include "mainwindow.h"
@@ -288,7 +302,9 @@ int main(int argc, char *argv[]) {
     
     shared_ptr<Texture> spaceShipTexture = AssetDatabase::getAsset<Texture>("sh3.png");
     shared_ptr<Texture> spaceBKGTexture = AssetDatabase::getAsset<Texture>("star-space-tile.png");
+
     
+        shared_ptr<Mesh> cubeAnim =  AssetDatabase::getAsset<Mesh>("cubeSkel_Anim.fbx");
     
     //    vector<glm::vec3> fbxNonDup = fbxMesh->getNonDuplicateMeshVertex();
     //
@@ -367,7 +383,7 @@ int main(int argc, char *argv[]) {
         
         shared_ptr<Actor> spaceShipRoot = Factory::CreateActor("SpaceShipRoot");// , meshRenderer1);
         shared_ptr<MeshFilter> meshFilter = spaceShipRoot->AddComponent<MeshFilter>();
-        meshFilter->setMesh(spaceShipMesh);
+        meshFilter->setMesh(cubeAnim);
         shared_ptr<MeshRenderer> meshRenderer = spaceShipRoot->AddComponent<MeshRenderer>();
         meshRenderer->setMaterial(spaceShipMaterial);
         spaceShipRoot->AddComponent<RigidBody>();

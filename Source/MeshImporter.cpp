@@ -6,6 +6,7 @@
 #include <glm/gtx/spline.hpp>
 #include <interpolation.h>
 #include "Animation.hpp"
+#include "SkinnedMesh.hpp"
 
 using namespace alglib;
 
@@ -182,7 +183,7 @@ shared_ptr<Mesh> MeshImporter::importFbxMesh(FbxScene* scene,FbxMesh* meshNode)
 	return mesh;
 }
 
-void MeshImporter::readFbxAnimationCurve(std::map<CurveAnimationType,AnimationCurve>& animationMap, CurveAnimationType animationType, FbxAnimCurve* fbxCurve)
+void MeshImporter::readFbxAnimationCurve(std::map<CurveAnimationType,AnimationCurve>& animationMap, CurveAnimationType animationType, FbxAnimCurve* fbxCurve, float initialValue)
 {
     if(!fbxCurve)
         return;
@@ -204,7 +205,7 @@ void MeshImporter::readFbxAnimationCurve(std::map<CurveAnimationType,AnimationCu
         
         time.GetTime(pHour, pMinute, pSecond, pFrame, pField, pResidual);
         
-        animationCurve.addNewKeyFrame(glm::vec2(pFrame,curveKey.GetValue()));
+        animationCurve.addNewKeyFrame(glm::vec2(pFrame,curveKey.GetValue() - initialValue));
         
         //                cout << "frameRate:"<< frameRate << endl;
         //                cout << "Frame:"<< pFrame << endl;
@@ -218,7 +219,7 @@ void MeshImporter::readFbxAnimationCurve(std::map<CurveAnimationType,AnimationCu
     
 }
 
-std::map<CurveAnimationType,AnimationCurve> MeshImporter::importFbxAnimation(FbxScene* scene, FbxNode* node)
+std::map<CurveAnimationType,AnimationCurve> MeshImporter::importFbxAnimation(FbxScene* scene, FbxNode* node, FbxAMatrix& initialPose)
 {
     std::map<CurveAnimationType,AnimationCurve> animationMap;
     
@@ -235,36 +236,39 @@ std::map<CurveAnimationType,AnimationCurve> MeshImporter::importFbxAnimation(Fbx
             FbxAnimLayer* animLayer =
             FbxCast<FbxAnimLayer>(animStackNode->GetMember(FbxCriteria::ObjectType(FbxAnimLayer::ClassId), i));
             
+            FbxVector4 initialPos = initialPose.GetT();
+            
             FbxAnimCurve* animCurve = node->LclTranslation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_X);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::X_MOVE, animCurve);
+            readFbxAnimationCurve(animationMap, CurveAnimationType::X_MOVE, animCurve,initialPos[0]);
             
 
             animCurve = node->LclTranslation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Y);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::Y_MOVE, animCurve);
+            readFbxAnimationCurve(animationMap, CurveAnimationType::Y_MOVE, animCurve,initialPos[1]);
 
             animCurve = node->LclTranslation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Z);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::Z_MOVE, animCurve);
+            readFbxAnimationCurve(animationMap, CurveAnimationType::Z_MOVE, animCurve,initialPos[2]);
 
+            FbxVector4 initialRot = initialPose.GetR();
             
              animCurve = node->LclRotation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_X);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::X_ROTATE, animCurve);
+            readFbxAnimationCurve(animationMap, CurveAnimationType::X_ROTATE, animCurve,initialRot[0]);
 
              animCurve = node->LclRotation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Y);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::Y_ROTATE, animCurve);
+            readFbxAnimationCurve(animationMap, CurveAnimationType::Y_ROTATE, animCurve,initialRot[1]);
             
              animCurve = node->LclRotation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Z);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::Z_ROTATE, animCurve);
+            readFbxAnimationCurve(animationMap, CurveAnimationType::Z_ROTATE, animCurve,initialRot[2]);
 
-            
+            FbxVector4 initialScale = initialPose.GetS();
             
               animCurve = node->LclScaling.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_X);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::X_SCALE, animCurve);
+            readFbxAnimationCurve(animationMap, CurveAnimationType::X_SCALE, animCurve,initialScale[0]);
             
               animCurve = node->LclScaling.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Y);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::Y_SCALE, animCurve);
+            readFbxAnimationCurve(animationMap, CurveAnimationType::Y_SCALE, animCurve,initialScale[1]);
             
               animCurve = node->LclScaling.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Z);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::Z_SCALE, animCurve);
+            readFbxAnimationCurve(animationMap, CurveAnimationType::Z_SCALE, animCurve,initialScale[2]);
             
             
             
@@ -351,6 +355,7 @@ shared_ptr<SkinnedMesh> MeshImporter::importFbxSkinnedMesh(FbxScene* scene,FbxMe
     
     Animation animation;
     
+    int nBones = 0;
     for(int i = 0 ; i < deformerCount ; i ++)
     {
         FbxDeformer* deformer = meshNode->GetDeformer(i);
@@ -363,25 +368,34 @@ shared_ptr<SkinnedMesh> MeshImporter::importFbxSkinnedMesh(FbxScene* scene,FbxMe
             
             
             int clusterCount = skin->GetClusterCount();
+            nBones = clusterCount;
             
-            vector<vector<float>> verticesWeights(vertices.size(),vector<float>(clusterCount));
+            
+            vector<VertexBone> verticesWeights(vertices.size());
+            for(int j = 0; j < vertices.size(); j++)
+            {
+                verticesWeights.at(j).init(nBones);
+            }
+//            vector<vector<float>> verticesWeights(vertices.size(),vector<float>(clusterCount));
             
             
             for(int j = 0; j < clusterCount; j++)
             {
                 FbxCluster* cluster = skin->GetCluster(j);
                 
-                
-                animation.addAnimationCurveNode(importFbxAnimation(scene,cluster->GetLink()));
-                
                 FbxAMatrix matrix;
-                cluster->GetTransformMatrix(matrix);
                 cluster->GetTransformLinkMatrix(matrix);
                 
                 glm::mat4 glmMat;
                 fbxMat4ToglmMat4(matrix, glmMat);
                 
                 initialPose.push_back(glmMat);
+
+                
+                
+                animation.addAnimationCurveNode(importFbxAnimation(scene,cluster->GetLink(),matrix));
+                
+                
                 
                 int* controlPoints = cluster->GetControlPointIndices();
                 double *weights = cluster->GetControlPointWeights();
@@ -389,21 +403,27 @@ shared_ptr<SkinnedMesh> MeshImporter::importFbxSkinnedMesh(FbxScene* scene,FbxMe
                 {
                     for(auto &x:  originalVertexToNewVertex[controlPoints[clusterIndex]])
                     {
-                        verticesWeights.at(x).at(j) = weights[clusterIndex];
+                        verticesWeights.at(x).addWeight(j, weights[clusterIndex]);
+//                        verticesWeights.at(x).addWeight(j, 1);
+//                        verticesWeights.at(x).at(j) = weights[clusterIndex];
                         
                     }
                     
-                    
-//                    cout << cluster->GetLink()->GetNameOnly()<< " bone: " << j << " Vertex: " <<controlPoints[clusterIndex] << " weight: " << weights[clusterIndex] << endl;
-                    
                 }
                 
+                
+            }
+            for(int j = 0; j < vertices.size(); j++)
+            {
+                verticesWeights.at(j).sortWeight();
             }
             
+            skinnedMesh->setNBones(nBones);
             skinnedMesh->setVerticesWeight(verticesWeights);
         }
     }
     skinnedMesh->setInitialPosition(initialPose);
+
     skinnedMesh->setAnimation(animation);
     
     skinnedMesh->createBuffers();
