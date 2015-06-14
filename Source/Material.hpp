@@ -32,8 +32,11 @@ class Material : public Asset
 private:
 	/** The Shader */
 	shared_ptr<Shader> shader;
-	/** The Shader parameters for this material */
+	/** The Shader parameters for this Material */
 	map<string, Holder> params;
+    
+    /** Number of texture parameters of this Material */
+    int nTextureParams;
     
 public:
 	/** Default Constructor */
@@ -92,15 +95,26 @@ public:
 	typedef pair<string, glm::vec4> StringVec4Pair;
    	typedef pair<string, glm::vec2> StringVec2Pair;
     
+    
+    /** nTextures Getter
+     @return The number of Texture parameters of this Material
+     */
+    int getNTextureParams() const;
+    
+    /** params Getter
+     @return Map of all the parameters 
+     */
+    const map<string,Holder>& getAllParams()const ;
+    
 	/** Gets all Texture params
      @return a vector with all the parameters of the Material that are of the type Texture
      */
 	vector<StringTexPair> getAllTextureParams();
-	/** Gets all Texture params
+	/** Gets all vec4 params
      @return a vector with all the parameters of the Material that are of the type vec4
      */
 	vector<StringVec4Pair> getAllVec4Params();
-	/** Gets all Texture params
+	/** Gets all vec2 params
      @return a vector with all the parameters of the Material that are of the type vec2
      */
     vector<StringVec2Pair> getAllVec2Params();

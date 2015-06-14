@@ -1,0 +1,69 @@
+\hypertarget{class_mesh_filter}{}\section{Mesh\+Filter Class Reference}
+\label{class_mesh_filter}\index{Mesh\+Filter@{Mesh\+Filter}}
+
+
+{\ttfamily \#include $<$Mesh\+Filter.\+hpp$>$}
+
+Inheritance diagram for Mesh\+Filter\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_mesh_filter}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_mesh_filter_aad0010eab8429ee8a574f6c1d57126e6}{Mesh\+Filter} ()
+\item 
+virtual \hyperlink{class_mesh_filter_a8ffe38518dd8010150201f70789048b4}{$\sim$\+Mesh\+Filter} ()
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component}{Component} $>$ \hyperlink{class_mesh_filter_a6645cf7989fad04e40096955296b96a2}{clone} () override
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ \hyperlink{group__serialization__functions_ga3f175929ed6c3d53b330eca5de9c5a13}{get\+Component\+Description} () override
+\item 
+virtual void \hyperlink{group__serialization__functions_gae0449262f3398c229e95911f69930acb}{deserialize} (shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ desc) override
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_mesh_filter}{Mesh\+Filter} makes reference to a \hyperlink{class_mesh}{Mesh}. It\textquotesingle{}s used in combination with \hyperlink{class_mesh_renderer}{Mesh\+Renderer} to render a \hyperlink{class_mesh}{Mesh} on screen 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_mesh_filter_aad0010eab8429ee8a574f6c1d57126e6}{}\index{Mesh\+Filter@{Mesh\+Filter}!Mesh\+Filter@{Mesh\+Filter}}
+\index{Mesh\+Filter@{Mesh\+Filter}!Mesh\+Filter@{Mesh\+Filter}}
+\subsubsection[{Mesh\+Filter()}]{\setlength{\rightskip}{0pt plus 5cm}Mesh\+Filter\+::\+Mesh\+Filter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_filter_aad0010eab8429ee8a574f6c1d57126e6}
+Default Constructor \hypertarget{class_mesh_filter_a8ffe38518dd8010150201f70789048b4}{}\index{Mesh\+Filter@{Mesh\+Filter}!````~Mesh\+Filter@{$\sim$\+Mesh\+Filter}}
+\index{````~Mesh\+Filter@{$\sim$\+Mesh\+Filter}!Mesh\+Filter@{Mesh\+Filter}}
+\subsubsection[{$\sim$\+Mesh\+Filter()}]{\setlength{\rightskip}{0pt plus 5cm}Mesh\+Filter\+::$\sim$\+Mesh\+Filter (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_mesh_filter_a8ffe38518dd8010150201f70789048b4}
+Default Destructor. Virtual because it\textquotesingle{}s child class. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_mesh_filter_a6645cf7989fad04e40096955296b96a2}{}\index{Mesh\+Filter@{Mesh\+Filter}!clone@{clone}}
+\index{clone@{clone}!Mesh\+Filter@{Mesh\+Filter}}
+\subsubsection[{clone() override}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Component} $>$ Mesh\+Filter\+::clone (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_mesh_filter_a6645cf7989fad04e40096955296b96a2}
+Clones current component (Prototype Design Pattern) \begin{DoxyReturn}{Returns}
+shared\+\_\+ptr to cloned \hyperlink{class_mesh_filter}{Mesh\+Filter} \hyperlink{class_component}{Component} 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_mesh_component_ace2f1acdce65f1c37b56a5b3ef507e8d}{Mesh\+Component}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Mesh\+Filter.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Mesh\+Filter.\+cpp\end{DoxyCompactItemize}

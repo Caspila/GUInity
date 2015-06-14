@@ -84,7 +84,7 @@ shared_ptr<Actor> Factory::CreateActor(string name)
 
     notify(ActorEventType::NewActor, actor, false);
     
-//    CreateReferenceActor(actor);
+    CreateReferenceActor(actor);
     
 	return actor;
 }

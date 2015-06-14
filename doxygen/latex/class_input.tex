@@ -1,0 +1,168 @@
+\hypertarget{class_input}{}\section{Input Class Reference}
+\label{class_input}\index{Input@{Input}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_input_a4bb10af47f86a631e374d4a5d01366b4}{Input} (shared\+\_\+ptr$<$ G\+L\+F\+Wwindow $>$ w)
+\item 
+\hyperlink{class_input_af2db35ba67c8a8ccd23bef6a482fc291}{$\sim$\+Input} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \hyperlink{class_input_ab424be0c858611fbd1b36f7caf80f508}{get\+Key\+Pressed} (int key\+Code)
+\item 
+static bool \hyperlink{class_input_a4e14edb60b254707ca85b8d1b3f1e11c}{get\+Key\+Released} (int key\+Code)
+\item 
+static bool \hyperlink{class_input_a60956e1f7f561d18ac47bb192d669b67}{get\+Key} (int key\+Code)
+\item 
+static bool \hyperlink{class_input_aecdf0f7a65f5a57d55083673a437fce6}{get\+Mouse\+Button\+Pressed} (int key\+Code)
+\item 
+static bool \hyperlink{class_input_a00cede6f344f2c2594428fb51534f200}{get\+Mouse\+Button\+Released} (int key\+Code)
+\item 
+static bool \hyperlink{class_input_a18f4658d9875dd010fad6ba27c79e6db}{get\+Mouse\+Button} (int key\+Code)
+\item 
+static void \hyperlink{class_input_a7a7a5adb33a1570559f5cbe173eab4c2}{update\+Input\+State} ()
+\item 
+static shared\+\_\+ptr$<$ G\+L\+F\+Wwindow $>$ \hyperlink{class_input_ae778fda97d821417705d50d584c9a885}{get\+Window} ()
+\item 
+static void \hyperlink{class_input_a713c105c3e6479947f12c018d1dec7be}{set\+Window} (shared\+\_\+ptr$<$ G\+L\+F\+Wwindow $>$ window)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static std\+::array$<$ int, n\+Keys $>$ \hyperlink{class_input_ad6f01906250d4f81f5d75ec3adfef210}{old\+Keyboard\+Input\+State} = \{ 0 \}
+\item 
+static std\+::array$<$ int, n\+Keys $>$ \hyperlink{class_input_a97eec171d280642b3a52c296503c2664}{keyboard\+Input\+State} = \{ 0 \}
+\item 
+static std\+::array$<$ int, n\+Mouse\+Buttons $>$ \hyperlink{class_input_a3b5a18a878d9c36cf3f27b30cfb1fce4}{old\+Mouse\+Input\+State} = \{ 0 \}
+\item 
+static std\+::array$<$ int, n\+Mouse\+Buttons $>$ \hyperlink{class_input_afd2b6ea6a62a21bb5af4d5d7688b9509}{mouse\+Input\+State} = \{ 0 \}
+\item 
+static glm\+::vec2 \hyperlink{class_input_a43c2217c224a48ff3af89ee9e284df69}{last\+Mouse\+Pos}
+\item 
+static glm\+::vec2 \hyperlink{class_input_a8a4e33aea3c586f5f327c51aed20e33e}{mouse\+Pos}
+\item 
+static glm\+::vec2 \hyperlink{class_input_ab86bb9716a4ac0ca353eade82c20cf7f}{mouse\+Delta}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_input_a4bb10af47f86a631e374d4a5d01366b4}{}\index{Input@{Input}!Input@{Input}}
+\index{Input@{Input}!Input@{Input}}
+\subsubsection[{Input(shared\+\_\+ptr$<$ G\+L\+F\+Wwindow $>$ w)}]{\setlength{\rightskip}{0pt plus 5cm}Input\+::\+Input (
+\begin{DoxyParamCaption}
+\item[{shared\+\_\+ptr$<$ G\+L\+F\+Wwindow $>$}]{w}
+\end{DoxyParamCaption}
+)}\label{class_input_a4bb10af47f86a631e374d4a5d01366b4}
+Constructor for a window handle \hypertarget{class_input_af2db35ba67c8a8ccd23bef6a482fc291}{}\index{Input@{Input}!````~Input@{$\sim$\+Input}}
+\index{````~Input@{$\sim$\+Input}!Input@{Input}}
+\subsubsection[{$\sim$\+Input()}]{\setlength{\rightskip}{0pt plus 5cm}Input\+::$\sim$\+Input (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_input_af2db35ba67c8a8ccd23bef6a482fc291}
+Default destructor 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_input_a60956e1f7f561d18ac47bb192d669b67}{}\index{Input@{Input}!get\+Key@{get\+Key}}
+\index{get\+Key@{get\+Key}!Input@{Input}}
+\subsubsection[{get\+Key(int key\+Code)}]{\setlength{\rightskip}{0pt plus 5cm}bool Input\+::get\+Key (
+\begin{DoxyParamCaption}
+\item[{int}]{key\+Code}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_a60956e1f7f561d18ac47bb192d669b67}
+Returns true if the key I\+S pressed (every frame that the key is pressed) \hypertarget{class_input_ab424be0c858611fbd1b36f7caf80f508}{}\index{Input@{Input}!get\+Key\+Pressed@{get\+Key\+Pressed}}
+\index{get\+Key\+Pressed@{get\+Key\+Pressed}!Input@{Input}}
+\subsubsection[{get\+Key\+Pressed(int key\+Code)}]{\setlength{\rightskip}{0pt plus 5cm}bool Input\+::get\+Key\+Pressed (
+\begin{DoxyParamCaption}
+\item[{int}]{key\+Code}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_ab424be0c858611fbd1b36f7caf80f508}
+Returns true if the key was pressed (1st frame only) \hypertarget{class_input_a4e14edb60b254707ca85b8d1b3f1e11c}{}\index{Input@{Input}!get\+Key\+Released@{get\+Key\+Released}}
+\index{get\+Key\+Released@{get\+Key\+Released}!Input@{Input}}
+\subsubsection[{get\+Key\+Released(int key\+Code)}]{\setlength{\rightskip}{0pt plus 5cm}bool Input\+::get\+Key\+Released (
+\begin{DoxyParamCaption}
+\item[{int}]{key\+Code}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_a4e14edb60b254707ca85b8d1b3f1e11c}
+Returns true if the key was pressed (release frame only) \hypertarget{class_input_a18f4658d9875dd010fad6ba27c79e6db}{}\index{Input@{Input}!get\+Mouse\+Button@{get\+Mouse\+Button}}
+\index{get\+Mouse\+Button@{get\+Mouse\+Button}!Input@{Input}}
+\subsubsection[{get\+Mouse\+Button(int key\+Code)}]{\setlength{\rightskip}{0pt plus 5cm}bool Input\+::get\+Mouse\+Button (
+\begin{DoxyParamCaption}
+\item[{int}]{key\+Code}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_a18f4658d9875dd010fad6ba27c79e6db}
+Returns true if the mouse button I\+S pressed (every frame that the mouse button is pressed) \hypertarget{class_input_aecdf0f7a65f5a57d55083673a437fce6}{}\index{Input@{Input}!get\+Mouse\+Button\+Pressed@{get\+Mouse\+Button\+Pressed}}
+\index{get\+Mouse\+Button\+Pressed@{get\+Mouse\+Button\+Pressed}!Input@{Input}}
+\subsubsection[{get\+Mouse\+Button\+Pressed(int key\+Code)}]{\setlength{\rightskip}{0pt plus 5cm}bool Input\+::get\+Mouse\+Button\+Pressed (
+\begin{DoxyParamCaption}
+\item[{int}]{key\+Code}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_aecdf0f7a65f5a57d55083673a437fce6}
+Returns true if the mouse button was pressed (1st frame only) \hypertarget{class_input_a00cede6f344f2c2594428fb51534f200}{}\index{Input@{Input}!get\+Mouse\+Button\+Released@{get\+Mouse\+Button\+Released}}
+\index{get\+Mouse\+Button\+Released@{get\+Mouse\+Button\+Released}!Input@{Input}}
+\subsubsection[{get\+Mouse\+Button\+Released(int key\+Code)}]{\setlength{\rightskip}{0pt plus 5cm}bool Input\+::get\+Mouse\+Button\+Released (
+\begin{DoxyParamCaption}
+\item[{int}]{key\+Code}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_a00cede6f344f2c2594428fb51534f200}
+Returns true if the mouse button was pressed (release frame only) \hypertarget{class_input_ae778fda97d821417705d50d584c9a885}{}\index{Input@{Input}!get\+Window@{get\+Window}}
+\index{get\+Window@{get\+Window}!Input@{Input}}
+\subsubsection[{get\+Window()}]{\setlength{\rightskip}{0pt plus 5cm}static shared\+\_\+ptr$<$G\+L\+F\+Wwindow$>$ Input\+::get\+Window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_ae778fda97d821417705d50d584c9a885}
+window getter \hypertarget{class_input_a713c105c3e6479947f12c018d1dec7be}{}\index{Input@{Input}!set\+Window@{set\+Window}}
+\index{set\+Window@{set\+Window}!Input@{Input}}
+\subsubsection[{set\+Window(shared\+\_\+ptr$<$ G\+L\+F\+Wwindow $>$ window)}]{\setlength{\rightskip}{0pt plus 5cm}static void Input\+::set\+Window (
+\begin{DoxyParamCaption}
+\item[{shared\+\_\+ptr$<$ G\+L\+F\+Wwindow $>$}]{window}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_a713c105c3e6479947f12c018d1dec7be}
+window setter \hypertarget{class_input_a7a7a5adb33a1570559f5cbe173eab4c2}{}\index{Input@{Input}!update\+Input\+State@{update\+Input\+State}}
+\index{update\+Input\+State@{update\+Input\+State}!Input@{Input}}
+\subsubsection[{update\+Input\+State()}]{\setlength{\rightskip}{0pt plus 5cm}void Input\+::update\+Input\+State (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_a7a7a5adb33a1570559f5cbe173eab4c2}
+Updates the state of input. Swaps the old/new and gets the new input state Uses move to prevend copying arrays
+
+Get updated value from G\+L\+F\+W for keyboard state
+
+Uses move to prevend copying arrays
+
+Get updated value from G\+L\+F\+W for mouse state
+
+Updates mouse position 
+
+\subsection{Member Data Documentation}
+\hypertarget{class_input_a97eec171d280642b3a52c296503c2664}{}\index{Input@{Input}!keyboard\+Input\+State@{keyboard\+Input\+State}}
+\index{keyboard\+Input\+State@{keyboard\+Input\+State}!Input@{Input}}
+\subsubsection[{keyboard\+Input\+State}]{\setlength{\rightskip}{0pt plus 5cm}std\+::array$<$ int, Input\+::n\+Keys $>$ Input\+::keyboard\+Input\+State = \{ 0 \}\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_a97eec171d280642b3a52c296503c2664}
+Keyboard state of all keyboard keys on current frame \hypertarget{class_input_a43c2217c224a48ff3af89ee9e284df69}{}\index{Input@{Input}!last\+Mouse\+Pos@{last\+Mouse\+Pos}}
+\index{last\+Mouse\+Pos@{last\+Mouse\+Pos}!Input@{Input}}
+\subsubsection[{last\+Mouse\+Pos}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::vec2 Input\+::last\+Mouse\+Pos\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_a43c2217c224a48ff3af89ee9e284df69}
+Last mouse position x,y on screen \hypertarget{class_input_ab86bb9716a4ac0ca353eade82c20cf7f}{}\index{Input@{Input}!mouse\+Delta@{mouse\+Delta}}
+\index{mouse\+Delta@{mouse\+Delta}!Input@{Input}}
+\subsubsection[{mouse\+Delta}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::vec2 Input\+::mouse\+Delta\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_ab86bb9716a4ac0ca353eade82c20cf7f}
+Mouse position delta, x,y on screen \hypertarget{class_input_afd2b6ea6a62a21bb5af4d5d7688b9509}{}\index{Input@{Input}!mouse\+Input\+State@{mouse\+Input\+State}}
+\index{mouse\+Input\+State@{mouse\+Input\+State}!Input@{Input}}
+\subsubsection[{mouse\+Input\+State}]{\setlength{\rightskip}{0pt plus 5cm}std\+::array$<$ int, Input\+::n\+Mouse\+Buttons $>$ Input\+::mouse\+Input\+State = \{ 0 \}\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_afd2b6ea6a62a21bb5af4d5d7688b9509}
+Keyboard state of all mouse buttons on current frame \hypertarget{class_input_a8a4e33aea3c586f5f327c51aed20e33e}{}\index{Input@{Input}!mouse\+Pos@{mouse\+Pos}}
+\index{mouse\+Pos@{mouse\+Pos}!Input@{Input}}
+\subsubsection[{mouse\+Pos}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::vec2 Input\+::mouse\+Pos\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_a8a4e33aea3c586f5f327c51aed20e33e}
+Current mouse position x,y on screen \hypertarget{class_input_ad6f01906250d4f81f5d75ec3adfef210}{}\index{Input@{Input}!old\+Keyboard\+Input\+State@{old\+Keyboard\+Input\+State}}
+\index{old\+Keyboard\+Input\+State@{old\+Keyboard\+Input\+State}!Input@{Input}}
+\subsubsection[{old\+Keyboard\+Input\+State}]{\setlength{\rightskip}{0pt plus 5cm}std\+::array$<$ int, Input\+::n\+Keys $>$ Input\+::old\+Keyboard\+Input\+State = \{ 0 \}\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_ad6f01906250d4f81f5d75ec3adfef210}
+Keyboard state of all keyboard keys on last frame \hypertarget{class_input_a3b5a18a878d9c36cf3f27b30cfb1fce4}{}\index{Input@{Input}!old\+Mouse\+Input\+State@{old\+Mouse\+Input\+State}}
+\index{old\+Mouse\+Input\+State@{old\+Mouse\+Input\+State}!Input@{Input}}
+\subsubsection[{old\+Mouse\+Input\+State}]{\setlength{\rightskip}{0pt plus 5cm}std\+::array$<$ int, Input\+::n\+Mouse\+Buttons $>$ Input\+::old\+Mouse\+Input\+State = \{ 0 \}\hspace{0.3cm}{\ttfamily [static]}}\label{class_input_a3b5a18a878d9c36cf3f27b30cfb1fce4}
+Keyboard state of all mouse buttons on last frame 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Input.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Input.\+cpp\end{DoxyCompactItemize}

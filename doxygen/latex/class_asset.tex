@@ -1,0 +1,121 @@
+\hypertarget{class_asset}{}\section{Asset Class Reference}
+\label{class_asset}\index{Asset@{Asset}}
+
+
+{\ttfamily \#include $<$Asset.\+hpp$>$}
+
+Inheritance diagram for Asset\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.181818cm]{class_asset}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_asset_aae5517f0d77f2fbadaebef7a6988ec25}{Asset} ()
+\item 
+virtual \hyperlink{class_asset_a2cdb921599e4fdf8fc2e0ce5dd9266ee}{$\sim$\+Asset} ()
+\item 
+void \hyperlink{class_asset_a920b3238cad8063ca1482dfaedd95a5c}{set\+Asset\+I\+D} (unsigned int new\+Asset\+I\+D)
+\item 
+unsigned int \hyperlink{class_asset_ac5bf03127f4aa3f192efa7e0bbc80d6c}{get\+Asset\+I\+D} () const 
+\item 
+string \hyperlink{class_asset_afab04bc636b88dc6fb8735a959611cec}{get\+Path} ()
+\item 
+void \hyperlink{class_asset_a9d565be1462466aa491a2dfaeeed9c5b}{set\+Path} (string new\+Path)
+\item 
+void \hyperlink{class_asset_aa9591848b238fa4a43e2f7f8118a8fae}{set\+Name} (string name)
+\item 
+string \hyperlink{class_asset_aa550074b9d3da8e65ff3164f0cadfd4f}{get\+Name} ()
+\item 
+void \hyperlink{class_asset_a77fe2f2a76ea9c3c8ee11567079956e0}{set\+C\+R\+C} (int crc)
+\item 
+int \hyperlink{class_asset_a3accd92508b7b3df783c5eb67b88adfb}{set\+C\+R\+C} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Class \hyperlink{class_asset}{Asset}. This class represents assets in game. This can vary from textures to meshes and audio files. Virtually, everything that can be serialized to a file is an \hyperlink{class_asset}{Asset}. Currently, these are the assets\+: -\/\+Texture -\/\+Font -\/\+Audio -\/\+Mesh
+
+The idea is to simulate the Assets folder in Unity. Therefore, assets place in a folder should be loaded automatically. Each \hyperlink{class_asset}{Asset} has a C\+R\+C (checksum) to check if the file has changed or not. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_asset_aae5517f0d77f2fbadaebef7a6988ec25}{}\index{Asset@{Asset}!Asset@{Asset}}
+\index{Asset@{Asset}!Asset@{Asset}}
+\subsubsection[{Asset()}]{\setlength{\rightskip}{0pt plus 5cm}Asset\+::\+Asset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_asset_aae5517f0d77f2fbadaebef7a6988ec25}
+Default Constructor \hypertarget{class_asset_a2cdb921599e4fdf8fc2e0ce5dd9266ee}{}\index{Asset@{Asset}!````~Asset@{$\sim$\+Asset}}
+\index{````~Asset@{$\sim$\+Asset}!Asset@{Asset}}
+\subsubsection[{$\sim$\+Asset()}]{\setlength{\rightskip}{0pt plus 5cm}virtual Asset\+::$\sim$\+Asset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_asset_a2cdb921599e4fdf8fc2e0ce5dd9266ee}
+Default Destructor -\/ Virtual because it\textquotesingle{}s a parent class 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_asset_ac5bf03127f4aa3f192efa7e0bbc80d6c}{}\index{Asset@{Asset}!get\+Asset\+I\+D@{get\+Asset\+I\+D}}
+\index{get\+Asset\+I\+D@{get\+Asset\+I\+D}!Asset@{Asset}}
+\subsubsection[{get\+Asset\+I\+D() const }]{\setlength{\rightskip}{0pt plus 5cm}unsigned int Asset\+::get\+Asset\+I\+D (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const\hspace{0.3cm}{\ttfamily [inline]}}\label{class_asset_ac5bf03127f4aa3f192efa7e0bbc80d6c}
+asset\+I\+D getter \hypertarget{class_asset_aa550074b9d3da8e65ff3164f0cadfd4f}{}\index{Asset@{Asset}!get\+Name@{get\+Name}}
+\index{get\+Name@{get\+Name}!Asset@{Asset}}
+\subsubsection[{get\+Name()}]{\setlength{\rightskip}{0pt plus 5cm}string Asset\+::get\+Name (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_asset_aa550074b9d3da8e65ff3164f0cadfd4f}
+name getter \hypertarget{class_asset_afab04bc636b88dc6fb8735a959611cec}{}\index{Asset@{Asset}!get\+Path@{get\+Path}}
+\index{get\+Path@{get\+Path}!Asset@{Asset}}
+\subsubsection[{get\+Path()}]{\setlength{\rightskip}{0pt plus 5cm}string Asset\+::get\+Path (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_asset_afab04bc636b88dc6fb8735a959611cec}
+Full path getter \hypertarget{class_asset_a920b3238cad8063ca1482dfaedd95a5c}{}\index{Asset@{Asset}!set\+Asset\+I\+D@{set\+Asset\+I\+D}}
+\index{set\+Asset\+I\+D@{set\+Asset\+I\+D}!Asset@{Asset}}
+\subsubsection[{set\+Asset\+I\+D(unsigned int new\+Asset\+I\+D)}]{\setlength{\rightskip}{0pt plus 5cm}void Asset\+::set\+Asset\+I\+D (
+\begin{DoxyParamCaption}
+\item[{unsigned int}]{new\+Asset\+I\+D}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_asset_a920b3238cad8063ca1482dfaedd95a5c}
+asset\+I\+D setter \hypertarget{class_asset_a77fe2f2a76ea9c3c8ee11567079956e0}{}\index{Asset@{Asset}!set\+C\+R\+C@{set\+C\+R\+C}}
+\index{set\+C\+R\+C@{set\+C\+R\+C}!Asset@{Asset}}
+\subsubsection[{set\+C\+R\+C(int crc)}]{\setlength{\rightskip}{0pt plus 5cm}void Asset\+::set\+C\+R\+C (
+\begin{DoxyParamCaption}
+\item[{int}]{crc}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_asset_a77fe2f2a76ea9c3c8ee11567079956e0}
+C\+R\+C setter \hypertarget{class_asset_a3accd92508b7b3df783c5eb67b88adfb}{}\index{Asset@{Asset}!set\+C\+R\+C@{set\+C\+R\+C}}
+\index{set\+C\+R\+C@{set\+C\+R\+C}!Asset@{Asset}}
+\subsubsection[{set\+C\+R\+C()}]{\setlength{\rightskip}{0pt plus 5cm}int Asset\+::set\+C\+R\+C (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_asset_a3accd92508b7b3df783c5eb67b88adfb}
+C\+R\+C getter \hypertarget{class_asset_aa9591848b238fa4a43e2f7f8118a8fae}{}\index{Asset@{Asset}!set\+Name@{set\+Name}}
+\index{set\+Name@{set\+Name}!Asset@{Asset}}
+\subsubsection[{set\+Name(string name)}]{\setlength{\rightskip}{0pt plus 5cm}void Asset\+::set\+Name (
+\begin{DoxyParamCaption}
+\item[{string}]{name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_asset_aa9591848b238fa4a43e2f7f8118a8fae}
+name setter \hypertarget{class_asset_a9d565be1462466aa491a2dfaeeed9c5b}{}\index{Asset@{Asset}!set\+Path@{set\+Path}}
+\index{set\+Path@{set\+Path}!Asset@{Asset}}
+\subsubsection[{set\+Path(string new\+Path)}]{\setlength{\rightskip}{0pt plus 5cm}void Asset\+::set\+Path (
+\begin{DoxyParamCaption}
+\item[{string}]{new\+Path}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_asset_a9d565be1462466aa491a2dfaeeed9c5b}
+Full path setter 
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Asset.\+hpp\end{DoxyCompactItemize}

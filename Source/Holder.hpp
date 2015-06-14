@@ -82,15 +82,19 @@ public:
 	float getFloat() const;
 	/** returns the vec4 value
      @return The vec4 value*/
-    glm::vec2 getVec2() const;
+    const glm::vec2& getVec2() const;
 	/** returns the vec4 value
      @return The vec4 value*/
-    glm::vec4 getVec4() const;
+    const glm::vec4& getVec4() const;
 	/** returns the Texture value
      @return The Texture value*/
     shared_ptr<Texture> getTexture() const;
     
-	
+
+    /** type Getter
+     @return Parameter type
+     */
+	ShaderParamType getType() const;
     
 };
 

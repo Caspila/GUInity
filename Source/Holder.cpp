@@ -82,7 +82,7 @@ float Holder::getFloat() const {
 }
 /** returns the vec4 value
  @return The vec4 value*/
-glm::vec4 Holder::getVec4() const {
+const glm::vec4& Holder::getVec4() const {
 	if (this->type != VEC4) {
 		//throw SomeException();
 		cerr << "Trying to convert type to vec4 but it is not" << endl;
@@ -92,7 +92,7 @@ glm::vec4 Holder::getVec4() const {
 
 /** returns the vec4 value
  @return The vec4 value*/
-glm::vec2 Holder::getVec2() const {
+const glm::vec2& Holder::getVec2() const {
 	if (this->type != VEC2) {
 		//throw SomeException();
 		cerr << "Trying to convert type to vec2 but it is not" << endl;
@@ -107,4 +107,12 @@ shared_ptr<Texture> Holder::getTexture() const {
 		cerr << "Trying to convert type to texture but it is not" << endl;
 	}
 	return texValue.lock();
+}
+
+/** type Getter
+ @return Parameter type
+ */
+ShaderParamType Holder::getType() const
+{
+    return type;
 }

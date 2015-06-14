@@ -1,0 +1,289 @@
+\hypertarget{class_mesh}{}\section{Mesh Class Reference}
+\label{class_mesh}\index{Mesh@{Mesh}}
+
+
+{\ttfamily \#include $<$Mesh.\+hpp$>$}
+
+Inheritance diagram for Mesh\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_mesh}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_mesh_a2af137f1571af89172b9c102302c416b}{Mesh} ()
+\item 
+\hyperlink{class_mesh_a6001afbb24255fe880ae5d609bfb7cd2}{Mesh} (float $\ast$indices, float $\ast$normal\+Points, float $\ast$uv, unsigned int $\ast$\hyperlink{class_mesh_ad41061e78a04735d509e548141d43a49}{triangles}, int n\+Points, int n\+Triangles)
+\item 
+\hyperlink{class_mesh_a8d847ce8604fd8f6e84f97acbf481503}{Mesh} (vector$<$ \hyperlink{struct_mesh_vertex}{Mesh\+Vertex} $>$ vertex, vector$<$ unsigned short $>$ \hyperlink{class_mesh_ad41061e78a04735d509e548141d43a49}{triangles})
+\item 
+\hyperlink{class_mesh_a6cc43f6b68cf3fd6881f17ba78ab089d}{Mesh} (vector$<$ glm\+::vec3 $>$ vertices, vector$<$ int $>$ used\+Index, vector$<$ int $>$ used\+Tris)
+\item 
+virtual \hyperlink{class_mesh_a5efe4da1a4c0971cfb037bd70304c303}{$\sim$\+Mesh} ()
+\item 
+void \hyperlink{class_mesh_a97cadeaf5ef95c8a35d5eb2ded9ca73c}{set\+Scale\+Factor} (float f)
+\item 
+float \hyperlink{class_mesh_a4d70792ba5142b0d663d39443917da58}{get\+Scale\+Factor} ()
+\item 
+glm\+::vec3 \hyperlink{class_mesh_a563db5002a111f742d2939f4a432d4ef}{get\+Bounds\+Min} ()
+\item 
+glm\+::vec3 \hyperlink{class_mesh_a47a810bcf709c90d36e453af2bbe11c0}{get\+Bounds\+Max} ()
+\item 
+glm\+::vec3 \hyperlink{class_mesh_aa93bf2f2ae299b9987d083e8549c4d20}{get\+Average\+Center} ()
+\item 
+float \hyperlink{class_mesh_a891595d8aa7ca667df30d03d14dae0f3}{get\+Vertex\+Array\+I\+D} ()
+\item 
+float \hyperlink{class_mesh_a170e6001bf96cc741afe7d9425b2f440}{get\+Vertex\+Buffer} ()
+\item 
+float \hyperlink{class_mesh_a111b94c34d164c15dbe391940e0202c1}{get\+Triangles\+Buffer} ()
+\item 
+int \hyperlink{class_mesh_ae3957c15ba7d62336640b822d2c41161}{get\+Triangles\+Count} ()
+\item 
+int \hyperlink{class_mesh_a1394a088d7e4bb7a82ca1799098fe025}{get\+Vertices\+Count} ()
+\item 
+void \hyperlink{class_mesh_a571745a25511f03dfb54bb9248ebe0e9}{add\+Vertex} (glm\+::vec3 position, glm\+::vec2 uv, glm\+::vec3 normal)
+\item 
+void \hyperlink{class_mesh_a317d2916ce9675ef1b4d1b70f9ef62a6}{add\+Triangle} (int vertex\+Index)
+\item 
+\hypertarget{class_mesh_a57dd31edc88c118fddc8d60c4fe08efd}{}void {\bfseries set\+Vertices} (vector$<$ \hyperlink{struct_mesh_vertex}{Mesh\+Vertex} $>$ \hyperlink{class_mesh_a91899b71cdc960ef485b07ffcd0c0cd6}{mesh\+Vertices})\label{class_mesh_a57dd31edc88c118fddc8d60c4fe08efd}
+
+\item 
+\hypertarget{class_mesh_a30ac5bc862b6c2f6c681c586a9d5ff34}{}void {\bfseries set\+Triangles} (vector$<$ unsigned short $>$ \hyperlink{class_mesh_ad41061e78a04735d509e548141d43a49}{triangles})\label{class_mesh_a30ac5bc862b6c2f6c681c586a9d5ff34}
+
+\item 
+void \hyperlink{class_mesh_a508c26a83f4a575f3cdbba07a2118809}{create\+Buffers} ()
+\item 
+void \hyperlink{class_mesh_a2337847905aa738a21c7b2c459b30bbc}{calculate\+Bounds} ()
+\item 
+vector$<$ glm\+::vec3 $>$ \hyperlink{class_mesh_abac6433b4de282c3477631e1f00552ee}{get\+Non\+Duplicate\+Mesh\+Vertex} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+vector$<$ \hyperlink{struct_mesh_vertex}{Mesh\+Vertex} $>$ \hyperlink{class_mesh_a91899b71cdc960ef485b07ffcd0c0cd6}{mesh\+Vertices}
+\item 
+vector$<$ unsigned short $>$ \hyperlink{class_mesh_ad41061e78a04735d509e548141d43a49}{triangles}
+\item 
+G\+Luint \hyperlink{class_mesh_a101a39d88bc5c8d33f0ebd6e77a60129}{vao}
+\item 
+G\+Luint \hyperlink{class_mesh_a8fb0190a2e74648537e452031c00fb8d}{ibo}
+\item 
+G\+Luint \hyperlink{class_mesh_ab24bc96d6c0f11d570a193fc133884a7}{mvbo}
+\item 
+float \hyperlink{class_mesh_a1fc2f16522570f5e3bbed514ac322d9a}{scale\+Factor}
+\item 
+glm\+::vec3 \hyperlink{class_mesh_a0cb39dfb46a4eb89e748b7966f20e08b}{bounds\+Min}
+\item 
+glm\+::vec3 \hyperlink{class_mesh_a430e466fef8de4297fb25aa8727b52e3}{bounds\+Max}
+\item 
+glm\+::vec3 \hyperlink{class_mesh_a666f0d7350993308b29826cf94a86978}{avg\+Center}
+\end{DoxyCompactItemize}
+\subsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_mesh_ac98d07dd8f7b70e16ccb9a01abf56b9c}{}class {\bfseries boost\+::serialization\+::access}\label{class_mesh_ac98d07dd8f7b70e16ccb9a01abf56b9c}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_mesh}{Mesh} is an \hyperlink{class_asset}{Asset} that represents a 3\+D Model. The vertexes are indexed, meaning that they\textquotesingle{}re stored once only and can be referenced in several faces (triangles).
+
+Currently supported features\+: -\/\+Vertex Position -\/\+Vertex U\+V -\/\+Vertex Normal
+
+Animations are N\+O\+T currently supported. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_mesh_a2af137f1571af89172b9c102302c416b}{}\index{Mesh@{Mesh}!Mesh@{Mesh}}
+\index{Mesh@{Mesh}!Mesh@{Mesh}}
+\subsubsection[{Mesh()}]{\setlength{\rightskip}{0pt plus 5cm}Mesh\+::\+Mesh (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a2af137f1571af89172b9c102302c416b}
+Default Constructor \hypertarget{class_mesh_a6001afbb24255fe880ae5d609bfb7cd2}{}\index{Mesh@{Mesh}!Mesh@{Mesh}}
+\index{Mesh@{Mesh}!Mesh@{Mesh}}
+\subsubsection[{Mesh(float $\ast$indices, float $\ast$normal\+Points, float $\ast$uv, unsigned int $\ast$triangles, int n\+Points, int n\+Triangles)}]{\setlength{\rightskip}{0pt plus 5cm}Mesh\+::\+Mesh (
+\begin{DoxyParamCaption}
+\item[{float $\ast$}]{indices, }
+\item[{float $\ast$}]{normal\+Points, }
+\item[{float $\ast$}]{uv, }
+\item[{unsigned int $\ast$}]{triangles, }
+\item[{int}]{n\+Points, }
+\item[{int}]{n\+Triangles}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a6001afbb24255fe880ae5d609bfb7cd2}
+Constructor from array of indices, normal points, uvs and triangles \hypertarget{class_mesh_a8d847ce8604fd8f6e84f97acbf481503}{}\index{Mesh@{Mesh}!Mesh@{Mesh}}
+\index{Mesh@{Mesh}!Mesh@{Mesh}}
+\subsubsection[{Mesh(vector$<$ Mesh\+Vertex $>$ vertex, vector$<$ unsigned short $>$ triangles)}]{\setlength{\rightskip}{0pt plus 5cm}Mesh\+::\+Mesh (
+\begin{DoxyParamCaption}
+\item[{vector$<$ {\bf Mesh\+Vertex} $>$}]{vertex, }
+\item[{vector$<$ unsigned short $>$}]{triangles}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a8d847ce8604fd8f6e84f97acbf481503}
+Constructor from vector of \hyperlink{struct_mesh_vertex}{Mesh\+Vertex} and triangles \hypertarget{class_mesh_a6cc43f6b68cf3fd6881f17ba78ab089d}{}\index{Mesh@{Mesh}!Mesh@{Mesh}}
+\index{Mesh@{Mesh}!Mesh@{Mesh}}
+\subsubsection[{Mesh(vector$<$ glm\+::vec3 $>$ vertices, vector$<$ int $>$ used\+Index, vector$<$ int $>$ used\+Tris)}]{\setlength{\rightskip}{0pt plus 5cm}Mesh\+::\+Mesh (
+\begin{DoxyParamCaption}
+\item[{vector$<$ glm\+::vec3 $>$}]{vertices, }
+\item[{vector$<$ int $>$}]{used\+Index, }
+\item[{vector$<$ int $>$}]{used\+Tris}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a6cc43f6b68cf3fd6881f17ba78ab089d}
+Constructor from vector of \hyperlink{struct_mesh_vertex}{Mesh\+Vertex}, subset of used Indexes and triangles \hypertarget{class_mesh_a5efe4da1a4c0971cfb037bd70304c303}{}\index{Mesh@{Mesh}!````~Mesh@{$\sim$\+Mesh}}
+\index{````~Mesh@{$\sim$\+Mesh}!Mesh@{Mesh}}
+\subsubsection[{$\sim$\+Mesh()}]{\setlength{\rightskip}{0pt plus 5cm}Mesh\+::$\sim$\+Mesh (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_mesh_a5efe4da1a4c0971cfb037bd70304c303}
+Default Destructor 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_mesh_a317d2916ce9675ef1b4d1b70f9ef62a6}{}\index{Mesh@{Mesh}!add\+Triangle@{add\+Triangle}}
+\index{add\+Triangle@{add\+Triangle}!Mesh@{Mesh}}
+\subsubsection[{add\+Triangle(int vertex\+Index)}]{\setlength{\rightskip}{0pt plus 5cm}void Mesh\+::add\+Triangle (
+\begin{DoxyParamCaption}
+\item[{int}]{vertex\+Index}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a317d2916ce9675ef1b4d1b70f9ef62a6}
+Adds a new index to the triangles list \hypertarget{class_mesh_a571745a25511f03dfb54bb9248ebe0e9}{}\index{Mesh@{Mesh}!add\+Vertex@{add\+Vertex}}
+\index{add\+Vertex@{add\+Vertex}!Mesh@{Mesh}}
+\subsubsection[{add\+Vertex(glm\+::vec3 position, glm\+::vec2 uv, glm\+::vec3 normal)}]{\setlength{\rightskip}{0pt plus 5cm}void Mesh\+::add\+Vertex (
+\begin{DoxyParamCaption}
+\item[{glm\+::vec3}]{position, }
+\item[{glm\+::vec2}]{uv, }
+\item[{glm\+::vec3}]{normal}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a571745a25511f03dfb54bb9248ebe0e9}
+Adds a new vertex to the mesh \hypertarget{class_mesh_a2337847905aa738a21c7b2c459b30bbc}{}\index{Mesh@{Mesh}!calculate\+Bounds@{calculate\+Bounds}}
+\index{calculate\+Bounds@{calculate\+Bounds}!Mesh@{Mesh}}
+\subsubsection[{calculate\+Bounds()}]{\setlength{\rightskip}{0pt plus 5cm}void Mesh\+::calculate\+Bounds (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a2337847905aa738a21c7b2c459b30bbc}
+Calculate mesh bounds \hypertarget{class_mesh_a508c26a83f4a575f3cdbba07a2118809}{}\index{Mesh@{Mesh}!create\+Buffers@{create\+Buffers}}
+\index{create\+Buffers@{create\+Buffers}!Mesh@{Mesh}}
+\subsubsection[{create\+Buffers()}]{\setlength{\rightskip}{0pt plus 5cm}void Mesh\+::create\+Buffers (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a508c26a83f4a575f3cdbba07a2118809}
+Create Open\+G\+L buffers \hypertarget{class_mesh_aa93bf2f2ae299b9987d083e8549c4d20}{}\index{Mesh@{Mesh}!get\+Average\+Center@{get\+Average\+Center}}
+\index{get\+Average\+Center@{get\+Average\+Center}!Mesh@{Mesh}}
+\subsubsection[{get\+Average\+Center()}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::vec3 Mesh\+::get\+Average\+Center (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_aa93bf2f2ae299b9987d083e8549c4d20}
+avg\+Center Getter \hypertarget{class_mesh_a47a810bcf709c90d36e453af2bbe11c0}{}\index{Mesh@{Mesh}!get\+Bounds\+Max@{get\+Bounds\+Max}}
+\index{get\+Bounds\+Max@{get\+Bounds\+Max}!Mesh@{Mesh}}
+\subsubsection[{get\+Bounds\+Max()}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::vec3 Mesh\+::get\+Bounds\+Max (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a47a810bcf709c90d36e453af2bbe11c0}
+bounds\+Max Getter \hypertarget{class_mesh_a563db5002a111f742d2939f4a432d4ef}{}\index{Mesh@{Mesh}!get\+Bounds\+Min@{get\+Bounds\+Min}}
+\index{get\+Bounds\+Min@{get\+Bounds\+Min}!Mesh@{Mesh}}
+\subsubsection[{get\+Bounds\+Min()}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::vec3 Mesh\+::get\+Bounds\+Min (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a563db5002a111f742d2939f4a432d4ef}
+bounds\+Min Getter \hypertarget{class_mesh_abac6433b4de282c3477631e1f00552ee}{}\index{Mesh@{Mesh}!get\+Non\+Duplicate\+Mesh\+Vertex@{get\+Non\+Duplicate\+Mesh\+Vertex}}
+\index{get\+Non\+Duplicate\+Mesh\+Vertex@{get\+Non\+Duplicate\+Mesh\+Vertex}!Mesh@{Mesh}}
+\subsubsection[{get\+Non\+Duplicate\+Mesh\+Vertex()}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$ glm\+::vec3 $>$ Mesh\+::get\+Non\+Duplicate\+Mesh\+Vertex (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_abac6433b4de282c3477631e1f00552ee}
+Returns non duplicate mesh vertices based on position only. It does not take into consideration other parameters such as U\+V or normal. This function was used by the Convex\+Hull in \hyperlink{_math_8hpp_source}{Math.\+hpp} \hypertarget{class_mesh_a4d70792ba5142b0d663d39443917da58}{}\index{Mesh@{Mesh}!get\+Scale\+Factor@{get\+Scale\+Factor}}
+\index{get\+Scale\+Factor@{get\+Scale\+Factor}!Mesh@{Mesh}}
+\subsubsection[{get\+Scale\+Factor()}]{\setlength{\rightskip}{0pt plus 5cm}float Mesh\+::get\+Scale\+Factor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a4d70792ba5142b0d663d39443917da58}
+scale\+Factor getter \hypertarget{class_mesh_a111b94c34d164c15dbe391940e0202c1}{}\index{Mesh@{Mesh}!get\+Triangles\+Buffer@{get\+Triangles\+Buffer}}
+\index{get\+Triangles\+Buffer@{get\+Triangles\+Buffer}!Mesh@{Mesh}}
+\subsubsection[{get\+Triangles\+Buffer()}]{\setlength{\rightskip}{0pt plus 5cm}float Mesh\+::get\+Triangles\+Buffer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a111b94c34d164c15dbe391940e0202c1}
+ibo getter \hypertarget{class_mesh_ae3957c15ba7d62336640b822d2c41161}{}\index{Mesh@{Mesh}!get\+Triangles\+Count@{get\+Triangles\+Count}}
+\index{get\+Triangles\+Count@{get\+Triangles\+Count}!Mesh@{Mesh}}
+\subsubsection[{get\+Triangles\+Count()}]{\setlength{\rightskip}{0pt plus 5cm}int Mesh\+::get\+Triangles\+Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_ae3957c15ba7d62336640b822d2c41161}
+Count of triangles list
+
+Count of triangles list getter \hypertarget{class_mesh_a891595d8aa7ca667df30d03d14dae0f3}{}\index{Mesh@{Mesh}!get\+Vertex\+Array\+I\+D@{get\+Vertex\+Array\+I\+D}}
+\index{get\+Vertex\+Array\+I\+D@{get\+Vertex\+Array\+I\+D}!Mesh@{Mesh}}
+\subsubsection[{get\+Vertex\+Array\+I\+D()}]{\setlength{\rightskip}{0pt plus 5cm}float Mesh\+::get\+Vertex\+Array\+I\+D (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a891595d8aa7ca667df30d03d14dae0f3}
+vao getter \hypertarget{class_mesh_a170e6001bf96cc741afe7d9425b2f440}{}\index{Mesh@{Mesh}!get\+Vertex\+Buffer@{get\+Vertex\+Buffer}}
+\index{get\+Vertex\+Buffer@{get\+Vertex\+Buffer}!Mesh@{Mesh}}
+\subsubsection[{get\+Vertex\+Buffer()}]{\setlength{\rightskip}{0pt plus 5cm}float Mesh\+::get\+Vertex\+Buffer (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a170e6001bf96cc741afe7d9425b2f440}
+mvbo getter \hypertarget{class_mesh_a1394a088d7e4bb7a82ca1799098fe025}{}\index{Mesh@{Mesh}!get\+Vertices\+Count@{get\+Vertices\+Count}}
+\index{get\+Vertices\+Count@{get\+Vertices\+Count}!Mesh@{Mesh}}
+\subsubsection[{get\+Vertices\+Count()}]{\setlength{\rightskip}{0pt plus 5cm}int Mesh\+::get\+Vertices\+Count (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a1394a088d7e4bb7a82ca1799098fe025}
+Count of \hyperlink{class_mesh}{Mesh} Vertices \hypertarget{class_mesh_a97cadeaf5ef95c8a35d5eb2ded9ca73c}{}\index{Mesh@{Mesh}!set\+Scale\+Factor@{set\+Scale\+Factor}}
+\index{set\+Scale\+Factor@{set\+Scale\+Factor}!Mesh@{Mesh}}
+\subsubsection[{set\+Scale\+Factor(float f)}]{\setlength{\rightskip}{0pt plus 5cm}void Mesh\+::set\+Scale\+Factor (
+\begin{DoxyParamCaption}
+\item[{float}]{f}
+\end{DoxyParamCaption}
+)}\label{class_mesh_a97cadeaf5ef95c8a35d5eb2ded9ca73c}
+scale\+Factor Setter 
+
+\subsection{Member Data Documentation}
+\hypertarget{class_mesh_a666f0d7350993308b29826cf94a86978}{}\index{Mesh@{Mesh}!avg\+Center@{avg\+Center}}
+\index{avg\+Center@{avg\+Center}!Mesh@{Mesh}}
+\subsubsection[{avg\+Center}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::vec3 Mesh\+::avg\+Center}\label{class_mesh_a666f0d7350993308b29826cf94a86978}
+Average center of the mesh \hypertarget{class_mesh_a430e466fef8de4297fb25aa8727b52e3}{}\index{Mesh@{Mesh}!bounds\+Max@{bounds\+Max}}
+\index{bounds\+Max@{bounds\+Max}!Mesh@{Mesh}}
+\subsubsection[{bounds\+Max}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::vec3 Mesh\+::bounds\+Max}\label{class_mesh_a430e466fef8de4297fb25aa8727b52e3}
+Max bounds of the mesh \hypertarget{class_mesh_a0cb39dfb46a4eb89e748b7966f20e08b}{}\index{Mesh@{Mesh}!bounds\+Min@{bounds\+Min}}
+\index{bounds\+Min@{bounds\+Min}!Mesh@{Mesh}}
+\subsubsection[{bounds\+Min}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::vec3 Mesh\+::bounds\+Min}\label{class_mesh_a0cb39dfb46a4eb89e748b7966f20e08b}
+Min bounds of the mesh \hypertarget{class_mesh_a8fb0190a2e74648537e452031c00fb8d}{}\index{Mesh@{Mesh}!ibo@{ibo}}
+\index{ibo@{ibo}!Mesh@{Mesh}}
+\subsubsection[{ibo}]{\setlength{\rightskip}{0pt plus 5cm}G\+Luint Mesh\+::ibo}\label{class_mesh_a8fb0190a2e74648537e452031c00fb8d}
+Triangles array \hypertarget{class_mesh_a91899b71cdc960ef485b07ffcd0c0cd6}{}\index{Mesh@{Mesh}!mesh\+Vertices@{mesh\+Vertices}}
+\index{mesh\+Vertices@{mesh\+Vertices}!Mesh@{Mesh}}
+\subsubsection[{mesh\+Vertices}]{\setlength{\rightskip}{0pt plus 5cm}vector$<${\bf Mesh\+Vertex}$>$ Mesh\+::mesh\+Vertices}\label{class_mesh_a91899b71cdc960ef485b07ffcd0c0cd6}
+The vertices data \hypertarget{class_mesh_ab24bc96d6c0f11d570a193fc133884a7}{}\index{Mesh@{Mesh}!mvbo@{mvbo}}
+\index{mvbo@{mvbo}!Mesh@{Mesh}}
+\subsubsection[{mvbo}]{\setlength{\rightskip}{0pt plus 5cm}G\+Luint Mesh\+::mvbo}\label{class_mesh_ab24bc96d6c0f11d570a193fc133884a7}
+Vertex data array \hypertarget{class_mesh_a1fc2f16522570f5e3bbed514ac322d9a}{}\index{Mesh@{Mesh}!scale\+Factor@{scale\+Factor}}
+\index{scale\+Factor@{scale\+Factor}!Mesh@{Mesh}}
+\subsubsection[{scale\+Factor}]{\setlength{\rightskip}{0pt plus 5cm}float Mesh\+::scale\+Factor}\label{class_mesh_a1fc2f16522570f5e3bbed514ac322d9a}
+Scale factor of the mesh \hypertarget{class_mesh_ad41061e78a04735d509e548141d43a49}{}\index{Mesh@{Mesh}!triangles@{triangles}}
+\index{triangles@{triangles}!Mesh@{Mesh}}
+\subsubsection[{triangles}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$unsigned short$>$ Mesh\+::triangles}\label{class_mesh_ad41061e78a04735d509e548141d43a49}
+The mesh triangles \hypertarget{class_mesh_a101a39d88bc5c8d33f0ebd6e77a60129}{}\index{Mesh@{Mesh}!vao@{vao}}
+\index{vao@{vao}!Mesh@{Mesh}}
+\subsubsection[{vao}]{\setlength{\rightskip}{0pt plus 5cm}G\+Luint Mesh\+::vao}\label{class_mesh_a101a39d88bc5c8d33f0ebd6e77a60129}
+Vertex array 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Mesh.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Mesh.\+cpp\end{DoxyCompactItemize}

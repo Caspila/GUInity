@@ -298,7 +298,7 @@ int main(int argc, char *argv[]) {
     
     shared_ptr<Mesh> sphereMesh =  AssetDatabase::getAsset<Mesh>("sphere.obj");
     
-    shared_ptr<Mesh> spaceShipMesh =  AssetDatabase::getAsset<Mesh>("spaceShipBlender2.fbx");
+    shared_ptr<Mesh> spaceShipMesh =  AssetDatabase::getAsset<Mesh>("arrow.fbx");
     
     shared_ptr<Texture> spaceShipTexture = AssetDatabase::getAsset<Texture>("sh3.png");
     shared_ptr<Texture> spaceBKGTexture = AssetDatabase::getAsset<Texture>("star-space-tile.png");
@@ -341,14 +341,17 @@ int main(int argc, char *argv[]) {
     shared_ptr<Shader> unlitShader = AssetDatabase::createShader("UnlitShader", CommonData("vsUnlit.vs"), CommonData("fsUnlit.fragmentshader"));
     //shared_ptr<Shader> s = AssetDatabase::createShader(CommonData("vsLight.vs"),CommonData("fsNoLight.fragmentshader"));
     
+    shared_ptr<Material> defaultMaterial = AssetDatabase::createMaterial("DefaultMaterial", diffuseShader);
+    defaultMaterial->setParamVec4("_diffuseColor", glm::vec4(1,1,1,1));
+    
     shared_ptr<Material> spaceShipMaterial = AssetDatabase::createMaterial("SpaceShipMaterial", diffuseShader);
     spaceShipMaterial->setParamTexture("_textureSampler", spaceShipTexture);
-    spaceShipMaterial->setParamVec4("_difuseColor", glm::vec4(1,1,1,1));
+    spaceShipMaterial->setParamVec4("_diffuseColor", glm::vec4(1,1,1,1));
     spaceShipMaterial->setParamVec2("_offset", glm::vec2(0,0));
     
     shared_ptr<Material> spaceBKGMaterial = AssetDatabase::createMaterial("SpaceBKGMaterial", diffuseShader);
     spaceBKGMaterial->setParamTexture("_textureSampler", spaceBKGTexture);
-    spaceBKGMaterial->setParamVec4("_difuseColor", glm::vec4(1,1,1,1));
+    spaceBKGMaterial->setParamVec4("_diffuseColor", glm::vec4(1,1,1,1));
     spaceBKGMaterial->setParamVec2("_offset", glm::vec2(0,0));
     
     shared_ptr<Material> fontMaterial = AssetDatabase::createMaterial("FontMaterial", unlitShader);

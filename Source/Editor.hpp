@@ -25,18 +25,8 @@ public:
 
 	static void update(float deltaSeconds, shared_ptr<World> gameWorld);
 
-	//static PxScene* physicsScene;
-
 	static shared_ptr<Actor> cameraActor;
 	static shared_ptr<Camera> cameraComponent;
-
-	//static shared_ptr<Actor> getEditorSharedPtrActor(Actor* actor);
-
-	//virtual void onNotify(EventType type, shared_ptr<Component> component, bool isEditor) override;
-
-	//static vector<shared_ptr<Actor>> editorActors;
-	//
-	//static void tickEditorActors(float deltaSeconds);
 
 	static shared_ptr<World> world;
 

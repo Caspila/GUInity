@@ -1,0 +1,113 @@
+\hypertarget{class_world}{}\section{World Class Reference}
+\label{class_world}\index{World@{World}}
+Inheritance diagram for World\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_world}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_world_a0150607a49c2400d5c848159dd02d533}{}void {\bfseries init} ()\label{class_world_a0150607a49c2400d5c848159dd02d533}
+
+\item 
+\hypertarget{class_world_aa81c1e85043b43391dc11f3dde4d71b3}{}void {\bfseries add\+Mesh\+Renderer} (shared\+\_\+ptr$<$ \hyperlink{class_mesh_renderer}{Mesh\+Renderer} $>$ mesh\+Renderer)\label{class_world_aa81c1e85043b43391dc11f3dde4d71b3}
+
+\item 
+\hypertarget{class_world_ac36595803e9538b7df9c7b9a4dc19520}{}void {\bfseries remove\+Mesh\+Renderer} (shared\+\_\+ptr$<$ \hyperlink{class_mesh_renderer}{Mesh\+Renderer} $>$ mesh\+Renderer)\label{class_world_ac36595803e9538b7df9c7b9a4dc19520}
+
+\item 
+\hypertarget{class_world_a10249ad494f208c1c633b54dfeb7c5cf}{}void {\bfseries add\+Camera} (shared\+\_\+ptr$<$ \hyperlink{class_camera}{Camera} $>$ camera)\label{class_world_a10249ad494f208c1c633b54dfeb7c5cf}
+
+\item 
+\hypertarget{class_world_a95651f78e120154170a6b7a44b90f3cd}{}void {\bfseries remove\+Camera} (shared\+\_\+ptr$<$ \hyperlink{class_camera}{Camera} $>$ camera)\label{class_world_a95651f78e120154170a6b7a44b90f3cd}
+
+\item 
+\hypertarget{class_world_a3e8add1ddd07cc38f4514f6ff4677487}{}void {\bfseries add\+Light} (shared\+\_\+ptr$<$ \hyperlink{class_light}{Light} $>$ light)\label{class_world_a3e8add1ddd07cc38f4514f6ff4677487}
+
+\item 
+\hypertarget{class_world_a1db2ad77a6c442287a1f0fc6173366e9}{}void {\bfseries remove\+Light} (shared\+\_\+ptr$<$ \hyperlink{class_light}{Light} $>$ light)\label{class_world_a1db2ad77a6c442287a1f0fc6173366e9}
+
+\item 
+\hypertarget{class_world_a9809f7b08579210787eb36318a451da7}{}void {\bfseries add\+Actor} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_world_a9809f7b08579210787eb36318a451da7}
+
+\item 
+\hypertarget{class_world_a5908f11edd93b6157073b6379c58bccb}{}void {\bfseries add\+Actor\+Delayed} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_world_a5908f11edd93b6157073b6379c58bccb}
+
+\item 
+\hypertarget{class_world_ab772947ef3339b95cf00b4f82c619fc4}{}void {\bfseries remove\+Actor} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_world_ab772947ef3339b95cf00b4f82c619fc4}
+
+\item 
+\hypertarget{class_world_ad004978581deb7cce6f2d3cad8756b9c}{}void {\bfseries transfer\+New\+Actors} ()\label{class_world_ad004978581deb7cce6f2d3cad8756b9c}
+
+\item 
+\hypertarget{class_world_aceef86ffdf3f7de9755c5f301953304f}{}void {\bfseries remove\+Destroyed\+Actors} ()\label{class_world_aceef86ffdf3f7de9755c5f301953304f}
+
+\item 
+\hypertarget{class_world_a3c6920e71ec7fbb15fe8c7cffefab4c8}{}shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ {\bfseries find\+Actor} (string name)\label{class_world_a3c6920e71ec7fbb15fe8c7cffefab4c8}
+
+\item 
+\hypertarget{class_world_a6055f0b0c4d37a3b67d9846fda06e3b4}{}shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ {\bfseries get\+Shared\+Ptr\+Actor} (\hyperlink{class_actor}{Actor} $\ast$actor)\label{class_world_a6055f0b0c4d37a3b67d9846fda06e3b4}
+
+\item 
+\hypertarget{class_world_a60e6ec191ff1e441e3225d9613140c3a}{}void {\bfseries awake} ()\label{class_world_a60e6ec191ff1e441e3225d9613140c3a}
+
+\item 
+\hypertarget{class_world_a828f9be916c0b46fc12dd40aad9627eb}{}void {\bfseries awake} (unsigned long start, unsigned long end)\label{class_world_a828f9be916c0b46fc12dd40aad9627eb}
+
+\item 
+\hypertarget{class_world_ab9022595555cd6b2c2f4f34c9e855333}{}void {\bfseries tick} (float delta\+Time)\label{class_world_ab9022595555cd6b2c2f4f34c9e855333}
+
+\item 
+\hypertarget{class_world_aa317dbf6068edd413fba788777ce4549}{}void {\bfseries shutdown} ()\label{class_world_aa317dbf6068edd413fba788777ce4549}
+
+\item 
+\hypertarget{class_world_a633101f382c13b65fb7c0606cfc63cc6}{}virtual void {\bfseries on\+Notify} (Component\+Event\+Type type, shared\+\_\+ptr$<$ \hyperlink{class_component}{Component} $>$ component, bool is\+Editor) override\label{class_world_a633101f382c13b65fb7c0606cfc63cc6}
+
+\item 
+\hypertarget{class_world_abdfbd33f4422c97910247692bf313a01}{}virtual void {\bfseries on\+Notify} (Actor\+Event\+Type type, shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor, bool is\+Editor) override\label{class_world_abdfbd33f4422c97910247692bf313a01}
+
+\item 
+\hypertarget{class_world_a02c5e9664e391f87e3430e6598a679d0}{}void {\bfseries register\+Observer\+As\+Game} ()\label{class_world_a02c5e9664e391f87e3430e6598a679d0}
+
+\item 
+\hypertarget{class_world_a63c108380a6aa9080f8c90cbd3c245d9}{}void {\bfseries register\+Observer\+As\+Editor} ()\label{class_world_a63c108380a6aa9080f8c90cbd3c245d9}
+
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_world_a1cc1afd61b245eaa62eac90fdc629ee9}{}Px\+Scene $\ast$ {\bfseries physics\+Scene}\label{class_world_a1cc1afd61b245eaa62eac90fdc629ee9}
+
+\item 
+\hypertarget{class_world_aeb47e6e9190a33f623b63135045c339b}{}std\+::vector$<$ shared\+\_\+ptr$<$ \hyperlink{class_mesh_renderer}{Mesh\+Renderer} $>$ $>$ {\bfseries mesh\+Renderers}\label{class_world_aeb47e6e9190a33f623b63135045c339b}
+
+\item 
+\hypertarget{class_world_aff74fed56b77cb89f8a27f5dd8140f48}{}std\+::vector$<$ shared\+\_\+ptr$<$ \hyperlink{class_camera}{Camera} $>$ $>$ {\bfseries cameras}\label{class_world_aff74fed56b77cb89f8a27f5dd8140f48}
+
+\item 
+\hypertarget{class_world_a9cfccbc5ffd60f6d76e129f081274d31}{}std\+::vector$<$ shared\+\_\+ptr$<$ \hyperlink{class_light}{Light} $>$ $>$ {\bfseries lights}\label{class_world_a9cfccbc5ffd60f6d76e129f081274d31}
+
+\item 
+\hypertarget{class_world_aeeb78216c074d5af93306b3fefcab7f2}{}std\+::vector$<$ shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ $>$ {\bfseries actors}\label{class_world_aeeb78216c074d5af93306b3fefcab7f2}
+
+\item 
+\hypertarget{class_world_a3a0f876c1f003e0fbfce30da0f18d730}{}std\+::vector$<$ shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ $>$ {\bfseries new\+Actors}\label{class_world_a3a0f876c1f003e0fbfce30da0f18d730}
+
+\item 
+\hypertarget{class_world_a123122330f53df3868a97f5cef2f0704}{}std\+::vector$<$ weak\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ $>$ {\bfseries to\+Remove\+Actors}\label{class_world_a123122330f53df3868a97f5cef2f0704}
+
+\item 
+\hypertarget{class_world_ad192f3af680a25132906f54f931766f5}{}bool {\bfseries is\+Awake}\label{class_world_ad192f3af680a25132906f54f931766f5}
+
+\item 
+\hypertarget{class_world_a9b29e4d9918c4eb24bc8f0fc940687eb}{}bool {\bfseries is\+Editor}\label{class_world_a9b29e4d9918c4eb24bc8f0fc940687eb}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/World.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/World.\+cpp\end{DoxyCompactItemize}

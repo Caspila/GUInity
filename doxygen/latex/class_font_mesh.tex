@@ -1,0 +1,114 @@
+\hypertarget{class_font_mesh}{}\section{Font\+Mesh Class Reference}
+\label{class_font_mesh}\index{Font\+Mesh@{Font\+Mesh}}
+
+
+{\ttfamily \#include $<$Font\+Mesh.\+hpp$>$}
+
+Inheritance diagram for Font\+Mesh\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_font_mesh}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_font_mesh_aedfa6f6af9efdbe4c1fe400c128d74f8}{Font\+Mesh} ()
+\item 
+virtual \hyperlink{class_font_mesh_aa72cdbc114c4bd907cd3c80a0516eaa1}{$\sim$\+Font\+Mesh} ()
+\item 
+void \hyperlink{class_font_mesh_a9c8c08a909a3f1f8fe49427b714f49ea}{set\+Font} (shared\+\_\+ptr$<$ \hyperlink{class_font}{Font} $>$ font)
+\item 
+shared\+\_\+ptr$<$ \hyperlink{class_font}{Font} $>$ \hyperlink{class_font_mesh_a8ecf4127c1b8903e2d88e4010e5456c7}{get\+Font} ()
+\item 
+void \hyperlink{class_font_mesh_ab7b118065bcbaba9dad67fc472eb747d}{set\+Text} (string text)
+\item 
+string \hyperlink{class_font_mesh_a8be85c214ce53ce1c706a555c9c0c047}{get\+Text} ()
+\item 
+void \hyperlink{class_font_mesh_a604facf912301eb3443e5532a6f389d3}{create\+Mesh} ()
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component}{Component} $>$ \hyperlink{class_font_mesh_a4dd3900fcbb33aca326d1cd1871e7b92}{clone} () override
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ \hyperlink{group__serialization__functions_gab58270595083da13e7c384f00318291b}{get\+Component\+Description} () override
+\item 
+virtual void \hyperlink{group__serialization__functions_ga76f4b78e5fd2adece4557f2a676f2c1b}{deserialize} (shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ desc) override
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_font_mesh}{Font\+Mesh} is a \hyperlink{class_mesh_component}{Mesh\+Component}, meaning that it holds reference to a \hyperlink{class_mesh}{Mesh}. Unlike \hyperlink{class_mesh_filter}{Mesh\+Filter}, that makes reference to a \char`\"{}static\char`\"{} mesh, a file mesh, the \hyperlink{class_font_mesh}{Font\+Mesh} makes reference to a dynamic mesh, created according to the text it\textquotesingle{}s going to display. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_font_mesh_aedfa6f6af9efdbe4c1fe400c128d74f8}{}\index{Font\+Mesh@{Font\+Mesh}!Font\+Mesh@{Font\+Mesh}}
+\index{Font\+Mesh@{Font\+Mesh}!Font\+Mesh@{Font\+Mesh}}
+\subsubsection[{Font\+Mesh()}]{\setlength{\rightskip}{0pt plus 5cm}Font\+Mesh\+::\+Font\+Mesh (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_font_mesh_aedfa6f6af9efdbe4c1fe400c128d74f8}
+Default Constructor \hypertarget{class_font_mesh_aa72cdbc114c4bd907cd3c80a0516eaa1}{}\index{Font\+Mesh@{Font\+Mesh}!````~Font\+Mesh@{$\sim$\+Font\+Mesh}}
+\index{````~Font\+Mesh@{$\sim$\+Font\+Mesh}!Font\+Mesh@{Font\+Mesh}}
+\subsubsection[{$\sim$\+Font\+Mesh()}]{\setlength{\rightskip}{0pt plus 5cm}Font\+Mesh\+::$\sim$\+Font\+Mesh (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_font_mesh_aa72cdbc114c4bd907cd3c80a0516eaa1}
+Default Destructor. Virtual because it\textquotesingle{}s children class. 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_font_mesh_a4dd3900fcbb33aca326d1cd1871e7b92}{}\index{Font\+Mesh@{Font\+Mesh}!clone@{clone}}
+\index{clone@{clone}!Font\+Mesh@{Font\+Mesh}}
+\subsubsection[{clone() override}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Component} $>$ Font\+Mesh\+::clone (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_font_mesh_a4dd3900fcbb33aca326d1cd1871e7b92}
+Clones current component (Prototype Design Pattern) \begin{DoxyReturn}{Returns}
+shared\+\_\+ptr to cloned \hyperlink{class_font_mesh}{Font\+Mesh} \hyperlink{class_component}{Component} 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_mesh_component_ace2f1acdce65f1c37b56a5b3ef507e8d}{Mesh\+Component}.
+
+\hypertarget{class_font_mesh_a604facf912301eb3443e5532a6f389d3}{}\index{Font\+Mesh@{Font\+Mesh}!create\+Mesh@{create\+Mesh}}
+\index{create\+Mesh@{create\+Mesh}!Font\+Mesh@{Font\+Mesh}}
+\subsubsection[{create\+Mesh()}]{\setlength{\rightskip}{0pt plus 5cm}void Font\+Mesh\+::create\+Mesh (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_font_mesh_a604facf912301eb3443e5532a6f389d3}
+create the mesh according to the font and text \hypertarget{class_font_mesh_a8ecf4127c1b8903e2d88e4010e5456c7}{}\index{Font\+Mesh@{Font\+Mesh}!get\+Font@{get\+Font}}
+\index{get\+Font@{get\+Font}!Font\+Mesh@{Font\+Mesh}}
+\subsubsection[{get\+Font()}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Font} $>$ Font\+Mesh\+::get\+Font (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_font_mesh_a8ecf4127c1b8903e2d88e4010e5456c7}
+font getter \hypertarget{class_font_mesh_a8be85c214ce53ce1c706a555c9c0c047}{}\index{Font\+Mesh@{Font\+Mesh}!get\+Text@{get\+Text}}
+\index{get\+Text@{get\+Text}!Font\+Mesh@{Font\+Mesh}}
+\subsubsection[{get\+Text()}]{\setlength{\rightskip}{0pt plus 5cm}string Font\+Mesh\+::get\+Text (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_font_mesh_a8be85c214ce53ce1c706a555c9c0c047}
+text getter \hypertarget{class_font_mesh_a9c8c08a909a3f1f8fe49427b714f49ea}{}\index{Font\+Mesh@{Font\+Mesh}!set\+Font@{set\+Font}}
+\index{set\+Font@{set\+Font}!Font\+Mesh@{Font\+Mesh}}
+\subsubsection[{set\+Font(shared\+\_\+ptr$<$ Font $>$ font)}]{\setlength{\rightskip}{0pt plus 5cm}void Font\+Mesh\+::set\+Font (
+\begin{DoxyParamCaption}
+\item[{shared\+\_\+ptr$<$ {\bf Font} $>$}]{font}
+\end{DoxyParamCaption}
+)}\label{class_font_mesh_a9c8c08a909a3f1f8fe49427b714f49ea}
+font setter \hypertarget{class_font_mesh_ab7b118065bcbaba9dad67fc472eb747d}{}\index{Font\+Mesh@{Font\+Mesh}!set\+Text@{set\+Text}}
+\index{set\+Text@{set\+Text}!Font\+Mesh@{Font\+Mesh}}
+\subsubsection[{set\+Text(string text)}]{\setlength{\rightskip}{0pt plus 5cm}void Font\+Mesh\+::set\+Text (
+\begin{DoxyParamCaption}
+\item[{string}]{text}
+\end{DoxyParamCaption}
+)}\label{class_font_mesh_ab7b118065bcbaba9dad67fc472eb747d}
+text setter 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Font\+Mesh.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Font\+Mesh.\+cpp\end{DoxyCompactItemize}

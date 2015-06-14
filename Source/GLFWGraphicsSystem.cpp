@@ -23,7 +23,10 @@
 #include "Time.hpp"
 #include "SkinnedMesh.hpp"
 
-/** Initialize the system, create the window and such*/
+/** Initialize the system, create the window and such
+ @param[in] width The width of the screen
+ @param[in] height The height of the screen
+ */
 int GLFWGraphicsSystem::init(int width, int height)
 {
     screenWidth = width;
@@ -105,86 +108,25 @@ void GLFWGraphicsSystem::createDebugShader()
     GUIMatrix = glm::ortho(0.0f, (float)screenWidth, (float)screenHeight, 0.0f, -5.0f, 5.0f);
 }
 
-/** screen width Getter */
+/** screen width Getter
+ @return Screen width*/
 int GLFWGraphicsSystem::getScreenWidth()
 {
     return screenWidth;
 }
-/** screen height Getter */
+/** screen height Getter
+ @return Screen height*/
 int GLFWGraphicsSystem::getScreenHeight()
 {
     return screenHeight;
 }
 
 
-/** Render Widgets on screen */
-void GLFWGraphicsSystem::renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector)
-{
-    //
-    //    GLuint shaderProgram = guiMaterial->getShaderProgram();
-    //
-    //    glLinkProgram(shaderProgram);
-    //    glUseProgram(shaderProgram);
-    //
-    //    // Get a handle for our "myTextureSampler" uniform
-    //    GLuint TextureID  = glGetUniformLocation(shaderProgram, "myTextureSampler");
-    //    shared_ptr<Texture> texture = dynamic_pointer_cast<Texture>(AssetDatabase::idToAsset[1]);
-    //
-    ////    glEnable(GL_BLEND);
-    ////    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    //
-    //    for (int i = 0; i < uiWidgetVector.size(); i++)
-    //    {
-    //        shared_ptr<UIWidget> uiWidget = uiWidgetVector[i];
-    //
-    //        glUniformMatrix4fv(uniform(shaderProgram, "model"), 1, GL_FALSE, &uiWidget->getModelMatrix()[0][0]);
-    //    glUniformMatrix4fv(uniform(shaderProgram, "ortho"), 1, GL_FALSE, &GUIMatrix[0][0]);
-    //    glUniform4fv(uniform(shaderProgram, "diffuseColor"), 1, &uiWidget->color[0]);
-    //
-    //    glBindVertexArray(uiWidget->mesh->vao);
-    //
-    //    glEnableVertexAttribArray(0);
-    //    glBindBuffer(GL_ARRAY_BUFFER, uiWidget->mesh->mvbo);
-    //
-    //        // Bind our texture in Texture Unit 0
-    //        glActiveTexture(GL_TEXTURE0);
-    //        glBindTexture(GL_TEXTURE_2D, texture->textureID);
-    //        // Set our "myTextureSampler" sampler to user Texture Unit 0
-    //        glUniform1i(TextureID, 0);
-    //
-    //    //Vertex
-    //    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(0));
-    //
-    //        int beginUV = sizeof(glm::vec3);
-    //
-    //        //UV
-    //        glEnableVertexAttribArray(3);
-    //        glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginUV));
-    //
-    //
-    //    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uiWidget->mesh->ibo);
-    //
-    //    // draw points 0-3 from the currently bound VAO with current in-use shader
-    //    glDrawElements(GL_TRIANGLES, uiWidget->mesh->triangles.size(), GL_UNSIGNED_SHORT, NULL);
-    //
-    //    glDisableVertexAttribArray(0);
-    //    glDisableVertexAttribArray(3);
-    //    }
-}
-
-/** Disable Textures that are not needed for the current draw call */
-void GLFWGraphicsSystem::disableNonUsedTextures(int nTextures) const
-{
-    int startingIndex = currentTexturesUsed -(currentTexturesUsed - nTextures);
-    
-    for(int i = startingIndex; i < currentTexturesUsed; i++)
-    {
-        glActiveTexture(GL_TEXTURE0+i);
-        glDisable(GL_TEXTURE_2D);
-    }
-}
-
-/** Renders meshes on the screen from the camera point of view */
+/** Renders meshes on the screen from the camera point of view
+ @param[in] camera The camera that's being used to render
+ @param[in] renderers The renderers that will be rendered
+ @param[in] lights The lights of the world
+ */
 void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<MeshRenderer>>& renderers, vector<shared_ptr<Light>>& lights)
 //void GraphicsSystem::render(World& world)
 {
@@ -193,20 +135,25 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
     //glEnable(GL_BLEND);
     //glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     
+    shared_ptr<MeshRenderer> meshRenderer;
+    shared_ptr<Actor> actor;
+    shared_ptr<MeshComponent> meshComponent;
+    shared_ptr<Material> material;
     for (int i = 0; i < renderers.size(); i++)
     {
         //                Time::stopwatchStart();
         
-        shared_ptr<MeshRenderer> meshRenderer = renderers[i];
+        meshRenderer = renderers[i];
         
-        shared_ptr<Actor> actor = meshRenderer->getActor();
+        actor = meshRenderer->getActor();
         
-		shared_ptr<MeshComponent> meshComponent = meshRenderer->getMeshComponent();
+		meshComponent = meshRenderer->getMeshComponent();
 		if (!meshComponent)
 			continue;
+        material = meshRenderer->getMaterial();
         
         
-        GLuint shaderProgram = meshRenderer->getMaterial()->getShaderProgram();
+        GLuint shaderProgram = material->getShaderProgram();
         //        cout << "Get data:" <<       Time::stopwatchEnd() << endl;
         
         //        Time::stopwatchStart();
@@ -225,7 +172,7 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         glm::vec3 ambientLightColor(1.0, 1.0, 1.0);
         
 		setUniform3fv(shaderProgram, "ambientLightColor", 1, glm::value_ptr(ambientLightColor));
-		setUniform1f(shaderProgram, "ambientLightIntensity", ambientLight);
+		setUniform1fv(shaderProgram, "ambientLightIntensity",1, &ambientLight);
         
         
         
@@ -243,30 +190,11 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
             
         }
         
-        vector<Material::StringTexPair> stringTexPairs = meshRenderer->getMaterial()->getAllTextureParams();
+        disableNonUsedTextures(material->getNTextureParams());
         
-        disableNonUsedTextures(stringTexPairs.size());
-        int texCount = 0;
-		for(auto& stringTexPair : stringTexPairs)
-        {
-            glActiveTexture(GL_TEXTURE0+texCount);
-			glBindTexture(GL_TEXTURE_2D, stringTexPair.second->getTextureID());
-			glUniform1i(getUniformLocation(shaderProgram, stringTexPair.first.c_str()), 0);
-            
-            texCount++;
-        }
+        const map<string,Holder> materialParams = material->getAllParams();
         
-		vector<Material::StringVec4Pair> stringVec4Pairs = meshRenderer->getMaterial()->getAllVec4Params();
-		for (auto& stringVec4Pair : stringVec4Pairs)
-		{
-			setUniform4fv(shaderProgram, stringVec4Pair.first.c_str(), 1, &stringVec4Pair.second[0]);
-		}
-        vector<Material::StringVec2Pair> stringVec2Pairs = meshRenderer->getMaterial()->getAllVec2Params();
-		for (auto& stringVec2Pair : stringVec2Pairs)
-		{
-			setUniform2fv(shaderProgram, stringVec2Pair.first.c_str(), 1, &stringVec2Pair.second[0]);
-            
-		}
+        applyMaterialParams(shaderProgram, materialParams);
         
         
 		glBindVertexArray(meshComponent->getMesh()->getVertexArrayID());
@@ -292,10 +220,10 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
 		
         shared_ptr<SkinnedMesh> skinnedMesh = dynamic_pointer_cast<SkinnedMesh>(meshRenderer->getMeshComponent()->getMesh());
         
-        
+        int useBones = 0;
         if(skinnedMesh)
         {
-            setUniform1i(shaderProgram, "nBones", 1);
+            useBones = 1;
             
             GLenum error =glGetError() ;
             if ( error != GL_NO_ERROR )
@@ -348,10 +276,8 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
             
             setUniformMatrix4fv(shaderProgram, "boneTransform",10,GL_FALSE, glm::value_ptr(skinnedMesh->getDeltaPos()[0]));
         }
-        else
-        {
-            setUniform1i(shaderProgram, "nBones", 0);
-        }
+
+        setUniform1iv(shaderProgram, "nBones",1, &useBones);
         
         
         //        		setUniformMatrix4fv(shaderProgram, "camera", 1, GL_FALSE, &camera->getMVPMatrix()[0][0]);
@@ -377,8 +303,12 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
     
 }
 
-/** Renders Physics information on screen from the camera point of view */
-void GLFWGraphicsSystem::render(shared_ptr<Camera> camera,const physx::PxRenderBuffer& rb,const glm::vec4& color)
+/** Renders Physics information on screen from the camera point of view
+ @param[in] camera The camera that's being used to render
+ @param[in] rb Physics render buffer
+ @param[in] color Color of the lines
+ */
+void GLFWGraphicsSystem::renderPhysicsDebug(shared_ptr<Camera> camera,const physx::PxRenderBuffer& rb,const glm::vec4& color)
 {
     float *points = new float[rb.getNbLines() * 6];
     
@@ -441,41 +371,59 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera,const physx::PxRenderB
 }
 
 /** Generates a new Vertex Array - Used for mesh vertice data */
-void GLFWGraphicsSystem::generateVertexArrays(const GLuint id, GLuint& vao)
+void GLFWGraphicsSystem::generateVertexArrays(const GLuint size, GLuint& vao)
 {
-    glGenVertexArrays(id, &vao);
+    glGenVertexArrays(size, &vao);
     glBindVertexArray(vao);
     
 }
 
-/** Generates a new Buffer Array */
-void GLFWGraphicsSystem::generateBuffer(const GLuint size, GLuint& bo, GLenum type, int dataSize, void *dataPointer, GLenum drawType)
+/** Generates a new Buffer Array
+ @param[in] size Number of buffers arrays to generate
+ @param[out] bo The created buffer
+ @param[in] dataSize The size of the dataBuffer
+ @param[in] dataPointer The data
+ @param[in] usage The usage type of the buffer
+ */
+void GLFWGraphicsSystem::generateBuffer(const GLuint size, GLuint& bo, GLenum type, int dataSize, void *dataPointer, GLenum usage)
 {
     glGenBuffers(size, &bo);
     glBindBuffer(type, bo);
-    glBufferData(type, dataSize, dataPointer, drawType);
+    glBufferData(type, dataSize, dataPointer, usage);
     
 }
 
-/** Release buffer */
+/** Release buffer
+ @param[in] size Number of buffers to delete
+ @param[in] bo Buffers to delete
+ */
 void GLFWGraphicsSystem::deleteBuffer(GLuint size, GLuint &bo)
 {
 	glDeleteBuffers(size, &bo);
 }
 
-/** Creates a new shader */
+/** Creates a new shader
+ @param[in] shaderType The type of the shader
+ @return Created shaderID
+ */
 GLuint GLFWGraphicsSystem::createShader(GLenum shaderType)
 {
     return glCreateShader(shaderType);
 }
 
-/** Release shader */
+/** Release shader
+ @param[in] shaderID Shader to release
+ */
 void GLFWGraphicsSystem::deleteShader(GLuint shaderID)
 {
 	glDeleteShader(shaderID);
 }
 
-/** Compile the shader */
+/** Compile a shader
+ @param[in] shaderID Shader to compile
+ @param[in] size Size of the data buffer
+ @param[in] dataPointer Shader data
+ */
 void GLFWGraphicsSystem::compileShader(GLuint shaderID, GLuint size,const char* dataPointer)
 {
     int InfoLogLength;
@@ -491,58 +439,124 @@ void GLFWGraphicsSystem::compileShader(GLuint shaderID, GLuint size,const char* 
     fprintf(stdout, "%s\n", &shaderErrorMessage[0]);
     
 }
-/** Merge VertexShader and FragmentShader to one */
-void GLFWGraphicsSystem::attachAndLinkShader(GLuint ProgramID, GLuint VertexShaderID, GLuint FragmentShaderID)
+/** Merge VertexShader and FragmentShader to one
+ @param[in] programID Program ID that holds both shaders
+ @param[in] vertexShaderID Vertex Shader
+ @param[in] fragmentShaderID Fragment Shader
+ */
+void GLFWGraphicsSystem::attachAndLinkShader(GLuint programID, GLuint vertexShaderID, GLuint fragmentShaderID)
 {
-	glAttachShader(ProgramID, VertexShaderID);
-	glAttachShader(ProgramID, FragmentShaderID);
-	glLinkProgram(ProgramID);
+	glAttachShader(programID, vertexShaderID);
+	glAttachShader(programID, fragmentShaderID);
+	glLinkProgram(programID);
 }
 
-/** Merge VertexShader and FragmentShader to one */
+/** Creates a new shader program
+ @return The shader program */
 GLuint GLFWGraphicsSystem::createShaderProgram()
 {
     return glCreateProgram();
 }
 
 
-
-
-/** Gets the uniform location for a string in a shader */
-//GLint GLFWGraphicsSystem::getUniformLocation(const GLuint shaderProgram, const GLchar* uniformName) {
-//	if (!uniformName)
-//		throw std::runtime_error("uniformName was NULL");
-//
-//	GLint uniform = glGetUniformLocation(shaderProgram, uniformName);
-//	if (uniform == -1)
-//		throw std::runtime_error(std::string("Program uniform not found: ") + uniformName);
-//
-//	return uniform;
-//}
-
+/** Gets the uniform location for a string in a shader
+ @param[in] programID The shader program
+ @param[in] name The name of the uniform location
+ @return The uniform location ID*/
 GLint GLFWGraphicsSystem::getUniformLocation(const GLuint shaderProgram, const GLchar* uniformName) {
 	
 	if (!uniformName)
+    {
+//        cout << "Warning: Trying to get Uniform Location with null uniform name " << endl;
 		return -1;
-    //cout << "Warning: Trying to get Uniform Location with null uniform name " << endl;
-    //throw std::runtime_error("uniformName was NULL");
+    }
+
     
 	GLint uniform = glGetUniformLocation(shaderProgram, uniformName);
-	/*if (uniform == -1)
-     cout << "Warning: Shader uniform " << uniformName << " not found " << endl;
-     */	//throw std::runtime_error(std::string("Program uniform not found: ") + uniformName);
+//	if (uniform == -1)
+//        cout << "Warning: Shader uniform " << uniformName << " not found " << endl;
     
 	return uniform;
 }
 
-
+/** Gets a reference to a default white texture
+ @return Reference to white texture */
 shared_ptr<Texture> GLFWGraphicsSystem::getDefaultTexture()
 {
     
 	return defaultTexture;
 }
 
-bool  GLFWGraphicsSystem::setUniform2fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value)
+
+
+
+
+/** Disable Textures that have are not needed for the current draw call
+ @param[in] nTextures Number of textures that will be used */
+void GLFWGraphicsSystem::disableNonUsedTextures(int nTextures) const
+{
+    int startingIndex = currentTexturesUsed -(currentTexturesUsed - nTextures);
+    
+    for(int i = startingIndex; i < currentTexturesUsed; i++)
+    {
+        glActiveTexture(GL_TEXTURE0+i);
+        glDisable(GL_TEXTURE_2D);
+    }
+}
+
+
+
+/** Apply Materials to current rendering pass
+ @param shaderProgram The OpenGL shader program
+ @param parameters The parameters that will be applied
+ */
+void GLFWGraphicsSystem::applyMaterialParams(GLuint shaderProgram, const std::map<string,Holder>& parameters)
+{
+    
+    
+    int texCount = 0;
+    for(auto&parameter : parameters)
+    {
+        
+        switch (parameter.second.getType()) {
+            case ShaderParamType::FLOAT:
+                
+                break;
+            case ShaderParamType::TEXTURE:
+            {
+                glActiveTexture(GL_TEXTURE0+texCount);
+                glBindTexture(GL_TEXTURE_2D, parameter.second.getTexture()->getTextureID());
+                glUniform1i(getUniformLocation(shaderProgram, parameter.first.c_str()), 0);
+                break;
+            }
+            case ShaderParamType::VEC2:
+            {
+                glm::vec2 vec = parameter.second.getVec2();
+                setUniform2fv(shaderProgram, parameter.first.c_str(), 1, glm::value_ptr(vec));
+                break;
+            }
+            case ShaderParamType::VEC4:
+            {
+                glm::vec4 vec4 = parameter.second.getVec4();
+                setUniform4fv(shaderProgram, parameter.first.c_str(), 1, glm::value_ptr(vec4));
+                break;
+            }
+            default:
+                
+                break;
+        }
+        
+    }
+    currentTexturesUsed = texCount;
+}
+
+/** Set a value for a uniform2fv value
+ @param[in] shaderProgram The shader program
+ @param[in] count The number of values
+ @param[in] value The values
+ @return true if could set the value, false if could not find the uniform location in the shader program
+ */
+bool  GLFWGraphicsSystem::setUniform2fv(const GLuint shaderProgram, const GLchar* uniformName, int count, GLfloat* value)
 {
 	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
     
@@ -554,8 +568,13 @@ bool  GLFWGraphicsSystem::setUniform2fv(const GLuint& shaderProgram, const GLcha
     
 	return false;
 }
-
-bool  GLFWGraphicsSystem::setUniform4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value)
+/** Set a value for a uniform4fv value
+ @param[in] shaderProgram The shader program
+ @param[in] count The number of values
+ @param[in] value The values
+ @return true if could set the value, false if could not find the uniform location in the shader program
+ */
+bool  GLFWGraphicsSystem::setUniform4fv(const GLuint shaderProgram, const GLchar* uniformName, int count, GLfloat* value)
 {
 	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
     
@@ -567,7 +586,13 @@ bool  GLFWGraphicsSystem::setUniform4fv(const GLuint& shaderProgram, const GLcha
     
 	return false;
 }
-bool  GLFWGraphicsSystem::setUniform3fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLfloat* value)
+/** Set a value for a uniform3fv value
+ @param[in] shaderProgram The shader program
+ @param[in] count The number of values
+ @param[in] value The values
+ @return true if could set the value, false if could not find the uniform location in the shader program
+ */
+bool  GLFWGraphicsSystem::setUniform3fv(const GLuint shaderProgram, const GLchar* uniformName, int count, GLfloat* value)
 {
 	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
     
@@ -579,20 +604,14 @@ bool  GLFWGraphicsSystem::setUniform3fv(const GLuint& shaderProgram, const GLcha
     
 	return false;
 }
-bool  GLFWGraphicsSystem::setUniform1f(const GLuint& shaderProgram, const GLchar* uniformName, GLfloat value)
-{
-	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
-    
-	if (uniformLocation != -1)
-	{
-		glUniform1f(uniformLocation, value);
-		return true;
-	}
-    
-	return false;
-}
 
-bool  GLFWGraphicsSystem::setUniform1fv(const GLuint& shaderProgram, const GLchar* uniformName,int vertexSize, GLfloat* vertex)
+/** Set a value for a uniform1fv value
+ @param[in] shaderProgram The shader program
+ @param[in] count The number of values
+ @param[in] value The values
+ @return true if could set the value, false if could not find the uniform location in the shader program
+ */
+bool  GLFWGraphicsSystem::setUniform1fv(const GLuint shaderProgram, const GLchar* uniformName,int vertexSize, GLfloat* vertex)
 {
 	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
     
@@ -604,8 +623,13 @@ bool  GLFWGraphicsSystem::setUniform1fv(const GLuint& shaderProgram, const GLcha
     
 	return false;
 }
-
-bool  GLFWGraphicsSystem::setUniformMatrix4fv(const GLuint& shaderProgram, const GLchar* uniformName, int count, GLboolean transpose, GLfloat* value)
+/** Set a value for a uniform4fv value
+ @param[in] shaderProgram The shader program
+ @param[in] count The number of values
+ @param[in] value The values
+ @return true if could set the value, false if could not find the uniform location in the shader program
+ */
+bool  GLFWGraphicsSystem::setUniformMatrix4fv(const GLuint shaderProgram, const GLchar* uniformName, int count, GLboolean transpose, GLfloat* value)
 {
 	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
     
@@ -619,15 +643,72 @@ bool  GLFWGraphicsSystem::setUniformMatrix4fv(const GLuint& shaderProgram, const
 }
 
 
-bool  GLFWGraphicsSystem::setUniform1i(const GLuint& shaderProgram, const GLchar* uniformName, GLint value)
+bool  GLFWGraphicsSystem::setUniform1iv(const GLuint shaderProgram, const GLchar* uniformName, int count,GLint *value)
 {
 	GLint uniformLocation = getUniformLocation(shaderProgram, uniformName);
     
 	if (uniformLocation != -1)
 	{
-		glUniform1i(uniformLocation, value);
+		glUniform1iv(uniformLocation,count, value);
 		return true;
 	}
     
 	return false;
+}
+
+
+
+/** Render Widgets on screen */
+void GLFWGraphicsSystem::renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector)
+{
+    //
+    //    GLuint shaderProgram = guiMaterial->getShaderProgram();
+    //
+    //    glLinkProgram(shaderProgram);
+    //    glUseProgram(shaderProgram);
+    //
+    //    // Get a handle for our "myTextureSampler" uniform
+    //    GLuint TextureID  = glGetUniformLocation(shaderProgram, "myTextureSampler");
+    //    shared_ptr<Texture> texture = dynamic_pointer_cast<Texture>(AssetDatabase::idToAsset[1]);
+    //
+    ////    glEnable(GL_BLEND);
+    ////    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    //
+    //    for (int i = 0; i < uiWidgetVector.size(); i++)
+    //    {
+    //        shared_ptr<UIWidget> uiWidget = uiWidgetVector[i];
+    //
+    //        glUniformMatrix4fv(uniform(shaderProgram, "model"), 1, GL_FALSE, &uiWidget->getModelMatrix()[0][0]);
+    //    glUniformMatrix4fv(uniform(shaderProgram, "ortho"), 1, GL_FALSE, &GUIMatrix[0][0]);
+    //    glUniform4fv(uniform(shaderProgram, "diffuseColor"), 1, &uiWidget->color[0]);
+    //
+    //    glBindVertexArray(uiWidget->mesh->vao);
+    //
+    //    glEnableVertexAttribArray(0);
+    //    glBindBuffer(GL_ARRAY_BUFFER, uiWidget->mesh->mvbo);
+    //
+    //        // Bind our texture in Texture Unit 0
+    //        glActiveTexture(GL_TEXTURE0);
+    //        glBindTexture(GL_TEXTURE_2D, texture->textureID);
+    //        // Set our "myTextureSampler" sampler to user Texture Unit 0
+    //        glUniform1i(TextureID, 0);
+    //
+    //    //Vertex
+    //    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(0));
+    //
+    //        int beginUV = sizeof(glm::vec3);
+    //
+    //        //UV
+    //        glEnableVertexAttribArray(3);
+    //        glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginUV));
+    //
+    //
+    //    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uiWidget->mesh->ibo);
+    //
+    //    // draw points 0-3 from the currently bound VAO with current in-use shader
+    //    glDrawElements(GL_TRIANGLES, uiWidget->mesh->triangles.size(), GL_UNSIGNED_SHORT, NULL);
+    //
+    //    glDisableVertexAttribArray(0);
+    //    glDisableVertexAttribArray(3);
+    //    }
 }

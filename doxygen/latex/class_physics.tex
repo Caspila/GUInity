@@ -1,0 +1,107 @@
+\hypertarget{class_physics}{}\section{Physics Class Reference}
+\label{class_physics}\index{Physics@{Physics}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_physics_ae1a4865b4344594f83a6e5e0baad2a9a}{}int {\bfseries init} ()\label{class_physics_ae1a4865b4344594f83a6e5e0baad2a9a}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_physics_a6989c20a392877d24738ec1b05e9e22b}{}static bool {\bfseries ray\+Cast} (Px\+Scene $\ast$scene, const \hyperlink{class_ray}{Ray} \&r, const float distance, Px\+Raycast\+Buffer \&hit\+Callback)\label{class_physics_a6989c20a392877d24738ec1b05e9e22b}
+
+\item 
+\hypertarget{class_physics_a13d6c1dfe0b3441343bb0d30a498c5ce}{}static void {\bfseries update\+Actors\+Transform} (Px\+Scene $\ast$scene)\label{class_physics_a13d6c1dfe0b3441343bb0d30a498c5ce}
+
+\item 
+\hypertarget{class_physics_ae59d1a2bd0dc9bc2ad54074a1a6b43ec}{}static Px\+Rigid\+Dynamic $\ast$ {\bfseries create\+Rigid\+Dynamic} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_physics_ae59d1a2bd0dc9bc2ad54074a1a6b43ec}
+
+\item 
+\hypertarget{class_physics_aa7faba18fc0143b4ddaae52eca219716}{}static Px\+D6\+Joint $\ast$ {\bfseries create\+D6\+Joint} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor, Px\+Rigid\+Body $\ast$rigid\+Body)\label{class_physics_aa7faba18fc0143b4ddaae52eca219716}
+
+\item 
+\hypertarget{class_physics_a763587f080bb42879a8fa10d009e44fe}{}static Px\+Shape $\ast$ {\bfseries create\+Box\+Collider} (glm\+::vec3 half\+Extent, glm\+::vec3 center, shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_physics_a763587f080bb42879a8fa10d009e44fe}
+
+\item 
+\hypertarget{class_physics_ae6015ef65348a1c01a85d2e079d35eac}{}static Px\+Shape $\ast$ {\bfseries create\+Box\+Collider} (Px\+Vec3 half\+Extent, Px\+Vec3 center, shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_physics_ae6015ef65348a1c01a85d2e079d35eac}
+
+\item 
+\hypertarget{class_physics_a2ef2359f0d22c30244dcbb98e707e52b}{}static Px\+Shape $\ast$ {\bfseries create\+Box\+Collider} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_physics_a2ef2359f0d22c30244dcbb98e707e52b}
+
+\item 
+\hypertarget{class_physics_a5a259da34b27da97a4fc5ae046b844db}{}static Px\+Shape $\ast$ {\bfseries create\+Sphere\+Collider} (float radius, glm\+::vec3 center, shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_physics_a5a259da34b27da97a4fc5ae046b844db}
+
+\item 
+\hypertarget{class_physics_a54b03c18d6a9cef0934ed0e5ba4d1664}{}static Px\+Shape $\ast$ {\bfseries create\+Sphere\+Collider} (float radius, Px\+Vec3 center, shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_physics_a54b03c18d6a9cef0934ed0e5ba4d1664}
+
+\item 
+\hypertarget{class_physics_a62ed5a7e6561543d40284b1316c9e6f1}{}static Px\+Shape $\ast$ {\bfseries create\+Sphere\+Collider} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_physics_a62ed5a7e6561543d40284b1316c9e6f1}
+
+\item 
+\hypertarget{class_physics_ae1f6e27ae24c88616eac4199329c2474}{}static void {\bfseries set\+Capsule\+Orientation} (Px\+Shape $\ast$shape, Rotate\+Axis orientation)\label{class_physics_ae1f6e27ae24c88616eac4199329c2474}
+
+\item 
+\hypertarget{class_physics_af667feaa16f54d7ba980b0535efdd725}{}static Px\+Shape $\ast$ {\bfseries create\+Capsule\+Collider} (float radius, float half\+Height, Rotate\+Axis orientation, glm\+::vec3 center, shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_physics_af667feaa16f54d7ba980b0535efdd725}
+
+\item 
+\hypertarget{class_physics_ad61bf2c7fdb5b7f6263cb45801d80fa2}{}static Px\+Shape $\ast$ {\bfseries create\+Capsule\+Collider} (float radius, float half\+Height, Rotate\+Axis orientation, Px\+Vec3 center, shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_physics_ad61bf2c7fdb5b7f6263cb45801d80fa2}
+
+\item 
+\hypertarget{class_physics_ab0918271779efbfbba18a39f7ee9e88a}{}static Px\+Shape $\ast$ {\bfseries create\+Capsule\+Collider} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_physics_ab0918271779efbfbba18a39f7ee9e88a}
+
+\item 
+\hypertarget{class_physics_a2408727ec00753afccccdd949ed45d4e}{}static Px\+Shape $\ast$ {\bfseries create\+Mesh\+Collider} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor)\label{class_physics_a2408727ec00753afccccdd949ed45d4e}
+
+\item 
+\hypertarget{class_physics_a88e2aee7aea3b14821dd1f29061d30d2}{}static Px\+Convex\+Mesh $\ast$ {\bfseries get\+Px\+Convex\+Mesh} (shared\+\_\+ptr$<$ \hyperlink{class_mesh}{Mesh} $>$ mesh)\label{class_physics_a88e2aee7aea3b14821dd1f29061d30d2}
+
+\item 
+\hypertarget{class_physics_a0860be4d01d8f3ac3091bce1f4fd6654}{}static Px\+Scene $\ast$ {\bfseries create\+Physics\+Scene} ()\label{class_physics_a0860be4d01d8f3ac3091bce1f4fd6654}
+
+\item 
+\hypertarget{class_physics_a5c3d81bc67f81136181db76358b0ede7}{}static Px\+Material $\ast$ {\bfseries create\+Material} (float friction, float dynamic\+Friction, float restitution)\label{class_physics_a5c3d81bc67f81136181db76358b0ede7}
+
+\item 
+\hypertarget{class_physics_af324ec30b84e67fbe463f0a14d491b50}{}static shared\+\_\+ptr$<$ \hyperlink{class_physics_material}{Physics\+Material} $>$ {\bfseries get\+Default\+Material} ()\label{class_physics_af324ec30b84e67fbe463f0a14d491b50}
+
+\item 
+\hypertarget{class_physics_ac8d328e039f44a45b08742d35e434c94}{}static void {\bfseries tick\+Scene} (Px\+Scene $\ast$scene)\label{class_physics_ac8d328e039f44a45b08742d35e434c94}
+
+\item 
+\hypertarget{class_physics_a9594de74882adb25ce75ebc8b34fd6ce}{}static void {\bfseries shutdown} ()\label{class_physics_a9594de74882adb25ce75ebc8b34fd6ce}
+
+\item 
+\hypertarget{class_physics_a351ceac4e3a916796cc3b89c49133664}{}static bool {\bfseries convex\+Mesh\+Computed} (shared\+\_\+ptr$<$ \hyperlink{class_mesh}{Mesh} $>$ mesh)\label{class_physics_a351ceac4e3a916796cc3b89c49133664}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_physics_a2ad3728dd5522f3f424bda60399ccf88}{}static Px\+Physics $\ast$ {\bfseries g\+Physics\+S\+D\+K}\label{class_physics_a2ad3728dd5522f3f424bda60399ccf88}
+
+\item 
+\hypertarget{class_physics_a0e40ffb4cbbffabfbb85f074a0425f8c}{}static Px\+Default\+Error\+Callback {\bfseries g\+Default\+Error\+Callback}\label{class_physics_a0e40ffb4cbbffabfbb85f074a0425f8c}
+
+\item 
+\hypertarget{class_physics_a19b2ae365f967634785f9d70a532c02f}{}static Px\+Default\+Allocator {\bfseries g\+Default\+Allocator\+Callback}\label{class_physics_a19b2ae365f967634785f9d70a532c02f}
+
+\item 
+\hypertarget{class_physics_acfcee285f1920dd0d3efa4a9d6188b9f}{}static Px\+Foundation $\ast$ {\bfseries g\+Foundation}\label{class_physics_acfcee285f1920dd0d3efa4a9d6188b9f}
+
+\item 
+\hypertarget{class_physics_a19cc5586e2a87e6984b6c5d044040b83}{}static \hyperlink{class_phys_x_event_callback}{Phys\+X\+Event\+Callback} $\ast$ {\bfseries physx\+Event\+Callback}\label{class_physics_a19cc5586e2a87e6984b6c5d044040b83}
+
+\item 
+\hypertarget{class_physics_a2cefc51f88c56b800fc3d1de56223132}{}static Px\+Real {\bfseries my\+Timestep} = 1.\+0f / 60.\+0f\label{class_physics_a2cefc51f88c56b800fc3d1de56223132}
+
+\item 
+\hypertarget{class_physics_afaa14c98236618242d15a8e2a15ee88c}{}static map$<$ shared\+\_\+ptr$<$ \hyperlink{class_mesh}{Mesh} $>$, Px\+Convex\+Mesh $\ast$ $>$ {\bfseries convex\+Meshes}\label{class_physics_afaa14c98236618242d15a8e2a15ee88c}
+
+\end{DoxyCompactItemize}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Physics.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Physics.\+cpp\end{DoxyCompactItemize}

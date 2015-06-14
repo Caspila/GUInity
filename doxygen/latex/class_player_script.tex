@@ -1,0 +1,140 @@
+\hypertarget{class_player_script}{}\section{Player\+Script Class Reference}
+\label{class_player_script}\index{Player\+Script@{Player\+Script}}
+
+
+{\ttfamily \#include $<$Player\+Script.\+hpp$>$}
+
+Inheritance diagram for Player\+Script\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_player_script}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \hyperlink{class_player_script_acb623eb7cdcfc49b7848bf7d60809cb7}{awake} () override
+\item 
+virtual void \hyperlink{class_player_script_a5cd8853a54348831521f0455df5b508c}{tick} (float delta\+Secods) override
+\item 
+\hyperlink{class_player_script_a6fdee043545a61122b85536d2555d00c}{Player\+Script} ()
+\item 
+\hypertarget{class_player_script_a4d5b5edb9cf9bd82455631f8a08f32a5}{}void {\bfseries apply\+Drag} (float delta\+Seconds)\label{class_player_script_a4d5b5edb9cf9bd82455631f8a08f32a5}
+
+\item 
+virtual void \hyperlink{class_player_script_aa57ebbefa2e5be812b9a0272ae654258}{on\+Collision} (\hyperlink{class_actor}{Actor} $\ast$actor) override
+\item 
+virtual void \hyperlink{class_player_script_ad5476bdc3f1b168047def498cd62844f}{on\+Trigger} (\hyperlink{class_actor}{Actor} $\ast$actor) override
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component}{Component} $>$ \hyperlink{class_player_script_a75a83f06a2acb93ce1a629dcf2dabf5c}{clone} () override
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_player_script_ab3f3425c6c4e785c1b383372aa00cf2f}{}float {\bfseries move\+Speed}\label{class_player_script_ab3f3425c6c4e785c1b383372aa00cf2f}
+
+\item 
+\hypertarget{class_player_script_aa4c7eaaa33783dabfa9d78ca39ac711c}{}float {\bfseries rotate\+Speed}\label{class_player_script_aa4c7eaaa33783dabfa9d78ca39ac711c}
+
+\item 
+\hypertarget{class_player_script_a2f26a76ff6fbddb85a57271154e09c34}{}glm\+::vec3 {\bfseries velocity}\label{class_player_script_a2f26a76ff6fbddb85a57271154e09c34}
+
+\item 
+\hypertarget{class_player_script_a634f7d6cc4a865ba9f39c348f3d24554}{}weak\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ {\bfseries actor}\label{class_player_script_a634f7d6cc4a865ba9f39c348f3d24554}
+
+\item 
+\hypertarget{class_player_script_ad9ef6dbd52d8b5b81225cd0c13120344}{}shared\+\_\+ptr$<$ \hyperlink{class_material}{Material} $>$ {\bfseries default\+Material\+Ref}\label{class_player_script_ad9ef6dbd52d8b5b81225cd0c13120344}
+
+\item 
+\hypertarget{class_player_script_a8d35b4540064e7b2e26b985a1b2db017}{}shared\+\_\+ptr$<$ \hyperlink{class_mesh}{Mesh} $>$ {\bfseries obj\+Mesh\+Ref}\label{class_player_script_a8d35b4540064e7b2e26b985a1b2db017}
+
+\item 
+\hypertarget{class_player_script_a78fce4a74b7e1e0875e407f5b8c4117b}{}weak\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ {\bfseries bullet\+Spawn\+Point}\label{class_player_script_a78fce4a74b7e1e0875e407f5b8c4117b}
+
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+Your documentation comment will go here 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_player_script_a6fdee043545a61122b85536d2555d00c}{}\index{Player\+Script@{Player\+Script}!Player\+Script@{Player\+Script}}
+\index{Player\+Script@{Player\+Script}!Player\+Script@{Player\+Script}}
+\subsubsection[{Player\+Script()}]{\setlength{\rightskip}{0pt plus 5cm}Player\+Script\+::\+Player\+Script (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_player_script_a6fdee043545a61122b85536d2555d00c}
+Your documentation comment will go here 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_player_script_acb623eb7cdcfc49b7848bf7d60809cb7}{}\index{Player\+Script@{Player\+Script}!awake@{awake}}
+\index{awake@{awake}!Player\+Script@{Player\+Script}}
+\subsubsection[{awake() override}]{\setlength{\rightskip}{0pt plus 5cm}void Player\+Script\+::awake (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_player_script_acb623eb7cdcfc49b7848bf7d60809cb7}
+\hyperlink{class_component}{Component} awake override 
+
+Reimplemented from \hyperlink{class_script_component_a4667b8a3712e18b25cd6f49f12c5677d}{Script\+Component}.
+
+\hypertarget{class_player_script_a75a83f06a2acb93ce1a629dcf2dabf5c}{}\index{Player\+Script@{Player\+Script}!clone@{clone}}
+\index{clone@{clone}!Player\+Script@{Player\+Script}}
+\subsubsection[{clone() override}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Component} $>$ Player\+Script\+::clone (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_player_script_a75a83f06a2acb93ce1a629dcf2dabf5c}
+Clones current component (Prototype Design Pattern) \begin{DoxyReturn}{Returns}
+shared\+\_\+ptr to cloned \hyperlink{class_script_component}{Script\+Component} \hyperlink{class_component}{Component} 
+\end{DoxyReturn}
+
+
+Reimplemented from \hyperlink{class_script_component_adebdf5187e8f41f68f445ff7555d5036}{Script\+Component}.
+
+\hypertarget{class_player_script_aa57ebbefa2e5be812b9a0272ae654258}{}\index{Player\+Script@{Player\+Script}!on\+Collision@{on\+Collision}}
+\index{on\+Collision@{on\+Collision}!Player\+Script@{Player\+Script}}
+\subsubsection[{on\+Collision(\+Actor $\ast$actor) override}]{\setlength{\rightskip}{0pt plus 5cm}void Player\+Script\+::on\+Collision (
+\begin{DoxyParamCaption}
+\item[{{\bf Actor} $\ast$}]{actor}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_player_script_aa57ebbefa2e5be812b9a0272ae654258}
+Callback function called when a collision occurs 
+
+Reimplemented from \hyperlink{class_script_component_a9f84fa4e6c97f6b61926164c487fd6af}{Script\+Component}.
+
+\hypertarget{class_player_script_ad5476bdc3f1b168047def498cd62844f}{}\index{Player\+Script@{Player\+Script}!on\+Trigger@{on\+Trigger}}
+\index{on\+Trigger@{on\+Trigger}!Player\+Script@{Player\+Script}}
+\subsubsection[{on\+Trigger(\+Actor $\ast$actor) override}]{\setlength{\rightskip}{0pt plus 5cm}void Player\+Script\+::on\+Trigger (
+\begin{DoxyParamCaption}
+\item[{{\bf Actor} $\ast$}]{actor}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_player_script_ad5476bdc3f1b168047def498cd62844f}
+Callback function called when a trigger collision occurs 
+
+Reimplemented from \hyperlink{class_script_component_a4632d59065aa53982b6b154d3bc60502}{Script\+Component}.
+
+\hypertarget{class_player_script_a5cd8853a54348831521f0455df5b508c}{}\index{Player\+Script@{Player\+Script}!tick@{tick}}
+\index{tick@{tick}!Player\+Script@{Player\+Script}}
+\subsubsection[{tick(float delta\+Secods) override}]{\setlength{\rightskip}{0pt plus 5cm}void Player\+Script\+::tick (
+\begin{DoxyParamCaption}
+\item[{float}]{delta\+Secods}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_player_script_a5cd8853a54348831521f0455df5b508c}
+\hyperlink{class_component}{Component} tick override 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em delta\+Seconds} & last frame durations \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_script_component_aa765fa62a343a8d83eb168d369b93a51}{Script\+Component}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Player\+Script.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Player\+Script.\+cpp\end{DoxyCompactItemize}

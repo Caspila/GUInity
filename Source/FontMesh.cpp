@@ -77,7 +77,6 @@ void FontMesh::createMesh()
 		/*letterWidth *= letterUV.widthRatioToMax;
 		letterHeight *= letterUV.heightRatioToMax;*/
 
-		int i0, i1, i2, i3;
 		glm::vec3 p0, p1, p2, p3;
 
 		p0 = glm::vec3(xOffset, 0, 0);

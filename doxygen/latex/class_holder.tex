@@ -1,0 +1,114 @@
+\hypertarget{class_holder}{}\section{Holder Class Reference}
+\label{class_holder}\index{Holder@{Holder}}
+
+
+{\ttfamily \#include $<$Holder.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_holder_ae1dbc8fe3c2767fc8151053f12d92153}{Holder} (Shader\+Param\+Type type, float val)
+\item 
+\hyperlink{class_holder_ac3b91f721b1215045a8844646475a6c6}{Holder} (Shader\+Param\+Type type, const glm\+::vec4 \&val)
+\item 
+\hyperlink{class_holder_a380c68c69ef301e3af33c0aca9a48e98}{Holder} (Shader\+Param\+Type type, shared\+\_\+ptr$<$ \hyperlink{class_texture}{Texture} $>$ val)
+\item 
+bool \hyperlink{class_holder_a2cd1439c60fb135001774ab4e655c43a}{is\+Float} () const 
+\item 
+bool \hyperlink{class_holder_a9d261d1a676d922c3b859e5fd67e8a22}{is\+Vec4} () const 
+\item 
+bool \hyperlink{class_holder_adec8ccaac7d8750aca659c7264ec32ac}{is\+Texture} () const 
+\item 
+float \hyperlink{class_holder_ad8c5e5b50c6a726f77343c339d5fd706}{get\+Float} () const 
+\item 
+glm\+::vec4 \hyperlink{class_holder_a66a04f0ba3f38c073afebc8154920d63}{get\+Vec4} () const 
+\item 
+shared\+\_\+ptr$<$ \hyperlink{class_texture}{Texture} $>$ \hyperlink{class_holder_a41425780f640866a40c069b298d3532d}{get\+Texture} () const 
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_holder}{Holder} is a class that can hold multiple values. It\textquotesingle{}s used by Materials and Shaders because each shader can contain several input parameters such as float values and Textures. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_holder_ae1dbc8fe3c2767fc8151053f12d92153}{}\index{Holder@{Holder}!Holder@{Holder}}
+\index{Holder@{Holder}!Holder@{Holder}}
+\subsubsection[{Holder(\+Shader\+Param\+Type type, float val)}]{\setlength{\rightskip}{0pt plus 5cm}Holder\+::\+Holder (
+\begin{DoxyParamCaption}
+\item[{Shader\+Param\+Type}]{type, }
+\item[{float}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\label{class_holder_ae1dbc8fe3c2767fc8151053f12d92153}
+The explicit is very important here because we don\textquotesingle{}t want any implicit conversions among types Constructor for a float
+
+Constructor for a float \hypertarget{class_holder_ac3b91f721b1215045a8844646475a6c6}{}\index{Holder@{Holder}!Holder@{Holder}}
+\index{Holder@{Holder}!Holder@{Holder}}
+\subsubsection[{Holder(\+Shader\+Param\+Type type, const glm\+::vec4 \&val)}]{\setlength{\rightskip}{0pt plus 5cm}Holder\+::\+Holder (
+\begin{DoxyParamCaption}
+\item[{Shader\+Param\+Type}]{type, }
+\item[{const glm\+::vec4 \&}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\label{class_holder_ac3b91f721b1215045a8844646475a6c6}
+Constructor for a vec4 \hypertarget{class_holder_a380c68c69ef301e3af33c0aca9a48e98}{}\index{Holder@{Holder}!Holder@{Holder}}
+\index{Holder@{Holder}!Holder@{Holder}}
+\subsubsection[{Holder(\+Shader\+Param\+Type type, shared\+\_\+ptr$<$ Texture $>$ val)}]{\setlength{\rightskip}{0pt plus 5cm}Holder\+::\+Holder (
+\begin{DoxyParamCaption}
+\item[{Shader\+Param\+Type}]{type, }
+\item[{shared\+\_\+ptr$<$ {\bf Texture} $>$}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [explicit]}}\label{class_holder_a380c68c69ef301e3af33c0aca9a48e98}
+Constructor for a \hyperlink{class_texture}{Texture} 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_holder_ad8c5e5b50c6a726f77343c339d5fd706}{}\index{Holder@{Holder}!get\+Float@{get\+Float}}
+\index{get\+Float@{get\+Float}!Holder@{Holder}}
+\subsubsection[{get\+Float() const }]{\setlength{\rightskip}{0pt plus 5cm}float Holder\+::get\+Float (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_holder_ad8c5e5b50c6a726f77343c339d5fd706}
+returns the float value \hypertarget{class_holder_a41425780f640866a40c069b298d3532d}{}\index{Holder@{Holder}!get\+Texture@{get\+Texture}}
+\index{get\+Texture@{get\+Texture}!Holder@{Holder}}
+\subsubsection[{get\+Texture() const }]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Texture} $>$ Holder\+::get\+Texture (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_holder_a41425780f640866a40c069b298d3532d}
+returns the \hyperlink{class_texture}{Texture} value \hypertarget{class_holder_a66a04f0ba3f38c073afebc8154920d63}{}\index{Holder@{Holder}!get\+Vec4@{get\+Vec4}}
+\index{get\+Vec4@{get\+Vec4}!Holder@{Holder}}
+\subsubsection[{get\+Vec4() const }]{\setlength{\rightskip}{0pt plus 5cm}glm\+::vec4 Holder\+::get\+Vec4 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_holder_a66a04f0ba3f38c073afebc8154920d63}
+returns the vec4 value
+
+returns the vec3 value \hypertarget{class_holder_a2cd1439c60fb135001774ab4e655c43a}{}\index{Holder@{Holder}!is\+Float@{is\+Float}}
+\index{is\+Float@{is\+Float}!Holder@{Holder}}
+\subsubsection[{is\+Float() const }]{\setlength{\rightskip}{0pt plus 5cm}bool Holder\+::is\+Float (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_holder_a2cd1439c60fb135001774ab4e655c43a}
+returns true if it is a float value \hypertarget{class_holder_adec8ccaac7d8750aca659c7264ec32ac}{}\index{Holder@{Holder}!is\+Texture@{is\+Texture}}
+\index{is\+Texture@{is\+Texture}!Holder@{Holder}}
+\subsubsection[{is\+Texture() const }]{\setlength{\rightskip}{0pt plus 5cm}bool Holder\+::is\+Texture (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_holder_adec8ccaac7d8750aca659c7264ec32ac}
+returns true if it is a \hyperlink{class_texture}{Texture} value \hypertarget{class_holder_a9d261d1a676d922c3b859e5fd67e8a22}{}\index{Holder@{Holder}!is\+Vec4@{is\+Vec4}}
+\index{is\+Vec4@{is\+Vec4}!Holder@{Holder}}
+\subsubsection[{is\+Vec4() const }]{\setlength{\rightskip}{0pt plus 5cm}bool Holder\+::is\+Vec4 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+) const}\label{class_holder_a9d261d1a676d922c3b859e5fd67e8a22}
+returns true if it is a vec4 value
+
+returns true if it is a vec3 value 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Holder.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Holder.\+cpp\end{DoxyCompactItemize}

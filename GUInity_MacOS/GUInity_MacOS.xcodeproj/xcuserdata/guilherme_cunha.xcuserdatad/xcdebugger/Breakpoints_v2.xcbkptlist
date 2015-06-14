@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/GLFWGraphicsSystem.cpp"
-            timestampString = "455858008.890516"
+            timestampString = "455964016.278654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "300"
-            endingLineNumber = "300"
+            startingLineNumber = "228"
+            endingLineNumber = "228"
             landmarkName = "GLFWGraphicsSystem::render(shared_ptr&lt;Camera&gt; camera, vector &lt; shared_ptr&lt;MeshRenderer&gt;&gt;&amp; renderers, vector&lt;shared_ptr&lt;Light&gt;&gt;&amp; lights)"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/GLFWGraphicsSystem.cpp"
-            timestampString = "455858008.890516"
+            timestampString = "455964016.278654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "305"
-            endingLineNumber = "305"
+            startingLineNumber = "233"
+            endingLineNumber = "233"
             landmarkName = "GLFWGraphicsSystem::render(shared_ptr&lt;Camera&gt; camera, vector &lt; shared_ptr&lt;MeshRenderer&gt;&gt;&amp; renderers, vector&lt;shared_ptr&lt;Light&gt;&gt;&amp; lights)"
             landmarkType = "5">
          </BreakpointContent>
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "../Source/GLFWGraphicsSystem.cpp"
-            timestampString = "455858008.890516"
+            timestampString = "455964016.278654"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "349"
-            endingLineNumber = "349"
+            startingLineNumber = "277"
+            endingLineNumber = "277"
             landmarkName = "GLFWGraphicsSystem::render(shared_ptr&lt;Camera&gt; camera, vector &lt; shared_ptr&lt;MeshRenderer&gt;&gt;&amp; renderers, vector&lt;shared_ptr&lt;Light&gt;&gt;&amp; lights)"
             landmarkType = "5">
          </BreakpointContent>
@@ -318,6 +318,134 @@
             startingLineNumber = "378"
             endingLineNumber = "378"
             landmarkName = "AssetDatabase::loadTexture(const string filename, int &amp;width, int &amp;height)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/GLFWGraphicsSystem.hpp"
+            timestampString = "455964016.278654"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "67"
+            endingLineNumber = "67"
+            landmarkName = "class GLFWGraphicsSystem"
+            landmarkType = "3">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/GLFWGraphicsSystem.cpp"
+            timestampString = "455964071.455191"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "477"
+            endingLineNumber = "477"
+            landmarkName = "GLFWGraphicsSystem::getUniformLocation(const GLuint shaderProgram, const GLchar* uniformName)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/MoveTool.cpp"
+            timestampString = "455972233.68631"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "73"
+            endingLineNumber = "73"
+            landmarkName = "MoveTool::awake()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/Editor.cpp"
+            timestampString = "455969537.861876"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "334"
+            endingLineNumber = "334"
+            landmarkName = "Editor::update(float deltaSeconds, shared_ptr&lt;World&gt; gameWorld)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/Editor.cpp"
+            timestampString = "455969545.982968"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "332"
+            endingLineNumber = "332"
+            landmarkName = "Editor::update(float deltaSeconds, shared_ptr&lt;World&gt; gameWorld)"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/MoveTool.cpp"
+            timestampString = "455972233.68631"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "74"
+            endingLineNumber = "74"
+            landmarkName = "MoveTool::awake()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/MeshRenderer.cpp"
+            timestampString = "455969647.23263"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "33"
+            endingLineNumber = "33"
+            landmarkName = "MeshRenderer::init()"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "No"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "../Source/MoveTool.cpp"
+            timestampString = "455971419.895132"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "59"
+            endingLineNumber = "59"
+            landmarkName = "MoveTool::awake()"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

@@ -11,7 +11,8 @@
 #include "GraphicsSystem.hpp"
 
 /** Default Constructor */
-Material::Material()
+Material::Material() :
+nTextureParams {0}
 {
 	
 #ifdef GUINITY_DEBUG
@@ -22,7 +23,7 @@ Material::Material()
 /** Constructor
  @param[in] the Shader of this Material */
 Material::Material(shared_ptr<Shader> shader) :
-shader {shader}
+shader {shader}, nTextureParams {0}
 {
     map<string, ShaderParamType> shaderParams = shader->getShaderParameters();
     
@@ -35,6 +36,7 @@ shader {shader}
         {
             case TEXTURE:
                 params.insert(std::pair<string, Holder>(it->first, Holder(TEXTURE, GraphicsSystem::getInstance()->getDefaultTexture())));
+                nTextureParams++;
                 break;
             case VEC4:
                 params.insert(std::pair<string, Holder>(it->first, Holder(VEC4, glm::vec4(1,1,1,1))));
@@ -177,7 +179,22 @@ shader {shader}
                     else
                         cerr << "Material error: " << paramName << " does not exist" << endl;
                 }
+
+                /** params Getter
+                 @return Map of all the parameters
+                 */
+                int Material::getNTextureParams() const
+                {
+                    return nTextureParams;
+                }
                 
+                /** params Getter
+                 @return Map of all the parameters
+                 */
+                const map<string,Holder>& Material::getAllParams() const
+                {
+                    return params;
+                }
                 
                 /** Gets all Texture params
                  @return a vector with all the parameters of the Material that are of the type Texture
@@ -201,7 +218,7 @@ shader {shader}
                     
                 }
                 
-                /** Gets all Texture params
+                /** Gets all vec4 params
                  @return a vector with all the parameters of the Material that are of the type vec4
                  */
                 vector<Material::StringVec4Pair> Material::getAllVec4Params()
@@ -223,7 +240,7 @@ shader {shader}
                     
                 }
                 
-                /** Gets all Texture params
+                /** Gets all vec2 params
                  @return a vector with all the parameters of the Material that are of the type vec2
                  */
                 vector<Material::StringVec2Pair> Material::getAllVec2Params()

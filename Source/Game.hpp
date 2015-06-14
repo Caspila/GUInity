@@ -19,17 +19,9 @@ public:
 
 	PxScene* physicsScene;
 
-
 	void init();
 	void shutdown();
 
-	//virtual void onNotify(EventType type, shared_ptr<Component> component, bool isEditor) override;
-
 	static shared_ptr<World> world;
-
-
-	//shared_ptr<Camera> camera;
-
-	//vector<Actor> ctors;
 };
 

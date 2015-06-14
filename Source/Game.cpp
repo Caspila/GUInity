@@ -44,34 +44,20 @@ void Game::shutdown()
 
 void Game::update(float deltaSeconds)
 {
-	//camera->computeModelViewMatrix();
-
 	world->tick(deltaSeconds);
 
-	Physics::tickScene(world->physicsScene);
+	Physics::tickScene(deltaSeconds,world->physicsScene);
     Physics::updateActorsTransform(world->physicsScene);
 
-//	Physics::updateActorsTransform(world->physicsScene);
 
 	GraphicsSystem::getInstance()->clear();
-
-    
-//    Time::stopwatchStart();
     
     if(world->cameras.size()>0)
     {
         GraphicsSystem::getInstance()->render(world->cameras[0],world->meshRenderers,world->lights);
-//    cout << "Render time:" << Time::stopwatchEnd() << endl;
-    
-	//GraphicsSystem::getInstance().render(world->cameras[0], );
-        GraphicsSystem::getInstance()->render(world->cameras[0], world->physicsScene->getRenderBuffer(), glm::vec4(1, 1, 1,1));
+        GraphicsSystem::getInstance()->renderPhysicsDebug(world->cameras[0], world->physicsScene->getRenderBuffer(), glm::vec4(1, 1, 1,1));
     }
-//	GraphicsSystem::getInstance().render(camera, world.lights);
 	
 	GraphicsSystem::getInstance()->swap();
 }
 
-//void Game::onNotify(EventType type, shared_ptr<Component> component, bool isEditor)
-//{
-//
-//}

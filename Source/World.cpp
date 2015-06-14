@@ -49,6 +49,7 @@ void World::registerObserverAsEditor()
 
 	RigidBody::addObserver(shared_from_this());
 	RigidStatic::addObserver(shared_from_this());
+    	MeshRenderer::addObserver(shared_from_this());
 	EditorCollider::addObserver(shared_from_this());
 }
 

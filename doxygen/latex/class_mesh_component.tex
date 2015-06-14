@@ -1,0 +1,141 @@
+\hypertarget{class_mesh_component}{}\section{Mesh\+Component Class Reference}
+\label{class_mesh_component}\index{Mesh\+Component@{Mesh\+Component}}
+
+
+{\ttfamily \#include $<$Mesh\+Component.\+hpp$>$}
+
+Inheritance diagram for Mesh\+Component\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_mesh_component}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_mesh_component_a6f23f9f4c0fb23ee33a3798708c9a741}{Mesh\+Component} ()
+\item 
+virtual \hyperlink{class_mesh_component_a14f087d42e725d37d2414c7f32ca941a}{$\sim$\+Mesh\+Component} ()
+\item 
+void \hyperlink{class_mesh_component_a2971b2218704573c8bfc1e2ac0aa4fae}{set\+Mesh} (shared\+\_\+ptr$<$ \hyperlink{class_mesh}{Mesh} $>$ \hyperlink{class_mesh_component_ae985ae250fc6887e255e75f4c9a165dc}{mesh})
+\item 
+shared\+\_\+ptr$<$ \hyperlink{class_mesh}{Mesh} $>$ \hyperlink{class_mesh_component_a1388746fe37a996d6a17e4625ab0968a}{get\+Mesh} ()
+\item 
+void \hyperlink{class_mesh_component_a9d32173d75e3fa307cb53347e06bd325}{get\+Box\+Size} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor, Px\+Vec3 \&box\+Size, Px\+Vec3 \&center)
+\item 
+void \hyperlink{class_mesh_component_a2dc1677ff14f5af49ec20bcaa84799b0}{get\+Sphere\+Size} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ actor, float \&radius, Px\+Vec3 \&center)
+\item 
+void \hyperlink{class_mesh_component_acb19dbc4dfc54a99aa55538155cc459d}{get\+Capsule\+Geometry} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$actor, float \&radius, float \&half\+Height, Rotate\+Axis \&orientation, Px\+Vec3 \&center)
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component}{Component} $>$ \hyperlink{class_mesh_component_ace2f1acdce65f1c37b56a5b3ef507e8d}{clone} ()=0
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ \hyperlink{group__serialization__functions_ga10950983c0abed7fc5381383e211904f}{get\+Component\+Description} () override
+\item 
+virtual void \hyperlink{group__serialization__functions_gac2630e3fbb6a7eeb6b2f6d40e2a67bfa}{deserialize} (shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ desc) override
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+shared\+\_\+ptr$<$ \hyperlink{class_mesh}{Mesh} $>$ \hyperlink{class_mesh_component_ae985ae250fc6887e255e75f4c9a165dc}{mesh}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_mesh_component}{Mesh\+Component} is a \hyperlink{class_component}{Component} makes a reference to a \hyperlink{class_mesh}{Mesh} asset. This is important to prevent the same \hyperlink{class_mesh}{Mesh} to live multiple times in memory. This class is inherited used by \hyperlink{class_mesh_filter}{Mesh\+Filter} and \hyperlink{class_font_mesh}{Font\+Mesh} 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_mesh_component_a6f23f9f4c0fb23ee33a3798708c9a741}{}\index{Mesh\+Component@{Mesh\+Component}!Mesh\+Component@{Mesh\+Component}}
+\index{Mesh\+Component@{Mesh\+Component}!Mesh\+Component@{Mesh\+Component}}
+\subsubsection[{Mesh\+Component()}]{\setlength{\rightskip}{0pt plus 5cm}Mesh\+Component\+::\+Mesh\+Component (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_component_a6f23f9f4c0fb23ee33a3798708c9a741}
+Default Constructor \hypertarget{class_mesh_component_a14f087d42e725d37d2414c7f32ca941a}{}\index{Mesh\+Component@{Mesh\+Component}!````~Mesh\+Component@{$\sim$\+Mesh\+Component}}
+\index{````~Mesh\+Component@{$\sim$\+Mesh\+Component}!Mesh\+Component@{Mesh\+Component}}
+\subsubsection[{$\sim$\+Mesh\+Component()}]{\setlength{\rightskip}{0pt plus 5cm}Mesh\+Component\+::$\sim$\+Mesh\+Component (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_mesh_component_a14f087d42e725d37d2414c7f32ca941a}
+Default Destructor. Virtual because this is a parent class 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_mesh_component_ace2f1acdce65f1c37b56a5b3ef507e8d}{}\index{Mesh\+Component@{Mesh\+Component}!clone@{clone}}
+\index{clone@{clone}!Mesh\+Component@{Mesh\+Component}}
+\subsubsection[{clone()=0}]{\setlength{\rightskip}{0pt plus 5cm}virtual shared\+\_\+ptr$<${\bf Component}$>$ Mesh\+Component\+::clone (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [pure virtual]}}\label{class_mesh_component_ace2f1acdce65f1c37b56a5b3ef507e8d}
+Pure virtual function. Clones current component (Prototype Design Pattern) \begin{DoxyReturn}{Returns}
+shared\+\_\+ptr to cloned \hyperlink{class_mesh_component}{Mesh\+Component} \hyperlink{class_component}{Component} 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_component_a74c984bd819bbef16fd4f306a90d34fe}{Component}.
+
+
+
+Implemented in \hyperlink{class_font_mesh_a4dd3900fcbb33aca326d1cd1871e7b92}{Font\+Mesh}, and \hyperlink{class_mesh_filter_a6645cf7989fad04e40096955296b96a2}{Mesh\+Filter}.
+
+\hypertarget{class_mesh_component_a9d32173d75e3fa307cb53347e06bd325}{}\index{Mesh\+Component@{Mesh\+Component}!get\+Box\+Size@{get\+Box\+Size}}
+\index{get\+Box\+Size@{get\+Box\+Size}!Mesh\+Component@{Mesh\+Component}}
+\subsubsection[{get\+Box\+Size(shared\+\_\+ptr$<$ Actor $>$ actor, Px\+Vec3 \&box\+Size, Px\+Vec3 \&center)}]{\setlength{\rightskip}{0pt plus 5cm}void Mesh\+Component\+::get\+Box\+Size (
+\begin{DoxyParamCaption}
+\item[{shared\+\_\+ptr$<$ {\bf Actor} $>$}]{actor, }
+\item[{Px\+Vec3 \&}]{box\+Size, }
+\item[{Px\+Vec3 \&}]{center}
+\end{DoxyParamCaption}
+)}\label{class_mesh_component_a9d32173d75e3fa307cb53347e06bd325}
+Gets the center and the A\+A\+B\+B size for the \hyperlink{class_actor}{Actor} that this component is attached to \hypertarget{class_mesh_component_acb19dbc4dfc54a99aa55538155cc459d}{}\index{Mesh\+Component@{Mesh\+Component}!get\+Capsule\+Geometry@{get\+Capsule\+Geometry}}
+\index{get\+Capsule\+Geometry@{get\+Capsule\+Geometry}!Mesh\+Component@{Mesh\+Component}}
+\subsubsection[{get\+Capsule\+Geometry(shared\+\_\+ptr$<$ Actor $>$actor, float \&radius, float \&half\+Height, Rotate\+Axis \&orientation, Px\+Vec3 \&center)}]{\setlength{\rightskip}{0pt plus 5cm}void Mesh\+Component\+::get\+Capsule\+Geometry (
+\begin{DoxyParamCaption}
+\item[{shared\+\_\+ptr$<$ {\bf Actor} $>$}]{actor, }
+\item[{float \&}]{radius, }
+\item[{float \&}]{half\+Height, }
+\item[{Rotate\+Axis \&}]{orientation, }
+\item[{Px\+Vec3 \&}]{center}
+\end{DoxyParamCaption}
+)}\label{class_mesh_component_acb19dbc4dfc54a99aa55538155cc459d}
+Gets the center and the capsule description for the \hyperlink{class_actor}{Actor} that this component is attached to \hypertarget{class_mesh_component_a1388746fe37a996d6a17e4625ab0968a}{}\index{Mesh\+Component@{Mesh\+Component}!get\+Mesh@{get\+Mesh}}
+\index{get\+Mesh@{get\+Mesh}!Mesh\+Component@{Mesh\+Component}}
+\subsubsection[{get\+Mesh()}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Mesh} $>$ Mesh\+Component\+::get\+Mesh (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_mesh_component_a1388746fe37a996d6a17e4625ab0968a}
+mesh Setter
+
+mesh Getter \hypertarget{class_mesh_component_a2dc1677ff14f5af49ec20bcaa84799b0}{}\index{Mesh\+Component@{Mesh\+Component}!get\+Sphere\+Size@{get\+Sphere\+Size}}
+\index{get\+Sphere\+Size@{get\+Sphere\+Size}!Mesh\+Component@{Mesh\+Component}}
+\subsubsection[{get\+Sphere\+Size(shared\+\_\+ptr$<$ Actor $>$ actor, float \&radius, Px\+Vec3 \&center)}]{\setlength{\rightskip}{0pt plus 5cm}void Mesh\+Component\+::get\+Sphere\+Size (
+\begin{DoxyParamCaption}
+\item[{shared\+\_\+ptr$<$ {\bf Actor} $>$}]{actor, }
+\item[{float \&}]{radius, }
+\item[{Px\+Vec3 \&}]{center}
+\end{DoxyParamCaption}
+)}\label{class_mesh_component_a2dc1677ff14f5af49ec20bcaa84799b0}
+Gets the center and the radius for the \hyperlink{class_actor}{Actor} that this component is attached to \hypertarget{class_mesh_component_a2971b2218704573c8bfc1e2ac0aa4fae}{}\index{Mesh\+Component@{Mesh\+Component}!set\+Mesh@{set\+Mesh}}
+\index{set\+Mesh@{set\+Mesh}!Mesh\+Component@{Mesh\+Component}}
+\subsubsection[{set\+Mesh(shared\+\_\+ptr$<$ Mesh $>$ mesh)}]{\setlength{\rightskip}{0pt plus 5cm}void Mesh\+Component\+::set\+Mesh (
+\begin{DoxyParamCaption}
+\item[{shared\+\_\+ptr$<$ {\bf Mesh} $>$}]{mesh}
+\end{DoxyParamCaption}
+)}\label{class_mesh_component_a2971b2218704573c8bfc1e2ac0aa4fae}
+mesh Getter
+
+mesh Setter 
+
+\subsection{Member Data Documentation}
+\hypertarget{class_mesh_component_ae985ae250fc6887e255e75f4c9a165dc}{}\index{Mesh\+Component@{Mesh\+Component}!mesh@{mesh}}
+\index{mesh@{mesh}!Mesh\+Component@{Mesh\+Component}}
+\subsubsection[{mesh}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<${\bf Mesh}$>$ Mesh\+Component\+::mesh\hspace{0.3cm}{\ttfamily [protected]}}\label{class_mesh_component_ae985ae250fc6887e255e75f4c9a165dc}
+The \hyperlink{class_mesh}{Mesh} \hyperlink{class_asset}{Asset} 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Mesh\+Component.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Mesh\+Component.\+cpp\end{DoxyCompactItemize}

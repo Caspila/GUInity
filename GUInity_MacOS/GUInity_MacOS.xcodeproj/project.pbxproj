@@ -443,13 +443,13 @@
 			isa = PBXGroup;
 			children = (
 				465311B11B214C240022B98E /* _Assets */,
+				46FE56851B2D456400ADF5F2 /* _Auxiliar */,
 				465311AB1B214A1D0022B98E /* _Component */,
+				46FE56831B2D44F700ADF5F2 /* _Modules */,
 				465311AE1B214AE20022B98E /* _ScriptComponent */,
 				4672BA651A78A164007BF293 /* Actor.hpp */,
 				46EA076D1B2A67CB00AA619A /* Animation.hpp */,
 				46EA076A1B2A027A00AA619A /* AnimationCurve.hpp */,
-				46FE56831B2D44F700ADF5F2 /* _Modules */,
-				46FE56851B2D456400ADF5F2 /* _Auxiliar */,
 				4672BA821A78A164007BF293 /* Factory.hpp */,
 				4672BA9D1A78A164007BF293 /* Math.hpp */,
 				4672BA9F1A78A164007BF293 /* MathStructs.hpp */,
@@ -479,13 +479,13 @@
 			isa = PBXGroup;
 			children = (
 				465311B01B214BDF0022B98E /* _Assets */,
+				46FE56861B2D459300ADF5F2 /* _Auxiliar */,
 				465311AD1B214A8A0022B98E /* _Components */,
+				46FE56841B2D451E00ADF5F2 /* _Modules */,
 				465311AF1B214B2C0022B98E /* _ScriptComponents */,
 				4672BA641A78A164007BF293 /* Actor.cpp */,
 				46EA076C1B2A67CB00AA619A /* Animation.cpp */,
 				46EA07691B2A027A00AA619A /* AnimationCurve.cpp */,
-				46FE56841B2D451E00ADF5F2 /* _Modules */,
-				46FE56861B2D459300ADF5F2 /* _Auxiliar */,
 				4672BA811A78A164007BF293 /* Factory.cpp */,
 				4672BA891A78A164007BF293 /* Game.cpp */,
 				4672BA971A78A164007BF293 /* main.cpp */,

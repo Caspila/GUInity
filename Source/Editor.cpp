@@ -322,18 +322,18 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
 
 	world->tick(deltaSeconds);
 
-	Physics::tickScene(world->physicsScene);
+	Physics::tickScene(deltaSeconds,world->physicsScene);
 	Physics::updateActorsTransform(world->physicsScene);
 
 	cameraComponent->computeModelViewMatrix();
 
 	GraphicsSystem::getInstance()->clear();
 
-	//GraphicsSystem::getInstance().render(cameraComponent, world->meshRenderers, world->lights);
+	GraphicsSystem::getInstance()->render(cameraComponent, world->meshRenderers, gameWorld->lights);
 
 	GraphicsSystem::getInstance()->render(cameraComponent, gameWorld->meshRenderers, gameWorld->lights);
 
-	GraphicsSystem::getInstance()->render(cameraComponent, world->physicsScene->getRenderBuffer(), glm::vec4(1, 1, 1,1));
+	GraphicsSystem::getInstance()->renderPhysicsDebug(cameraComponent, world->physicsScene->getRenderBuffer(), glm::vec4(1, 1, 1,1));
     
     //GraphicsSystem::getInstance()->renderGUI(uiWidgetTest,1);
 //    GraphicsSystem::getInstance()->renderGUI(UIWidget::depthToWidgetVector[1]);
