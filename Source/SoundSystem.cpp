@@ -51,7 +51,7 @@ int SoundSystem::init()
 
 void SoundSystem::playSound(shared_ptr<Sound> sound)
 {
-	FMOD_RESULT result = system->playSound(sound->soundHandle, 0, false, &channel);
+	FMOD_RESULT result = system->playSound(sound->getSoundHandle(), 0, false, &channel);
 }
 
 void SoundSystem::shutdown()

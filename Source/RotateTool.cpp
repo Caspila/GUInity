@@ -76,9 +76,9 @@ void RotateTool::awake()
 	handleScript = upHandle->AddComponent<RotateHandle>();
 	handleScript->setAxis(RotateAxis::y);
 	//
-	getActor()->addChildren(rightHandle);
-	getActor()->addChildren(forwardHandle);
-	getActor()->addChildren(upHandle);
+	getActor()->addChild(rightHandle);
+	getActor()->addChild(forwardHandle);
+	getActor()->addChild(upHandle);
 }
 
 void RotateTool::tick(float deltaSeconds)

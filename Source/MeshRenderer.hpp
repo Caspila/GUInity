@@ -32,7 +32,7 @@ public:
     /** material setter */
     void setMaterial(shared_ptr<Material> material);
     /** material getter */
-    shared_ptr<Material> getMaterial()  const;
+    const shared_ptr<Material> getMaterial()  const;
 	
     /** meshComponent setter */
     void setMeshComponent(shared_ptr<MeshComponent> mesh);

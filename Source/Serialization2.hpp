@@ -205,18 +205,27 @@ namespace boost {
         {
             ar & boost::serialization::base_object<Asset>(shader);
             
-            ar & shader.vsFilename;
-            ar & shader.fsFilename;
+            string vsFilename =shader.getVertexShaderFilename();
+            string fsFilename =shader.getFragShaderFilename();
+            
+            ar & vsFilename;
+            ar & fsFilename;
         }
         template<class Archive>
         void load(Archive & ar, Shader & shader, const unsigned int version)
         {
             ar & boost::serialization::base_object<Asset>(shader);
             
-            ar & shader.vsFilename;
-            ar & shader.fsFilename;
+            string vsFilename;
+            string fsFilename;
             
-            shader.LoadShaders();
+            ar & vsFilename;
+            ar & fsFilename;
+            
+            shader.setVertexShaderFilename(vsFilename);
+            shader.setFragShaderFilename(fsFilename);
+            
+            shader.loadShaders();
         }
         
         template <class Archive>

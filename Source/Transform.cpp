@@ -9,8 +9,6 @@ Transform::Transform() : position(0.0f), rotation(), scale(1.0f)
 #ifdef GUINITY_DEBUG
 	nCount++;
 #endif
-
-//	this->actor = actor;
 }
 
 
@@ -24,60 +22,64 @@ Transform::~Transform()
 
 }
 
+/** actor Setter
+ @param[in] actor Reference to the Actor
+ */
 void Transform::setActor(shared_ptr<Actor> actor)
 {
 	this->actor = actor;
 }
 
-//void Transform::setRigidBody(PxRigidBody* rigidBody)
-//{
-//	this->rigidBody = rigidBody;
-//}
-
+/** Get the local position
+ @return The local position
+ */
 void Transform::setPosition(glm::vec3 position)
 {
 	this->position = position;
 
 }
-//void Transform::setRotation(glm::vec3 rotation)
-//{
-//	this->rotation = rotation;
-//}
+
+/** Set the local scale
+ @param[in] scale The scale
+ */
 void Transform::setScale(glm::vec3 scale)
 {
 	this->scale = scale;
 }
 
+/** Get the local position
+ @return The local position
+ */
 glm::vec3 Transform::getPosition()
 {
 	return position;
 }
 
-//glm::vec3 Transform::getWorldPosition()
-//{
-//	return position;
-//}
-
-//glm::vec3 Transform::getRotation()
-//{
-//	return rotation;
-//}
-
+/** Get the local rotation
+ @return The local rotation
+ */
 glm::quat Transform::getRotation()
 {
 	return rotation;
 }
-
+/** Set the local rotation
+ @param[in] rotation The rotation
+ */
 void Transform::setRotation(glm::quat rotation)
 {
 	this->rotation = rotation;
 }
+/** Get the local scale
+ @return The local scale
+ */
 glm::vec3 Transform::getScale()
 {
 	return scale;
 }
 
-
+/** Get the full model matrix
+ @return The model matrix
+ */
 glm::mat4 Transform::getModelMatrix()
 {
 	shared_ptr<Actor> actorLock = actor.lock();
@@ -88,25 +90,25 @@ glm::mat4 Transform::getModelMatrix()
     
 	else return  parentLock->transform->getModelMatrix() * glm::translate(position) *  (glm::mat4)(rotation) * glm::scale(scale);
 
-    
-    
-//	if (parentLock == nullptr)
-//		return glm::translate(position) * glm::scale(scale) * (glm::mat4)(rotationQuat);
-//
-//	else return  parentLock->transform->getModelMatrix() * glm::translate(position) * glm::scale(scale) * (glm::mat4)(rotationQuat);
+
 }
 
+/** Get the model matrix without the scale
+ @return The model matrix without the scale
+ */
 glm::mat4 Transform::getPosRotMatrix()
 {
 	shared_ptr<Actor> actorLock = actor.lock();
 	shared_ptr<Actor> parentLock = actorLock->parent.lock();
 	if (parentLock == nullptr)
-		return glm::translate(position) * (glm::mat4)(rotation);// *glm::quat(glm::vec3(0, 180 * Math::Deg2Radian, 0)));
-
-	//else return  actorLock->transform->getPosRotMatrix() * glm::translate(position) * glm::scale(scale) * (glm::mat4)(rotationQuat);
+		return glm::translate(position) * (glm::mat4)(rotation);
+    
 	else return  parentLock->transform->getPosRotMatrix() * glm::translate(position) * (glm::mat4)(rotation);
 }
 
+/** Updates the Transform based on changes from the PhysX scene
+ @param[in] transform The PhysX transform
+ */
 void Transform::updateTransform(const PxTransform& transform)
 {
 	
@@ -117,73 +119,35 @@ void Transform::updateTransform(const PxTransform& transform)
     }
     
     rigidBody->updateTransform(transform);
-//
-////
-//    glm::vec3 newPos = PhysXVec3ToglmVec3(transform.p);
-//    if(rigidBody->lockMoveX)
-//        newPos.x = position.x;
-//    if(rigidBody->lockMoveY)
-//        newPos.y = position.y;
-//    if(rigidBody->lockMoveZ)
-//        newPos.z = position.z;
-////
-////    
-////    //TODO : find a better way to lock rotation on axes, dealing with quaternion directly
-//    glm::vec3 oldRotEuler = glm::eulerAngles(rotationQuat);
-//    glm::vec3 rotEuler = glm::eulerAngles(PhysXQuatToglmQuat(transform.q));
-//    if(rigidBody->lockRotateX)
-//        rotEuler.x = oldRotEuler.x;
-//    if(rigidBody->lockRotateY)
-//        rotEuler.y = oldRotEuler.y;
-//    if(rigidBody->lockRotateZ)
-//        rotEuler.z = oldRotEuler.z;
-//    
-////
-//    
-//	position = newPos;//PhysXVec3ToglmVec3(transform.p);
-//	rotationQuat = glm::quat(rotEuler);//PhysXQuatToglmQuat(transform.q);
-//
-//        rigidBody->physxRigidBody->setGlobalPose(PxTransform(glmVec3ToPhysXVec3(position),glmQuatToPhysXQuat(rotationQuat)));
-    
-//    position = PhysXVec3ToglmVec3(transform.p);
-//	rotationQuat = PhysXQuatToglmQuat(transform.q);
-//    
 
-
-    
-	//cout << "-Physx: " << transform.q << endl;
-	//cout << "-glm: " << rotationQuat << endl;
-
-	//glm::vec3 rotEuler = glm::eulerAngles(rotationQuat);
-	//float aux = rotEuler.x;
-	//rotEuler.x = rotEuler.z;
-	//rotEuler.z = aux;
-	//
-	//rotationQuat = glm::quat(rotEuler);
-
-	//rotationQuat = glm::quat(glm::vec3(0, 0, 90 * Math::Deg2Radian)) * rotationQuat;
-	
-	//glm::normalize(rotationQuat);
 }
 
+/** Get the Up vector for this Transform
+ @return The Up vector */
 glm::vec3 Transform::getUp()
 {
 	glm::vec4 v = getModelMatrix() * glm::vec4(0, 1, 0, 0);
 	return glm::normalize(glm::vec3(v.x, v.y, v.z));
 
 }
+/** Get the Forward vector for this Transform
+ @return The Forward vector */
 glm::vec3 Transform::getForward()
 {
 	glm::vec4 v = getModelMatrix() * glm::vec4(0, 0, 1, 0);
 	return glm::normalize(glm::vec3(v.x, v.y, v.z));
 }
+/** Get the Right vector for this Transform
+ @return The Right vector */
 glm::vec3 Transform::getRight()
 {
 	glm::vec4 v = getModelMatrix() * glm::vec4(1, 0, 0, 0);
 	return glm::normalize(glm::vec3(v.x, v.y, v.z));
 }
 
-
+/** Get the world rotation
+ @return The world rotation
+ */
 glm::vec3 Transform::getWorldPosition()
 {
 	shared_ptr<Actor> actorLock = actor.lock();
@@ -194,6 +158,9 @@ glm::vec3 Transform::getWorldPosition()
 	else return glm::vec3(parentLock->transform->getModelMatrix() * glm::vec4(position.x, position.y, position.z, 1));
 }
 
+/** Get the world rotation
+ @return The world rotation
+ */
 glm::quat Transform::getWorldRotation()
 {
 	shared_ptr<Actor> actorLock = actor.lock();

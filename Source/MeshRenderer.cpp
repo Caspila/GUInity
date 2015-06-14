@@ -46,7 +46,7 @@ void MeshRenderer::setMaterial(shared_ptr<Material> material)
     this->material = material;
 }
 /** material getter */
-shared_ptr<Material> MeshRenderer::getMaterial()  const
+const shared_ptr<Material> MeshRenderer::getMaterial()  const
 {
     return material;
 }

@@ -55,11 +55,6 @@ string FontMesh::getText() const
 }
 
 
-void Font::setFontTexture(shared_ptr<Texture> fontTexture)
-{
-    this->fontTexture = fontTexture;
-}
-
 /** create the mesh according to the font and text */
 void FontMesh::createMesh()
 {

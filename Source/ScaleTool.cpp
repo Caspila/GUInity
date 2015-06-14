@@ -81,9 +81,9 @@ void ScaleTool::awake()
 	handleScript = upHandle->AddComponent<ScaleHandle>();
 	handleScript->setAxis(TransformAxis::y);
     
-	getActor()->addChildren(rightHandle);
-	getActor()->addChildren(forwardHandle);
-	getActor()->addChildren(upHandle);
+	getActor()->addChild(rightHandle);
+	getActor()->addChild(forwardHandle);
+	getActor()->addChild(upHandle);
 }
 
 void ScaleTool::tick(float deltaSeconds)

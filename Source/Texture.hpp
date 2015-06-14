@@ -13,19 +13,44 @@
 #include "Asset.hpp"
 #include "Module.hpp"
 
+/** Texture is an Asset that holds image data and the OpenGL-specific Texture ID
+ */
 class Texture : public Asset
 {
-public:
-    Texture(void* buffer, int width, int height);
-	Texture();
-    ~Texture();
+private:
+    /** The width of the image */
+    int width;
+    /** The height of the image */
+    int height;
     
-    void init();
+    /** Pointer to the image buffer */
     void* data;
     
-    int width, height;
-    
+    /** The OpenGL-specific texture buffer ID */
     GLuint textureID;
+    
+
+    
+public:
+    /** Constructor
+     @param[in] buffer The image data buffer
+     @param[in] width The width of the image
+     @param[in] height The height of the image
+     */
+    Texture(void* buffer, int width, int height);
+    /** Default Constructor */
+	Texture();
+    /** Default Destructor */
+    virtual ~Texture();
+    
+    /** Creates the OpenGL-specific texture buffer */
+    void createOpenGLTextureBuffer();
+
+    /** textureID Getter
+     @return OpenGL-specific texture ID
+     */
+    GLuint getTextureID() const;
+    
 };
 
-#endif /* defined(__opengl_testing_mag__Texture__) */
+#endif

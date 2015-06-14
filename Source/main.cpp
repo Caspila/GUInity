@@ -383,7 +383,7 @@ int main(int argc, char *argv[]) {
         
         shared_ptr<Actor> spaceShipRoot = Factory::CreateActor("SpaceShipRoot");// , meshRenderer1);
         shared_ptr<MeshFilter> meshFilter = spaceShipRoot->AddComponent<MeshFilter>();
-        meshFilter->setMesh(cubeAnim);
+        meshFilter->setMesh(spaceShipMesh);
         shared_ptr<MeshRenderer> meshRenderer = spaceShipRoot->AddComponent<MeshRenderer>();
         meshRenderer->setMaterial(spaceShipMaterial);
         spaceShipRoot->AddComponent<RigidBody>();
@@ -455,8 +455,8 @@ int main(int argc, char *argv[]) {
     		shared_ptr<FontMesh> fontMesh = fontTest->AddComponent<FontMesh>();
         		fontMesh->setFont(font);
         		fontMesh->setText("hey there mate!");
-        		meshRenderer = fontTest->AddComponent<MeshRenderer>();
-        		meshRenderer->setMaterial(fontMaterial);
+        		shared_ptr<MeshRenderer> fontMeshRenderer = fontTest->AddComponent<MeshRenderer>();
+        		fontMeshRenderer->setMaterial(fontMaterial);
         
         // START ACTOR SE/DESERIALIZATION AND CLONE
         

@@ -1,6 +1,6 @@
 //
-//  Asset.h
-//  opengl_testing_mag
+//  Asset.hpp
+//  GUInity Project - A 3D component-based one-man game engine
 //
 //  Created by Guilherme Cunha on 2014-12-30.
 //  Copyright (c) 2014 Guilherme Cunha. All rights reserved.
@@ -18,54 +18,82 @@
 
 using namespace std;
 
-/** Class Asset. This class represents assets in game. This can vary from textures to meshes and audio files. 
-	Virtually, everything that can be serialized to a file is an Asset. Currently, these are the assets:
-	-Texture
-	-Font
-	-Audio
-	-Mesh
-
-	The idea is to simulate the Assets folder in Unity. Therefore, assets place in a folder should be loaded automatically. 
-	Each Asset has a CRC (checksum) to check if the file has changed or not.
-*/
+/** Class Asset. This class represents assets in game. This can vary from textures to meshes and audio files.
+ Virtually, everything that can be serialized to a file is an Asset. Currently, these are the assets:
+ -Texture
+ -Font
+ -Sound
+ -Mesh
+ -Material
+ -PhysicsMaterial
+ -Shader
+ 
+ Every Asset placed in the data folder is automatically loaded in the game and can be accessed using the AssetDatabase.
+ Each Asset has a CRC (checksum) to check if the file has changed or not.
+ 
+ 
+ */
 class Asset
 {
-
+    
 private:
 	/** assetID is the "Primary Key" of the asset. Since they're all stored in the AssetDatabase */
 	unsigned int assetID;
 	/** Full path of the file */
-	string fullPath;
+	string filePath;
 	/** Name of the file */
 	string name;
 	/** Checksum of the file */
-	int crc; //Checksum
-
+	int crc;
+    
 public:
     
 	/** Default Constructor */
     Asset() {};
-	/** Default Destructor - Virtual because it's a parent class */
+	/** Default Destructor */
     virtual ~Asset(){}
     
-
-	/** assetID setter */
-    void setAssetID(unsigned int newAssetID) { this->assetID = newAssetID;}
-	/** assetID getter */
-    unsigned int getAssetID() const { return assetID;}
-
-	/** Full path getter */
-    string getPath() { return fullPath;}
-	/** Full path setter */
-	void setPath(string newPath) { fullPath = newPath;}
-	/** name setter*/
-    void setName(string name) { this->name = name; setPath(CommonData(name));}
-	/** name getter*/
-	string getName() { return name;}
-	/** CRC setter */
-    void setCRC(int crc) {this->crc = crc;}
-	/** CRC getter */
-	int setCRC() { return crc; }
+    
+    /** assetID Setter
+     @param[in] the unique number that identifies the Asset
+     */
+    void setAssetID(unsigned int assetID);
+    
+    /** assetID Getter
+     @return the unique number that identifies the Asset
+     */
+    
+    unsigned int getAssetID() const;
+    
+    /** filePath Setter
+     @param[in] filePath  the path of the Asset in the filesystem
+     */
+    void setPath(string filePath);
+    
+    /** filePath Getter
+     @return the path of the file in the filesystem
+     */
+    string getPath() const;
+    
+    /** name Setter
+     @param[in] name of the asset (Includes extension)
+     */
+    void setName(string name);
+    /** name Getter
+     @return name of the asset (Includes extension)
+     */
+    string getName() const;
+    
+    /** CRC Setter
+     @param[in] the crc of the file
+     https://en.wikipedia.org/wiki/Cyclic_redundancy_check
+     */
+    void setCRC(int crc);
+    /** CRC Getter
+     @return the crc of the file
+     https://en.wikipedia.org/wiki/Cyclic_redundancy_check
+     */
+    int setCRC();
     
     
     

@@ -43,7 +43,7 @@ void PlayerScript::awake()
 
     bulletSpawnPoint->transform->setPosition(actorLock->transform->getUp() * 1.5f + actorLock->transform->getPosition());
     
-    actorLock->addChildren(bulletSpawnPoint);
+    actorLock->addChild(bulletSpawnPoint);
     
     this->bulletSpawnPoint = bulletSpawnPoint;
 

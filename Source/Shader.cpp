@@ -3,6 +3,7 @@
 #include "GraphicsSystem.hpp"
 #include <regex>
 
+/** Default Constructor */
 Shader::Shader()
 {
     
@@ -11,19 +12,22 @@ Shader::Shader()
 #endif
 }
 
-Shader::Shader(string vertex_file_path, string fragment_file_path)
+/** Constructor
+ @param vertexShaderFilename The filename of the vertex shader
+ @param fragShaderFilename The filename of the fragment shader
+ */
+Shader::Shader(string vertexShaderFilename, string fragShaderFilename)
+: vertexShaderFilename {vertexShaderFilename}, fragShaderFilename{fragShaderFilename}
 {
     
-    vsFilename = vertex_file_path;
-    fsFilename = fragment_file_path;
     
-	LoadShaders();
+	loadShaders();
 #ifdef GUINITY_DEBUG
 	nCount++;
 #endif
 }
 
-
+/** Default Destructor */
 Shader::~Shader()
 {
     glDeleteProgram(programID);
@@ -34,138 +38,91 @@ Shader::~Shader()
 #endif
 }
 
-
-int max(int a, int b)
+/** params Getter
+ @return reference to the shader parameter types
+ */
+const map<string, ShaderParamType>& Shader::getShaderParameters() const
 {
-	if (a > b)
-		return a;
-	return b;
+    return params;
 }
 
-std::vector<std::string> &split(const std::string &s, char delim, std::vector<std::string> &elems) {
-	std::stringstream ss(s);
-	std::string item;
-	while (std::getline(ss, item, delim)) {
-		elems.push_back(item);
-	}
-	return elems;
-}
-
-std::vector<std::string> split(const std::string &s, char delim) {
-	std::vector<std::string> elems;
-	split(s, delim, elems);
-	return elems;
+/** programID Getter
+ @return OpenGL-specific shader program ID
+ */
+GLuint Shader::getProgramID() const
+{
+    return programID;
 }
 
 
-
-void Shader::LoadShaders(){
-
-	// Create the shaders
-    //GLuint VertexShaderID = glCreateShader(GL_VERTEX_SHADER);
-    //GLuint FragmentShaderID = glCreateShader(GL_FRAGMENT_SHADER);
-
-    GLuint VertexShaderID = GraphicsSystem::getInstance()->createShader(GL_VERTEX_SHADER);
-    GLuint FragmentShaderID = GraphicsSystem::getInstance()->createShader(GL_FRAGMENT_SHADER);
-
+/** Load and compile the shaders */
+void Shader::loadShaders(){
+    
+    GLuint vertexShaderID = GraphicsSystem::getInstance()->createShader(GL_VERTEX_SHADER);
+    GLuint fragmentShaderID = GraphicsSystem::getInstance()->createShader(GL_FRAGMENT_SHADER);
+    
 	// Read the Vertex Shader code from the file
-	std::string VertexShaderCode;
-	std::ifstream VertexShaderStream(vsFilename, std::ios::in);
-	if (VertexShaderStream.is_open())
+	std::string vertexShaderCode;
+	std::ifstream vertexShaderStream(vertexShaderFilename, std::ios::in);
+	if (vertexShaderStream.is_open())
 	{
 		std::string Line = "";
-		while (getline(VertexShaderStream, Line))
+		while (getline(vertexShaderStream, Line))
 		{
-			VertexShaderCode += "\n" + Line;
-
-			checkLine(Line);
-
+			vertexShaderCode += "\n" + Line;
+            
+			checkLineFormUniformParam(Line);
+            
 		}
-		VertexShaderStream.close();
+		vertexShaderStream.close();
 	}
-
+    
 	// Read the Fragment Shader code from the file
-	std::string FragmentShaderCode;
-	std::ifstream FragmentShaderStream(fsFilename, std::ios::in);
-	if (FragmentShaderStream.is_open()){
+	std::string fragmentShaderCode;
+	std::ifstream fragmentShaderStream(fragShaderFilename, std::ios::in);
+	if (fragmentShaderStream.is_open()){
 		std::string Line = "";
-		while (getline(FragmentShaderStream, Line))
+		while (getline(fragmentShaderStream, Line))
 		{
-			FragmentShaderCode += "\n" + Line;
-
-			checkLine(Line);
-
+			fragmentShaderCode += "\n" + Line;
+            
+			checkLineFormUniformParam(Line);
+            
 		}
-		FragmentShaderStream.close();
+		fragmentShaderStream.close();
 	}
-
-	GLint Result = GL_FALSE;
-	int InfoLogLength;
-
+    
+    
 	// Compile Vertex Shader
-	printf("Compiling shader : %s\n", vsFilename.c_str());
-	char const * VertexSourcePointer = VertexShaderCode.c_str();
-
-    GraphicsSystem::getInstance()->compileShader(VertexShaderID,1,VertexSourcePointer);
-
-//  glShaderSource(VertexShaderID, 1, &VertexSourcePointer, NULL);
-//	glCompileShader(VertexShaderID);
-
-	// Check Vertex Shader
-//	glGetShaderiv(VertexShaderID, GL_COMPILE_STATUS, &Result);
-//	glGetShaderiv(VertexShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-//	std::vector<char> VertexShaderErrorMessage(InfoLogLength);
-//	glGetShaderInfoLog(VertexShaderID, InfoLogLength, NULL, &VertexShaderErrorMessage[0]);
-//	fprintf(stdout, "%s\n", &VertexShaderErrorMessage[0]);
-
+	printf("Compiling shader : %s\n", vertexShaderFilename.c_str());
+	char const * vertexSourcePointer = vertexShaderCode.c_str();
+    
+    GraphicsSystem::getInstance()->compileShader(vertexShaderID,1,vertexSourcePointer);
+    
 	// Compile Fragment Shader
-	printf("Compiling shader : %s\n", fsFilename.c_str());
-	char const * FragmentSourcePointer = FragmentShaderCode.c_str();
-
-    GraphicsSystem::getInstance()->compileShader(FragmentShaderID,1,FragmentSourcePointer);
-
-//    glShaderSource(FragmentShaderID, 1, &FragmentSourcePointer, NULL);
-//	glCompileShader(FragmentShaderID);
-
-	// Check Fragment Shader
-//	glGetShaderiv(FragmentShaderID, GL_COMPILE_STATUS, &Result);
-//	glGetShaderiv(FragmentShaderID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-//    std::vector<char> FragmentShaderErrorMessage(InfoLogLength);
-//	glGetShaderInfoLog(FragmentShaderID, InfoLogLength, NULL, &FragmentShaderErrorMessage[0]);
-//	fprintf(stdout, "%s\n", &FragmentShaderErrorMessage[0]);
-
+	printf("Compiling shader : %s\n", fragShaderFilename.c_str());
+	char const * fragmentSourcePointer = fragmentShaderCode.c_str();
+    
+    GraphicsSystem::getInstance()->compileShader(fragmentShaderID,1,fragmentSourcePointer);
+    
+    
 	// Link the program
 	fprintf(stdout, "Linking program\n");
-
-    GLuint ProgramID = GraphicsSystem::getInstance()->createShaderProgram();
-    GraphicsSystem::getInstance()->attachAndLinkShader(ProgramID,VertexShaderID,FragmentShaderID);
-    //GLuint ProgramID = glCreateProgram();
-//	glAttachShader(ProgramID, VertexShaderID);
-//	glAttachShader(ProgramID, FragmentShaderID);
-//	glLinkProgram(ProgramID);
-
-	// Check the program
-//	glGetProgramiv(ProgramID, GL_LINK_STATUS, &Result);
-//	glGetProgramiv(ProgramID, GL_INFO_LOG_LENGTH, &InfoLogLength);
-//	std::vector<char> ProgramErrorMessage(max(InfoLogLength, int(1)));
-//	glGetProgramInfoLog(ProgramID, InfoLogLength, NULL, &ProgramErrorMessage[0]);
-//	fprintf(stdout, "%s\n", &ProgramErrorMessage[0]);
-
-//GraphicsSystem::getInstance()->deleteShader(VertexShaderID);
-//GraphicsSystem::getInstance()->deleteShader(FragmentShaderID);
-//    glDeleteShader(VertexShaderID);
-//	glDeleteShader(FragmentShaderID);
-
-    programID = ProgramID;
-
-    createUniformLocation();
+    
+    programID = GraphicsSystem::getInstance()->createShaderProgram();
+    GraphicsSystem::getInstance()->attachAndLinkShader(programID,vertexShaderID,fragmentShaderID);
+    
+    createUniformLocationMap();
 }
 
-void Shader::checkLine(const string& Line)
+/** Checks a line for uniform parameters that begins with a "_" Ex.: uniform vec4 _parameter
+ @param[in] line the line that's being checked
+ */
+void Shader::checkLineFormUniformParam(const string& line)
 {
 	std::regex vec3Regex("uniform +(vec2|vec4|sampler2D) +(_[a-z|A-Z|0-9]+) *;");// [a - z | A - Z | 0 - 9] + +; ");// (sub)(.*)");
 	std::smatch res;
-	if (std::regex_search(Line, res, vec3Regex))
+	if (std::regex_search(line, res, vec3Regex))
 	{
 		// 0 is the full line
 		// 1 is the type
@@ -179,21 +136,55 @@ void Shader::checkLine(const string& Line)
             else if (res[1].str().compare("vec2")==0)
 				params.insert(pair<string, ShaderParamType>(res[2].str(), ShaderParamType::VEC2));
 		}
-	
+        
 	}
-
+    
 }
 
-void Shader::createUniformLocation()
+/** Gets the OpenGL-specific uniform location IDs for each custom parameter */
+void Shader::createUniformLocationMap()
 {
 	std::map<string, ShaderParamType>::iterator it = params.begin();
-
+    
 	for (; it != params.end(); it++)
 	{
 		const char* name = it->first.c_str();
-
+        
         GLint uniformLocation = GraphicsSystem::getInstance()->getUniformLocation(programID, name);
         paramID.insert(pair<string, GLuint>(it->first,uniformLocation) );
 	}
-
+    
 }
+
+
+/** vertexShaderFilename Setter
+ @param[in] vertexShaderFilename the filename of the vertex shader
+ */
+void Shader::setVertexShaderFilename(string vertexShaderFilename)
+{
+    this->vertexShaderFilename = vertexShaderFilename;
+}
+/** vertexShaderFilename Getter
+ @return the filename of the vertex shader
+ */
+string Shader::getVertexShaderFilename() const
+{
+    return vertexShaderFilename;
+}
+
+
+/** fragShaderFilename Setter
+ @param[in] fragShaderFilename the filename of the fragment shader
+ */
+void Shader::setFragShaderFilename(string fragShaderFilename)
+{
+    this-> fragShaderFilename = fragShaderFilename;
+}
+/** fragShaderFilename Getter
+ @return the filename of the fragment shader
+ */
+string Shader::getFragShaderFilename() const
+{
+    return fragShaderFilename;
+}
+

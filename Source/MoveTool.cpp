@@ -82,9 +82,9 @@ void MoveTool::awake()
 	handleScript = upHandle->AddComponent<MoveHandle>();
 	handleScript->setAxis(MoveAxis::up);
     
-	getActor()->addChildren(rightHandle);
-	getActor()->addChildren(forwardHandle);
-	getActor()->addChildren(upHandle);
+	getActor()->addChild(rightHandle);
+	getActor()->addChild(forwardHandle);
+	getActor()->addChild(upHandle);
 }
 
 void MoveTool::tick(float deltaSeconds)

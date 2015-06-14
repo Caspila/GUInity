@@ -13,7 +13,7 @@
 #include "Texture.hpp"
 #include <png.h>
 #include <boost/filesystem.hpp>
-#include "FSAuxiliar.hpp"
+
 #include <boost/archive/text_oarchive.hpp>
 #include "Module.hpp"
 #include "Serialization2.hpp"
@@ -32,13 +32,14 @@ std::map<unsigned int,shared_ptr<Asset>> AssetDatabase::idToAsset;
 std::map<string,shared_ptr<Asset>> AssetDatabase::nameToAsset;
 
 
-/** init. Function that initializes the class. */
+	/** Initialize the AssetDatabase */
 void AssetDatabase::init()
 {
 	/** Initialize the Mesh Importer */
 	meshImporter.init();
 }
 
+	/** Releases allocated memmory */
 void AssetDatabase::shutdown()
 {
 	/** Shutdown the Mesh Importer */
@@ -46,7 +47,11 @@ void AssetDatabase::shutdown()
 }
 
 
-/** createSerializationFile. Create a meta-file for an asset (Serialize an asset) */
+
+/** Create a meta-file for an asset (Serialize an asset)
+ @param[in] asset Asset that will be serialized
+ @param[in] filename Meta file output
+ */
 void AssetDatabase::createSerializationFile(shared_ptr<Asset> asset, string filename)
 {
     std::ofstream ofs(filename.append(".desc"),std::fstream::binary | std::fstream::out);
@@ -59,20 +64,20 @@ void AssetDatabase::createSerializationFile(shared_ptr<Asset> asset, string file
     ofs.close();
 }
 
-
-/** readSerialiationFile. Loads an asset from a description file. */
+/** Loads an asset from a description file (Deserialize an asset) */
 void AssetDatabase::readSerialiationFile(string fullPath)
 {
 	cout << "Loading desc file: " << fullPath << endl;
 	{
 		std::ifstream ifs(fullPath, std::fstream::binary | std::fstream::in);
-
+        
 		boost::archive::binary_iarchive ia(ifs);
-
+        
 		shared_ptr<Asset> asset;
 		ia & asset;
 	}
 }
+
 
 /** Once serialization is done and working, the AssetDatabase should not reload all files
 everytime. It should load only the Asset Description (.meta//.desc) file and check if it's up to date.
@@ -98,76 +103,38 @@ void AssetDatabase::loadAllMetaFiles()
  
 }
 
-///** Search on the database for the asset with assetID==Asset.assetID.*/
-//shared_ptr<Asset> AssetDatabase::getAsset(unsigned int assetID)
-//{
-//	map<unsigned int, shared_ptr<Asset>>::iterator it;
-//	it = idToAsset.find(assetID);
-//	if (it != idToAsset.end())
-//		return idToAsset[assetID];
-//
-//	return nullptr;
-//}
-
-
-/** assignCurrentID. Increments the primary key and add the Asset to the maps with the proper name. */
-template <typename T>
-void AssetDatabase::assignCurrentID(T asset, string name)
-{
-    asset->setAssetID(currentID);
-    
-    idToAsset[currentID] = asset;
-    
-    asset->setName(name);
-    asset->setCRC(getCRC(CommonData(name)));
-    
-    nameToAsset[name] = asset;
-    
-//    createSerializationFile(asset,CommonData(name));
-    
-    currentID++;
-}
-
-/** assignCurrentID. Increments the primary key and add the Asset to the maps. Uses the assetID as the name */
-template <typename T>
-void AssetDatabase::assignCurrentID(T asset)
-{
-    asset->setAssetID(currentID);
-    
-    idToAsset[currentID] = asset;
-    
-    string name = std::to_string(currentID);
-    asset->setName(name);
-    
-    nameToAsset[name] = asset;
-    
-    currentID++;
-}
-
-
-/** tryLoadAsset. Delegates the file to the appropriate loader. */
-shared_ptr<Asset> AssetDatabase::tryLoadAsset(string file, string extension)
+/** Tries to load and asset, checking its extension and delegating the file to the appropriate loader
+ @param[in] filename The filename without extension
+ @param[in] filename The extension of the file
+     @return Reference to the loaded Asset or nullptr
+ */
+shared_ptr<Asset> AssetDatabase::tryLoadAsset(string filename, string extension)
 {
 	if (extension.compare(".fbx") == 0)
-        return AssetDatabase::createMeshFromFBX(file);
+        return AssetDatabase::createMeshFromFBX(filename);
 //		cout << "Load fbx: " << file << endl;
 	else if (extension.compare(".png") == 0)
-        return AssetDatabase::createTexture(file);
+        return AssetDatabase::createTexture(filename);
 //		cout << "Should automatically load png: " << file << endl;
 	else if (extension.compare(".obj") == 0)
-        return AssetDatabase::createMeshFromOBJ(file);
+        return AssetDatabase::createMeshFromOBJ(filename);
 //		cout << "Load obj: " << file << endl;
 	else if (extension.compare(".mp3") == 0)
-		cout << "Should automatically load mp3: " << file << endl;
+		cout << "Should automatically load mp3: " << filename << endl;
 	else if (extension.compare(".ttf") == 0)
-		cout << "Should automatically load ttf: " << file << endl;
+		cout << "Should automatically load ttf: " << filename << endl;
 
 	return nullptr;
 
 }
 
 
-/** Create shader from a vertex shader and a fragment shader. Name is the name of the newly created shader */
+/** Create shader from a vertex shader and a fragment shader
+ @param[in] name Name of the Asset
+ @param[in] vsFilename Vertex Shader filename
+ @param[in] fsFilename Fragment Shader filename
+ @return Reference to the Asset that was created
+ @*/
 shared_ptr<Shader> AssetDatabase::createShader(string filename, string vsFilename, string fsFilename)
 {
  
@@ -176,13 +143,24 @@ shared_ptr<Shader> AssetDatabase::createShader(string filename, string vsFilenam
     return shader;
 }
 
-/** Create material from a shader. Several materials can have the same shader but different properties, such as textures and colors. */
+/** Create material from a shader. Several materials can have the same shader but different properties, such as textures and colors.
+ @param[in] name Name of the Asset
+ @param[in] shader Reference to the Shader
+ @return Reference to the Asset that was created
+ */
 shared_ptr<Material> AssetDatabase::createMaterial(string filename, shared_ptr<Shader> shader)
 {
     shared_ptr<Material> material = make_shared<Material>(shader);
     assignCurrentID(material,filename);
     return material;
 }
+/** Create a physics material that can be used to specify behaviour of shapes in the physics scene
+ @param[in] name Name of the Asset
+ @param[in] friction The friction of the material
+ @param[in] dynamicFriction The dynamic friction of the material
+ @param[in] restitution The restiturion of the material
+ @return Reference to the Asset that was created
+ */
 shared_ptr<PhysicsMaterial> AssetDatabase::createPhysicsMaterial(string name, float friction, float dynamicFriction, float restitution)
 {
 	shared_ptr<PhysicsMaterial> physicsMaterial = make_shared<PhysicsMaterial>(friction,dynamicFriction,restitution);
@@ -190,7 +168,10 @@ shared_ptr<PhysicsMaterial> AssetDatabase::createPhysicsMaterial(string name, fl
 	return physicsMaterial;
 }
 
-/** Create mesh from .fbx files*/
+/** Create Mesh from .fbx file
+ @param[in] filename The Asset filename
+ @return Reference to the Asset that was created
+ */
  shared_ptr<Mesh> AssetDatabase::createMeshFromFBX(string filename)
 {
     shared_ptr<Mesh> mesh = meshImporter.importFbxMesh(CommonData(filename));
@@ -198,7 +179,10 @@ shared_ptr<PhysicsMaterial> AssetDatabase::createPhysicsMaterial(string name, fl
     return mesh;
 }
 
- /** Create mesh from .obj files*/
+/** Create Mesh from .obj file
+ @param[in] filename The Asset filename
+ @return Reference to the Asset that was created
+ */
  shared_ptr<Mesh> AssetDatabase::createMeshFromOBJ(string filename)
 {
     shared_ptr<Mesh> mesh = meshImporter.importObjMesh(CommonData(filename));
@@ -206,7 +190,11 @@ shared_ptr<PhysicsMaterial> AssetDatabase::createPhysicsMaterial(string name, fl
     return mesh;
 }
 
- /** Create mesh from list of vertice data and triangles*/
+/** Create Mesh from list of vertice data and triangles
+ @param[in] vertices The vertices of the Mesh
+ @param[in] triangles The indexed triangles of the Mesh
+ @return Reference to the Asset that was created
+ */
  shared_ptr<Mesh> AssetDatabase::createMesh(vector<MeshVertex> vertex, vector<unsigned short> triangles)
 {
     shared_ptr<Mesh> mesh = make_shared<Mesh>(vertex,triangles);
@@ -214,7 +202,10 @@ shared_ptr<PhysicsMaterial> AssetDatabase::createPhysicsMaterial(string name, fl
     return mesh;
 }
 
-/** Create Sound asset from file. */
+/** Create Sound asset from file.
+ @param[in] filename The Asset filename
+ @return Reference to the Asset that was created
+ */
 shared_ptr<Sound> AssetDatabase::createSound(string filename)
 {
 	shared_ptr<Sound> sound = make_shared<Sound>(filename);
@@ -224,7 +215,10 @@ shared_ptr<Sound> AssetDatabase::createSound(string filename)
 }
 
 
-/** Create Texture from file. Only supported file is .png in the moment.*/
+/** Create Texture from file. Only supported file is .png in the moment.
+ @param[in] filename The Asset filename
+ @return Reference to the Asset that was created
+ */
 shared_ptr<Texture> AssetDatabase::createTexture(string filename)
 {
 
@@ -240,6 +234,12 @@ shared_ptr<Texture> AssetDatabase::createTexture(string filename)
 	return texture;
 }
 
+/** Create Font from .ttf file.
+ @param[in] filename The Asset filename
+ @param[in] fontSize The size of the font
+ 
+ @return Reference to the Asset that was created
+ */
 shared_ptr<Font> AssetDatabase::createFont(string filename, int fontSize)
 {
     string commonDataFilename = CommonData(filename);
@@ -278,11 +278,11 @@ shared_ptr<Font> AssetDatabase::createFont(string filename, int fontSize)
 	string textureName = filename;
 	textureName.append("texture.png");
 
-	map<char, LetterFontUV> charUVMap = createFontTexture(face, textureName);
+	CharacterCatalog charCatalog = createFontTexture(face, textureName);
 
 	shared_ptr<Texture> texture = createTexture(textureName);
 
-	shared_ptr<Font> font = make_shared<Font>(texture, charUVMap, fontSize);
+	shared_ptr<Font> font = make_shared<Font>(texture, charCatalog, fontSize);
 	assignCurrentID(font, filename);
 
     
@@ -290,17 +290,6 @@ shared_ptr<Font> AssetDatabase::createFont(string filename, int fontSize)
 
 	//TODO how to cleanup freetype library?
 }
-
-//int myX, myY;
-//
-//int width, height;
-//png_byte color_type;
-//png_byte bit_depth;
-//
-//png_structp png_ptr;
-//png_infop info_ptr;
-//int number_of_passes;
-//png_bytep * row_pointers;
 
 void abort_(const char * s, ...)
 {
@@ -312,8 +301,13 @@ void abort_(const char * s, ...)
     abort();
 }
 
-
+/** loads a .png file to a buffer
 //http://en.wikibooks.org/wiki/OpenGL_Programming/Intermediate/Textures#A_simple_libpng_example
+ @param[in] filename The Asset filename
+ @param[out] width The width of image
+ @param[out] height The height of image
+ */
+
 void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
 {
     //header for testing if it is a png
@@ -436,7 +430,13 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     return image_data;
 }
 
-
+/** Write a buffer to a .png file
+ @param[in] filename The file output
+ @param[in] width The width of the buffer
+ @param[in] height The height of the buffer
+ @param[in] buffer The image data
+ @param[in] title PNG description title
+ */
 int AssetDatabase::writeImage(const char* filename, int width, int height, unsigned char *buffer, char* title)
 {
 	int code = 0;
@@ -528,7 +528,13 @@ finalise:
 	return code;
 }
 
-
+/** calculate the Width and Height of the resulting font Texture for the alphabet
+ @param[in] face Reference to the loaded FreeType FT_Face
+ @param[in] alphabet The alphabet, all the characters, that the Font should support
+ @param[out] width The width of the Texture
+ @param[out] height The height of the Texture
+ @param[out] yOrigin The Y position that ensures that all characters are aligned
+ */
 void AssetDatabase::getWidthHeightForAlphabet(FT_Face face, string alphabet, int& width, int& height, int& yOrigin)
 {
 	width = 0;
@@ -574,6 +580,18 @@ void AssetDatabase::getWidthHeightForAlphabet(FT_Face face, string alphabet, int
 	}
 }
 
+/** adds a Glyph (character) to an image buffer. Used by createFontTexture.
+ @param[in] face Reference to the loaded FreeType FT_Face
+ @param[in] letter The character that's being added
+ @param[in,out] buffer The image buffer
+ @param[in] bufferWidth The width of the buffer
+ @param[in] bufferHeight The height of the buffer
+ @param[in] xOffset The x offset on the buffer to add this character
+ @param[in] yOffset The y offset on the buffer to add this character
+ @param[in] yOrigin Secondary y offset to make sure that all letters are aligned
+ @param[out] outGlyphWidth Width of the character
+ @param[out] outGlyphHeight Height of the character
+ */
 void AssetDatabase::addGlyphToBuffer(FT_Face& face, char letter, unsigned char* buffer, int bufferWidth, int bufferHeight, int xOffset, int yOffset, int yOrigin, int& outGlyphWidth, int& outGlyphHeight)
 {
 	FT_UInt  glyph_index;
@@ -622,10 +640,14 @@ void AssetDatabase::addGlyphToBuffer(FT_Face& face, char letter, unsigned char* 
 
 }
 
-
-map<char, LetterFontUV> AssetDatabase::createFontTexture(FT_Face& face, string filename)
+/** creates a .png texture for the a Font
+ @param[in] face Reference to the loaded FreeType FT_Face
+ @param[in] textureFilename The texture output
+ @return the CharacterCatalog for the Font. Character Catalog is created together with the Texture to save some processing
+ */
+CharacterCatalog AssetDatabase::createFontTexture(FT_Face& face, string textureFilename)
 {
-	map<char, LetterFontUV> charUVMap;
+	CharacterCatalog charCatalog;
 
 	int width, height, yOrigin;
 	width = height = yOrigin = 0;
@@ -645,15 +667,19 @@ map<char, LetterFontUV> AssetDatabase::createFontTexture(FT_Face& face, string f
 	{
 		int outGlyphWidth, outGlyphHeight;
 		addGlyphToBuffer(face, alphabet[i], buffer, width, height, xOffset, yOffset, yOrigin, outGlyphWidth, outGlyphHeight);
-		charUVMap[alphabet[i]] = LetterFontUV(glm::vec2(xOffset / (float)width, 0), glm::vec2((xOffset + outGlyphWidth) / (float)width, 1), (float)outGlyphWidth / height);
+		
+        char character =alphabet[i];
+        LetterFontUV description(glm::vec2(xOffset / (float)width, 0), glm::vec2((xOffset + outGlyphWidth) / (float)width, 1), (float)outGlyphWidth / height);
+        charCatalog.addCharacterDescription(character,description);
+        
 		xOffset += outGlyphWidth;
 	}
 
-	writeImage(filename.c_str(), width, height, buffer, "blabla");
+	writeImage(textureFilename.c_str(), width, height, buffer, "blabla");
 
 	delete[] buffer;
 
-	return charUVMap;
+	return charCatalog;
 }
 
 

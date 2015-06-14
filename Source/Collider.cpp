@@ -101,11 +101,10 @@ void Collider::setPhysicsMaterial(shared_ptr<PhysicsMaterial> physMaterial)
         
         physicsMaterial = physMaterial;
         
-        PxMaterial* mat = physicsMaterial->getMaterial();
-        PxMaterial* const newMat = const_cast<PxMaterial* const>(mat);
-        
+        PxMaterial *const mat = physicsMaterial->getMaterial();
+
         if(shape)
-            shape->setMaterials(&newMat, 1);
+            shape->setMaterials(&mat, 1);
     }
 }
 /** physicsMaterial getter

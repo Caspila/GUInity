@@ -16,10 +16,18 @@
 using namespace std;
 using namespace boost::filesystem;
 
-/** FileSystem helper */
+/** FileSystem helper
+    Collection of functions that manipulates files in the filesystem
+ */
 
-/** Returns all files in a directory */
+/** Get all files in a directory
+ @param[in] fullPath The path of the directory
+ @return List of files in the directory
+ */
 vector<path> getFilesInDirectory(string fullPath);
-/** Returns the checksum of a files */
+/** Calculates the CRC of a file
+ @param[in] fullPath The path of the file
+ @return the CRC of a file
+ */
 int getCRC(string fullPath);
 

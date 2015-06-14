@@ -1,4 +1,6 @@
-//
+//  SKINNED MESH IS CURRENTLY UNDER DEVELOPMENT
+//  SKINNED MESH IS CURRENTLY UNDER DEVELOPMENT
+//  SKINNED MESH IS CURRENTLY UNDER DEVELOPMENT
 //  Skin.h
 //  GUInity_MacOS
 //
@@ -97,18 +99,13 @@ private:
     float xDelta = 0.0f;
     
     GLuint boneVBO;
-    GLuint testVBO;
     
     /** Vertex data array*/
 //	GLuint animbo;
 public:
-    SkinnedMesh(){
-        for(int i= 0; i < 10; i++)
-            boneTransform[i] = glm::mat4();
-        xDelta = 6;
-    };
+    SkinnedMesh();
 
-    virtual ~SkinnedMesh() {};
+    virtual ~SkinnedMesh();
     
     
     void setNBones(int nBones);

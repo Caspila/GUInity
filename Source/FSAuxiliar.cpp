@@ -9,7 +9,10 @@
 #include "FSAuxiliar.hpp"
 #include <boost/crc.hpp>
 
-/** Returns all files in a directory */
+/** Get all files in a directory
+ @param[in] fullPath The path of the directory
+ @return List of files in the directory
+ */
 vector<path> getFilesInDirectory(string fullPath)
 {
     path p(fullPath);
@@ -23,7 +26,10 @@ vector<path> getFilesInDirectory(string fullPath)
     return vec;
 }
 
-/** Returns the checksum of a files */
+/** Calculates the CRC of a file
+ @param[in] fullPath The path of the file
+ @return the CRC of a file
+ */
 int getCRC(string fullPath)
 {
     using namespace boost::filesystem;
@@ -36,7 +42,7 @@ int getCRC(string fullPath)
             ifstream file(fullPath,ios::in | ios::binary);
             
             //ifstream::pos_type fileSize = file.tellg();
-            int fileSize = file_size(p);
+            int fileSize = (int)file_size(p);
             char* fileContents = new char[fileSize];
             
             file.seekg(0, ios::beg);

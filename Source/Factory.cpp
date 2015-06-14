@@ -32,7 +32,10 @@ make_shared<CapsuleCollider>(),
 make_shared<FontMesh>()};
 
 
-/** Deserialize a list of Components and attaches them to an Actor */
+/** Deserialize a list of Components and attaches them to an Actor
+ @param[in] actor Actor that will receive the Components
+ @param[in] compDescs List of ComponentDescription
+ */
 void Factory::DeserializeComponents(shared_ptr<Actor> actor, vector<shared_ptr<ComponentDescription>> compDescs)
 {
     for(auto& x: compDescs)
@@ -44,7 +47,10 @@ void Factory::DeserializeComponents(shared_ptr<Actor> actor, vector<shared_ptr<C
         
 }
 
-/** Deserialize an Actor*/
+/** Deserialize an Actor
+ @param[in] desc The ActorDescription
+ @return The deserialized Actor
+ */
 shared_ptr<Actor> Factory::DeserializeActor(ActorDescription& desc)
 {
     shared_ptr<Actor> actor = desc.editorFlag ?
@@ -59,13 +65,16 @@ shared_ptr<Actor> Factory::DeserializeActor(ActorDescription& desc)
     
     for(auto& x: desc.children)
     {
-        actor->addChildren(DeserializeActor(x));
+        actor->addChild(DeserializeActor(x));
     }
     
     return actor;
 }
 
-/** Create a new Actor */
+/** Create a new Actor
+ @param[in] name Name of the Actor
+ @return Reference to the Actor that was created
+ */
 shared_ptr<Actor> Factory::CreateActor(string name)
 {
 	shared_ptr<Actor> actor = make_shared<Actor>(name);
@@ -80,7 +89,9 @@ shared_ptr<Actor> Factory::CreateActor(string name)
 	return actor;
 }
 
-/** Create a new Actor */
+/** Destroys an Actor
+ @param[in] actor Reference to the actor to be destroyed
+ */
 void Factory::DestroyActor(weak_ptr<Actor> actor)
 {
     shared_ptr<Actor> actorLock = actor.lock();
@@ -90,7 +101,9 @@ void Factory::DestroyActor(weak_ptr<Actor> actor)
 
 
 
-/** Create reference actor. Every Actor in the Game World has a Reference Actor in the Editor World to allow them to be manipulated */
+/** Create reference actor. Every Actor in the Game World has a Reference Actor in the Editor World to allow them to be manipulated in the Editor
+ @param[in] realActor Reference to the actor
+ */
 void Factory::CreateReferenceActor(shared_ptr<Actor> realActor)
 {
 
@@ -101,7 +114,10 @@ void Factory::CreateReferenceActor(shared_ptr<Actor> realActor)
 	editorRef->AddComponent<SphereCollider>();
 }
 
-/** Create a new Editor Actor, one that lives only in the Editor World */
+/** Create a new Editor Actor, one that lives only in the Editor World
+ @param[in] name Name of the Actor
+ @return Reference to the Editor Actor
+ */
 shared_ptr<Actor> Factory::CreateEditorActor(string name)
 {
 	shared_ptr<Actor> actor = make_shared<Actor>(name);
@@ -114,12 +130,10 @@ shared_ptr<Actor> Factory::CreateEditorActor(string name)
 	return actor;
 }
 
-TransformDescription Factory::getTransformDescription(shared_ptr<Transform> t)
-
-{
-    return TransformDescription {t->position,t->scale,t->rotation};
-}
-
+/** Gets a ActorDescription from an Actor
+ @param[in] actor The Actor
+ @return ActorDescription
+ */
 ActorDescription Factory::getActorDescription(shared_ptr<Actor> actor)
 {
     ActorDescription desc;
@@ -139,9 +153,24 @@ ActorDescription Factory::getActorDescription(shared_ptr<Actor> actor)
     }
     
     return desc;
-
+    
 }
 
+
+/** Gets a TransformDescription from a Transform
+ @param[in] transform The transform
+ @return TransformDescription
+ */
+TransformDescription Factory::getTransformDescription(shared_ptr<Transform> transform)
+
+{
+    return TransformDescription {transform->position,transform->scale,transform->rotation};
+}
+
+/** Gets a list of ComponentDescriptions for each Component in an Actor
+ @param[in] actor The Actor
+ @return list of ComponentDescriptions
+ */
 vector<shared_ptr<ComponentDescription>> Factory::getActorComponentsDescription(shared_ptr<Actor> actor)
 {
     vector<shared_ptr<ComponentDescription>> descs;
@@ -151,6 +180,11 @@ vector<shared_ptr<ComponentDescription>> Factory::getActorComponentsDescription(
     
     return descs;
 }
+
+/** Gets a list of ActorDescription from a World. Technically it could be used for describing a scene.
+ @param[in] world The World
+ @return list of ActorDescription
+ */
  vector<ActorDescription> Factory::getSceneDescription(shared_ptr<World> world)
 {
     vector<ActorDescription> sceneDesc;
@@ -161,6 +195,9 @@ vector<shared_ptr<ComponentDescription>> Factory::getActorComponentsDescription(
     
     return sceneDesc;
 }
+/** Loads a scene description, deserializing every ActorDescription into new Actors.
+ @param[in] sceneDesc The list of ActorDescription
+ */
  void Factory::loadSceneDescription(vector<ActorDescription> sceneDesc)
 {
     for(auto &x: sceneDesc)
@@ -169,6 +206,9 @@ vector<shared_ptr<ComponentDescription>> Factory::getActorComponentsDescription(
     }
 }
 
+/** Notifies when an Actor has been deserialized.
+ @param[in] actor The Actor that was deserialized
+ */
 void Factory::ActorDeserialized(shared_ptr<Actor> actor)
 {
     notify(ActorEventType::NewActor, actor, false);

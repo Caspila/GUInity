@@ -1,3 +1,6 @@
+//  SKINNED MESH IS CURRENTLY UNDER DEVELOPMENT
+//  SKINNED MESH IS CURRENTLY UNDER DEVELOPMENT
+//  SKINNED MESH IS CURRENTLY UNDER DEVELOPMENT
 //
 //  Skin.cpp
 //  GUInity_MacOS
@@ -11,6 +14,20 @@
 #include "Time.hpp"
 #include <math.h>
 /** Adds a new vertex to the mesh */
+
+SkinnedMesh::SkinnedMesh()
+{
+    for(int i= 0; i < 10; i++)
+        boneTransform[i] = glm::mat4();
+    xDelta = 6;
+}
+SkinnedMesh::~SkinnedMesh()
+{
+if (!weights.empty())
+{
+    GraphicsSystem::getInstance()->deleteBuffer(1, boneVBO);
+}
+}
 
 
 void SkinnedMesh::setVerticesWeight(vector<VertexBone> weights)
@@ -55,9 +72,7 @@ void SkinnedMesh::setVerticesWeight(vector<VertexBone> weights)
 //    
     boneVBO = 0;
     GraphicsSystem::getInstance()->generateBuffer(1,boneVBO,GL_ARRAY_BUFFER,nBones * sizeof(VertexBoneVec) * meshVertices.size(),& this->weights2[0],GL_STATIC_DRAW);
-//
-//    testVBO = 0;
-//    GraphicsSystem::getInstance()->generateBuffer(1,testVBO,GL_ARRAY_BUFFER,sizeof(float)*meshVertices.size()*4,& this->test,GL_STATIC_DRAW);
+
 }
 
 GLuint SkinnedMesh::getBonesVBO()
@@ -65,10 +80,10 @@ GLuint SkinnedMesh::getBonesVBO()
     return boneVBO;
 }
 
-GLuint SkinnedMesh::getTestVBO()
-{
-    return testVBO;
-}
+//GLuint SkinnedMesh::getTestVBO()
+//{
+//    return testVBO;
+//}
 
 void SkinnedMesh::setInitialPosition(vector<glm::mat4> initialPos)
 {

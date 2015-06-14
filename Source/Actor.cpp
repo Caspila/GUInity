@@ -36,69 +36,73 @@ void Actor::awake()
 	}
 }
 
-/** Tick. Function called every frame. This function is responsible for calling the Tick for each Component attached to the actor */
+/** Function called every frame. Calls tick for each Component attached to the actor
+ @param deltaSeconds Duration of last frame
+ */
 void Actor::tick(float deltaSeconds)
 {
 	// Only tick active actors
     if(!isActive)
         return;
-
+    
 	for (int i = 0; i < components.size(); i++)
 	{
 		shared_ptr<Component> component = components[i];
-
+        
 		component->tick(deltaSeconds);
-
+        
 	}
-
+    
 }
 
-/** Function that receives Collision from PhysX
-@actor - Other actor that collided with this
-
-Delegates the collision to all ScriptComponents. Trying to emulate Unity, where every script can contain code to handle Collision
-*/
+/** Function that receives Collision from PhysX. Delegates the collision to all ScriptComponents.
+ @param[in] actor Other actor that collided with this
+ */
 void Actor::triggerPhysxCollision(Actor* actor)
 {
 	for (auto& x : components)
 	{
 		shared_ptr<ScriptComponent> scriptComponent = dynamic_pointer_cast<ScriptComponent> (x);
-
+        
 		if (scriptComponent)
 			scriptComponent->onCollision(actor);
 	}
 }
 
-/** Function that receives Trigger Collision from PhysX
-@actor - Other actor that collided with this
-
-Delegates the collision to all ScriptComponents. Trying to emulate Unity, where every script can contain code to handle Collision
-*/
+/** Function that receives Trigger Collision from PhysX.  Delegates the collision to all ScriptComponents.
+ @param[in] actor Other actor that collided with this
+ */
 void Actor::triggerPhysxTrigger(Actor* actor)
 {
 	for (auto& x : components)
 	{
 		shared_ptr<ScriptComponent> scriptComponent = dynamic_pointer_cast<ScriptComponent> (x);
-
+        
 		if (scriptComponent)
 			scriptComponent->onTrigger(actor);
 	}
 }
 
-/** Parent setter */
+/** Parent setter
+ @param[in] parent The parent actor
+ */
 void Actor::setParent(shared_ptr<Actor> parent)
 {
 	this->parent = parent;
 }
-/** Parent getter */
-shared_ptr<Actor> Actor::getParent() const
+/** Parent getter
+ @return pointer to actor or nullptr
+ */
+const shared_ptr<Actor> Actor::getParent() const
 {
 	shared_ptr<Actor> parentLock = parent.lock();
 	return parentLock;
 }
 
-/** Add children to list */
-void Actor::addChildren(shared_ptr<Actor> children)
+/** Add children to list
+ @param[in] child Actor to be added as child
+ */
+void Actor::addChild(shared_ptr<Actor> children)
 {
     
 	this->children.push_back(children);
@@ -109,7 +113,9 @@ void Actor::addChildren(shared_ptr<Actor> children)
     
 }
 
-/** isActive setter */
+/** isActive Setter. Triggers setActive with the same state for every component and children.
+ @param isActive true if Actor should be active, false otherwise
+ */
 void Actor::setActive(bool isActive)
 {
     this->isActive = isActive;
@@ -126,29 +132,35 @@ void Actor::setActive(bool isActive)
 		if (ptrLock)
 			ptrLock->setActive(isActive);
 	}
-
-
+    
+    
 }
 
-/** isActive getter */
+/** isActive Getter
+ @return true if Actor is active, false otherwise
+ */
 bool Actor::getIsActive() const
 {
 	return isActive;
 }
 
-/** editorFlag setter */
+/** editorFlat Setter
+ @param isEditor true if this Actor belongs to the Editor World
+ */
 void Actor::setEditorFlag(bool isEditor)
 {
 	editorFlag = isEditor;
 }
 
-/** editorFlag setter */
+/** editorFlat Getter
+ @return true if this Actor belongs to the Editor World
+ */
 bool Actor::getEditorFlag() const
 {
 	return editorFlag;
 }
 
-/** initComponents. This function is called to Initialize all the components attached to the actor */
+/** Initialize all the components attached to the actor */
 void Actor::initComponents()
 {
     
@@ -158,6 +170,9 @@ void Actor::initComponents()
 	}
 }
 
+/** Sets the components for this actor. Only used on deserialization of Actors
+ @param components The components that will be added to the actor
+ */
 void Actor::setComponents(vector<shared_ptr<Component>> components)
 {
     this->components = std::move(components);
@@ -169,7 +184,7 @@ void Actor::setComponents(vector<shared_ptr<Component>> components)
 }
 
 
-/** addComponent. Attaches an existing component to the actor. This function is used for deserialization of Actors */
+	/** Attaches an existing component to the Actor. This function is used for deserialization of Actors */
 void Actor::addComponent(shared_ptr<Component> component)
 {
     component->setActor(shared_from_this());
@@ -177,6 +192,8 @@ void Actor::addComponent(shared_ptr<Component> component)
     component->init();
 }
 
+
+/** Destroy this Actor and all of the children Actor components, called when Actor is destroyed */
 void Actor::destroyComponents()
 {
   	for (auto& x : components)
@@ -192,6 +209,9 @@ void Actor::destroyComponents()
 	}
 }
 
+/** Clones the actor, all its components and children recursively
+ @return Reference to the cloned Actor
+ */
 shared_ptr<Actor> Actor::clone()
 {
     shared_ptr<Actor> newActor = Factory::CreateActor(name+"(Clone)");
@@ -209,7 +229,7 @@ shared_ptr<Actor> Actor::clone()
 	{
 		auto ptrLock = x.lock();
 		if (ptrLock)
-            newActor->addChildren(ptrLock->clone());
+            newActor->addChild(ptrLock->clone());
 	}
     
     return newActor;
