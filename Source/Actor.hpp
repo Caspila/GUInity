@@ -116,7 +116,8 @@ public:
 	/** Initialize all the components attached to the actor */
     void initComponents();
     
-	/** Attaches an existing component to the Actor. This function is used for deserialization of Actors */
+	/** Attaches an existing component to the Actor. This function is used for deserialization of Actors 
+     @param[in] component The component that will be added to this actor */
 	void addComponent(shared_ptr<Component> component);
     
     /** Destroy this Actor and all of the children Actor components, called when Actor is destroyed */

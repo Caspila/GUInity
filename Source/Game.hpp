@@ -12,16 +12,20 @@ class Camera;
 class Game : public enable_shared_from_this<Game>
 {
 public:
-	Game();
-	~Game();
 
-	void update(float deltaSeconds);
 
-	PxScene* physicsScene;
-
-	void init();
-	void shutdown();
-
+    
+    /** The Editor World */
 	static shared_ptr<World> world;
+    
+    /** Initalize the editor. Creates the Scene camera and the Transform handles to manipulate the Actors */
+	void init();
+        /** Releases any allocated memory */
+	void shutdown();
+    /** "Ticks" the Game. Simulates the Physics, Ticks Actors and Renders on screen
+     @param[in] deltaSeconds Duration of last frame
+     */
+    	void update(float deltaSeconds);
+
 };
 

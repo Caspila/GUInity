@@ -76,7 +76,6 @@
 		4672BB201A78A164007BF293 /* PhysicsMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAB61A78A164007BF293 /* PhysicsMaterial.cpp */; };
 		4672BB211A78A164007BF293 /* PhysXAllocatorCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAB81A78A164007BF293 /* PhysXAllocatorCallback.cpp */; };
 		4672BB221A78A164007BF293 /* PhysXEventCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BABA1A78A164007BF293 /* PhysXEventCallback.cpp */; };
-		4672BB231A78A164007BF293 /* PhysXInsertionCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BABC1A78A164007BF293 /* PhysXInsertionCallback.cpp */; };
 		4672BB241A78A164007BF293 /* PlayerScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BABE1A78A164007BF293 /* PlayerScript.cpp */; };
 		4672BB251A78A164007BF293 /* print.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAC11A78A164007BF293 /* print.cpp */; };
 		4672BB271A78A164007BF293 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAC51A78A164007BF293 /* Ray.cpp */; };
@@ -304,7 +303,6 @@
 		4672BAB91A78A164007BF293 /* PhysXAllocatorCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhysXAllocatorCallback.h; path = ../Source/PhysXAllocatorCallback.h; sourceTree = "<group>"; };
 		4672BABA1A78A164007BF293 /* PhysXEventCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PhysXEventCallback.cpp; path = ../Source/PhysXEventCallback.cpp; sourceTree = "<group>"; };
 		4672BABB1A78A164007BF293 /* PhysXEventCallback.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PhysXEventCallback.hpp; path = ../Source/PhysXEventCallback.hpp; sourceTree = "<group>"; };
-		4672BABC1A78A164007BF293 /* PhysXInsertionCallback.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PhysXInsertionCallback.cpp; path = ../Source/PhysXInsertionCallback.cpp; sourceTree = "<group>"; };
 		4672BABD1A78A164007BF293 /* PhysXInsertionCallback.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhysXInsertionCallback.h; path = ../Source/PhysXInsertionCallback.h; sourceTree = "<group>"; };
 		4672BABE1A78A164007BF293 /* PlayerScript.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PlayerScript.cpp; path = ../Source/PlayerScript.cpp; sourceTree = "<group>"; };
 		4672BABF1A78A164007BF293 /* PlayerScript.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PlayerScript.hpp; path = ../Source/PlayerScript.hpp; sourceTree = "<group>"; };
@@ -812,7 +810,6 @@
 			children = (
 				4672BAB81A78A164007BF293 /* PhysXAllocatorCallback.cpp */,
 				4672BABA1A78A164007BF293 /* PhysXEventCallback.cpp */,
-				4672BABC1A78A164007BF293 /* PhysXInsertionCallback.cpp */,
 			);
 			name = _PhysX;
 			sourceTree = "<group>";
@@ -960,7 +957,6 @@
 				4672BB121A78A164007BF293 /* Material.cpp in Sources */,
 				4672BB191A78A164007BF293 /* MeshImporter.cpp in Sources */,
 				462019D81B31527100D599DE /* KillDistanceBased.cpp in Sources */,
-				4672BB231A78A164007BF293 /* PhysXInsertionCallback.cpp in Sources */,
 				4672BB0E1A78A164007BF293 /* Input.cpp in Sources */,
 				46B924391A81F40F00F84B7A /* Sound.cpp in Sources */,
 				4672BB161A78A164007BF293 /* MeshCollider.cpp in Sources */,

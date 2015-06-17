@@ -8,7 +8,7 @@ class PhysXInsertionCallback:
 	public PxPhysicsInsertionCallback
 {
 public:
-	PhysXInsertionCallback();
-	~PhysXInsertionCallback();
+	PhysXInsertionCallback() {}
+	~PhysXInsertionCallback() {}
 };
 

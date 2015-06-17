@@ -13,8 +13,6 @@ PhysXEventCallback::~PhysXEventCallback()
 
 void PhysXEventCallback::onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs)
 {
-	cout << "OnContact" << endl;
-
     if( pairHeader.flags & (PxContactPairHeaderFlag::eDELETED_ACTOR_0 | PxContactPairHeaderFlag::eDELETED_ACTOR_1) )
         return;
     
@@ -35,7 +33,6 @@ void PhysXEventCallback::onContact(const PxContactPairHeader& pairHeader, const 
 }
 void PhysXEventCallback::onTrigger(PxTriggerPair* pairs, PxU32 nbPairs)
 {
-	cout << "OnTrigger" << endl;
 
 	for (int i = 0; i < nbPairs; i++)
 	{

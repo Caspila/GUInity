@@ -6,57 +6,44 @@
 #include "MeshRenderer.hpp"
 #include "Input.hpp"
 
+    /** The Editor World */
 shared_ptr<World> Game::world;
 
-Game::Game()
-{
-	//camera = make_shared<Camera>(0.3f, 100.0f, 45, 4.0f / 3);
-	//camera->transform->setPosition(glm::vec3(0, 0, 10));
 
-	//Camera::addObserver(shared_from_this());
-
-}
-
-
-Game::~Game()
-{
-	//Camera::removeObserver(shared_from_this());
-}
-
-
+    /** Initalize the editor. Creates the Scene camera and the Transform handles to manipulate the Actors */
 void Game::init()
 {
 	world = make_shared<World>();
 	world->init();
 	world->registerObserverAsGame();
 
-	//shared_ptr<Game> game = shared_from_this();
-	//Camera::addObserver(shared_from_this());
-	//Light::addObserver(shared_from_this());
-	//MeshRenderer::addObserver(shared_from_this());
-	//Camera::addObserver(shared_from_this());
 }
 
+        /** Releases any allocated memory */
 void Game::shutdown()
 {
 	world->shutdown();
-	//Camera::removeObserver(shared_from_this());
+
 }
 
+/** "Ticks" the Game. Simulates the Physics, Ticks Actors and Renders on screen
+ @param[in] deltaSeconds Duration of last frame
+ */
 void Game::update(float deltaSeconds)
 {
+    // Tick the Actors
 	world->tick(deltaSeconds);
 
-
+    // Tick the Physics
 	Physics::tickScene(deltaSeconds,world->physicsScene);
 
-
+    // Enables/Disables Physics render debug
     if(Input::getKeyPressed(GLFW_KEY_B))
     {
         Physics::toggleDebugVisualization(world->physicsScene);
     }
     
-
+    // Render the Game World
 	GraphicsSystem::getInstance()->clear();
     
     if(world->cameras.size()>0)

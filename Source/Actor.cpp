@@ -185,7 +185,8 @@ void Actor::setComponents(vector<shared_ptr<Component>> components)
 }
 
 
-	/** Attaches an existing component to the Actor. This function is used for deserialization of Actors */
+/** Attaches an existing component to the Actor. This function is used for deserialization of Actors
+ @param[in] component The component that will be added to this actor */
 void Actor::addComponent(shared_ptr<Component> component)
 {
     component->setActor(shared_from_this());

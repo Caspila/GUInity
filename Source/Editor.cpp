@@ -16,36 +16,26 @@
 #include "Math.hpp"
 #include "ScaleTool.hpp"
 
-//PxScene* Editor::physicsScene;
+
+/** The Editor Camera Actor */
 shared_ptr<Actor> Editor::cameraActor;
+/** The Editor Camera Component */
 shared_ptr<Camera> Editor::cameraComponent;
+/** The current selected actor */
 shared_ptr<Actor> Editor::currentSelectedActor;
+/** The Move handles to translate Actors */
 shared_ptr<Actor> Editor::moveHandles;
+/** The Rotate handles to rotate Actors */
 shared_ptr<Actor> Editor::rotateHandles;
+/** The Scale handles to scale Actors */
 shared_ptr<Actor> Editor::scaleHandles;
+/** The Editor World */
 shared_ptr<World> Editor::world;
-shared_ptr<UIWidget> Editor::uiWidgetTest;
+/** The current transform mode: Move/Rotate/Scale */
 TransformMode Editor::transformMode;
-//vector<shared_ptr<Actor>>  Editor::editorActors;
 
-Editor::Editor()
-{
-}
 
-Editor::~Editor()
-{
-}
-
-void callBack()
-{
-    cout << "Button1 pressed!"<< endl;
-}
-
-void callBack2()
-{
-    cout << "Button2 pressed!"<< endl;
-}
-
+/** Initalize the editor. Creates the Scene camera and the Transform handles to manipulate the Actors */
 void Editor::init()
 {
     transformMode = TransformMode::none;
@@ -78,6 +68,7 @@ void Editor::init()
     
 }
 
+/** Releases any allocated memory */
 void Editor::shutdown()
 {
 	cameraActor = nullptr;
@@ -97,23 +88,31 @@ void Editor::shutdown()
 	world->shutdown();
     
 }
+
+/** "Ticks" the editor. Checks if user clicked on an actor and enable/disable Transform handles. Ticks and Renders the Editor and Game Worlds
+ @param[in] deltaSeconds Duration of last frame
+ @param[in] gameWorld The Game World
+ */
 void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
 {
-    
+    // Enables/Disables PhysX Render Debug
     if(Input::getKeyPressed(GLFW_KEY_B))
     {
         Physics::toggleDebugVisualization(world->physicsScene);
     }
     
+    // Checks if user is clicking at an object
 	Ray r = cameraComponent->screenPointToRay(Input::mousePos);
     
 	PxRaycastBuffer hitCallback;
 	if (Input::getMouseButtonPressed(GLFW_MOUSE_BUTTON_1))
+    {
 		if (Physics::rayCast(world->physicsScene, r, 300, hitCallback))
 		{
 			Actor *a = (Actor*)hitCallback.block.actor->userData;
             
-			shared_ptr<Actor> clickedActor = world->getSharedPtrActor(a);
+            shared_ptr<Actor> clickedActor = a->shared_from_this();
+            
             
 			if (clickedActor)
 			{
@@ -126,8 +125,9 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
 		}
         else
             currentSelectedActor = nullptr;
+    }
     
-    
+    // Switches between the three Transform modes
     if(Input::getKeyPressed(GLFW_KEY_Q))
     {
         transformMode = TransformMode::move;
@@ -143,7 +143,7 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
             }
     
     
-    
+    // Activate the handles if there's an Actor selected
     if(currentSelectedActor!=nullptr)
     {
         switch (transformMode) {
@@ -179,19 +179,23 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
         scaleHandles->setActive(false);
     }
     
+    // Tick the world
 	world->tick(deltaSeconds);
     
+    // Tick the physics (Nothing happens cause everything is Query Only), this is purely for getting the render debug
 	Physics::tickScene(deltaSeconds,world->physicsScene);
-	Physics::updateActorsTransform(world->physicsScene);
     
 	cameraComponent->computeModelViewMatrix();
     
 	GraphicsSystem::getInstance()->clear();
     
+    // Render the Editor World
 	GraphicsSystem::getInstance()->render(cameraComponent, world->meshRenderers, gameWorld->lights);
     
+    // Render the Game World
 	GraphicsSystem::getInstance()->render(cameraComponent, gameWorld->meshRenderers, gameWorld->lights);
     
+    // Render the Physics Debug
 	GraphicsSystem::getInstance()->renderPhysicsDebug(cameraComponent, world->physicsScene->getRenderBuffer(), glm::vec4(1, 1, 1,1));
     
 	GraphicsSystem::getInstance()->swap();
