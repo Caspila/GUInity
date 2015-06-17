@@ -242,14 +242,15 @@ shared_ptr<Sound> AssetDatabase::createSound(string filename)
  */
 shared_ptr<Texture> AssetDatabase::createTexture(string filename)
 {
-    
-    cout << "Filename Tex bug:" << filename << endl;
+    cout << "Filename: " << filename << "\n";
     
 	int width = 0;
 	int height = 0;
-	void *buffer = loadTexture(CommonData(filename), width, height);
+	void *buffer = nullptr;
+    ColorBitDepth depth;
+    loadTexture(CommonData(filename), width, height, buffer, depth);
     
-	shared_ptr<Texture> texture = make_shared<Texture>(buffer,width,height);
+	shared_ptr<Texture> texture = make_shared<Texture>(buffer,width,height, depth);
 	assignCurrentID(texture, filename);
     
 	return texture;
@@ -327,10 +328,17 @@ void abort_(const char * s, ...)
  @param[in] filename The Asset filename
  @param[out] width The width of image
  @param[out] height The height of image
+ @param[out] imageData A pointer to the image data
+ @param[out] bitDepth The color bit depth
  */
 
-void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
+
+	void AssetDatabase::loadTexture(const string filename, int &width, int &height, void*& image_data, ColorBitDepth& bitDepth)
 {
+//    image_data = (png_byte*)(image_data);
+    
+    
+    
     //header for testing if it is a png
     png_byte header[8];
     
@@ -404,6 +412,8 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     png_get_IHDR(png_ptr, info_ptr, &twidth, &theight, &bit_depth, &color_type,
                  NULL, NULL, NULL);
     
+    bitDepth = color_type == PNG_COLOR_TYPE_RGB ? ColorBitDepth::RGB : ColorBitDepth::RGBA;
+    
     //update width and height based on png info
     width = twidth;
     height = theight;
@@ -415,7 +425,12 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     int rowbytes = png_get_rowbytes(png_ptr, info_ptr);
     
     // Allocate the image_data as a big block, to be given to opengl
-    png_byte *image_data = new png_byte[rowbytes * height];
+//     pngImageData = new png_byte[rowbytes * height];
+    
+    image_data = new png_byte[rowbytes * height];
+    
+    png_byte* pngImageData = (png_byte*)(image_data);
+    
     if (!image_data) {
         //clean up memory and close stuff
         png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
@@ -429,14 +444,14 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     if (!row_pointers) {
         //clean up memory and close stuff
         png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-        delete[] image_data;
+        delete[] pngImageData;
         fclose(fp);
         cout << "Erro TEXTURE_LOAD_ERROR8" << endl;
         //        return TEXTURE_LOAD_ERROR;
     }
     // set the individual row_pointers to point at the correct offsets of image_data
     for (int i = 0; i < height; ++i)
-        row_pointers[height - 1 - i] = image_data + i * rowbytes;
+        row_pointers[height - 1 - i] = pngImageData + i * rowbytes;
     
     //read the png into image_data through row_pointers
     png_read_image(png_ptr, row_pointers);
@@ -447,8 +462,7 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     delete[] row_pointers;
     fclose(fp);
     
-	
-    return image_data;
+//    image_data = (void*)(pngImageData);
 }
 
 /** Write a buffer to a .png file
@@ -696,7 +710,7 @@ CharacterCatalog AssetDatabase::createFontTexture(FT_Face& face, string textureF
 		xOffset += outGlyphWidth;
 	}
     
-	writeImage(textureFilename.c_str(), width, height, buffer, "blabla");
+	writeImage(textureFilename.c_str(), width, height, buffer, "Font Image");
     
 	delete[] buffer;
     

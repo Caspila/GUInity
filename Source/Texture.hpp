@@ -12,6 +12,7 @@
 #include <iostream>
 #include "Asset.hpp"
 #include "Module.hpp"
+#include "Enums.hpp"
 
 /** Texture is an Asset that holds image data and the OpenGL-specific Texture ID
  */
@@ -22,6 +23,8 @@ private:
     int width;
     /** The height of the image */
     int height;
+    /** The color bit depth */
+    int depth;
     
     /** Pointer to the image buffer */
     void* data;
@@ -35,7 +38,7 @@ public:
      @param[in] width The width of the image
      @param[in] height The height of the image
      */
-    Texture(void* buffer, int width, int height);
+    Texture(void* buffer, int width, int height, ColorBitDepth depth);
     /** Default Constructor */
 	Texture();
     /** Default Destructor */

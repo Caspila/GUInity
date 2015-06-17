@@ -104,8 +104,6 @@
 		46B924391A81F40F00F84B7A /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924351A81F40F00F84B7A /* Sound.cpp */; };
 		46B9243A1A81F40F00F84B7A /* SoundSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924371A81F40F00F84B7A /* SoundSystem.cpp */; };
 		46C448451B3014CD00CD5BD1 /* AsteroidSpawner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C448431B3014CD00CD5BD1 /* AsteroidSpawner.cpp */; };
-		46FE56961B2FCB3800ADF5F2 /* Serialization2.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46FE56921B2FCB3800ADF5F2 /* Serialization2.cpp */; };
-		46FE56971B2FCB3800ADF5F2 /* SerializationStructs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46FE56941B2FCB3800ADF5F2 /* SerializationStructs.cpp */; };
 		46FFC2311A52880100FCFAC4 /* libboost_serialization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FFC2301A52880100FCFAC4 /* libboost_serialization.a */; };
 		46FFC2351A52886500FCFAC4 /* libboost_serialization.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */; };
 /* End PBXBuildFile section */
@@ -360,9 +358,7 @@
 		46C448441B3014CD00CD5BD1 /* AsteroidSpawner.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AsteroidSpawner.hpp; path = ../Source/AsteroidSpawner.hpp; sourceTree = "<group>"; };
 		46FE56821B2D3EDF00ADF5F2 /* Observer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Observer.hpp; path = ../Source/Observer.hpp; sourceTree = "<group>"; };
 		46FE56911B2FCB3800ADF5F2 /* Serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Serialization.hpp; path = ../Source/Serialization.hpp; sourceTree = "<group>"; };
-		46FE56921B2FCB3800ADF5F2 /* Serialization2.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Serialization2.cpp; path = ../Source/Serialization2.cpp; sourceTree = "<group>"; };
 		46FE56931B2FCB3800ADF5F2 /* Serialization2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Serialization2.hpp; path = ../Source/Serialization2.hpp; sourceTree = "<group>"; };
-		46FE56941B2FCB3800ADF5F2 /* SerializationStructs.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SerializationStructs.cpp; path = ../Source/SerializationStructs.cpp; sourceTree = "<group>"; };
 		46FE56951B2FCB3800ADF5F2 /* SerializationStructs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SerializationStructs.hpp; path = ../Source/SerializationStructs.hpp; sourceTree = "<group>"; };
 		46FFC2301A52880100FCFAC4 /* libboost_serialization.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_serialization.a; path = ../../../boost_1_57_0/stage/lib/libboost_serialization.a; sourceTree = "<group>"; };
 		46FFC2321A52884900FCFAC4 /* libboost_serialization.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_serialization.dylib; path = ../../../boost_1_57_0/stage/lib/libboost_serialization.dylib; sourceTree = "<group>"; };
@@ -436,7 +432,6 @@
 			isa = PBXGroup;
 			children = (
 				462019DC1B31586200D599DE /* SpaceShipGame */,
-				46FE568F1B2FCB2400ADF5F2 /* _Serialization */,
 				46FE568B1B2FCA3200ADF5F2 /* _PhysX */,
 				46FE568A1B2FC9BB00ADF5F2 /* _Core */,
 				46FE56881B2FC99300ADF5F2 /* _Importers */,
@@ -842,15 +837,6 @@
 			name = _Math;
 			sourceTree = "<group>";
 		};
-		46FE568F1B2FCB2400ADF5F2 /* _Serialization */ = {
-			isa = PBXGroup;
-			children = (
-				46FE56921B2FCB3800ADF5F2 /* Serialization2.cpp */,
-				46FE56941B2FCB3800ADF5F2 /* SerializationStructs.cpp */,
-			);
-			name = _Serialization;
-			sourceTree = "<group>";
-		};
 		46FE56901B2FCB2B00ADF5F2 /* _Serialization */ = {
 			isa = PBXGroup;
 			children = (
@@ -980,7 +966,6 @@
 				4672BB161A78A164007BF293 /* MeshCollider.cpp in Sources */,
 				4672BB011A78A164007BF293 /* Converter.cpp in Sources */,
 				4672BB1A1A78A164007BF293 /* MeshRenderer.cpp in Sources */,
-				46FE56971B2FCB3800ADF5F2 /* SerializationStructs.cpp in Sources */,
 				4672BB0F1A78A164007BF293 /* Light.cpp in Sources */,
 				4672BB341A78A164007BF293 /* Shader.cpp in Sources */,
 				4672BB071A78A164007BF293 /* FontMesh.cpp in Sources */,
@@ -999,7 +984,6 @@
 				4672BB391A78A164007BF293 /* Time.cpp in Sources */,
 				4672BB0A1A78A164007BF293 /* GLFWGraphicsSystem.cpp in Sources */,
 				4672BB0B1A78A164007BF293 /* GraphicsSystem.cpp in Sources */,
-				46FE56961B2FCB3800ADF5F2 /* Serialization2.cpp in Sources */,
 				4672BB131A78A164007BF293 /* Math.cpp in Sources */,
 				468E620A1B313DD5008213E9 /* PointsTracker.cpp in Sources */,
 				4672BB201A78A164007BF293 /* PhysicsMaterial.cpp in Sources */,

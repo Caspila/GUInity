@@ -268,13 +268,14 @@ private:
      */
 	static int writeImage(const char* filename, int width, int height, unsigned char *buffer, char* title);
 	/** loads a .png file to a buffer
-     
      @param[in] filename The Asset filename
      @param[out] width The width of image
      @param[out] height The height of image
+     @param[out] imageData A pointer to the image data
+     @param[out] bitDepth The color bit depth
      */
     
-	static void* loadTexture(const string filename, int &width, int &height);
+	static void loadTexture(const string filename, int &width, int &height, void*& imageData, ColorBitDepth& bitDepth);
     
     
 };

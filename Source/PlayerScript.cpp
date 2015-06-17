@@ -100,7 +100,7 @@ void PlayerScript::tick(float deltaSeconds)
 		shared_ptr<MeshRenderer> meshRenderer = bulletActor->AddComponent<MeshRenderer>();
 
 
-        bulletActor->transform->setScale(glm::vec3(0.06f,0.06f,0.06f));
+        bulletActor->transform->setScale(glm::vec3(0.04f,0.04f,0.04f));
 
 		meshRenderer->setMaterial(missileMaterial);
         

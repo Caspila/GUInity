@@ -42,6 +42,8 @@ struct TransformConstraintAxis
     };
 };
 
+enum ColorBitDepth {RGB,RGBA};
+
 enum FontAlignment {left, right, center};
 
 enum CurveAnimationType {X_MOVE, Y_MOVE, Z_MOVE, X_ROTATE, Y_ROTATE, Z_ROTATE, X_SCALE, Y_SCALE, Z_SCALE };
