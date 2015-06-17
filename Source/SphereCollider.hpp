@@ -37,6 +37,9 @@ public:
      */
 	virtual shared_ptr<Component> clone() override;
     
+    /** Looks for a MeshComponent and gets the extent for the collider */
+    virtual void recalculateBounds() override;
+    
     /** @defgroup serialization_functions Serialization Functions
      *  Serialization Region
      *  @{

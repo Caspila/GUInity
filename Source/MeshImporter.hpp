@@ -5,13 +5,11 @@
 #include <glm/common.hpp>
 #include <glm/geometric.hpp>
 #include <map>
-#include "AnimationCurve.hpp"
 #include "Enums.hpp"
 
 using namespace fbxsdk_2015_1;
 
 class Mesh;
-class SkinnedMesh;
 
 // Fastvbo indexer idea: https://code.google.com/p/opengl-tutorial-org/source/browse/common/vboindexer.cpp
 struct PackedFBXVertex{
@@ -44,16 +42,9 @@ public:
     void importFbxSkin(FbxSkin* skinNode);
     
     shared_ptr<Mesh> importFbxMesh(FbxScene* scene,FbxMesh * meshNode);
-    shared_ptr<SkinnedMesh
-    > importFbxSkinnedMesh(FbxScene* scene,FbxMesh * meshNode);
     
-    void readFbxAnimationCurve(std::map<CurveAnimationType,AnimationCurve>& animationMap, CurveAnimationType animationType, FbxAnimCurve* fbxCurve, float initialValue);
-
-    std::map<CurveAnimationType,AnimationCurve> importFbxAnimation(FbxScene* scene, FbxNode* node, FbxAMatrix& initialPose);
     
 	shared_ptr<Mesh> importObjMesh(string filename);
-
-    bool isMeshSkinned(FbxMesh* meshNode);
 
 	void getVertexData(FbxMesh* m_pMesh, int uPoly, int uVertex, FbxVector4& fbxVertex, FbxVector4&  fbxNormal, FbxVector2& fbxUV);
 

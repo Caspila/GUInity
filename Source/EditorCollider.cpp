@@ -33,8 +33,16 @@ void EditorCollider::tick(float deltaSeconds)
 
 	shared_ptr<Actor> myActor = getActor();
 
-	myActor->transform->position = gameActorLock->transform->position;
-	myActor->transform->rotation = gameActorLock->transform->rotation;
+    if(myActor && gameActorLock)
+    {
+    
+        myActor->transform->position = gameActorLock->transform->position;
+        myActor->transform->rotation = gameActorLock->transform->rotation;
+    }
+    else
+    {
+        cout << "Error, Editor Reference still exists but Actor or Game Actor does not exist anymore" << endl;
+    }
 }
 
 /** physxRigidStatic getter*/

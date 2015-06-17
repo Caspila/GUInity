@@ -113,6 +113,9 @@ void CapsuleCollider::init()
         setRadius(radius);
         setHeight(halfHeight);
         
+        setIsTrigger(isTrigger);
+        setQueryOnly(isQueryOnly);
+        
     }
     // Create new one
 	else
@@ -136,11 +139,36 @@ void CapsuleCollider::init()
 
 }
 
+
+/** Looks for a MeshComponent and gets the extent for the collider */
+void CapsuleCollider::recalculateBounds()
+{
+    shared_ptr<MeshFilter> meshFilter = getActor()->GetComponent<MeshFilter>();
+    
+    PxVec3   center(0,0,0);
+    float radius = 0.5f;
+    float halfHeight = 0.5f;
+    RotateAxis orientation = RotateAxis::x;
+
+    
+    if(meshFilter)
+        meshFilter->getSphereSize(getActor(), radius, center);
+    
+    setRadius(radius);
+    setHeight(halfHeight);
+    setOrientation(orientation);
+    
+}
+
 /** Clones current component (Prototype Design Pattern)
  @return shared_ptr to cloned CapsuleCollider Component
  */
 shared_ptr<Component> CapsuleCollider::clone() {
     shared_ptr<CapsuleCollider> compClone = make_shared<CapsuleCollider>(orientation, halfHeight, radius, center);
+    
+    compClone->isTrigger = isTrigger;
+    compClone->isQueryOnly = isQueryOnly;
+    
     
     if(physicsMaterial!=nullptr)
         compClone->setPhysicsMaterial(getPhysicsMaterial());

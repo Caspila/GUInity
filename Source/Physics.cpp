@@ -88,6 +88,35 @@ int Physics::init()
     return 0;
 }
 
+/** Gets current debug render state
+ @param[in]scene The scene
+ @return true if render debug is enabled, false otherwise */
+bool Physics::getDebugRendererMode(PxScene* scene)
+{
+    cout << "eScale: " <<scene->getVisualizationParameter(PxVisualizationParameter::eSCALE);
+    return compareFloat(scene->getVisualizationParameter(PxVisualizationParameter::eSCALE),1.0f);
+}
+
+/** Sets the render debug enabled or disabled
+ @param[in]scene The scene
+ @param[in]debugRenderEnabled true to enable render debug, false otherwise */
+void Physics::setDebugRendererMode(PxScene* scene, bool debugRenderEnabled)
+{
+
+    float value = debugRenderEnabled? 1.0f : 0.0f;
+    
+        cout << "value: " <<value;
+    
+    scene->setVisualizationParameter(PxVisualizationParameter::eSCALE, value);
+}
+
+/** Toggles between render or not render debug 
+  @param[in]scene The scene*/
+void Physics::toggleDebugVisualization(PxScene* scene)
+{
+    setDebugRendererMode(scene,!getDebugRendererMode(scene));
+}
+
 /** Create a PhysX scene
  @return The created scene
  */
@@ -185,126 +214,6 @@ void Physics::updateActorsTransform(PxScene* scene)
 	}
 }
 
-
-/** Get the box size of a Mesh
- @param[in] transform The Transform is used to scale up or down the extent and fit the Actor
- @param[in] actor The MeshFilter that'll be used to extract the box extent
- @return Half extent of the AABB*/
-PxVec3 Physics::getBoxSize(shared_ptr<Transform> transform, shared_ptr<MeshFilter> meshFilter)
-{
-	shared_ptr<Mesh> mesh = meshFilter->getMesh();
-    
-	glm::vec3 boundsMax = mesh->getBoundsMax();
-	glm::vec3 boundsMin = mesh->getBoundsMin();
-    
-	PxVec3 boxSize(boundsMax.x - boundsMin.x,
-                   boundsMax.y - boundsMin.y,
-                   boundsMax.z - boundsMin.z);
-    
-	boxSize = boxSize / 2;
-    
-	boxSize.x = std::fmaxf(boxSize.x, 0.001f);
-	boxSize.y = std::fmaxf(boxSize.y, 0.001f);
-	boxSize.z = std::fmaxf(boxSize.z, 0.001f);
-    
-	boxSize.x *= transform->scale.x;
-	boxSize.y *= transform->scale.y;
-	boxSize.z *= transform->scale.z;
-    
-	return boxSize;
-}
-
-/** Get the sphere size of a Mesh
- @param[in] transform The Transform is used to scale up or down the extent and fit the Actor
- @param[in] actor The MeshFilter that'll be used to extract the box extent
- @return The radius of the sphere*/
-
-float Physics::getSphereSize(shared_ptr<Transform> transform, shared_ptr<MeshFilter> meshFilter)
-{
-	shared_ptr<Mesh> mesh = meshFilter->getMesh();
-    
-	glm::vec3 boundsMax = mesh->getBoundsMax();
-	glm::vec3 boundsMin = mesh->getBoundsMin();
-    
-	PxVec3 sphereSize(boundsMax.x - boundsMin.x,
-                      boundsMax.y - boundsMin.y,
-                      boundsMax.z - boundsMin.z);
-	
-    sphereSize = sphereSize / 2;
-	
-    sphereSize.x = std::fmaxf(sphereSize.x, 0.001f);
-    sphereSize.y = std::fmaxf(sphereSize.y, 0.001f);
-    sphereSize.z = std::fmaxf(sphereSize.z, 0.001f);
-	
-    sphereSize.x *= transform->scale.x;
-    sphereSize.y *= transform->scale.y;
-    sphereSize.z *= transform->scale.z;
-	
-    float radius = fmaxf(sphereSize.x, sphereSize.y);
-    radius = fmaxf(radius, sphereSize.z);
-    
-	return radius;
-}
-
-/** Get the capsule extent and orientation of a Mesh
- @param[in] transform The Transform is used to scale up or down the extent and fit the Actor
- @param[in] actor The MeshFilter that'll be used to extract the box extent
- @param[out] radius The radius of the capsule
- @param[out] halfHeight Half height of the capsule
- @param[out] orientation The orientation of the capsule
- */
-void Physics::getCapsuleGeometry(shared_ptr<Transform>transform,shared_ptr<MeshFilter>meshFilter,float &radius,float &halfHeight,RotateAxis&orientation)
-{
-	shared_ptr<Mesh> mesh = meshFilter->getMesh();
-    
-	glm::vec3 boundsMax = mesh->getBoundsMax();
-	glm::vec3 boundsMin = mesh->getBoundsMin();
-    
-	PxVec3 capsuleSize(boundsMax.x - boundsMin.x,
-                       boundsMax.y - boundsMin.y,
-                       boundsMax.z - boundsMin.z);
-	
-    capsuleSize = capsuleSize / 2;
-	
-    capsuleSize.x = std::fmaxf(capsuleSize.x, 0.001f);
-    capsuleSize.y = std::fmaxf(capsuleSize.y, 0.001f);
-    capsuleSize.z = std::fmaxf(capsuleSize.z, 0.001f);
-	
-    capsuleSize.x *= transform->scale.x;
-    capsuleSize.y *= transform->scale.y;
-    capsuleSize.z *= transform->scale.z;
-    
-    bool maxX, maxY, maxZ;
-    maxX = maxY = maxZ = false;
-    if(capsuleSize.x > capsuleSize.y && capsuleSize.x > capsuleSize.z)
-        maxX = true;
-    else if(capsuleSize.y > capsuleSize.x && capsuleSize.y > capsuleSize.z)
-        maxY = true;
-    else if(capsuleSize.z > capsuleSize.y && capsuleSize.z > capsuleSize.x)
-        maxZ = true;
-    
-    if(maxX)
-    {
-        orientation = RotateAxis::x;
-        halfHeight = capsuleSize.x / 2;
-        radius = capsuleSize.y/2;
-    }
-    else if(maxY)
-    {
-        orientation = RotateAxis::y;
-        halfHeight = capsuleSize.y / 2;
-        radius = capsuleSize.x/2;
-    }
-    else if(maxZ)
-    {
-        orientation = RotateAxis::z;
-        halfHeight = capsuleSize.z / 2;
-        radius = capsuleSize.y/2;
-    }
-    
-    
-}
-
 /** Create a box collider
  @param[in] halfExtent Half extent of the AABB
  @param[in] center The position of the center of the collider
@@ -344,25 +253,6 @@ PxShape* Physics::createBoxCollider(PxVec3 halfExtent, PxVec3 center, shared_ptr
 	return shape;
 }
 
-/** Create a box collider
- @param[in] actor The Actor. Tries to find a MeshFilter and use the Mesh bounds for the extents of the AABB
- @return The created shape */
-PxShape* Physics::createBoxCollider(shared_ptr<Actor> actor)
-{
-	shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
-    
-	PxVec3 center(0, 0, 0);
-	PxVec3 boxSize(0.5f, 0.5f, 0.5f);
-	if (meshFilter)
-	{
-		boxSize = getBoxSize(actor->transform, meshFilter);
-		center = PxVec3(glmVec3ToPhysXVec3( meshFilter->getMesh()->getAverageCenter()));
-	}
-    
-    return createBoxCollider(boxSize,center,actor);
-    
-	
-}
 
 /** Create a sphere collider
  @param[in] radius The radius of the sphere
@@ -403,26 +293,6 @@ PxShape* Physics::createSphereCollider(float radius, PxVec3 center, shared_ptr<A
     
 	return shape;
 }
-
-/** Create a sphere collider
- @param[in] actor The Actor. Tries to find a MeshFilter and use the Mesh bounds for the extents of the AABB
- @return The created shape*/
-PxShape* Physics::createSphereCollider(shared_ptr<Actor> actor)
-{
-	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
-	shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
-    
-	PxVec3 center(0,0,0);
-	float radius = 0.5f;// PxVec3 boxSize(0.5f, 0.5f, 0.5f);
-	if (meshFilter)
-	{
-		radius = getSphereSize(actor->transform, meshFilter);
-        
-		center = PxVec3(glmVec3ToPhysXVec3(meshFilter->getMesh()->getAverageCenter()));
-	}
-    return createSphereCollider(radius, center, actor);
-}
-
 
 
 /** Set the orientation of the capsule
@@ -489,30 +359,6 @@ PxShape* Physics::createCapsuleCollider(float radius, float halfHeight, RotateAx
     setCapsuleOrientation(shape,orientation);
     
 	return shape;
-}
-
-/** Create a capsule collider
- @param[in] actor The Actor. Tries to find a MeshFilter and use the Mesh bounds for the extents of the capsule
- @return The created shape*/
-PxShape* Physics::createCapsuleCollider(shared_ptr<Actor> actor)
-{
-	shared_ptr<RigidBody> rigidBody = actor->GetComponent<RigidBody>();
-    
-    shared_ptr<MeshFilter> meshFilter = actor->GetComponent<MeshFilter>();
-    
-	PxVec3 center(0,0,0);
-	float radius = 0.5f;// PxVec3 boxSize(0.5f, 0.5f, 0.5f);
-    float halfHeight = 0.5f;
-    RotateAxis orientation = RotateAxis::x;
-	
-    if (meshFilter)
-	{
-        getCapsuleGeometry(actor->transform,meshFilter,radius,halfHeight,orientation);
-		radius = getSphereSize(actor->transform, meshFilter);
-        
-		center = PxVec3(glmVec3ToPhysXVec3(meshFilter->getMesh()->getAverageCenter()));
-	}
-    return  createCapsuleCollider(radius, halfHeight,orientation, center, actor);
 }
 
 /** Checks the map to see if the ConvexMesh has already been computed for the Mesh
@@ -652,9 +498,13 @@ void Physics::tickScene(float deltaSeconds, PxScene* scene)
         return;
     
     timeAccumulator -= timeStep;
+
+ 
     
 	scene->simulate(timeStep);
 	scene->fetchResults(true);
+
+    Physics::updateActorsTransform(scene);   
 }
 
 /** Shut down and release allocated memory */

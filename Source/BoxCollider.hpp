@@ -31,6 +31,8 @@ public:
      */
     void setHalfExtent(PxVec3 halfExtent);
     
+    /** Looks for a MeshComponent and gets the extent for the collider */
+    virtual void recalculateBounds() override;
     
     /** Clones current component (Prototype Design Pattern)
      @return shared_ptr to cloned BoxCollider Component

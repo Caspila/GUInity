@@ -32,14 +32,16 @@ std::map<unsigned int,shared_ptr<Asset>> AssetDatabase::idToAsset;
 std::map<string,shared_ptr<Asset>> AssetDatabase::nameToAsset;
 
 
-	/** Initialize the AssetDatabase */
+/** Initialize the AssetDatabase */
 void AssetDatabase::init()
 {
 	/** Initialize the Mesh Importer */
 	meshImporter.init();
+    
+    loadFilesInCommonData();
 }
 
-	/** Releases allocated memmory */
+/** Releases allocated memmory */
 void AssetDatabase::shutdown()
 {
 	/** Shutdown the Mesh Importer */
@@ -47,6 +49,25 @@ void AssetDatabase::shutdown()
 }
 
 
+/** Automatically checks all files on the root of the CommonData folder and tries to load it to memory */
+void AssetDatabase::loadFilesInCommonData()
+{
+    
+    vector<path> files = getFilesInDirectory(CommonData(""));
+    
+    for(auto& file : files)
+    {
+        
+        
+        string filename = file.filename().string();
+        
+        shared_ptr<Asset> asset = tryLoadAsset(file.filename().string(), file.extension().string());
+        
+    }
+    
+    
+    
+}
 
 /** Create a meta-file for an asset (Serialize an asset)
  @param[in] asset Asset that will be serialized
@@ -56,7 +77,7 @@ void AssetDatabase::createSerializationFile(shared_ptr<Asset> asset, string file
 {
     std::ofstream ofs(filename.append(".desc"),std::fstream::binary | std::fstream::out);
     {
-
+        
         boost::archive::binary_oarchive oa(ofs);
         
         oa & asset;
@@ -80,8 +101,8 @@ void AssetDatabase::readSerialiationFile(string fullPath)
 
 
 /** Once serialization is done and working, the AssetDatabase should not reload all files
-everytime. It should load only the Asset Description (.meta//.desc) file and check if it's up to date.
-This function loads all the meta-files existing in the CommonData folder*/
+ everytime. It should load only the Asset Description (.meta//.desc) file and check if it's up to date.
+ This function loads all the meta-files existing in the CommonData folder*/
 
 void AssetDatabase::loadAllMetaFiles()
 {
@@ -97,35 +118,35 @@ void AssetDatabase::loadAllMetaFiles()
         {
 			readSerialiationFile(filename);
         }
-     
+        
         
     }
- 
+    
 }
 
 /** Tries to load and asset, checking its extension and delegating the file to the appropriate loader
  @param[in] filename The filename without extension
  @param[in] filename The extension of the file
-     @return Reference to the loaded Asset or nullptr
+ @return Reference to the loaded Asset or nullptr
  */
 shared_ptr<Asset> AssetDatabase::tryLoadAsset(string filename, string extension)
 {
 	if (extension.compare(".fbx") == 0)
         return AssetDatabase::createMeshFromFBX(filename);
-//		cout << "Load fbx: " << file << endl;
+    //		cout << "Load fbx: " << file << endl;
 	else if (extension.compare(".png") == 0)
         return AssetDatabase::createTexture(filename);
-//		cout << "Should automatically load png: " << file << endl;
+    //		cout << "Should automatically load png: " << file << endl;
 	else if (extension.compare(".obj") == 0)
         return AssetDatabase::createMeshFromOBJ(filename);
-//		cout << "Load obj: " << file << endl;
+    //		cout << "Load obj: " << file << endl;
 	else if (extension.compare(".mp3") == 0)
 		cout << "Should automatically load mp3: " << filename << endl;
 	else if (extension.compare(".ttf") == 0)
 		cout << "Should automatically load ttf: " << filename << endl;
-
+    
 	return nullptr;
-
+    
 }
 
 
@@ -137,7 +158,7 @@ shared_ptr<Asset> AssetDatabase::tryLoadAsset(string filename, string extension)
  @*/
 shared_ptr<Shader> AssetDatabase::createShader(string filename, string vsFilename, string fsFilename)
 {
- 
+    
     shared_ptr<Shader> shader = make_shared<Shader>(vsFilename,fsFilename);
     assignCurrentID(shader,filename);
     return shader;
@@ -172,7 +193,7 @@ shared_ptr<PhysicsMaterial> AssetDatabase::createPhysicsMaterial(string name, fl
  @param[in] filename The Asset filename
  @return Reference to the Asset that was created
  */
- shared_ptr<Mesh> AssetDatabase::createMeshFromFBX(string filename)
+shared_ptr<Mesh> AssetDatabase::createMeshFromFBX(string filename)
 {
     shared_ptr<Mesh> mesh = meshImporter.importFbxMesh(CommonData(filename));
     assignCurrentID(mesh,filename);
@@ -183,7 +204,7 @@ shared_ptr<PhysicsMaterial> AssetDatabase::createPhysicsMaterial(string name, fl
  @param[in] filename The Asset filename
  @return Reference to the Asset that was created
  */
- shared_ptr<Mesh> AssetDatabase::createMeshFromOBJ(string filename)
+shared_ptr<Mesh> AssetDatabase::createMeshFromOBJ(string filename)
 {
     shared_ptr<Mesh> mesh = meshImporter.importObjMesh(CommonData(filename));
     assignCurrentID(mesh,filename);
@@ -195,7 +216,7 @@ shared_ptr<PhysicsMaterial> AssetDatabase::createPhysicsMaterial(string name, fl
  @param[in] triangles The indexed triangles of the Mesh
  @return Reference to the Asset that was created
  */
- shared_ptr<Mesh> AssetDatabase::createMesh(vector<MeshVertex> vertex, vector<unsigned short> triangles)
+shared_ptr<Mesh> AssetDatabase::createMesh(vector<MeshVertex> vertex, vector<unsigned short> triangles)
 {
     shared_ptr<Mesh> mesh = make_shared<Mesh>(vertex,triangles);
     assignCurrentID(mesh);
@@ -210,7 +231,7 @@ shared_ptr<Sound> AssetDatabase::createSound(string filename)
 {
 	shared_ptr<Sound> sound = make_shared<Sound>(filename);
 	assignCurrentID(sound, filename);
-
+    
 	return sound;
 }
 
@@ -221,16 +242,16 @@ shared_ptr<Sound> AssetDatabase::createSound(string filename)
  */
 shared_ptr<Texture> AssetDatabase::createTexture(string filename)
 {
-
+    
     cout << "Filename Tex bug:" << filename << endl;
     
 	int width = 0;
 	int height = 0;
 	void *buffer = loadTexture(CommonData(filename), width, height);
-
+    
 	shared_ptr<Texture> texture = make_shared<Texture>(buffer,width,height);
 	assignCurrentID(texture, filename);
-
+    
 	return texture;
 }
 
@@ -243,24 +264,24 @@ shared_ptr<Texture> AssetDatabase::createTexture(string filename)
 shared_ptr<Font> AssetDatabase::createFont(string filename, int fontSize)
 {
     string commonDataFilename = CommonData(filename);
-
+    
     
 	FT_Library  library;
-
+    
 	FT_Error error = FT_Init_FreeType(&library);
 	if (error)
 	{
 		//	... an error occurred during library initialization ...
 		cout << "Error" << endl;
 	}
-
+    
 	FT_Face     face;      /* handle to face object */
 	error = FT_New_Face(library, commonDataFilename.c_str(),
-		0,
-		&face);
+                        0,
+                        &face);
 	if (error == FT_Err_Unknown_File_Format)
 	{
-
+        
 	}
 	else if (error)
 	{
@@ -269,25 +290,25 @@ shared_ptr<Font> AssetDatabase::createFont(string filename, int fontSize)
 	{
 		cout << "Loaded OK" << endl;
 	}
-
+    
 	error = FT_Set_Pixel_Sizes(
-		face,   /* handle to face object */
-		0,      /* pixel_width           */
-		fontSize);   /* pixel_height */
-
+                               face,   /* handle to face object */
+                               0,      /* pixel_width           */
+                               fontSize);   /* pixel_height */
+    
 	string textureName = filename;
 	textureName.append("texture.png");
-
-	CharacterCatalog charCatalog = createFontTexture(face, textureName);
-
+    
+	CharacterCatalog charCatalog = createFontTexture(face, CommonData(textureName));
+    
 	shared_ptr<Texture> texture = createTexture(textureName);
-
+    
 	shared_ptr<Font> font = make_shared<Font>(texture, charCatalog, fontSize);
 	assignCurrentID(font, filename);
-
+    
     
 	return font;
-
+    
 	//TODO how to cleanup freetype library?
 }
 
@@ -302,7 +323,7 @@ void abort_(const char * s, ...)
 }
 
 /** loads a .png file to a buffer
-//http://en.wikibooks.org/wiki/OpenGL_Programming/Intermediate/Textures#A_simple_libpng_example
+ //http://en.wikibooks.org/wiki/OpenGL_Programming/Intermediate/Textures#A_simple_libpng_example
  @param[in] filename The Asset filename
  @param[out] width The width of image
  @param[out] height The height of image
@@ -317,7 +338,7 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     FILE *fp = fopen(filename.c_str(), "rb");
     if (!fp) {
         cout << "Erro TEXTURE_LOAD_ERROR 1" << endl;
-//        return TEXTURE_LOAD_ERROR;
+        //        return TEXTURE_LOAD_ERROR;
     }
     
     //read the header
@@ -328,7 +349,7 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     if (!is_png) {
         cout << "Erro TEXTURE_LOAD_ERROR 2" << endl;
         fclose(fp);
-//        return TEXTURE_LOAD_ERROR;
+        //        return TEXTURE_LOAD_ERROR;
     }
     
     //create png struct
@@ -336,8 +357,8 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
                                                  NULL, NULL);
     if (!png_ptr) {
         fclose(fp);
-                cout << "Erro TEXTURE_LOAD_ERROR3" << endl;
-//        return (TEXTURE_LOAD_ERROR);
+        cout << "Erro TEXTURE_LOAD_ERROR3" << endl;
+        //        return (TEXTURE_LOAD_ERROR);
     }
     
     //create png info struct
@@ -345,8 +366,8 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     if (!info_ptr) {
         png_destroy_read_struct(&png_ptr, (png_infopp) NULL, (png_infopp) NULL);
         fclose(fp);
-                cout << "Erro TEXTURE_LOAD_ERROR4" << endl;
-//        return (TEXTURE_LOAD_ERROR);
+        cout << "Erro TEXTURE_LOAD_ERROR4" << endl;
+        //        return (TEXTURE_LOAD_ERROR);
     }
     
     //create png info struct
@@ -354,16 +375,16 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     if (!end_info) {
         png_destroy_read_struct(&png_ptr, &info_ptr, (png_infopp) NULL);
         fclose(fp);
-                cout << "Erro TEXTURE_LOAD_ERROR5" << endl;
-//        return (TEXTURE_LOAD_ERROR);
+        cout << "Erro TEXTURE_LOAD_ERROR5" << endl;
+        //        return (TEXTURE_LOAD_ERROR);
     }
     
     //png error stuff, not sure libpng man suggests this.
     if (setjmp(png_jmpbuf(png_ptr))) {
         png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
         fclose(fp);
-                cout << "Erro TEXTURE_LOAD_ERROR6" << endl;
-//        return (TEXTURE_LOAD_ERROR);
+        cout << "Erro TEXTURE_LOAD_ERROR6" << endl;
+        //        return (TEXTURE_LOAD_ERROR);
     }
     
     //init png reading
@@ -399,8 +420,8 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
         //clean up memory and close stuff
         png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
         fclose(fp);
-                cout << "Erro TEXTURE_LOAD_ERROR7" << endl;
-//        return TEXTURE_LOAD_ERROR;
+        cout << "Erro TEXTURE_LOAD_ERROR7" << endl;
+        //        return TEXTURE_LOAD_ERROR;
     }
     
     //row_pointers is for pointing to image_data for reading the png with libpng
@@ -410,8 +431,8 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
         png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
         delete[] image_data;
         fclose(fp);
-                cout << "Erro TEXTURE_LOAD_ERROR8" << endl;
-//        return TEXTURE_LOAD_ERROR;
+        cout << "Erro TEXTURE_LOAD_ERROR8" << endl;
+        //        return TEXTURE_LOAD_ERROR;
     }
     // set the individual row_pointers to point at the correct offsets of image_data
     for (int i = 0; i < height; ++i)
@@ -420,9 +441,9 @@ void* AssetDatabase::loadTexture(const string filename, int &width, int &height)
     //read the png into image_data through row_pointers
     png_read_image(png_ptr, row_pointers);
     
-
+    
     png_destroy_read_struct(&png_ptr, &info_ptr, &end_info);
-//    delete[] image_data;
+    //    delete[] image_data;
     delete[] row_pointers;
     fclose(fp);
     
@@ -444,7 +465,7 @@ int AssetDatabase::writeImage(const char* filename, int width, int height, unsig
 	png_structp png_ptr = NULL;
 	png_infop info_ptr = NULL;
 	png_bytep row = NULL;
-
+    
 	// Open file for writing (binary mode)
 	fp = fopen(filename, "wb");
 	if (fp == NULL) {
@@ -459,7 +480,7 @@ int AssetDatabase::writeImage(const char* filename, int width, int height, unsig
 		code = 1;
 		goto finalise;
 	}
-
+    
 	// Initialize info structure
 	info_ptr = png_create_info_struct(png_ptr);
 	if (info_ptr == NULL) {
@@ -474,12 +495,12 @@ int AssetDatabase::writeImage(const char* filename, int width, int height, unsig
 		goto finalise;
 	}
 	png_init_io(png_ptr, fp);
-
+    
 	// Write header (8 bit colour depth)
 	png_set_IHDR(png_ptr, info_ptr, width, height,
-		8, PNG_COLOR_TYPE_RGBA, PNG_INTERLACE_NONE,
-		PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
-
+                 8, PNG_COLOR_TYPE_RGBA, PNG_INTERLACE_NONE,
+                 PNG_COMPRESSION_TYPE_BASE, PNG_FILTER_TYPE_BASE);
+    
 	// Set title
 	if (title != NULL) {
 		png_text title_text;
@@ -488,13 +509,13 @@ int AssetDatabase::writeImage(const char* filename, int width, int height, unsig
 		title_text.text = title;
 		png_set_text(png_ptr, info_ptr, &title_text, 1);
 	}
-
+    
 	png_write_info(png_ptr, info_ptr);
-
+    
 	// Allocate memory for one row (3 bytes per pixel - RGB)
 	//row = (png_bytep)malloc(3 * width * sizeof(png_byte));
 	row = (png_bytep)malloc(4 * width * sizeof(png_byte));
-
+    
 	// Write image data
 	int x, y;
 	for (y = 0; y<height; y++) {
@@ -516,7 +537,7 @@ int AssetDatabase::writeImage(const char* filename, int width, int height, unsig
 		}
 		png_write_row(png_ptr, row);
 	}
-
+    
 	// End write
 	png_write_end(png_ptr, NULL);
 finalise:
@@ -524,7 +545,7 @@ finalise:
 	if (info_ptr != NULL) png_free_data(png_ptr, info_ptr, PNG_FREE_ALL, -1);
 	if (png_ptr != NULL) png_destroy_write_struct(&png_ptr, (png_infopp)NULL);
 	if (row != NULL) free(row);
-
+    
 	return code;
 }
 
@@ -541,11 +562,11 @@ void AssetDatabase::getWidthHeightForAlphabet(FT_Face face, string alphabet, int
 	for (int i = 0; i < alphabet.size(); i++)
 	{
 		FT_UInt  glyph_index;
-
-
+        
+        
 		/* retrieve glyph index from character code */
 		glyph_index = FT_Get_Char_Index(face, alphabet[i]);
-			
+        
 		/* load glyph image into the slot (erase previous one) */
 		FT_Error error = FT_Load_Glyph(face, glyph_index, FT_LOAD_DEFAULT);
 		if (error)
@@ -553,30 +574,30 @@ void AssetDatabase::getWidthHeightForAlphabet(FT_Face face, string alphabet, int
 			cout << error << endl;
 			continue;  /* ignore errors */
 		}
-
+        
 		FT_Glyph glyph;
 		FT_Get_Glyph(face->glyph, &glyph);
-	
-
+        
+        
 		/* convert to an anti-aliased bitmap */
 		error = FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
-
+        
 		int charWidth = face->glyph->bitmap.width + abs(face->glyph->bitmap_left);
 		if (charWidth == 0)
 			charWidth = face->glyph->advance.x / 64;
-
+        
 		width += charWidth;
-
+        
 		//height = max(height, face->glyph->bitmap.rows + face->glyph->bitmap_top);
 		int yPos = (face->glyph->bitmap.rows - face->glyph->bitmap_top);
 		yOrigin = max(yOrigin, yPos);
-
+        
 		int charHeight = face->glyph->bitmap.rows + yPos;
-
+        
 		height = max(height,charHeight);
         
         FT_Done_Glyph(glyph);
-
+        
 	}
 }
 
@@ -595,49 +616,49 @@ void AssetDatabase::getWidthHeightForAlphabet(FT_Face face, string alphabet, int
 void AssetDatabase::addGlyphToBuffer(FT_Face& face, char letter, unsigned char* buffer, int bufferWidth, int bufferHeight, int xOffset, int yOffset, int yOrigin, int& outGlyphWidth, int& outGlyphHeight)
 {
 	FT_UInt  glyph_index;
-
-
+    
+    
 	/* retrieve glyph index from character code */
 	glyph_index = FT_Get_Char_Index(face, letter);
-
+    
 	/* load glyph image into the slot (erase previous one) */
 	FT_Error error = FT_Load_Glyph(face, glyph_index, FT_LOAD_DEFAULT);
 	if (error)
 	{
-	
-	
+        
+        
 	}
 	/* convert to an anti-aliased bitmap */
 	error = FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL);
-
+    
 	int offset = (bufferHeight - 1) * bufferWidth + xOffset;
 	int width = face->glyph->bitmap.width;
 	if (width == 0)
 		width = face->glyph->advance.x / 64;
-
+    
 	int height = face->glyph->bitmap.rows;
 	int bitmap_left = abs(face->glyph->bitmap_left);
-
+    
 	outGlyphWidth = width + bitmap_left;
 	outGlyphHeight = height + face->glyph->bitmap_top;
-
+    
 	int yPos = face->glyph->bitmap.rows - face->glyph->bitmap_top;
 	int yOriginDelta = yOrigin - yPos;
-
+    
 	int xI, yI;
 	//for (yI = height - 1; yI >= 0; yI--) {
 	for (yI = height - 1; yI >= 0; yI--) {
 		for (xI = 0; xI<width; xI++) {
-
+            
 			int bufferIndex = offset - (height - yI + yOriginDelta)*bufferWidth + //y
-				(xI + bitmap_left); //x
+            (xI + bitmap_left); //x
 			int bitmapIndex = yI *width + xI;
-
+            
 			buffer[bufferIndex] = face->glyph->bitmap.buffer[bitmapIndex];
 		}
 	}
-
-
+    
+    
 }
 
 /** creates a .png texture for the a Font
@@ -648,13 +669,13 @@ void AssetDatabase::addGlyphToBuffer(FT_Face& face, char letter, unsigned char* 
 CharacterCatalog AssetDatabase::createFontTexture(FT_Face& face, string textureFilename)
 {
 	CharacterCatalog charCatalog;
-
+    
 	int width, height, yOrigin;
 	width = height = yOrigin = 0;
-
+    
 	string alphabet = "abcdefghjklmnopqrstuvxyzw0123456789 !?,./\[]{};':\"";
 	getWidthHeightForAlphabet(face, alphabet, width, height, yOrigin);
-
+    
 	int xOffset, yOffset;
 	xOffset = yOffset = 0;
 	unsigned char* buffer = new unsigned char[width*height];
@@ -662,7 +683,7 @@ CharacterCatalog AssetDatabase::createFontTexture(FT_Face& face, string textureF
 	{
 		buffer[i] = 0;
 	}
-
+    
 	for (int i = 0; i < alphabet.size(); i++)
 	{
 		int outGlyphWidth, outGlyphHeight;
@@ -674,11 +695,11 @@ CharacterCatalog AssetDatabase::createFontTexture(FT_Face& face, string textureF
         
 		xOffset += outGlyphWidth;
 	}
-
+    
 	writeImage(textureFilename.c_str(), width, height, buffer, "blabla");
-
+    
 	delete[] buffer;
-
+    
 	return charCatalog;
 }
 

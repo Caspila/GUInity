@@ -42,6 +42,8 @@ public:
 	/** Component init override. Create a new Capsule Shape in the PhysX scene. */
 	virtual void init();
 
+    /** Looks for a MeshComponent and gets the extent for the collider */
+    virtual void recalculateBounds() override;
 	
     /** Clones current component (Prototype Design Pattern)
      @return shared_ptr to cloned CapsuleCollider Component

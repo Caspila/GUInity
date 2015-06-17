@@ -33,6 +33,10 @@ public:
 	virtual ~Collider() {};
     
 
+    /** Looks for a MeshComponent and gets the extent for the collider */
+    virtual void recalculateBounds() = 0;
+    
+    
     
     /** center setter
      @param [in] center the center of the physics shape */

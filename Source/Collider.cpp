@@ -22,8 +22,8 @@ void Collider::destroy()
 {
     Component::destroy();
     
-    if(shape)
-        shape->release();
+//    if(shape)
+//        shape->release();
 }
 
 /** Component setActive override */
@@ -32,7 +32,9 @@ void Collider::setActive(bool isActive)
     Component::setActive(isActive);
     
     if(shape)
+    {
         shape->setFlag(PxShapeFlag::eVISUALIZATION, isActive);
+    }
 }
 
 

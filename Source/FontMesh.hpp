@@ -3,6 +3,7 @@
 #include "Component.hpp"
 #include "Subject.hpp"
 #include "MeshComponent.hpp"
+#include "Enums.hpp"
 
 class Font;
 class Mesh;
@@ -21,6 +22,9 @@ private:
 	shared_ptr<Font> font;
 	/** The text */
 	string text;
+    /** The alignment */
+    FontAlignment alignment;
+    
 
 public:
 	/** Default Constructor*/
@@ -38,6 +42,25 @@ public:
 	/** text getter */
 	string getText() const;
 
+    /** alignment Setter
+     @param[in] alignment the new FontAlignment */
+    void setAlignment(FontAlignment alignment);
+    /** alignment Getter
+     @return the current FontAlignment */
+    FontAlignment getAlignment() const;
+
+    /** Changes the alignment of the current Mesh */
+    void changeAlignment(FontAlignment from, FontAlignment to);
+    
+
+    /** Applies an offset to each vertex of the Mesh
+     @param[in] offset The offset that will be applied*/
+    void applyOffsetToMesh(glm::vec3 offset);
+    
+    /** Calculate the bounds of a string
+     @param[in] text The text that will be used for calculation
+     @return The bounding box of the string */
+    glm::vec3 calculateTextBounds(const string& text);
     
 	/** create the mesh according to the font and text */
 	void createMesh();

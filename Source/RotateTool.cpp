@@ -47,7 +47,7 @@ void RotateTool::awake()
 
     
 	shared_ptr<Actor> yHandle = Factory::CreateEditorActor("RotateYAxisHandle");
-    yHandle->transform->setScale(glm::vec3(1,1,1)*0.9);
+    yHandle->transform->setScale(glm::vec3(1,1,1)*0.9f);
     meshFilter = yHandle->AddComponent<MeshFilter>();
     meshFilter->setMesh(cylinderMesh);
     meshRenderer = yHandle->AddComponent<MeshRenderer>();
@@ -59,7 +59,7 @@ void RotateTool::awake()
 
 	shared_ptr<Actor> zHandle = Factory::CreateEditorActor("RotateZAxisHandle");
     zHandle->transform->setRotation(glm::quat(glm::vec3(90*Deg2Radian,0,0)));
-        zHandle->transform->setScale(glm::vec3(1,1,1)*0.8);
+        zHandle->transform->setScale(glm::vec3(1,1,1)*0.8f);
     shared_ptr<MeshFilter>  meshFilterZ = zHandle->AddComponent<MeshFilter>();
 	meshFilterZ->setMesh(cylinderMesh);
     shared_ptr<MeshRenderer>   meshRendererZ = zHandle->AddComponent<MeshRenderer>();

@@ -18,6 +18,8 @@ struct MeshTriangle;
 
 #define Radian2Deg 57.2957795f
 #define Deg2Radian 0.0174532925f
+#define PI 3.1415926535897932f
+
 
 /** Get Rotation between two vectors */
  glm::quat RotationBetweenVectors(glm::vec3 start, glm::vec3 dest);
@@ -30,6 +32,15 @@ struct MeshTriangle;
 float distanceVertexPlane(glm::vec3, Plane p);
 /** Returns the projection of a vec3 in a Plane */
  glm::vec3 projectOnPlane(glm::vec3 vector, Plane p);
+
+glm::vec3 randUnitVectorXYZ();
+glm::vec3 randUnitVectorXY();
+
+float randRange(float min, float max);
+int randRange(int min, int max);
+
+float epsilon();
+bool compareFloat(float a, float b);
 
  /** CONVEX HULL SECTION */
  /** CONVEX HULL IS NOT WORKING CURRENTLY */

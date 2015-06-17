@@ -100,7 +100,6 @@ void Factory::DestroyActor(weak_ptr<Actor> actor)
 }
 
 
-
 /** Create reference actor. Every Actor in the Game World has a Reference Actor in the Editor World to allow them to be manipulated in the Editor
  @param[in] realActor Reference to the actor
  */

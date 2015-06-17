@@ -17,11 +17,11 @@
 #include "Light.hpp"
 #include "Material.hpp"
 #include "Shader.hpp"
-#include "UIWidget.hpp"
 #include "AssetDatabase.hpp"
 #include "Texture.hpp"
 #include "Time.hpp"
-#include "SkinnedMesh.hpp"
+#include <glm/common.hpp>
+#include <glm/gtc/type_ptr.hpp>
 
 /** Initialize the system, create the window and such
  @param[in] width The width of the screen
@@ -221,50 +221,6 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginUV));
         
 		
-        shared_ptr<SkinnedMesh> skinnedMesh = dynamic_pointer_cast<SkinnedMesh>(meshRenderer->getMeshComponent()->getMesh());
-        
-        int useBones = 0;
-        if(skinnedMesh)
-        {
-            useBones = 1;
-            
-            
-            glBindBuffer(GL_ARRAY_BUFFER, skinnedMesh->getBonesVBO());
-            
-
-            
-            glVertexAttribPointer(4, 3, GL_FLOAT, GL_FALSE, sizeof(VertexBoneVec), (void*)(0));
-            
-
-            
-            // Bone weights
-            glEnableVertexAttribArray(4);
-            
-
-            
-            
-            glVertexAttribPointer(5, 3, GL_FLOAT, GL_FALSE, sizeof(VertexBoneVec), (void*)(sizeof(glm::vec3)));
-            
-
-            
-            // Bone weights
-            glEnableVertexAttribArray(5);
-         
-            //            glEnableVertexAttribArray(4);
-            //            glVertexAttribPointer(4, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginUV));
-            
-            
-            
-            
-          
-            setUniformMatrix4fv(shaderProgram, "boneTransform",10,GL_FALSE, glm::value_ptr(skinnedMesh->getDeltaPos()[0]));
-        }
-
-        setUniform1iv(shaderProgram, "nBones",1, &useBones);
-        
-        
-        //        		setUniformMatrix4fv(shaderProgram, "camera", 1, GL_FALSE, &camera->getMVPMatrix()[0][0]);
-        
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, meshComponent->getMesh()->getTrianglesBuffer());
         
         // draw points 0-3 from the currently bound VAO with current in-use shader
@@ -273,11 +229,6 @@ void GLFWGraphicsSystem::render(shared_ptr<Camera> camera, vector < shared_ptr<M
         glDisableVertexAttribArray(0);
         glDisableVertexAttribArray(2);
         glDisableVertexAttribArray(3);
-        glDisableVertexAttribArray(4);
-        glDisableVertexAttribArray(5);
-        
-       
-        //           cout << "Set attribs:" <<       Time::stopwatchEnd() << endl;
         
     }
     
@@ -330,13 +281,10 @@ void GLFWGraphicsSystem::renderPhysicsDebug(shared_ptr<Camera> camera,const phys
     glBindVertexArray(vao);
     
 	
-    /*glUniform3fv(debugMaterial->shader->paramID["difuse"], 1, &color[0]);*/
-	glUniform3fv(getUniformLocation(debugMaterial->getShaderProgram(), "difuse") , 1, &color[0]);
+    glUniform3fv(getUniformLocation(debugMaterial->getShaderProgram(), "difuse") , 1, &color[0]);
     
-	//glm::mat4 transformMatrix = camera->getMVPMatrix();// *actor->transform->getModelMatrix();
     
 	glUniformMatrix4fv(getUniformLocation(debugMaterial->getShaderProgram(), "MVP"), 1, GL_FALSE, &camera->getMVPMatrix()[0][0]);
-    //glUniformMatrix4fv(debugMaterial->shader->paramID["MVP"], 1, GL_FALSE, &transformMatrix[0][0]);
     
     glDrawArrays(GL_LINES, 0, 2 * rb.getNbLines());
     
@@ -636,59 +584,3 @@ bool  GLFWGraphicsSystem::setUniform1iv(const GLuint shaderProgram, const GLchar
 	return false;
 }
 
-
-
-/** Render Widgets on screen */
-void GLFWGraphicsSystem::renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector)
-{
-    //
-    //    GLuint shaderProgram = guiMaterial->getShaderProgram();
-    //
-    //    glLinkProgram(shaderProgram);
-    //    glUseProgram(shaderProgram);
-    //
-    //    // Get a handle for our "myTextureSampler" uniform
-    //    GLuint TextureID  = glGetUniformLocation(shaderProgram, "myTextureSampler");
-    //    shared_ptr<Texture> texture = dynamic_pointer_cast<Texture>(AssetDatabase::idToAsset[1]);
-    //
-    ////    glEnable(GL_BLEND);
-    ////    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    //
-    //    for (int i = 0; i < uiWidgetVector.size(); i++)
-    //    {
-    //        shared_ptr<UIWidget> uiWidget = uiWidgetVector[i];
-    //
-    //        glUniformMatrix4fv(uniform(shaderProgram, "model"), 1, GL_FALSE, &uiWidget->getModelMatrix()[0][0]);
-    //    glUniformMatrix4fv(uniform(shaderProgram, "ortho"), 1, GL_FALSE, &GUIMatrix[0][0]);
-    //    glUniform4fv(uniform(shaderProgram, "diffuseColor"), 1, &uiWidget->color[0]);
-    //
-    //    glBindVertexArray(uiWidget->mesh->vao);
-    //
-    //    glEnableVertexAttribArray(0);
-    //    glBindBuffer(GL_ARRAY_BUFFER, uiWidget->mesh->mvbo);
-    //
-    //        // Bind our texture in Texture Unit 0
-    //        glActiveTexture(GL_TEXTURE0);
-    //        glBindTexture(GL_TEXTURE_2D, texture->textureID);
-    //        // Set our "myTextureSampler" sampler to user Texture Unit 0
-    //        glUniform1i(TextureID, 0);
-    //
-    //    //Vertex
-    //    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(0));
-    //
-    //        int beginUV = sizeof(glm::vec3);
-    //
-    //        //UV
-    //        glEnableVertexAttribArray(3);
-    //        glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(MeshVertex), (void*)(beginUV));
-    //
-    //
-    //    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, uiWidget->mesh->ibo);
-    //
-    //    // draw points 0-3 from the currently bound VAO with current in-use shader
-    //    glDrawElements(GL_TRIANGLES, uiWidget->mesh->triangles.size(), GL_UNSIGNED_SHORT, NULL);
-    //
-    //    glDisableVertexAttribArray(0);
-    //    glDisableVertexAttribArray(3);
-    //    }
-}

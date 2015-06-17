@@ -67,12 +67,12 @@ public:
 	/** Function that receives Collision from PhysX. Delegates the collision to all ScriptComponents.
      @param[in] actor Other actor that collided with this
      */
-	void triggerPhysxCollision(Actor* actor);
+	void triggerPhysxCollision(shared_ptr<Actor> actor);
 	
 	/** Function that receives Trigger Collision from PhysX.  Delegates the collision to all ScriptComponents.
      @param[in] actor Other actor that collided with this
      */
-	void triggerPhysxTrigger(Actor* actor);
+	void triggerPhysxTrigger(shared_ptr<Actor> actor);
     
 	/** Parent actor. Allows for hierarchy. */
 	weak_ptr<Actor> parent;

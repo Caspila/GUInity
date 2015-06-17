@@ -1,14 +1,10 @@
 #include "MeshImporter.hpp"
 #include "Mesh.hpp"
-#include "SkinnedMesh.hpp"
 #include "Converter.hpp"
 #include <map>
 #include <glm/gtx/spline.hpp>
 #include <interpolation.h>
-#include "Animation.hpp"
-#include "SkinnedMesh.hpp"
 
-using namespace alglib;
 
 MeshImporter::MeshImporter()
 {
@@ -88,22 +84,6 @@ void MeshImporter::importFbxSkin(FbxSkin* skinNode)
         }
     }
 }
-
-bool MeshImporter::isMeshSkinned(FbxMesh* meshNode)
-{
-    int deformerCount = meshNode->GetDeformerCount();
-    
-    for(int i = 0 ; i < deformerCount ; i ++)
-    {
-        FbxDeformer* deformer = meshNode->GetDeformer(i);
-        
-        if(deformer->GetDeformerType() == FbxDeformer::EDeformerType::eSkin)
-            return true;
-    }
-    
-    return false;
-}
-
 shared_ptr<Mesh> MeshImporter::importFbxMesh(FbxScene* scene,FbxMesh* meshNode)
 {
     if(!meshNode)
@@ -183,259 +163,6 @@ shared_ptr<Mesh> MeshImporter::importFbxMesh(FbxScene* scene,FbxMesh* meshNode)
 	return mesh;
 }
 
-void MeshImporter::readFbxAnimationCurve(std::map<CurveAnimationType,AnimationCurve>& animationMap, CurveAnimationType animationType, FbxAnimCurve* fbxCurve, float initialValue)
-{
-    if(!fbxCurve)
-        return;
-    
-    AnimationCurve animationCurve;
-    
-    int keyFrameCount = fbxCurve->KeyGetCount();
-    for(int x = 0; x < keyFrameCount; x++)
-    {
-        FbxAnimCurveKey curveKey = fbxCurve->KeyGet(x);
-        
-        int pHour, pMinute, pSecond, pFrame, pField, pResidual;
-        
-        FbxTime time = curveKey.GetTime();
-        
-//        int nFrames = time.GetFrameCount();
-        
-//        double frameRate = time.GetFrameRate(FbxTime::EMode::eDefaultMode);
-        
-        time.GetTime(pHour, pMinute, pSecond, pFrame, pField, pResidual);
-        
-        animationCurve.addNewKeyFrame(glm::vec2(pFrame,curveKey.GetValue() - initialValue));
-        
-        //                cout << "frameRate:"<< frameRate << endl;
-        //                cout << "Frame:"<< pFrame << endl;
-        //                cout << "Value:"<<curveKey.GetValue() << endl;
-    }
-    
-    animationMap[animationType] = animationCurve;
-    
-    cout <<animationMap.size() << endl;
-//    animationMap[animationType] = animationCurve;
-    
-}
-
-std::map<CurveAnimationType,AnimationCurve> MeshImporter::importFbxAnimation(FbxScene* scene, FbxNode* node, FbxAMatrix& initialPose)
-{
-    std::map<CurveAnimationType,AnimationCurve> animationMap;
-    
-    int numStacks = scene->GetSrcObjectCount(FbxCriteria::ObjectType(FbxAnimLayer::ClassId));
-    for(int j = 0; j < numStacks; j++)
-    {
-        
-        FbxAnimStack* animStackNode = FbxCast<FbxAnimStack>(scene->GetSrcObject(FbxCriteria::ObjectType(FbxAnimStack::ClassId), j));
-        
-        int numAnimLayers = animStackNode->GetMemberCount(FbxCriteria::ObjectType(FbxAnimLayer::ClassId));
-        
-        for(int i= 0; i < numAnimLayers; i++)
-        {
-            FbxAnimLayer* animLayer =
-            FbxCast<FbxAnimLayer>(animStackNode->GetMember(FbxCriteria::ObjectType(FbxAnimLayer::ClassId), i));
-            
-            FbxVector4 initialPos = initialPose.GetT();
-            
-            FbxAnimCurve* animCurve = node->LclTranslation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_X);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::X_MOVE, animCurve,initialPos[0]);
-            
-
-            animCurve = node->LclTranslation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Y);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::Y_MOVE, animCurve,initialPos[1]);
-
-            animCurve = node->LclTranslation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Z);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::Z_MOVE, animCurve,initialPos[2]);
-
-            FbxVector4 initialRot = initialPose.GetR();
-            
-             animCurve = node->LclRotation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_X);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::X_ROTATE, animCurve,initialRot[0]);
-
-             animCurve = node->LclRotation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Y);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::Y_ROTATE, animCurve,initialRot[1]);
-            
-             animCurve = node->LclRotation.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Z);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::Z_ROTATE, animCurve,initialRot[2]);
-
-            FbxVector4 initialScale = initialPose.GetS();
-            
-              animCurve = node->LclScaling.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_X);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::X_SCALE, animCurve,initialScale[0]);
-            
-              animCurve = node->LclScaling.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Y);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::Y_SCALE, animCurve,initialScale[1]);
-            
-              animCurve = node->LclScaling.GetCurve(animLayer, FBXSDK_CURVENODE_COMPONENT_Z);
-            readFbxAnimationCurve(animationMap, CurveAnimationType::Z_SCALE, animCurve,initialScale[2]);
-            
-            
-            
-        }
-    }
-    
-    return animationMap;
-}
-
-
-shared_ptr<SkinnedMesh> MeshImporter::importFbxSkinnedMesh(FbxScene* scene,FbxMesh* meshNode)
-{
-    if(!meshNode)
-        return nullptr;
-    
-    vector<MeshVertex> vertices;
-    vector<unsigned short> triangles;
-    
-    
-    unsigned long uPolyCount = meshNode->GetPolygonCount();
-    unsigned long uVertexCount = 0;
-    //					unsigned long uVertexNumber = 0;
-    
-    // Dictionary to check if the vertex exists already
-    std::map<PackedFBXVertex, unsigned short> vertexMap;
-    // Dictionary that maps and original vertex to a list of new vertices that came out of it
-    std::map<unsigned short, vector<unsigned short>> originalVertexToNewVertex;
-    
-    for (int uPoly = 0; uPoly < uPolyCount; ++uPoly)
-    {
-        // Get number of vertices in current poly - is your mesh triangulated?
-        uVertexCount = meshNode->GetPolygonSize((int)uPoly);
-        
-        for (int uVertex = 0; uVertex < uVertexCount; ++uVertex)
-        {
-            
-            FbxVector4 fbxVertex(0,0,0,0);
-            FbxVector4 fbxNormal(0,0,0,0);
-            FbxVector2 fbxUV(0,0);
-            
-            getVertexData(meshNode, uPoly, uVertex, fbxVertex, fbxNormal, fbxUV);
-            
-            PackedFBXVertex v;
-            v.normal = fbxNormal;
-            v.position = fbxVertex;
-            v.uv = fbxUV;
-            
-            unsigned short index = 0;
-            
-            bool found = findVertex(vertexMap, v, index);
-            
-            if (!found)
-            {
-                vertices.push_back(MeshVertex(glm::vec3(fbxVertex.mData[0], fbxVertex.mData[1], fbxVertex.mData[2]),glm::vec2(fbxUV.mData[0], fbxUV.mData[1]),glm::vec3(fbxNormal.mData[0], fbxNormal.mData[1], fbxNormal.mData[2])));
-                
-                unsigned short newIndex = vertices.size() - 1;
-                
-                vertexMap[v] = newIndex;
-                triangles.push_back(newIndex);
-                
-               	int uVertexIndex = meshNode->GetPolygonVertex(uPoly, uVertex);
-                originalVertexToNewVertex[uVertexIndex].push_back(newIndex);
-                
-            }
-            else
-            {
-                triangles.push_back(index);
-                
-                int uVertexIndex = meshNode->GetPolygonVertex(uPoly, uVertex);
-                originalVertexToNewVertex[uVertexIndex].push_back(index);
-                
-            }
-        }
-    }
-    
-    shared_ptr<SkinnedMesh> skinnedMesh = make_shared<SkinnedMesh>();
-    
-    skinnedMesh->setVertices(vertices);
-    skinnedMesh->setTriangles(triangles);
-    
-    int deformerCount = meshNode->GetDeformerCount();
-    
-    vector<glm::mat4> initialPose;
-    
-    Animation animation;
-    
-    int nBones = 0;
-    for(int i = 0 ; i < deformerCount ; i ++)
-    {
-        FbxDeformer* deformer = meshNode->GetDeformer(i);
-        
-        if(deformer->GetDeformerType() == FbxDeformer::EDeformerType::eSkin)
-        {
-            
-            
-            FbxSkin* skin =  FbxCast<FbxSkin>(deformer);
-            
-            
-            int clusterCount = skin->GetClusterCount();
-            nBones = clusterCount;
-            
-            
-            vector<VertexBone> verticesWeights(vertices.size());
-            for(int j = 0; j < vertices.size(); j++)
-            {
-                verticesWeights.at(j).init(nBones);
-            }
-//            vector<vector<float>> verticesWeights(vertices.size(),vector<float>(clusterCount));
-            
-            
-            for(int j = 0; j < clusterCount; j++)
-            {
-                FbxCluster* cluster = skin->GetCluster(j);
-                
-                FbxAMatrix matrix;
-                cluster->GetTransformLinkMatrix(matrix);
-                
-                glm::mat4 glmMat;
-                fbxMat4ToglmMat4(matrix, glmMat);
-                
-                initialPose.push_back(glmMat);
-
-                
-                
-                animation.addAnimationCurveNode(importFbxAnimation(scene,cluster->GetLink(),matrix));
-                
-                
-                
-                int* controlPoints = cluster->GetControlPointIndices();
-                double *weights = cluster->GetControlPointWeights();
-                for(int clusterIndex = 0; clusterIndex < cluster->GetControlPointIndicesCount(); clusterIndex++)
-                {
-                    for(auto &x:  originalVertexToNewVertex[controlPoints[clusterIndex]])
-                    {
-                        verticesWeights.at(x).addWeight(j, weights[clusterIndex]);
-//                        verticesWeights.at(x).addWeight(j, 1);
-//                        verticesWeights.at(x).at(j) = weights[clusterIndex];
-                        
-                    }
-                    
-                }
-                
-                
-            }
-            for(int j = 0; j < vertices.size(); j++)
-            {
-                verticesWeights.at(j).sortWeight();
-            }
-            
-            skinnedMesh->setNBones(nBones);
-            skinnedMesh->setVerticesWeight(verticesWeights);
-        }
-    }
-    skinnedMesh->setInitialPosition(initialPose);
-
-    skinnedMesh->setAnimation(animation);
-    
-    skinnedMesh->createBuffers();
-    
-
-    
-    
-	return skinnedMesh;
-}
-
-
-
 shared_ptr<Mesh> MeshImporter::importFbxMesh(string filename)
 {
     cout << "filename" << filename << endl;
@@ -474,12 +201,6 @@ shared_ptr<Mesh> MeshImporter::importFbxMesh(string filename)
                 case FbxNodeAttribute::eMesh:
                 {
                     FbxMesh* meshNode =  FbxCast<FbxMesh>(pChildNode->GetNodeAttribute());
-                    
-                    bool isSkinned = isMeshSkinned(meshNode);
-                    if(isSkinned)
-                        mesh = importFbxSkinnedMesh(lScene,meshNode);
-                    
-                    else
                         mesh = importFbxMesh(lScene,meshNode);
                     break;
                 }

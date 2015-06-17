@@ -4,16 +4,12 @@
 #include "ScriptComponent.hpp"
 #include "Input.hpp"
 #include "Transform.hpp"
-#include "ReflectionTest.h"
-//#include "Script.hpp"
 
 
 class Material;
 class Mesh;
 
-/*!
- * Your documentation comment will go here
- */
+
 class PlayerScript : public ScriptComponent
 {
 public:
@@ -34,18 +30,17 @@ public:
     void applyDrag(float deltaSeconds);
     
     shared_ptr<Material> defaultMaterialRef;
-    shared_ptr<Mesh> objMeshRef;
+    shared_ptr<Material> missileMaterial;
+    shared_ptr<Mesh> missileMeshRef;
     weak_ptr<Actor> bulletSpawnPoint;
-	
-	virtual void onCollision(Actor* actor) override;
-	virtual void onTrigger(Actor* actor) override;
+	void checkBounds();
+    
+    
+	virtual void onCollision(shared_ptr<Actor> actor) override;
+	virtual void onTrigger(shared_ptr<Actor> actor) override;
     
     virtual shared_ptr<Component> clone() override;
 
-//    PROPERTY(float, dragFactor);
-//    CREATE_TABLE(MEMBER(float, dragFactor));
-    
-//    DECLARE_SERIALIZATION(PlayerScript);
     
 private:
 	

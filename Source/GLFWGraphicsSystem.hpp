@@ -169,10 +169,6 @@ public:
      */
 	bool setUniform1fv(const GLuint shaderProgram, const GLchar* uniformName,int count, GLfloat* value);
     
-    
-    /** Render Widgets on screen */
-	virtual void renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector)override;
-    
 };
 
 #endif // GLFWGRAPHICSYSTEM_H

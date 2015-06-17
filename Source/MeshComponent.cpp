@@ -38,7 +38,10 @@ shared_ptr<Mesh> MeshComponent::getMesh() const
 }
 
 
-/** Gets the center and the AABB size for the Actor that this component is attached to */
+/** Get the box size of a Mesh
+ @param[in] transform The Transform is used to scale up or down the extent and fit the Actor
+ @param[in] actor The MeshFilter that'll be used to extract the box extent
+ @return Half extent of the AABB*/
 void MeshComponent::getBoxSize(shared_ptr<Actor> actor, PxVec3& boxSize, PxVec3& center)
 {
 	glm::vec3 boundsMax = mesh->getBoundsMax();
@@ -46,7 +49,7 @@ void MeshComponent::getBoxSize(shared_ptr<Actor> actor, PxVec3& boxSize, PxVec3&
 
 	boxSize.x = boundsMax.x - boundsMin.x;
 	boxSize.y = boundsMax.y - boundsMin.y;
-	boxSize.z=boundsMax.z - boundsMin.z;
+	boxSize.z = boundsMax.z - boundsMin.z;
 
 	boxSize = boxSize / 2;
 
@@ -59,11 +62,14 @@ void MeshComponent::getBoxSize(shared_ptr<Actor> actor, PxVec3& boxSize, PxVec3&
 	boxSize.z *= actor->transform->scale.z;
 
 
-	center = glmVec3ToPhysXVec3(mesh->getAverageCenter());
+    // TODO, TRY TO USE MESH AVG CENTER TO POSITION THE COLLIDER
+    //    center = glmVec3ToPhysXVec3(mesh->getAverageCenter()) ;
 }
 
-/** Gets the center and the radius for the Actor that this component is attached to*/
-
+/** Get the sphere size of a Mesh
+ @param[in] transform The Transform is used to scale up or down the extent and fit the Actor
+ @param[in] actor The MeshFilter that'll be used to extract the box extent
+ @return The radius of the sphere*/
 void MeshComponent::getSphereSize(shared_ptr<Actor> actor, float& radius, PxVec3& center)
 {
 	glm::vec3 boundsMax = mesh->getBoundsMax();
@@ -87,10 +93,17 @@ void MeshComponent::getSphereSize(shared_ptr<Actor> actor, float& radius, PxVec3
 	radius = fmaxf(radius, boxSize.z);
 
 
-	center = glmVec3ToPhysXVec3(mesh->getAverageCenter());
+// TODO, TRY TO USE MESH AVG CENTER TO POSITION THE COLLIDER
+//    center = glmVec3ToPhysXVec3(mesh->getAverageCenter()) ;
 }
 
-/** Gets the center and the capsule description for the Actor that this component is attached to*/
+/** Get the capsule extent and orientation of a Mesh
+ @param[in] transform The Transform is used to scale up or down the extent and fit the Actor
+ @param[in] actor The MeshFilter that'll be used to extract the box extent
+ @param[out] radius The radius of the capsule
+ @param[out] halfHeight Half height of the capsule
+ @param[out] orientation The orientation of the capsule
+ */
 void MeshComponent::getCapsuleGeometry(shared_ptr<Actor>actor, float &radius, float &halfHeight, RotateAxis&orientation, PxVec3& center)
 {
 	glm::vec3 boundsMax = mesh->getBoundsMax();
@@ -137,6 +150,8 @@ void MeshComponent::getCapsuleGeometry(shared_ptr<Actor>actor, float &radius, fl
 		halfHeight = boxSize.z / 2;
 		radius = boxSize.y / 2;
 	}
-	center = glmVec3ToPhysXVec3(mesh->getAverageCenter());
+    
+    // TODO, TRY TO USE MESH AVG CENTER TO POSITION THE COLLIDER
+    //    center = glmVec3ToPhysXVec3(mesh->getAverageCenter()) ;
 
 }

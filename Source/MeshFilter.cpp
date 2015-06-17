@@ -15,6 +15,10 @@ MeshFilter::~MeshFilter()
 {
 }
 
+
+
+
+
 /** Clones current component (Prototype Design Pattern)
  @return shared_ptr to cloned MeshFilter Component
  */

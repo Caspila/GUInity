@@ -160,8 +160,5 @@ public:
 	/** window Getter */
 	virtual shared_ptr<GLFWwindow> getWindow() { return window; }
   
-    
-    /** Render Widgets on screen */
-	virtual void renderGUI(vector<shared_ptr<UIWidget>> uiWidgetVector) = 0;
 };
 

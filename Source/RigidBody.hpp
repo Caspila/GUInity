@@ -73,22 +73,29 @@ public:
     int getConstraintsFlags() const;
     
     /** Update the transform based on the PhysX physics simulation and current constraints
-     @param [in] the PhysX transform*/
+     @param[in] transform the PhysX transform*/
     void updateTransform(const PxTransform& transform);
     
     
     /** Add force to the RigidBody
-     @param [in] the force that will be added (direction and magnitude)
+     @param[in] force The force that will be added (direction and magnitude)
      */
     void addForce(glm::vec3 force);
     
-
+    /** Add torque to the RigidBody
+     @param[in] torque  The torque that will be added (direction and magnitude)
+     */
+    void addTorque(glm::vec3 torque);
+    
+    
     
     /** Clones current component (Prototype Design Pattern)
      @return shared_ptr to cloned RigidBody Component
      */
     virtual shared_ptr<Component> clone() override;
     
+    
+    void resetPosition();
     
     /** @defgroup serialization_functions Serialization Functions
      *  Serialization Region

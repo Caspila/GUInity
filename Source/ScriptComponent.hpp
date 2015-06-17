@@ -2,7 +2,6 @@
 #include "Module.hpp"
 //#include "Script.hpp"
 #include "Component.hpp"
-#include "ReflectionTest.h"
 
 class Actor;
 //class Script;
@@ -34,9 +33,9 @@ public:
 	virtual void tick(float deltaSecods) override {};
 
     /** Callback function called when a collision occurs */
-	virtual void onCollision(Actor* actor) {};
+	virtual void onCollision(shared_ptr<Actor> actor) {};
     /** Callback function called when a trigger collision occurs */
-	virtual void onTrigger(Actor* actor) {};
+	virtual void onTrigger(shared_ptr<Actor> actor) {};
 
     /** Clones current component (Prototype Design Pattern)
      @return shared_ptr to cloned ScriptComponent Component

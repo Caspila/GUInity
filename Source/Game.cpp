@@ -4,6 +4,7 @@
 #include "GraphicsSystem.hpp"
 #include "Camera.hpp"
 #include "MeshRenderer.hpp"
+#include "Input.hpp"
 
 shared_ptr<World> Game::world;
 
@@ -46,9 +47,15 @@ void Game::update(float deltaSeconds)
 {
 	world->tick(deltaSeconds);
 
-	Physics::tickScene(deltaSeconds,world->physicsScene);
-    Physics::updateActorsTransform(world->physicsScene);
 
+	Physics::tickScene(deltaSeconds,world->physicsScene);
+
+
+    if(Input::getKeyPressed(GLFW_KEY_B))
+    {
+        Physics::toggleDebugVisualization(world->physicsScene);
+    }
+    
 
 	GraphicsSystem::getInstance()->clear();
     

@@ -98,8 +98,49 @@ glm::vec3 projectOnPlane(glm::vec3 vector, Plane p)
 }
 
 
+glm::vec3 randUnitVectorXYZ()
+{
+    glm::vec3  p;
+//    do
+    {
+        p = 2.0f*glm::vec3(rand()/float(RAND_MAX),rand()/float(RAND_MAX),rand()/float(RAND_MAX)) - glm::vec3(1, 1, 1);
+    }
+//    while(glm::length2(p)>1.0);
+    return glm::normalize(p);
+}
+
+glm::vec3 randUnitVectorXY()
+{
+    glm::vec3  p;
+//    do
+    {
+        p = 2.0f*glm::vec3(rand()/float(RAND_MAX),rand()/float(RAND_MAX),0) - glm::vec3(1, 1,0);
+    }
+//    while(glm::length2(p)>1.0);
+    
+    return glm::vec3(glm::normalize(p));
+}
+
+float epsilon()
+{
+    return std::numeric_limits<float>::min();
+}
+
+bool compareFloat(float a, float b)
+{
+    return std::fabs(a - b) < epsilon();
+}
 
 
+float randRange(float min, float max)
+{
+    return (rand()/float(RAND_MAX))*(max-min) + min;
+}
+
+int randRange(int min, int max)
+{
+    return rand()%(max-min) + min;
+}
 
 
 //##############################################################################

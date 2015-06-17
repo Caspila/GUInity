@@ -80,6 +80,9 @@ void SphereCollider::init()
         
         setRadius(radius);
         
+        setIsTrigger(isTrigger);
+        setQueryOnly(isQueryOnly);
+        
     }
     // Create a new one
 	else
@@ -105,6 +108,10 @@ void SphereCollider::init()
  */
 shared_ptr<Component> SphereCollider::clone() {
     shared_ptr<SphereCollider> compClone = make_shared<SphereCollider>(radius,center);
+    
+    compClone->isTrigger = isTrigger;
+    compClone->isQueryOnly = isQueryOnly;
+    
     
     if(physicsMaterial!=nullptr)
         compClone->setPhysicsMaterial(getPhysicsMaterial());
@@ -135,3 +142,19 @@ void SphereCollider::deserialize(shared_ptr<ComponentDescription> desc)
     
     setCopyMode(true);
 }
+
+/** Looks for a MeshComponent and gets the extent for the collider */
+void SphereCollider::recalculateBounds()
+{
+    shared_ptr<MeshFilter> meshFilter = getActor()->GetComponent<MeshFilter>();
+    
+    float radius = 0.5f;
+    PxVec3   center(0,0,0);
+    
+    if(meshFilter)
+        meshFilter->getSphereSize(getActor(), radius, center);
+    
+    setRadius(radius);
+    
+}
+

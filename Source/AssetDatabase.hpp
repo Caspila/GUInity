@@ -186,6 +186,9 @@ public:
      */
 	static shared_ptr<PhysicsMaterial> createPhysicsMaterial(string name, float friction, float dynamicFriction, float restitution);
     
+    /** Automatically checks all files on the root of the CommonData folder and tries to load it to memory */
+    static void loadFilesInCommonData();
+    
     
 	/** Create Mesh from .fbx file
      @param[in] filename The Asset filename

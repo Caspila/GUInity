@@ -15,7 +15,5 @@ public:
 	virtual void init();
 	virtual void tick(float deltaSeconds);
     
-    
-    CREATE_TABLE( MEMBER(float, moveSpeed) MEMBER(float, rotationSpeed))
 };
 

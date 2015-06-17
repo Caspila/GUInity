@@ -29,8 +29,6 @@ private:
     /** The OpenGL-specific texture buffer ID */
     GLuint textureID;
     
-
-    
 public:
     /** Constructor
      @param[in] buffer The image data buffer

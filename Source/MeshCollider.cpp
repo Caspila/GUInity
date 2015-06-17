@@ -31,10 +31,12 @@ void MeshCollider::init()
 
     if(initWithData)
     {
-        PxMaterial* mat = physicsMaterial->getMaterial();
-        PxMaterial* const newMat = const_cast<PxMaterial* const>(mat);
+        if(physicsMaterial!=nullptr)
+            setPhysicsMaterial(getPhysicsMaterial());
         
-        shape->setMaterials(&newMat,1);
+        
+        setIsTrigger(isTrigger);
+        setQueryOnly(isQueryOnly);
     }
     else
     {
@@ -42,6 +44,8 @@ void MeshCollider::init()
         Collider::init();
     }
 }
+
+
 
 /** Component tick override. Updates the scale of the Mesh Shape in the PhysX scene. */
 void MeshCollider::tick(float deltaSeconds)
@@ -66,10 +70,14 @@ shared_ptr<Component> MeshCollider::clone()
     if(physicsMaterial!=nullptr)
         compClone->setPhysicsMaterial(getPhysicsMaterial());
     
+    
+    compClone->isTrigger = isTrigger;
+    compClone->isQueryOnly = isQueryOnly;
     compClone->setCopyMode(true);
     
     return compClone;
 };
+
 
 
 

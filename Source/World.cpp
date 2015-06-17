@@ -218,13 +218,15 @@ void World::awake(unsigned long start, unsigned long end)
 
 void World::tick(float deltaTime)
 {
-	for (auto& a : actors)
+	transferNewActors();
+    removeDestroyedActors();
+	
+    for (auto& a : actors)
 	{
 		a->tick(deltaTime);
 	}
 
-	transferNewActors();
-    removeDestroyedActors();
+
 
 //	Physics::tickScene(physicsScene);
 }

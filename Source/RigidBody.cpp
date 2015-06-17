@@ -62,6 +62,7 @@ void RigidBody::init()
 void RigidBody::destroy()
 {
     Component::destroy();
+    
     physxRigidBody->release();
 }
 
@@ -72,8 +73,9 @@ void RigidBody::tick(float deltaSeconds)
 {
     Component::tick(deltaSeconds);
 	shared_ptr<Actor> actor = getActor();
+  
+    physxRigidBody->setGlobalPose(transformToPhysXTransform(actor->transform));
     
-    physxRigidBody->setGlobalPose(PxTransform(glmMat4ToPhysxMat4(actor->transform->getModelMatrix())));
 }
 
 
@@ -88,6 +90,13 @@ void RigidBody::setActive(bool isActive)
 	physxRigidBody->setActorFlag(PxActorFlag::eDISABLE_SIMULATION, !isActive);
         }
     
+}
+
+void RigidBody::resetPosition()
+{
+    shared_ptr<Actor> actor = getActor();
+    
+    physxRigidBody->setGlobalPose(transformToPhysXTransform(actor->transform));
 }
 
 
@@ -211,13 +220,20 @@ void RigidBody::updateTransform(const PxTransform& newTransform)
 /** Add force to the RigidBody
  @param [in] the force that will be added (direction and magnitude)
  */
-void RigidBody::addForce(glm::vec3 axis)
+void RigidBody::addForce(glm::vec3 force)
 {
     
-    physxRigidBody->addForce(glmVec3ToPhysXVec3(axis));
+    physxRigidBody->addForce(glmVec3ToPhysXVec3(force));
     
 }
 
+/** Add torque to the RigidBody
+ @param[in] torque  The torque that will be added (direction and magnitude)
+ */
+void RigidBody::addTorque(glm::vec3 torque)
+{
+    physxRigidBody->addTorque(glmVec3ToPhysXVec3(torque));
+}
 
 
 /** Clones current component (Prototype Design Pattern)

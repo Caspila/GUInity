@@ -55,6 +55,8 @@ void BoxCollider::init()
         
         setHalfExtent(halfExtent);
         
+        setIsTrigger(isTrigger);
+        setQueryOnly(isQueryOnly);
     }
 	// Create new
     else
@@ -102,6 +104,22 @@ void BoxCollider::setHalfExtent(PxVec3 halfExtent)
     }
 }
 
+/** Looks for a MeshComponent and gets the extent for the collider */
+void BoxCollider::recalculateBounds()
+{
+    shared_ptr<MeshFilter> meshFilter = getActor()->GetComponent<MeshFilter>();
+    
+
+    PxVec3 halfExtent(0,0,0);
+    PxVec3   center(0,0,0);
+    
+    if(meshFilter)
+        meshFilter->getBoxSize(getActor(), halfExtent, center);
+    
+    setHalfExtent(halfExtent);
+    
+}
+
 /** Clones current component (Prototype Design Pattern)
  @return shared_ptr to cloned BoxCollider Component
  */
@@ -109,8 +127,12 @@ shared_ptr<Component> BoxCollider::clone()
 {
     shared_ptr<BoxCollider> compClone = make_shared<BoxCollider>(halfExtent, center);
     
+    compClone->isTrigger = isTrigger;
+    compClone->isQueryOnly = isQueryOnly;
+    
     if(physicsMaterial!=nullptr)
         compClone->setPhysicsMaterial(getPhysicsMaterial());
+    
     return compClone;
 }
 

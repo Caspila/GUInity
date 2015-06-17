@@ -48,8 +48,9 @@ void Actor::tick(float deltaSeconds)
 	for (int i = 0; i < components.size(); i++)
 	{
 		shared_ptr<Component> component = components[i];
-        
-		component->tick(deltaSeconds);
+
+        if(component->getIsActive())
+            component->tick(deltaSeconds);
         
 	}
     
@@ -58,7 +59,7 @@ void Actor::tick(float deltaSeconds)
 /** Function that receives Collision from PhysX. Delegates the collision to all ScriptComponents.
  @param[in] actor Other actor that collided with this
  */
-void Actor::triggerPhysxCollision(Actor* actor)
+void Actor::triggerPhysxCollision(shared_ptr<Actor> actor)
 {
 	for (auto& x : components)
 	{
@@ -72,7 +73,7 @@ void Actor::triggerPhysxCollision(Actor* actor)
 /** Function that receives Trigger Collision from PhysX.  Delegates the collision to all ScriptComponents.
  @param[in] actor Other actor that collided with this
  */
-void Actor::triggerPhysxTrigger(Actor* actor)
+void Actor::triggerPhysxTrigger(shared_ptr<Actor> actor)
 {
 	for (auto& x : components)
 	{
