@@ -72,12 +72,14 @@ int GLFWGraphicsSystem::init(int width, int height)
 /** Shutdown the system, destroy window and release any allocated memory*/
 void GLFWGraphicsSystem::shutdown()
 {
-    debugMaterial.reset();
-	debugShader.reset();
+    debugMaterial = nullptr;
+	debugShader = nullptr;
     
-    guiMaterial.reset();
-	guiShader.reset();
+    guiMaterial = nullptr;
+	guiShader = nullptr;
 	
+    defaultTexture = nullptr;
+    
     glfwTerminate();
     
 }

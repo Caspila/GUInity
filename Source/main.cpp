@@ -118,7 +118,7 @@ int main(int argc, char *argv[]) {
     int notOK = GraphicsSystem::getInstance()->init(1024,768);
 	if (notOK)
 		return 1;
-    
+
     AssetDatabase::init();
     
     Input input(GraphicsSystem::getInstance()->getWindow());
@@ -177,8 +177,9 @@ int main(int argc, char *argv[]) {
     game->shutdown();
     
     // close GL context and any other GLFW resources
-    GraphicsSystem::getInstance()->shutdown();
 	SoundSystem::getInstance()->shutdown();
+    GraphicsSystem::getInstance()->shutdown();
+
     
 	return 0;
 }
