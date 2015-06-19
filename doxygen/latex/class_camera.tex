@@ -1,0 +1,243 @@
+\hypertarget{class_camera}{}\section{Camera Class Reference}
+\label{class_camera}\index{Camera@{Camera}}
+
+
+{\ttfamily \#include $<$Camera.\+hpp$>$}
+
+Inheritance diagram for Camera\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_camera}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_camera_a01f94c3543f56ede7af49dc778f19331}{Camera} ()
+\item 
+\hyperlink{class_camera_a80beb3602cfdb96013c7acb71de1510b}{Camera} (float near\+Clip\+Plane, float far\+Clip\+Plane, float fov, float ratio)
+\item 
+virtual \hyperlink{class_camera_ad1897942d0ccf91052386388a497349f}{$\sim$\+Camera} ()
+\item 
+void \hyperlink{class_camera_aba99909b33d24822c337c09aaabea242}{compute\+Model\+View\+Matrix} ()
+\item 
+glm\+::mat4 \hyperlink{class_camera_a295d9433395f9dc8ef664614b8024e13}{get\+Model\+Matrix} ()
+\item 
+glm\+::mat4 \hyperlink{class_camera_a218f84bd3fedb1635241844c95112fa4}{get\+M\+V\+P\+Matrix} ()
+\item 
+glm\+::mat4 \hyperlink{class_camera_adf09522521723786b9f405c99d6594c7}{get\+Projection\+Matrix} ()
+\item 
+glm\+::mat4 \hyperlink{class_camera_a5569ca5967e01d3344fbf6aba36d9820}{get\+View\+Matrix} ()
+\item 
+float \hyperlink{class_camera_a5db47defc06bb2e0b2f5e6297ccb6344}{get\+Near\+Clip} ()
+\item 
+float \hyperlink{class_camera_a1a5b0c8c2bc2af5c8c6ae47a53010add}{get\+Far\+Clip} ()
+\item 
+float \hyperlink{class_camera_a5ec1871e6f296d8528e64157c6371c09}{get\+F\+O\+V} ()
+\item 
+float \hyperlink{class_camera_aef9d5b443588a64ae649ef0d063f72f7}{get\+Screen\+Ratio} ()
+\item 
+glm\+::vec3 \hyperlink{class_camera_aca6735f228da3a95703a93b732f0eae3}{screen\+Point\+To\+World} (glm\+::vec2 pos)
+\item 
+\hyperlink{class_ray}{Ray} \hyperlink{class_camera_aed1084771ca34b01476779f024bd6af0}{screen\+Point\+To\+Ray} (glm\+::vec2 pos)
+\item 
+\hyperlink{class_ray}{Ray} \hyperlink{class_camera_a1cdd077539fbff108015287660570662}{screen\+Point\+To\+Ray2} (glm\+::vec2 pos)
+\item 
+virtual void \hyperlink{class_camera_aa575c1bbde6ae31425e233f0204af38c}{init} () override
+\item 
+virtual void \hyperlink{class_camera_a994622d61d20af75b2e86f5e39b01299}{destroy} () override
+\item 
+virtual void \hyperlink{class_camera_adec93b934ee03e786a949fbc2b9d169e}{awake} () override
+\item 
+virtual void \hyperlink{class_camera_a8a9acaa6d1b9b5265fa714d0e24e9aee}{tick} (float delta\+Secods) override
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component}{Component} $>$ \hyperlink{class_camera_a0d6043b74adb8fc9d8f8aaa66ea19aa3}{clone} () override
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ \hyperlink{group__serialization__functions_gaf6a6ed08cfe3a456a1c38650c30a7231}{get\+Component\+Description} () override
+\item 
+virtual void \hyperlink{group__serialization__functions_gad2a03326aa3e8101471160c36058bd6c}{deserialize} (shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ desc) override
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_camera}{Camera} \hyperlink{class_component}{Component}. This component simulates a camera in a 3\+D environment. It\textquotesingle{}s the point of view used for rendering the Actors of the \hyperlink{class_world}{World} 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_camera_a01f94c3543f56ede7af49dc778f19331}{}\index{Camera@{Camera}!Camera@{Camera}}
+\index{Camera@{Camera}!Camera@{Camera}}
+\subsubsection[{Camera()}]{\setlength{\rightskip}{0pt plus 5cm}Camera\+::\+Camera (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_camera_a01f94c3543f56ede7af49dc778f19331}
+Default Constructor \hypertarget{class_camera_a80beb3602cfdb96013c7acb71de1510b}{}\index{Camera@{Camera}!Camera@{Camera}}
+\index{Camera@{Camera}!Camera@{Camera}}
+\subsubsection[{Camera(float near\+Clip\+Plane, float far\+Clip\+Plane, float fov, float ratio)}]{\setlength{\rightskip}{0pt plus 5cm}Camera\+::\+Camera (
+\begin{DoxyParamCaption}
+\item[{float}]{near\+Clip\+Plane, }
+\item[{float}]{far\+Clip\+Plane, }
+\item[{float}]{fov, }
+\item[{float}]{ratio}
+\end{DoxyParamCaption}
+)}\label{class_camera_a80beb3602cfdb96013c7acb71de1510b}
+Constructor with custom parameters near clip plane, far clip plane, field of vision and screen ratio. \hypertarget{class_camera_ad1897942d0ccf91052386388a497349f}{}\index{Camera@{Camera}!````~Camera@{$\sim$\+Camera}}
+\index{````~Camera@{$\sim$\+Camera}!Camera@{Camera}}
+\subsubsection[{$\sim$\+Camera()}]{\setlength{\rightskip}{0pt plus 5cm}Camera\+::$\sim$\+Camera (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_camera_ad1897942d0ccf91052386388a497349f}
+Default Destructor. Virtual because inherits \hyperlink{class_component}{Component} 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_camera_adec93b934ee03e786a949fbc2b9d169e}{}\index{Camera@{Camera}!awake@{awake}}
+\index{awake@{awake}!Camera@{Camera}}
+\subsubsection[{awake() override}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+::awake (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_camera_adec93b934ee03e786a949fbc2b9d169e}
+\hyperlink{class_component}{Component} awake override. Computes M\+V\+P\+Matrix 
+
+Reimplemented from \hyperlink{class_component_ae413974ecdbc8f65c6ff707b84278b0e}{Component}.
+
+\hypertarget{class_camera_a0d6043b74adb8fc9d8f8aaa66ea19aa3}{}\index{Camera@{Camera}!clone@{clone}}
+\index{clone@{clone}!Camera@{Camera}}
+\subsubsection[{clone() override}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Component} $>$ Camera\+::clone (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_camera_a0d6043b74adb8fc9d8f8aaa66ea19aa3}
+Clones current component (Prototype Design Pattern) \begin{DoxyReturn}{Returns}
+shared\+\_\+ptr to cloned \hyperlink{class_camera}{Camera} \hyperlink{class_component}{Component} 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_component_a74c984bd819bbef16fd4f306a90d34fe}{Component}.
+
+\hypertarget{class_camera_aba99909b33d24822c337c09aaabea242}{}\index{Camera@{Camera}!compute\+Model\+View\+Matrix@{compute\+Model\+View\+Matrix}}
+\index{compute\+Model\+View\+Matrix@{compute\+Model\+View\+Matrix}!Camera@{Camera}}
+\subsubsection[{compute\+Model\+View\+Matrix()}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+::compute\+Model\+View\+Matrix (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_camera_aba99909b33d24822c337c09aaabea242}
+Computes the current Model View Matrix and puts it into M\+V\+P\+Matrix
+
+Computes the current Model View Matrix \hypertarget{class_camera_a994622d61d20af75b2e86f5e39b01299}{}\index{Camera@{Camera}!destroy@{destroy}}
+\index{destroy@{destroy}!Camera@{Camera}}
+\subsubsection[{destroy() override}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+::destroy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_camera_a994622d61d20af75b2e86f5e39b01299}
+\hyperlink{class_component}{Component} destroy override. Notifies that the camera has been destroyed 
+
+Reimplemented from \hyperlink{class_component_a77b8fff56ddce5dd0b4a9dabb0b5202b}{Component}.
+
+\hypertarget{class_camera_a1a5b0c8c2bc2af5c8c6ae47a53010add}{}\index{Camera@{Camera}!get\+Far\+Clip@{get\+Far\+Clip}}
+\index{get\+Far\+Clip@{get\+Far\+Clip}!Camera@{Camera}}
+\subsubsection[{get\+Far\+Clip()}]{\setlength{\rightskip}{0pt plus 5cm}float Camera\+::get\+Far\+Clip (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_camera_a1a5b0c8c2bc2af5c8c6ae47a53010add}
+far clip Getter \hypertarget{class_camera_a5ec1871e6f296d8528e64157c6371c09}{}\index{Camera@{Camera}!get\+F\+O\+V@{get\+F\+O\+V}}
+\index{get\+F\+O\+V@{get\+F\+O\+V}!Camera@{Camera}}
+\subsubsection[{get\+F\+O\+V()}]{\setlength{\rightskip}{0pt plus 5cm}float Camera\+::get\+F\+O\+V (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_camera_a5ec1871e6f296d8528e64157c6371c09}
+fov Getter \hypertarget{class_camera_a295d9433395f9dc8ef664614b8024e13}{}\index{Camera@{Camera}!get\+Model\+Matrix@{get\+Model\+Matrix}}
+\index{get\+Model\+Matrix@{get\+Model\+Matrix}!Camera@{Camera}}
+\subsubsection[{get\+Model\+Matrix()}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::mat4 Camera\+::get\+Model\+Matrix (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_camera_a295d9433395f9dc8ef664614b8024e13}
+Returns Model Matrix without the scale factor \hypertarget{class_camera_a218f84bd3fedb1635241844c95112fa4}{}\index{Camera@{Camera}!get\+M\+V\+P\+Matrix@{get\+M\+V\+P\+Matrix}}
+\index{get\+M\+V\+P\+Matrix@{get\+M\+V\+P\+Matrix}!Camera@{Camera}}
+\subsubsection[{get\+M\+V\+P\+Matrix()}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::mat4 Camera\+::get\+M\+V\+P\+Matrix (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_camera_a218f84bd3fedb1635241844c95112fa4}
+M\+V\+P\+Matrix Getter \hypertarget{class_camera_a5db47defc06bb2e0b2f5e6297ccb6344}{}\index{Camera@{Camera}!get\+Near\+Clip@{get\+Near\+Clip}}
+\index{get\+Near\+Clip@{get\+Near\+Clip}!Camera@{Camera}}
+\subsubsection[{get\+Near\+Clip()}]{\setlength{\rightskip}{0pt plus 5cm}float Camera\+::get\+Near\+Clip (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_camera_a5db47defc06bb2e0b2f5e6297ccb6344}
+near clip Getter \hypertarget{class_camera_adf09522521723786b9f405c99d6594c7}{}\index{Camera@{Camera}!get\+Projection\+Matrix@{get\+Projection\+Matrix}}
+\index{get\+Projection\+Matrix@{get\+Projection\+Matrix}!Camera@{Camera}}
+\subsubsection[{get\+Projection\+Matrix()}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::mat4 Camera\+::get\+Projection\+Matrix (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_camera_adf09522521723786b9f405c99d6594c7}
+projection Matrix Getter \hypertarget{class_camera_aef9d5b443588a64ae649ef0d063f72f7}{}\index{Camera@{Camera}!get\+Screen\+Ratio@{get\+Screen\+Ratio}}
+\index{get\+Screen\+Ratio@{get\+Screen\+Ratio}!Camera@{Camera}}
+\subsubsection[{get\+Screen\+Ratio()}]{\setlength{\rightskip}{0pt plus 5cm}float Camera\+::get\+Screen\+Ratio (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_camera_aef9d5b443588a64ae649ef0d063f72f7}
+screen ratio Getter \hypertarget{class_camera_a5569ca5967e01d3344fbf6aba36d9820}{}\index{Camera@{Camera}!get\+View\+Matrix@{get\+View\+Matrix}}
+\index{get\+View\+Matrix@{get\+View\+Matrix}!Camera@{Camera}}
+\subsubsection[{get\+View\+Matrix()}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::mat4 Camera\+::get\+View\+Matrix (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_camera_a5569ca5967e01d3344fbf6aba36d9820}
+view Matrix Getter \hypertarget{class_camera_aa575c1bbde6ae31425e233f0204af38c}{}\index{Camera@{Camera}!init@{init}}
+\index{init@{init}!Camera@{Camera}}
+\subsubsection[{init() override}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_camera_aa575c1bbde6ae31425e233f0204af38c}
+\hyperlink{class_component}{Component} init override. Notifies that a new camera has been created 
+
+Reimplemented from \hyperlink{class_component_a162f8cdc070537a71f2ad0b5e763b86f}{Component}.
+
+\hypertarget{class_camera_aed1084771ca34b01476779f024bd6af0}{}\index{Camera@{Camera}!screen\+Point\+To\+Ray@{screen\+Point\+To\+Ray}}
+\index{screen\+Point\+To\+Ray@{screen\+Point\+To\+Ray}!Camera@{Camera}}
+\subsubsection[{screen\+Point\+To\+Ray(glm\+::vec2 pos)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Ray} Camera\+::screen\+Point\+To\+Ray (
+\begin{DoxyParamCaption}
+\item[{glm\+::vec2}]{pos}
+\end{DoxyParamCaption}
+)}\label{class_camera_aed1084771ca34b01476779f024bd6af0}
+Transforms a screen point to \hyperlink{class_ray}{Ray}. Commonly used for transforming mouse position into a \hyperlink{class_ray}{Ray} \hypertarget{class_camera_a1cdd077539fbff108015287660570662}{}\index{Camera@{Camera}!screen\+Point\+To\+Ray2@{screen\+Point\+To\+Ray2}}
+\index{screen\+Point\+To\+Ray2@{screen\+Point\+To\+Ray2}!Camera@{Camera}}
+\subsubsection[{screen\+Point\+To\+Ray2(glm\+::vec2 pos)}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Ray} Camera\+::screen\+Point\+To\+Ray2 (
+\begin{DoxyParamCaption}
+\item[{glm\+::vec2}]{pos}
+\end{DoxyParamCaption}
+)}\label{class_camera_a1cdd077539fbff108015287660570662}
+Transforms a screen point to \hyperlink{class_ray}{Ray}. Commonly used for transforming mouse position into a \hyperlink{class_ray}{Ray} \hypertarget{class_camera_aca6735f228da3a95703a93b732f0eae3}{}\index{Camera@{Camera}!screen\+Point\+To\+World@{screen\+Point\+To\+World}}
+\index{screen\+Point\+To\+World@{screen\+Point\+To\+World}!Camera@{Camera}}
+\subsubsection[{screen\+Point\+To\+World(glm\+::vec2 pos)}]{\setlength{\rightskip}{0pt plus 5cm}glm\+::vec3 Camera\+::screen\+Point\+To\+World (
+\begin{DoxyParamCaption}
+\item[{glm\+::vec2}]{pos}
+\end{DoxyParamCaption}
+)}\label{class_camera_aca6735f228da3a95703a93b732f0eae3}
+Transforms a screen point to a world point. Commonly used for transforming mouse position into world points \hypertarget{class_camera_a8a9acaa6d1b9b5265fa714d0e24e9aee}{}\index{Camera@{Camera}!tick@{tick}}
+\index{tick@{tick}!Camera@{Camera}}
+\subsubsection[{tick(float delta\+Secods) override}]{\setlength{\rightskip}{0pt plus 5cm}void Camera\+::tick (
+\begin{DoxyParamCaption}
+\item[{float}]{delta\+Secods}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_camera_a8a9acaa6d1b9b5265fa714d0e24e9aee}
+\hyperlink{class_component}{Component} tick override. Computes M\+V\+P\+Matrix 
+
+Reimplemented from \hyperlink{class_component_a72d67b02e6733c1a6fb73cbaaf8ebff4}{Component}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Camera.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Camera.\+cpp\end{DoxyCompactItemize}

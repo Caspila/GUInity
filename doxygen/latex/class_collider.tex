@@ -1,0 +1,250 @@
+\hypertarget{class_collider}{}\section{Collider Class Reference}
+\label{class_collider}\index{Collider@{Collider}}
+
+
+{\ttfamily \#include $<$Collider.\+hpp$>$}
+
+Inheritance diagram for Collider\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.066421cm]{class_collider}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_collider_aa7186870221f868bbc74c3ae8609fa66}{Collider} ()
+\item 
+virtual \hyperlink{class_collider_abf1ce43b287c870fd72918b023217a33}{$\sim$\+Collider} ()
+\item 
+void \hyperlink{class_collider_af96b9fde921e93d3072e49e0bfc1d942}{set\+Trigger} (bool \hyperlink{class_collider_a3068bd0bbdb66fc93a3ef3063ac556fa}{is\+Trigger})
+\item 
+bool \hyperlink{class_collider_ab5f78af93e01ca53d7a74820ff6c1537}{get\+Is\+Trigger} ()
+\item 
+void \hyperlink{class_collider_af023309d25aa50c66771bd0d804b1dea}{set\+Query\+Only} (bool \hyperlink{class_collider_a7a04883dc178bfc1b0bbf7750eb9f4d1}{is\+Query\+Only})
+\item 
+bool \hyperlink{class_collider_ac4bfad43c99e8e8897e55d28f7f84c3a}{get\+Query\+Only} ()
+\item 
+virtual void \hyperlink{class_collider_aed04ad82be15bcba1d3dc6a09f76dae6}{init} () override
+\item 
+virtual void \hyperlink{class_collider_a018ec33674acec77cbd18e4df9d8ad5b}{destroy} () override
+\item 
+virtual void \hyperlink{class_collider_ae29d151525174adbb950c15eafbf518e}{awake} () override
+\item 
+virtual void \hyperlink{class_collider_ade3d0403ff4c5429310adfbe41d889ee}{set\+Active} (bool \hyperlink{class_component_a6dad4f819c0814eee8219e9b391cf583}{is\+Active}) override
+\item 
+void \hyperlink{class_collider_a7ac3dc7291adfb3ea35c104fdebdf67a}{set\+Physics\+Material} (const shared\+\_\+ptr$<$ \hyperlink{class_physics_material}{Physics\+Material} $>$ phys\+Material)
+\item 
+shared\+\_\+ptr$<$ \hyperlink{class_physics_material}{Physics\+Material} $>$ \hyperlink{class_collider_adb62c0a8938b922c2b093511dcc12751}{get\+Physics\+Material} ()
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component}{Component} $>$ \hyperlink{class_collider_a28d0829db9804b27590afc9979e61a1c}{clone} () override=0
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ \hyperlink{group__serialization__functions_ga9bee953be54c842bd37244d1f3126745}{get\+Component\+Description} () override=0
+\item 
+virtual void \hyperlink{group__serialization__functions_gaa82ff0f6d5986bf4128bc50ec9932a04}{deserialize} (shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ desc) override=0
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+Px\+Vec3 \hyperlink{class_collider_a42b57aa35ab665daf89ae844e479c560}{center}
+\item 
+Px\+Shape $\ast$ \hyperlink{class_collider_a0eabd23889c23a5cb622547b1fc484d8}{shape}
+\item 
+shared\+\_\+ptr$<$ \hyperlink{class_physics_material}{Physics\+Material} $>$ \hyperlink{class_collider_a7cf889cd7bc213bcac3e0c6f5f42f150}{physics\+Material}
+\item 
+bool \hyperlink{class_collider_a3068bd0bbdb66fc93a3ef3063ac556fa}{is\+Trigger}
+\item 
+bool \hyperlink{class_collider_a7a04883dc178bfc1b0bbf7750eb9f4d1}{is\+Query\+Only}
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_collider}{Collider} is a component that adds either simulates real physics for an \hyperlink{class_actor}{Actor} or allows it to behave like a volume trigger. \hyperlink{class_collider}{Collider} is an abstract parent class for all the \hyperlink{class_collider}{Collider} types (\hyperlink{class_sphere_collider}{Sphere\+Collider}, \hyperlink{class_box_collider}{Box\+Collider}, \hyperlink{class_capsule_collider}{Capsule\+Collider} and \hyperlink{class_mesh_collider}{Mesh\+Collider}) 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_collider_aa7186870221f868bbc74c3ae8609fa66}{}\index{Collider@{Collider}!Collider@{Collider}}
+\index{Collider@{Collider}!Collider@{Collider}}
+\subsubsection[{Collider()}]{\setlength{\rightskip}{0pt plus 5cm}Collider\+::\+Collider (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_collider_aa7186870221f868bbc74c3ae8609fa66}
+Default Constructor \hypertarget{class_collider_abf1ce43b287c870fd72918b023217a33}{}\index{Collider@{Collider}!````~Collider@{$\sim$\+Collider}}
+\index{````~Collider@{$\sim$\+Collider}!Collider@{Collider}}
+\subsubsection[{$\sim$\+Collider()}]{\setlength{\rightskip}{0pt plus 5cm}virtual Collider\+::$\sim$\+Collider (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_collider_abf1ce43b287c870fd72918b023217a33}
+Default Destructor. Virtual because it\textquotesingle{}s parent class 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_collider_ae29d151525174adbb950c15eafbf518e}{}\index{Collider@{Collider}!awake@{awake}}
+\index{awake@{awake}!Collider@{Collider}}
+\subsubsection[{awake() override}]{\setlength{\rightskip}{0pt plus 5cm}virtual void Collider\+::awake (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_collider_ae29d151525174adbb950c15eafbf518e}
+\hyperlink{class_component}{Component} awake override 
+
+Reimplemented from \hyperlink{class_component_ae413974ecdbc8f65c6ff707b84278b0e}{Component}.
+
+\hypertarget{class_collider_a28d0829db9804b27590afc9979e61a1c}{}\index{Collider@{Collider}!clone@{clone}}
+\index{clone@{clone}!Collider@{Collider}}
+\subsubsection[{clone() override=0}]{\setlength{\rightskip}{0pt plus 5cm}virtual shared\+\_\+ptr$<${\bf Component}$>$ Collider\+::clone (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [pure virtual]}}\label{class_collider_a28d0829db9804b27590afc9979e61a1c}
+Pure virtual function. Clones current component (Prototype Design Pattern) \begin{DoxyReturn}{Returns}
+shared\+\_\+ptr to cloned \hyperlink{class_collider}{Collider} \hyperlink{class_component}{Component} 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_component_a74c984bd819bbef16fd4f306a90d34fe}{Component}.
+
+
+
+Implemented in \hyperlink{class_capsule_collider_a6ee91020e9118a97f9d5960b088b7db7}{Capsule\+Collider}, \hyperlink{class_sphere_collider_a68cd4eaf4ee2b13ac48efc38a760ff36}{Sphere\+Collider}, \hyperlink{class_box_collider_ab9154438078b0fb9d33f2f8958e3a71e}{Box\+Collider}, and \hyperlink{class_mesh_collider_a9965a490a1e945858dd9f1601b239878}{Mesh\+Collider}.
+
+\hypertarget{class_collider_a018ec33674acec77cbd18e4df9d8ad5b}{}\index{Collider@{Collider}!destroy@{destroy}}
+\index{destroy@{destroy}!Collider@{Collider}}
+\subsubsection[{destroy() override}]{\setlength{\rightskip}{0pt plus 5cm}void Collider\+::destroy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_collider_a018ec33674acec77cbd18e4df9d8ad5b}
+\hyperlink{class_component}{Component} destroy override 
+
+Reimplemented from \hyperlink{class_component_a77b8fff56ddce5dd0b4a9dabb0b5202b}{Component}.
+
+\hypertarget{class_collider_ab5f78af93e01ca53d7a74820ff6c1537}{}\index{Collider@{Collider}!get\+Is\+Trigger@{get\+Is\+Trigger}}
+\index{get\+Is\+Trigger@{get\+Is\+Trigger}!Collider@{Collider}}
+\subsubsection[{get\+Is\+Trigger()}]{\setlength{\rightskip}{0pt plus 5cm}bool Collider\+::get\+Is\+Trigger (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_collider_ab5f78af93e01ca53d7a74820ff6c1537}
+is\+Trigger getter \begin{DoxyReturn}{Returns}
+true if it\textquotesingle{}s just a trigger, false if it physics simulated 
+\end{DoxyReturn}
+\hypertarget{class_collider_adb62c0a8938b922c2b093511dcc12751}{}\index{Collider@{Collider}!get\+Physics\+Material@{get\+Physics\+Material}}
+\index{get\+Physics\+Material@{get\+Physics\+Material}!Collider@{Collider}}
+\subsubsection[{get\+Physics\+Material()}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Physics\+Material} $>$ Collider\+::get\+Physics\+Material (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_collider_adb62c0a8938b922c2b093511dcc12751}
+physics\+Material getter \begin{DoxyReturn}{Returns}
+referente to \hyperlink{class_physics_material}{Physics\+Material} 
+\end{DoxyReturn}
+\hypertarget{class_collider_ac4bfad43c99e8e8897e55d28f7f84c3a}{}\index{Collider@{Collider}!get\+Query\+Only@{get\+Query\+Only}}
+\index{get\+Query\+Only@{get\+Query\+Only}!Collider@{Collider}}
+\subsubsection[{get\+Query\+Only()}]{\setlength{\rightskip}{0pt plus 5cm}bool Collider\+::get\+Query\+Only (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_collider_ac4bfad43c99e8e8897e55d28f7f84c3a}
+is\+Query\+Only getter \begin{DoxyReturn}{Returns}
+true if this object is only used in queries, false otherwise
+\end{DoxyReturn}
+is\+Query\+Only getter 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em query\+Only} & true if this object is only used in queries, false otherwise \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_collider_aed04ad82be15bcba1d3dc6a09f76dae6}{}\index{Collider@{Collider}!init@{init}}
+\index{init@{init}!Collider@{Collider}}
+\subsubsection[{init() override}]{\setlength{\rightskip}{0pt plus 5cm}void Collider\+::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_collider_aed04ad82be15bcba1d3dc6a09f76dae6}
+\hyperlink{class_component}{Component} init override
+
+\hyperlink{class_component}{Component} Init override 
+
+Reimplemented from \hyperlink{class_component_a162f8cdc070537a71f2ad0b5e763b86f}{Component}.
+
+
+
+Reimplemented in \hyperlink{class_capsule_collider_a725516c53e2ac8eeee318107dc888163}{Capsule\+Collider}, \hyperlink{class_sphere_collider_aa51773fa54349bec5730b3ae528c4179}{Sphere\+Collider}, \hyperlink{class_box_collider_ad98ff62ff6b5c48dc8f18b1a2d2429e4}{Box\+Collider}, and \hyperlink{class_mesh_collider_ac906075dfa0f6ea801d82738c4b09231}{Mesh\+Collider}.
+
+\hypertarget{class_collider_ade3d0403ff4c5429310adfbe41d889ee}{}\index{Collider@{Collider}!set\+Active@{set\+Active}}
+\index{set\+Active@{set\+Active}!Collider@{Collider}}
+\subsubsection[{set\+Active(bool is\+Active) override}]{\setlength{\rightskip}{0pt plus 5cm}void Collider\+::set\+Active (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+Active}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_collider_ade3d0403ff4c5429310adfbe41d889ee}
+\hyperlink{class_component}{Component} set\+Active override. Changes Phys\+X settings
+
+\hyperlink{class_component}{Component} set\+Active override 
+
+Reimplemented from \hyperlink{class_component}{Component}.
+
+\hypertarget{class_collider_a7ac3dc7291adfb3ea35c104fdebdf67a}{}\index{Collider@{Collider}!set\+Physics\+Material@{set\+Physics\+Material}}
+\index{set\+Physics\+Material@{set\+Physics\+Material}!Collider@{Collider}}
+\subsubsection[{set\+Physics\+Material(const shared\+\_\+ptr$<$ Physics\+Material $>$ phys\+Material)}]{\setlength{\rightskip}{0pt plus 5cm}void Collider\+::set\+Physics\+Material (
+\begin{DoxyParamCaption}
+\item[{const shared\+\_\+ptr$<$ {\bf Physics\+Material} $>$}]{phys\+Material}
+\end{DoxyParamCaption}
+)}\label{class_collider_a7ac3dc7291adfb3ea35c104fdebdf67a}
+physics\+Material getter 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em reference} & to \hyperlink{class_physics_material}{Physics\+Material} \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_collider_af023309d25aa50c66771bd0d804b1dea}{}\index{Collider@{Collider}!set\+Query\+Only@{set\+Query\+Only}}
+\index{set\+Query\+Only@{set\+Query\+Only}!Collider@{Collider}}
+\subsubsection[{set\+Query\+Only(bool is\+Query\+Only)}]{\setlength{\rightskip}{0pt plus 5cm}void Collider\+::set\+Query\+Only (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+Query\+Only}
+\end{DoxyParamCaption}
+)}\label{class_collider_af023309d25aa50c66771bd0d804b1dea}
+is\+Query\+Only getter 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em query\+Only} & true if this object is only used in queries, false otherwise\\
+\hline
+\end{DoxyParams}
+is\+Query\+Only getter \begin{DoxyReturn}{Returns}
+true if this object is only used in queries, false otherwise 
+\end{DoxyReturn}
+\hypertarget{class_collider_af96b9fde921e93d3072e49e0bfc1d942}{}\index{Collider@{Collider}!set\+Trigger@{set\+Trigger}}
+\index{set\+Trigger@{set\+Trigger}!Collider@{Collider}}
+\subsubsection[{set\+Trigger(bool is\+Trigger)}]{\setlength{\rightskip}{0pt plus 5cm}void Collider\+::set\+Trigger (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+Trigger}
+\end{DoxyParamCaption}
+)}\label{class_collider_af96b9fde921e93d3072e49e0bfc1d942}
+is\+Trigger setter 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em is\+Trigger} & -\/ true if it\textquotesingle{}s just a trigger, false if it physics simulated \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Data Documentation}
+\hypertarget{class_collider_a42b57aa35ab665daf89ae844e479c560}{}\index{Collider@{Collider}!center@{center}}
+\index{center@{center}!Collider@{Collider}}
+\subsubsection[{center}]{\setlength{\rightskip}{0pt plus 5cm}Px\+Vec3 Collider\+::center\hspace{0.3cm}{\ttfamily [protected]}}\label{class_collider_a42b57aa35ab665daf89ae844e479c560}
+The center of the collider \hypertarget{class_collider_a7a04883dc178bfc1b0bbf7750eb9f4d1}{}\index{Collider@{Collider}!is\+Query\+Only@{is\+Query\+Only}}
+\index{is\+Query\+Only@{is\+Query\+Only}!Collider@{Collider}}
+\subsubsection[{is\+Query\+Only}]{\setlength{\rightskip}{0pt plus 5cm}bool Collider\+::is\+Query\+Only\hspace{0.3cm}{\ttfamily [protected]}}\label{class_collider_a7a04883dc178bfc1b0bbf7750eb9f4d1}
+Is this collider used for queries only? \hypertarget{class_collider_a3068bd0bbdb66fc93a3ef3063ac556fa}{}\index{Collider@{Collider}!is\+Trigger@{is\+Trigger}}
+\index{is\+Trigger@{is\+Trigger}!Collider@{Collider}}
+\subsubsection[{is\+Trigger}]{\setlength{\rightskip}{0pt plus 5cm}bool Collider\+::is\+Trigger\hspace{0.3cm}{\ttfamily [protected]}}\label{class_collider_a3068bd0bbdb66fc93a3ef3063ac556fa}
+Is this collider a trigger or should it simulate real world physics? \hypertarget{class_collider_a7cf889cd7bc213bcac3e0c6f5f42f150}{}\index{Collider@{Collider}!physics\+Material@{physics\+Material}}
+\index{physics\+Material@{physics\+Material}!Collider@{Collider}}
+\subsubsection[{physics\+Material}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<${\bf Physics\+Material}$>$ Collider\+::physics\+Material\hspace{0.3cm}{\ttfamily [protected]}}\label{class_collider_a7cf889cd7bc213bcac3e0c6f5f42f150}
+The physics material that determines the behaviour of the physics shape \hypertarget{class_collider_a0eabd23889c23a5cb622547b1fc484d8}{}\index{Collider@{Collider}!shape@{shape}}
+\index{shape@{shape}!Collider@{Collider}}
+\subsubsection[{shape}]{\setlength{\rightskip}{0pt plus 5cm}Px\+Shape$\ast$ Collider\+::shape\hspace{0.3cm}{\ttfamily [protected]}}\label{class_collider_a0eabd23889c23a5cb622547b1fc484d8}
+The Phys\+X Shape of the collider 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Collider.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Collider.\+cpp\end{DoxyCompactItemize}

@@ -1,0 +1,252 @@
+\hypertarget{class_actor}{}\section{Actor Class Reference}
+\label{class_actor}\index{Actor@{Actor}}
+
+
+{\ttfamily \#include $<$Actor.\+hpp$>$}
+
+Inheritance diagram for Actor\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_actor}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_actor_a2a0ff4335a1ee9096df90f288c026c8b}{Actor} ()
+\item 
+\hyperlink{class_actor_ae4d47c1596ba6c1a872780864b7a57d6}{Actor} (string \hyperlink{class_actor_adc0a0fe742f4bd972168f8ef7ad55e8f}{name})
+\item 
+\hyperlink{class_actor_ad2f5e5c51e030e2297b1f934420e1cf8}{Actor} (\hyperlink{class_actor}{Actor} \&\&)=delete
+\item 
+virtual \hyperlink{class_actor_ad807fe8f85e72ab263a0c05e3231cb39}{$\sim$\+Actor} ()
+\item 
+\hypertarget{class_actor_a015e66865b31e58e6b6250a3fda088d6}{}shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ {\bfseries clone} ()\label{class_actor_a015e66865b31e58e6b6250a3fda088d6}
+
+\item 
+void \hyperlink{class_actor_a56c0c99205523bf3c4dfd2e53180f375}{awake} ()
+\item 
+void \hyperlink{class_actor_a2ad907a434d65b64cc707813b4fdfa58}{tick} (float delta\+Seconds)
+\item 
+void \hyperlink{class_actor_afc18e8c46f392d2f8e73438a7bdef217}{trigger\+Physx\+Collision} (\hyperlink{class_actor}{Actor} $\ast$actor)
+\item 
+void \hyperlink{class_actor_adac69a3dfa2e0b449a28ecb064eab08f}{trigger\+Physx\+Trigger} (\hyperlink{class_actor}{Actor} $\ast$actor)
+\item 
+shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ \hyperlink{class_actor_afa78edc729309614a051ac0114e8863e}{get\+Parent} ()
+\item 
+void \hyperlink{class_actor_a3efc64aa73b4b69dc3bc5b37154eadcc}{set\+Parent} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ \hyperlink{class_actor_abb76f1796e97a76079f4d181f7fd1088}{parent})
+\item 
+void \hyperlink{class_actor_acb295666d6ec675b1a50ddb337954a4f}{add\+Children} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ \hyperlink{class_actor_a572508685fe6f0387c5342d285c92b7f}{children})
+\item 
+void \hyperlink{class_actor_aec859bd1effede68867cfd6d5543249f}{set\+Active} (bool is\+Active)
+\item 
+bool \hyperlink{class_actor_a171bd8310af9bbaeed9ae45b74f3a1cf}{get\+Is\+Active} ()
+\item 
+void \hyperlink{class_actor_aeb08c0442fc1527d5e68e6f9d6cc9838}{set\+Editor\+Flag} (bool is\+Editor)
+\item 
+bool \hyperlink{class_actor_a89683da9b3aa1bd99ceec334c90e1a7b}{get\+Editor\+Flag} ()
+\item 
+void \hyperlink{class_actor_a12abcd53c7d35e55cb7eb43de049f1e5}{init\+Components} ()
+\item 
+void \hyperlink{class_actor_a7420eb679c14e07b90f3a777403cdad0}{add\+Component} (shared\+\_\+ptr$<$ \hyperlink{class_component}{Component} $>$ component)
+\item 
+\hypertarget{class_actor_a40a74338fb5a54d6ad2ee834d98d0643}{}void {\bfseries destroy\+Components} ()\label{class_actor_a40a74338fb5a54d6ad2ee834d98d0643}
+
+\item 
+{\footnotesize template$<$typename T $>$ }\\shared\+\_\+ptr$<$ T $>$ \hyperlink{class_actor_a3756af4dbe3b2ed513fe47afb081239d}{Add\+Component} ()
+\item 
+{\footnotesize template$<$typename T $>$ }\\shared\+\_\+ptr$<$ T $>$ \hyperlink{class_actor_ab8d69cb3d4fc68daf7120d9c207923f6}{Get\+Component} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+string \hyperlink{class_actor_adc0a0fe742f4bd972168f8ef7ad55e8f}{name}
+\item 
+shared\+\_\+ptr$<$ \hyperlink{class_transform}{Transform} $>$ \hyperlink{class_actor_a9b100f35016ff90eb2ff60ae39566a26}{transform}
+\item 
+vector$<$ shared\+\_\+ptr$<$ \hyperlink{class_component}{Component} $>$ $>$ \hyperlink{class_actor_afb92b26e5696d81dd5b512c2e41c00ea}{components}
+\item 
+weak\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ \hyperlink{class_actor_abb76f1796e97a76079f4d181f7fd1088}{parent}
+\item 
+vector$<$ weak\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ $>$ \hyperlink{class_actor_a572508685fe6f0387c5342d285c92b7f}{children}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_actor}{Actor}
+
+\hyperlink{class_actor}{Actor} is the base \hyperlink{class_game}{Game} Object. Since G\+U\+Inity is a component-\/based engine, the idea is N\+O\+T to inherit from \hyperlink{class_actor}{Actor} to create new behaviours. On the contrary, every game object in the world should be an \hyperlink{class_actor}{Actor} and their behaviour should come from different components. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_actor_a2a0ff4335a1ee9096df90f288c026c8b}{}\index{Actor@{Actor}!Actor@{Actor}}
+\index{Actor@{Actor}!Actor@{Actor}}
+\subsubsection[{Actor()}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Actor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_actor_a2a0ff4335a1ee9096df90f288c026c8b}
+Default Constructor \hypertarget{class_actor_ae4d47c1596ba6c1a872780864b7a57d6}{}\index{Actor@{Actor}!Actor@{Actor}}
+\index{Actor@{Actor}!Actor@{Actor}}
+\subsubsection[{Actor(string name)}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Actor (
+\begin{DoxyParamCaption}
+\item[{string}]{name}
+\end{DoxyParamCaption}
+)}\label{class_actor_ae4d47c1596ba6c1a872780864b7a57d6}
+Constructor with actor name \hypertarget{class_actor_ad2f5e5c51e030e2297b1f934420e1cf8}{}\index{Actor@{Actor}!Actor@{Actor}}
+\index{Actor@{Actor}!Actor@{Actor}}
+\subsubsection[{Actor(\+Actor \&\&)=delete}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::\+Actor (
+\begin{DoxyParamCaption}
+\item[{{\bf Actor} \&\&}]{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [delete]}}\label{class_actor_ad2f5e5c51e030e2297b1f934420e1cf8}
+Prevent move constructor \hypertarget{class_actor_ad807fe8f85e72ab263a0c05e3231cb39}{}\index{Actor@{Actor}!````~Actor@{$\sim$\+Actor}}
+\index{````~Actor@{$\sim$\+Actor}!Actor@{Actor}}
+\subsubsection[{$\sim$\+Actor()}]{\setlength{\rightskip}{0pt plus 5cm}Actor\+::$\sim$\+Actor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_actor_ad807fe8f85e72ab263a0c05e3231cb39}
+Default Destructor 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_actor_acb295666d6ec675b1a50ddb337954a4f}{}\index{Actor@{Actor}!add\+Children@{add\+Children}}
+\index{add\+Children@{add\+Children}!Actor@{Actor}}
+\subsubsection[{add\+Children(shared\+\_\+ptr$<$ Actor $>$ children)}]{\setlength{\rightskip}{0pt plus 5cm}void Actor\+::add\+Children (
+\begin{DoxyParamCaption}
+\item[{shared\+\_\+ptr$<$ {\bf Actor} $>$}]{children}
+\end{DoxyParamCaption}
+)}\label{class_actor_acb295666d6ec675b1a50ddb337954a4f}
+Add children to list \hypertarget{class_actor_a7420eb679c14e07b90f3a777403cdad0}{}\index{Actor@{Actor}!add\+Component@{add\+Component}}
+\index{add\+Component@{add\+Component}!Actor@{Actor}}
+\subsubsection[{add\+Component(shared\+\_\+ptr$<$ Component $>$ component)}]{\setlength{\rightskip}{0pt plus 5cm}void Actor\+::add\+Component (
+\begin{DoxyParamCaption}
+\item[{shared\+\_\+ptr$<$ {\bf Component} $>$}]{component}
+\end{DoxyParamCaption}
+)}\label{class_actor_a7420eb679c14e07b90f3a777403cdad0}
+add\+Component. Attaches an existing component to the actor. This function is used for deserialization of Actors \hypertarget{class_actor_a3756af4dbe3b2ed513fe47afb081239d}{}\index{Actor@{Actor}!Add\+Component@{Add\+Component}}
+\index{Add\+Component@{Add\+Component}!Actor@{Actor}}
+\subsubsection[{Add\+Component()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ shared\+\_\+ptr$<$T$>$ Actor\+::\+Add\+Component (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_actor_a3756af4dbe3b2ed513fe47afb081239d}
+Generic Add\+Component. This function creates a smart pointer to the desired component and returns it \hypertarget{class_actor_a56c0c99205523bf3c4dfd2e53180f375}{}\index{Actor@{Actor}!awake@{awake}}
+\index{awake@{awake}!Actor@{Actor}}
+\subsubsection[{awake()}]{\setlength{\rightskip}{0pt plus 5cm}void Actor\+::awake (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_actor_a56c0c99205523bf3c4dfd2e53180f375}
+Awake. This function is called to Awake all the components attached to the actor \hypertarget{class_actor_ab8d69cb3d4fc68daf7120d9c207923f6}{}\index{Actor@{Actor}!Get\+Component@{Get\+Component}}
+\index{Get\+Component@{Get\+Component}!Actor@{Actor}}
+\subsubsection[{Get\+Component()}]{\setlength{\rightskip}{0pt plus 5cm}template$<$typename T $>$ shared\+\_\+ptr$<$T$>$ Actor\+::\+Get\+Component (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_actor_ab8d69cb3d4fc68daf7120d9c207923f6}
+Generic Get\+Component. This function looks for a component of the desired type from the components list and returns the first it finds \hypertarget{class_actor_a89683da9b3aa1bd99ceec334c90e1a7b}{}\index{Actor@{Actor}!get\+Editor\+Flag@{get\+Editor\+Flag}}
+\index{get\+Editor\+Flag@{get\+Editor\+Flag}!Actor@{Actor}}
+\subsubsection[{get\+Editor\+Flag()}]{\setlength{\rightskip}{0pt plus 5cm}bool Actor\+::get\+Editor\+Flag (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_actor_a89683da9b3aa1bd99ceec334c90e1a7b}
+editor\+Flat getter
+
+editor\+Flag setter \hypertarget{class_actor_a171bd8310af9bbaeed9ae45b74f3a1cf}{}\index{Actor@{Actor}!get\+Is\+Active@{get\+Is\+Active}}
+\index{get\+Is\+Active@{get\+Is\+Active}!Actor@{Actor}}
+\subsubsection[{get\+Is\+Active()}]{\setlength{\rightskip}{0pt plus 5cm}bool Actor\+::get\+Is\+Active (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_actor_a171bd8310af9bbaeed9ae45b74f3a1cf}
+is\+Active getter \hypertarget{class_actor_afa78edc729309614a051ac0114e8863e}{}\index{Actor@{Actor}!get\+Parent@{get\+Parent}}
+\index{get\+Parent@{get\+Parent}!Actor@{Actor}}
+\subsubsection[{get\+Parent()}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Actor} $>$ Actor\+::get\+Parent (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_actor_afa78edc729309614a051ac0114e8863e}
+Parent getter \hypertarget{class_actor_a12abcd53c7d35e55cb7eb43de049f1e5}{}\index{Actor@{Actor}!init\+Components@{init\+Components}}
+\index{init\+Components@{init\+Components}!Actor@{Actor}}
+\subsubsection[{init\+Components()}]{\setlength{\rightskip}{0pt plus 5cm}void Actor\+::init\+Components (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_actor_a12abcd53c7d35e55cb7eb43de049f1e5}
+init\+Components. This function is called to Initialize all the components attached to the actor \hypertarget{class_actor_aec859bd1effede68867cfd6d5543249f}{}\index{Actor@{Actor}!set\+Active@{set\+Active}}
+\index{set\+Active@{set\+Active}!Actor@{Actor}}
+\subsubsection[{set\+Active(bool is\+Active)}]{\setlength{\rightskip}{0pt plus 5cm}void Actor\+::set\+Active (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+Active}
+\end{DoxyParamCaption}
+)}\label{class_actor_aec859bd1effede68867cfd6d5543249f}
+is\+Active setter \hypertarget{class_actor_aeb08c0442fc1527d5e68e6f9d6cc9838}{}\index{Actor@{Actor}!set\+Editor\+Flag@{set\+Editor\+Flag}}
+\index{set\+Editor\+Flag@{set\+Editor\+Flag}!Actor@{Actor}}
+\subsubsection[{set\+Editor\+Flag(bool is\+Editor)}]{\setlength{\rightskip}{0pt plus 5cm}void Actor\+::set\+Editor\+Flag (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+Editor}
+\end{DoxyParamCaption}
+)}\label{class_actor_aeb08c0442fc1527d5e68e6f9d6cc9838}
+editor\+Flat setter
+
+editor\+Flag setter \hypertarget{class_actor_a3efc64aa73b4b69dc3bc5b37154eadcc}{}\index{Actor@{Actor}!set\+Parent@{set\+Parent}}
+\index{set\+Parent@{set\+Parent}!Actor@{Actor}}
+\subsubsection[{set\+Parent(shared\+\_\+ptr$<$ Actor $>$ parent)}]{\setlength{\rightskip}{0pt plus 5cm}void Actor\+::set\+Parent (
+\begin{DoxyParamCaption}
+\item[{shared\+\_\+ptr$<$ {\bf Actor} $>$}]{parent}
+\end{DoxyParamCaption}
+)}\label{class_actor_a3efc64aa73b4b69dc3bc5b37154eadcc}
+Parent setter \hypertarget{class_actor_a2ad907a434d65b64cc707813b4fdfa58}{}\index{Actor@{Actor}!tick@{tick}}
+\index{tick@{tick}!Actor@{Actor}}
+\subsubsection[{tick(float delta\+Seconds)}]{\setlength{\rightskip}{0pt plus 5cm}void Actor\+::tick (
+\begin{DoxyParamCaption}
+\item[{float}]{delta\+Seconds}
+\end{DoxyParamCaption}
+)}\label{class_actor_a2ad907a434d65b64cc707813b4fdfa58}
+Tick. Function called every frame. This function is responsible for calling the Tick for each \hyperlink{class_component}{Component} attached to the actor \hypertarget{class_actor_afc18e8c46f392d2f8e73438a7bdef217}{}\index{Actor@{Actor}!trigger\+Physx\+Collision@{trigger\+Physx\+Collision}}
+\index{trigger\+Physx\+Collision@{trigger\+Physx\+Collision}!Actor@{Actor}}
+\subsubsection[{trigger\+Physx\+Collision(\+Actor $\ast$actor)}]{\setlength{\rightskip}{0pt plus 5cm}void Actor\+::trigger\+Physx\+Collision (
+\begin{DoxyParamCaption}
+\item[{{\bf Actor} $\ast$}]{actor}
+\end{DoxyParamCaption}
+)}\label{class_actor_afc18e8c46f392d2f8e73438a7bdef217}
+Function that receives Collision from Phys\+X  -\/ Other actor that collided with this
+
+Function that receives Collision from Phys\+X  -\/ Other actor that collided with this
+
+Delegates the collision to all Script\+Components. Trying to emulate Unity, where every script can contain code to handle Collision \hypertarget{class_actor_adac69a3dfa2e0b449a28ecb064eab08f}{}\index{Actor@{Actor}!trigger\+Physx\+Trigger@{trigger\+Physx\+Trigger}}
+\index{trigger\+Physx\+Trigger@{trigger\+Physx\+Trigger}!Actor@{Actor}}
+\subsubsection[{trigger\+Physx\+Trigger(\+Actor $\ast$actor)}]{\setlength{\rightskip}{0pt plus 5cm}void Actor\+::trigger\+Physx\+Trigger (
+\begin{DoxyParamCaption}
+\item[{{\bf Actor} $\ast$}]{actor}
+\end{DoxyParamCaption}
+)}\label{class_actor_adac69a3dfa2e0b449a28ecb064eab08f}
+Function that receives Trigger Collision from Phys\+X  -\/ Other actor that collided with this
+
+Function that receives Trigger Collision from Phys\+X  -\/ Other actor that collided with this
+
+Delegates the collision to all Script\+Components. Trying to emulate Unity, where every script can contain code to handle Collision 
+
+\subsection{Member Data Documentation}
+\hypertarget{class_actor_a572508685fe6f0387c5342d285c92b7f}{}\index{Actor@{Actor}!children@{children}}
+\index{children@{children}!Actor@{Actor}}
+\subsubsection[{children}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$weak\+\_\+ptr$<${\bf Actor}$>$ $>$ Actor\+::children}\label{class_actor_a572508685fe6f0387c5342d285c92b7f}
+Children. All the Actors that are children of this. Weak\+\_\+ptr because we don\textquotesingle{}t want this object to prevent an \hyperlink{class_actor}{Actor} to be destroyed \hypertarget{class_actor_afb92b26e5696d81dd5b512c2e41c00ea}{}\index{Actor@{Actor}!components@{components}}
+\index{components@{components}!Actor@{Actor}}
+\subsubsection[{components}]{\setlength{\rightskip}{0pt plus 5cm}vector$<$shared\+\_\+ptr$<${\bf Component}$>$ $>$ Actor\+::components}\label{class_actor_afb92b26e5696d81dd5b512c2e41c00ea}
+The components of the \hyperlink{class_actor}{Actor}, may vary from \hyperlink{class_collider}{Collider} to Script \hypertarget{class_actor_adc0a0fe742f4bd972168f8ef7ad55e8f}{}\index{Actor@{Actor}!name@{name}}
+\index{name@{name}!Actor@{Actor}}
+\subsubsection[{name}]{\setlength{\rightskip}{0pt plus 5cm}string Actor\+::name}\label{class_actor_adc0a0fe742f4bd972168f8ef7ad55e8f}
+Name of the \hyperlink{class_actor}{Actor} \hypertarget{class_actor_abb76f1796e97a76079f4d181f7fd1088}{}\index{Actor@{Actor}!parent@{parent}}
+\index{parent@{parent}!Actor@{Actor}}
+\subsubsection[{parent}]{\setlength{\rightskip}{0pt plus 5cm}weak\+\_\+ptr$<${\bf Actor}$>$ Actor\+::parent}\label{class_actor_abb76f1796e97a76079f4d181f7fd1088}
+Parent. Actors can have parent to create hierarchy. Hierarchy is important to group several Actors into one Weak\+\_\+ptr because we don\textquotesingle{}t want this object to prevent an \hyperlink{class_actor}{Actor} to be destroyed \hypertarget{class_actor_a9b100f35016ff90eb2ff60ae39566a26}{}\index{Actor@{Actor}!transform@{transform}}
+\index{transform@{transform}!Actor@{Actor}}
+\subsubsection[{transform}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<${\bf Transform}$>$ Actor\+::transform}\label{class_actor_a9b100f35016ff90eb2ff60ae39566a26}
+\hyperlink{class_transform}{Transform} of the \hyperlink{class_actor}{Actor}. By default every \hyperlink{class_actor}{Actor} has a transform. For further improvements, it could be considered to treat \hyperlink{class_transform}{Transform} as any other component 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Actor.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Actor.\+cpp\end{DoxyCompactItemize}

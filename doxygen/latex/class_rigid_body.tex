@@ -1,0 +1,244 @@
+\hypertarget{class_rigid_body}{}\section{Rigid\+Body Class Reference}
+\label{class_rigid_body}\index{Rigid\+Body@{Rigid\+Body}}
+
+
+{\ttfamily \#include $<$Rigid\+Body.\+hpp$>$}
+
+Inheritance diagram for Rigid\+Body\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_rigid_body}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_rigid_body_a28203d38d278da0695ace20c66ee5f0a}{Rigid\+Body} ()
+\item 
+virtual \hyperlink{class_rigid_body_a4eade6e08e5a78c56822d2f42322c915}{$\sim$\+Rigid\+Body} ()
+\item 
+virtual void \hyperlink{class_rigid_body_aa419718573cb8042c3c7cbe671d69c4c}{init} () override
+\item 
+virtual void \hyperlink{class_rigid_body_a5ceba4a769ea558e5c7efd472e822248}{destroy} () override
+\item 
+virtual void \hyperlink{class_rigid_body_abf6a416e8bf2c2335bb2db145237ed4a}{tick} (float delta\+Secods) override
+\item 
+virtual void \hyperlink{class_rigid_body_a6f70cc83705a3a53b6ca3be6ff765a86}{set\+Active} (bool \hyperlink{class_component_a6dad4f819c0814eee8219e9b391cf583}{is\+Active}) override
+\item 
+Px\+Rigid\+Body $\ast$ \hyperlink{class_rigid_body_ab11c0e49a11a1521ed7124c9ea095368}{get\+Rigidbody} ()
+\item 
+void \hyperlink{class_rigid_body_a3272b6d18bc91c948fb6dadb2f7c1a39}{set\+Kinematic} (bool is\+Kinematic)
+\item 
+bool \hyperlink{class_rigid_body_ac93637a288e612654482eb8c75ce9d65}{get\+Kinematic} ()
+\item 
+void \hyperlink{class_rigid_body_af6c66756ca071aa93a64f604f7d2bc9a}{set\+Gravity} (bool enabled)
+\item 
+bool \hyperlink{class_rigid_body_af8caadbfee30eb55a2c408321544160f}{get\+Gravity} ()
+\item 
+void \hyperlink{class_rigid_body_a386d269dbc0e2584fa1c084c8eb86b08}{set\+Constraints\+Flags} (int constraint\+Flags)
+\item 
+int \hyperlink{class_rigid_body_aefe835ccb44041a78660d5a5241f412f}{get\+Constraints\+Flags} ()
+\item 
+void \hyperlink{class_rigid_body_a9401416338b535dd545002a5ba5e1f8e}{update\+Transform} (const Px\+Transform \&transform)
+\item 
+void \hyperlink{class_rigid_body_ac392797752276c328f0b0c00893ac3f1}{add\+Force} (glm\+::vec3 force)
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component}{Component} $>$ \hyperlink{class_rigid_body_a7acbed507a6deb5d83d381251ba224a8}{clone} () override
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ \hyperlink{group__serialization__functions_ga0db7f5a90aa3397d0b3e0d2ae1ed1208}{get\+Component\+Description} () override
+\item 
+virtual void \hyperlink{group__serialization__functions_ga02c21f54650f36d529b4622efc9df372}{deserialize} (shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ desc) override
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_rigid_body}{Rigid\+Body} is the component that adds real physics simulation to an \hyperlink{class_actor}{Actor}. It\textquotesingle{}s dynamic and directly influences in the \hyperlink{class_transform}{Transform} of the \hyperlink{class_actor}{Actor} due to physics simulation 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_rigid_body_a28203d38d278da0695ace20c66ee5f0a}{}\index{Rigid\+Body@{Rigid\+Body}!Rigid\+Body@{Rigid\+Body}}
+\index{Rigid\+Body@{Rigid\+Body}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{Rigid\+Body()}]{\setlength{\rightskip}{0pt plus 5cm}Rigid\+Body\+::\+Rigid\+Body (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_rigid_body_a28203d38d278da0695ace20c66ee5f0a}
+Default Constructor \hypertarget{class_rigid_body_a4eade6e08e5a78c56822d2f42322c915}{}\index{Rigid\+Body@{Rigid\+Body}!````~Rigid\+Body@{$\sim$\+Rigid\+Body}}
+\index{````~Rigid\+Body@{$\sim$\+Rigid\+Body}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{$\sim$\+Rigid\+Body()}]{\setlength{\rightskip}{0pt plus 5cm}Rigid\+Body\+::$\sim$\+Rigid\+Body (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_rigid_body_a4eade6e08e5a78c56822d2f42322c915}
+Default Destructor 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_rigid_body_ac392797752276c328f0b0c00893ac3f1}{}\index{Rigid\+Body@{Rigid\+Body}!add\+Force@{add\+Force}}
+\index{add\+Force@{add\+Force}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{add\+Force(glm\+::vec3 force)}]{\setlength{\rightskip}{0pt plus 5cm}void Rigid\+Body\+::add\+Force (
+\begin{DoxyParamCaption}
+\item[{glm\+::vec3}]{axis}
+\end{DoxyParamCaption}
+)}\label{class_rigid_body_ac392797752276c328f0b0c00893ac3f1}
+Add force to the \hyperlink{class_rigid_body}{Rigid\+Body} 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em the} & force that will be added (direction and magnitude) \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_rigid_body_a7acbed507a6deb5d83d381251ba224a8}{}\index{Rigid\+Body@{Rigid\+Body}!clone@{clone}}
+\index{clone@{clone}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{clone() override}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Component} $>$ Rigid\+Body\+::clone (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_rigid_body_a7acbed507a6deb5d83d381251ba224a8}
+Clones current component (Prototype Design Pattern) \begin{DoxyReturn}{Returns}
+shared\+\_\+ptr to cloned \hyperlink{class_rigid_body}{Rigid\+Body} \hyperlink{class_component}{Component} 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_component_a74c984bd819bbef16fd4f306a90d34fe}{Component}.
+
+\hypertarget{class_rigid_body_a5ceba4a769ea558e5c7efd472e822248}{}\index{Rigid\+Body@{Rigid\+Body}!destroy@{destroy}}
+\index{destroy@{destroy}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{destroy() override}]{\setlength{\rightskip}{0pt plus 5cm}void Rigid\+Body\+::destroy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_rigid_body_a5ceba4a769ea558e5c7efd472e822248}
+\hyperlink{class_component}{Component} destroy override. Releases the Rigid\+Dynamic body 
+
+Reimplemented from \hyperlink{class_component_a77b8fff56ddce5dd0b4a9dabb0b5202b}{Component}.
+
+\hypertarget{class_rigid_body_aefe835ccb44041a78660d5a5241f412f}{}\index{Rigid\+Body@{Rigid\+Body}!get\+Constraints\+Flags@{get\+Constraints\+Flags}}
+\index{get\+Constraints\+Flags@{get\+Constraints\+Flags}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{get\+Constraints\+Flags()}]{\setlength{\rightskip}{0pt plus 5cm}int Rigid\+Body\+::get\+Constraints\+Flags (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_rigid_body_aefe835ccb44041a78660d5a5241f412f}
+Set the translation/rotation constraints of the rigidbody. \begin{DoxyReturn}{Returns}
+current constraints of the rigidbody s 
+\end{DoxyReturn}
+\hypertarget{class_rigid_body_af8caadbfee30eb55a2c408321544160f}{}\index{Rigid\+Body@{Rigid\+Body}!get\+Gravity@{get\+Gravity}}
+\index{get\+Gravity@{get\+Gravity}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{get\+Gravity()}]{\setlength{\rightskip}{0pt plus 5cm}bool Rigid\+Body\+::get\+Gravity (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_rigid_body_af8caadbfee30eb55a2c408321544160f}
+gravity getter \begin{DoxyReturn}{Returns}
+true if gravity is enabled, false otherwise 
+\end{DoxyReturn}
+\hypertarget{class_rigid_body_ac93637a288e612654482eb8c75ce9d65}{}\index{Rigid\+Body@{Rigid\+Body}!get\+Kinematic@{get\+Kinematic}}
+\index{get\+Kinematic@{get\+Kinematic}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{get\+Kinematic()}]{\setlength{\rightskip}{0pt plus 5cm}bool Rigid\+Body\+::get\+Kinematic (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_rigid_body_ac93637a288e612654482eb8c75ce9d65}
+is\+Kinematic getter \begin{DoxyReturn}{Returns}
+true if physics is being simulated, false if it\textquotesingle{}s not 
+\end{DoxyReturn}
+\hypertarget{class_rigid_body_ab11c0e49a11a1521ed7124c9ea095368}{}\index{Rigid\+Body@{Rigid\+Body}!get\+Rigidbody@{get\+Rigidbody}}
+\index{get\+Rigidbody@{get\+Rigidbody}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{get\+Rigidbody()}]{\setlength{\rightskip}{0pt plus 5cm}Px\+Rigid\+Body $\ast$ Rigid\+Body\+::get\+Rigidbody (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_rigid_body_ab11c0e49a11a1521ed7124c9ea095368}
+physx\+Rigid\+Body getter \begin{DoxyReturn}{Returns}
+pointer to Phys\+X \hyperlink{class_rigid_body}{Rigid\+Body} 
+\end{DoxyReturn}
+\hypertarget{class_rigid_body_aa419718573cb8042c3c7cbe671d69c4c}{}\index{Rigid\+Body@{Rigid\+Body}!init@{init}}
+\index{init@{init}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{init() override}]{\setlength{\rightskip}{0pt plus 5cm}void Rigid\+Body\+::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_rigid_body_aa419718573cb8042c3c7cbe671d69c4c}
+\hyperlink{class_component}{Component} init override. Creates a Rigid\+Dynamic body in the Phys\+X scene 
+
+Reimplemented from \hyperlink{class_component_a162f8cdc070537a71f2ad0b5e763b86f}{Component}.
+
+\hypertarget{class_rigid_body_a6f70cc83705a3a53b6ca3be6ff765a86}{}\index{Rigid\+Body@{Rigid\+Body}!set\+Active@{set\+Active}}
+\index{set\+Active@{set\+Active}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{set\+Active(bool is\+Active) override}]{\setlength{\rightskip}{0pt plus 5cm}void Rigid\+Body\+::set\+Active (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+Active}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_rigid_body_a6f70cc83705a3a53b6ca3be6ff765a86}
+\hyperlink{class_component}{Component} set\+Active override. Disables visualization and physics simulation in the Phys\+X scene 
+
+Reimplemented from \hyperlink{class_component}{Component}.
+
+\hypertarget{class_rigid_body_a386d269dbc0e2584fa1c084c8eb86b08}{}\index{Rigid\+Body@{Rigid\+Body}!set\+Constraints\+Flags@{set\+Constraints\+Flags}}
+\index{set\+Constraints\+Flags@{set\+Constraints\+Flags}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{set\+Constraints\+Flags(int constraint\+Flags)}]{\setlength{\rightskip}{0pt plus 5cm}void Rigid\+Body\+::set\+Constraints\+Flags (
+\begin{DoxyParamCaption}
+\item[{int}]{constraint\+Flags}
+\end{DoxyParamCaption}
+)}\label{class_rigid_body_a386d269dbc0e2584fa1c084c8eb86b08}
+Set the translation/rotation constraints of the rigidbody. 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em flags} & to constrain \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_rigid_body_af6c66756ca071aa93a64f604f7d2bc9a}{}\index{Rigid\+Body@{Rigid\+Body}!set\+Gravity@{set\+Gravity}}
+\index{set\+Gravity@{set\+Gravity}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{set\+Gravity(bool enabled)}]{\setlength{\rightskip}{0pt plus 5cm}void Rigid\+Body\+::set\+Gravity (
+\begin{DoxyParamCaption}
+\item[{bool}]{enabled}
+\end{DoxyParamCaption}
+)}\label{class_rigid_body_af6c66756ca071aa93a64f604f7d2bc9a}
+gravity setter 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em enabled} & true if gravity is enabled, false otherwise \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_rigid_body_a3272b6d18bc91c948fb6dadb2f7c1a39}{}\index{Rigid\+Body@{Rigid\+Body}!set\+Kinematic@{set\+Kinematic}}
+\index{set\+Kinematic@{set\+Kinematic}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{set\+Kinematic(bool is\+Kinematic)}]{\setlength{\rightskip}{0pt plus 5cm}void Rigid\+Body\+::set\+Kinematic (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+Kinematic}
+\end{DoxyParamCaption}
+)}\label{class_rigid_body_a3272b6d18bc91c948fb6dadb2f7c1a39}
+is\+Kinematic setter 
+\begin{DoxyParams}{Parameters}
+{\em true} & if physics should be not be simulated, false if it should \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_rigid_body_abf6a416e8bf2c2335bb2db145237ed4a}{}\index{Rigid\+Body@{Rigid\+Body}!tick@{tick}}
+\index{tick@{tick}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{tick(float delta\+Secods) override}]{\setlength{\rightskip}{0pt plus 5cm}void Rigid\+Body\+::tick (
+\begin{DoxyParamCaption}
+\item[{float}]{delta\+Seconds}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_rigid_body_abf6a416e8bf2c2335bb2db145237ed4a}
+\hyperlink{class_component}{Component} tick override. Updates the Phys\+X scene with the \hyperlink{class_actor}{Actor} transform 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em delta\+Seconds} & last frame duration\\
+\hline
+\end{DoxyParams}
+\hyperlink{class_component}{Component} tick override. Updates the Phys\+X scene with the \hyperlink{class_actor}{Actor} transform 
+
+Reimplemented from \hyperlink{class_component_a72d67b02e6733c1a6fb73cbaaf8ebff4}{Component}.
+
+\hypertarget{class_rigid_body_a9401416338b535dd545002a5ba5e1f8e}{}\index{Rigid\+Body@{Rigid\+Body}!update\+Transform@{update\+Transform}}
+\index{update\+Transform@{update\+Transform}!Rigid\+Body@{Rigid\+Body}}
+\subsubsection[{update\+Transform(const Px\+Transform \&transform)}]{\setlength{\rightskip}{0pt plus 5cm}void Rigid\+Body\+::update\+Transform (
+\begin{DoxyParamCaption}
+\item[{const Px\+Transform \&}]{new\+Transform}
+\end{DoxyParamCaption}
+)}\label{class_rigid_body_a9401416338b535dd545002a5ba5e1f8e}
+Update the transform based on the Phys\+X physics simulation and current constraints 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em the} & Phys\+X transform \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Rigid\+Body.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Rigid\+Body.\+cpp\end{DoxyCompactItemize}

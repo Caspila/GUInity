@@ -1,0 +1,138 @@
+\hypertarget{class_rigid_static}{}\section{Rigid\+Static Class Reference}
+\label{class_rigid_static}\index{Rigid\+Static@{Rigid\+Static}}
+
+
+{\ttfamily \#include $<$Rigid\+Static.\+hpp$>$}
+
+Inheritance diagram for Rigid\+Static\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_rigid_static}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_rigid_static_ae2a704e78025e8b938939153b24c5548}{Rigid\+Static} ()
+\item 
+virtual \hyperlink{class_rigid_static_a66a806674d933319ab77d39315a998b5}{$\sim$\+Rigid\+Static} ()
+\item 
+virtual void \hyperlink{class_rigid_static_a2844109f1ef8fe36a25ce065934d703c}{init} () override
+\item 
+virtual void \hyperlink{class_rigid_static_abd99e84cc884043d5afde1b95fb0d3b3}{destroy} () override
+\item 
+virtual void \hyperlink{class_rigid_static_a3eef6474e9396db05dc714e41154e793}{tick} (float delta\+Secods) override
+\item 
+virtual void \hyperlink{class_rigid_static_a439d621f3b44b8da9fc17faf88635267}{set\+Active} (bool \hyperlink{class_component_a6dad4f819c0814eee8219e9b391cf583}{is\+Active}) override
+\item 
+Px\+Rigid\+Dynamic $\ast$ \hyperlink{class_rigid_static_ab7734d16020ce18dee3c96a2010fa7b8}{get\+Rigid\+Dynamic} ()
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component}{Component} $>$ \hyperlink{class_rigid_static_a5fef27a8ca3f6e969fb4c8312c1bba0a}{clone} () override
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ \hyperlink{group__serialization__functions_ga74f14a6073ed781cc12f42c0a936515a}{get\+Component\+Description} () override
+\item 
+virtual void \hyperlink{group__serialization__functions_ga80ddd737e7b8b80a997a0c6681925a26}{deserialize} (shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ desc) override
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_rigid_static}{Rigid\+Static} is the component that adds real physics simulation to an \hyperlink{class_actor}{Actor}. It\textquotesingle{}s static and can be moved by the \hyperlink{class_game}{Game} but will never be moved due to physics simulation 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_rigid_static_ae2a704e78025e8b938939153b24c5548}{}\index{Rigid\+Static@{Rigid\+Static}!Rigid\+Static@{Rigid\+Static}}
+\index{Rigid\+Static@{Rigid\+Static}!Rigid\+Static@{Rigid\+Static}}
+\subsubsection[{Rigid\+Static()}]{\setlength{\rightskip}{0pt plus 5cm}Rigid\+Static\+::\+Rigid\+Static (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_rigid_static_ae2a704e78025e8b938939153b24c5548}
+Default Constructor \hypertarget{class_rigid_static_a66a806674d933319ab77d39315a998b5}{}\index{Rigid\+Static@{Rigid\+Static}!````~Rigid\+Static@{$\sim$\+Rigid\+Static}}
+\index{````~Rigid\+Static@{$\sim$\+Rigid\+Static}!Rigid\+Static@{Rigid\+Static}}
+\subsubsection[{$\sim$\+Rigid\+Static()}]{\setlength{\rightskip}{0pt plus 5cm}Rigid\+Static\+::$\sim$\+Rigid\+Static (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_rigid_static_a66a806674d933319ab77d39315a998b5}
+Default Destructor 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_rigid_static_a5fef27a8ca3f6e969fb4c8312c1bba0a}{}\index{Rigid\+Static@{Rigid\+Static}!clone@{clone}}
+\index{clone@{clone}!Rigid\+Static@{Rigid\+Static}}
+\subsubsection[{clone() override}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Component} $>$ Rigid\+Static\+::clone (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_rigid_static_a5fef27a8ca3f6e969fb4c8312c1bba0a}
+Clones current component (Prototype Design Pattern) \begin{DoxyReturn}{Returns}
+shared\+\_\+ptr to cloned \hyperlink{class_rigid_static}{Rigid\+Static} \hyperlink{class_component}{Component} 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_component_a74c984bd819bbef16fd4f306a90d34fe}{Component}.
+
+\hypertarget{class_rigid_static_abd99e84cc884043d5afde1b95fb0d3b3}{}\index{Rigid\+Static@{Rigid\+Static}!destroy@{destroy}}
+\index{destroy@{destroy}!Rigid\+Static@{Rigid\+Static}}
+\subsubsection[{destroy() override}]{\setlength{\rightskip}{0pt plus 5cm}void Rigid\+Static\+::destroy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_rigid_static_abd99e84cc884043d5afde1b95fb0d3b3}
+\hyperlink{class_component}{Component} destroy override. Releases the Rigid\+Dynamic body 
+
+Reimplemented from \hyperlink{class_component_a77b8fff56ddce5dd0b4a9dabb0b5202b}{Component}.
+
+\hypertarget{class_rigid_static_ab7734d16020ce18dee3c96a2010fa7b8}{}\index{Rigid\+Static@{Rigid\+Static}!get\+Rigid\+Dynamic@{get\+Rigid\+Dynamic}}
+\index{get\+Rigid\+Dynamic@{get\+Rigid\+Dynamic}!Rigid\+Static@{Rigid\+Static}}
+\subsubsection[{get\+Rigid\+Dynamic()}]{\setlength{\rightskip}{0pt plus 5cm}Px\+Rigid\+Dynamic $\ast$ Rigid\+Static\+::get\+Rigid\+Dynamic (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_rigid_static_ab7734d16020ce18dee3c96a2010fa7b8}
+physx\+Rigid\+Body getter \begin{DoxyReturn}{Returns}
+pointer to Phys\+X \hyperlink{class_rigid_body}{Rigid\+Body} 
+\end{DoxyReturn}
+\hypertarget{class_rigid_static_a2844109f1ef8fe36a25ce065934d703c}{}\index{Rigid\+Static@{Rigid\+Static}!init@{init}}
+\index{init@{init}!Rigid\+Static@{Rigid\+Static}}
+\subsubsection[{init() override}]{\setlength{\rightskip}{0pt plus 5cm}void Rigid\+Static\+::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_rigid_static_a2844109f1ef8fe36a25ce065934d703c}
+\hyperlink{class_component}{Component} init override. Creates a Rigid\+Dynamic body in the Phys\+X scene and sets it as Kinematic by default 
+
+Reimplemented from \hyperlink{class_component_a162f8cdc070537a71f2ad0b5e763b86f}{Component}.
+
+\hypertarget{class_rigid_static_a439d621f3b44b8da9fc17faf88635267}{}\index{Rigid\+Static@{Rigid\+Static}!set\+Active@{set\+Active}}
+\index{set\+Active@{set\+Active}!Rigid\+Static@{Rigid\+Static}}
+\subsubsection[{set\+Active(bool is\+Active) override}]{\setlength{\rightskip}{0pt plus 5cm}void Rigid\+Static\+::set\+Active (
+\begin{DoxyParamCaption}
+\item[{bool}]{is\+Active}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_rigid_static_a439d621f3b44b8da9fc17faf88635267}
+\hyperlink{class_component}{Component} set\+Active override. Disables visualization and physics simulation in the Phys\+X scene 
+
+Reimplemented from \hyperlink{class_component}{Component}.
+
+\hypertarget{class_rigid_static_a3eef6474e9396db05dc714e41154e793}{}\index{Rigid\+Static@{Rigid\+Static}!tick@{tick}}
+\index{tick@{tick}!Rigid\+Static@{Rigid\+Static}}
+\subsubsection[{tick(float delta\+Secods) override}]{\setlength{\rightskip}{0pt plus 5cm}void Rigid\+Static\+::tick (
+\begin{DoxyParamCaption}
+\item[{float}]{delta\+Seconds}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_rigid_static_a3eef6474e9396db05dc714e41154e793}
+\hyperlink{class_component}{Component} tick override. Updates the Phys\+X scene with the \hyperlink{class_actor}{Actor} transform 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em delta\+Seconds} & last frame duration \\
+\hline
+\end{DoxyParams}
+
+
+Reimplemented from \hyperlink{class_component_a72d67b02e6733c1a6fb73cbaaf8ebff4}{Component}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Rigid\+Static.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Rigid\+Static.\+cpp\end{DoxyCompactItemize}

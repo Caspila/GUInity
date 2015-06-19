@@ -1,0 +1,126 @@
+\hypertarget{class_editor_collider}{}\section{Editor\+Collider Class Reference}
+\label{class_editor_collider}\index{Editor\+Collider@{Editor\+Collider}}
+
+
+{\ttfamily \#include $<$Editor\+Collider.\+hpp$>$}
+
+Inheritance diagram for Editor\+Collider\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{class_editor_collider}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_editor_collider_a2f042fd2b14c9e45aa7227568d795424}{Editor\+Collider} ()
+\item 
+virtual \hyperlink{class_editor_collider_a2dbee537bb0ce1f9b57d78b1c60431d5}{$\sim$\+Editor\+Collider} ()
+\item 
+virtual void \hyperlink{class_editor_collider_a6581dd66dd2881b0faafe6975b4a188c}{init} () override
+\item 
+virtual void \hyperlink{class_editor_collider_a0ffb1252a656a1ec84d3492052bf3cee}{tick} (float delta\+Seconds) override
+\item 
+void \hyperlink{class_editor_collider_ad93e80e2f9faf19633976f1694740bc2}{set\+Game\+Actor} (shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ game\+Actor)
+\item 
+shared\+\_\+ptr$<$ \hyperlink{class_actor}{Actor} $>$ \hyperlink{class_editor_collider_ac2feb06d18c27ca29f06d5a70e48f9a1}{get\+Game\+Actor} ()
+\item 
+Px\+Rigid\+Dynamic $\ast$ \hyperlink{class_editor_collider_a0f422a9ae779f98053e18a1bec4a200a}{get\+Rigid\+Static} ()
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component}{Component} $>$ \hyperlink{class_editor_collider_abfee383f62b5bc06afffe5beedb729e3}{clone} () override
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ \hyperlink{group__serialization__functions_gac3df1d451d142f9ec123c0439cd503eb}{get\+Component\+Description} () override
+\item 
+virtual void \hyperlink{group__serialization__functions_ga9b02f2f116742850f196d8fc84e50af8}{deserialize} (shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ desc) override
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_editor_collider}{Editor\+Collider} is a component used only by editor actors. They\textquotesingle{}re used for queries only, so that when the user clicks on whatever \hyperlink{class_actor}{Actor} in the scene, we can find it using Phys\+X queries. The basic difference between the \hyperlink{class_editor_collider}{Editor\+Collider} and the regular \hyperlink{class_collider}{Collider} is that this one has a reference to the real \hyperlink{class_game}{Game} \hyperlink{class_actor}{Actor}. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_editor_collider_a2f042fd2b14c9e45aa7227568d795424}{}\index{Editor\+Collider@{Editor\+Collider}!Editor\+Collider@{Editor\+Collider}}
+\index{Editor\+Collider@{Editor\+Collider}!Editor\+Collider@{Editor\+Collider}}
+\subsubsection[{Editor\+Collider()}]{\setlength{\rightskip}{0pt plus 5cm}Editor\+Collider\+::\+Editor\+Collider (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}}\label{class_editor_collider_a2f042fd2b14c9e45aa7227568d795424}
+Default Constructor \hypertarget{class_editor_collider_a2dbee537bb0ce1f9b57d78b1c60431d5}{}\index{Editor\+Collider@{Editor\+Collider}!````~Editor\+Collider@{$\sim$\+Editor\+Collider}}
+\index{````~Editor\+Collider@{$\sim$\+Editor\+Collider}!Editor\+Collider@{Editor\+Collider}}
+\subsubsection[{$\sim$\+Editor\+Collider()}]{\setlength{\rightskip}{0pt plus 5cm}virtual Editor\+Collider\+::$\sim$\+Editor\+Collider (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [virtual]}}\label{class_editor_collider_a2dbee537bb0ce1f9b57d78b1c60431d5}
+Default Destructor. Virtual because inherits from \hyperlink{class_component}{Component} 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_editor_collider_abfee383f62b5bc06afffe5beedb729e3}{}\index{Editor\+Collider@{Editor\+Collider}!clone@{clone}}
+\index{clone@{clone}!Editor\+Collider@{Editor\+Collider}}
+\subsubsection[{clone() override}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Component} $>$ Editor\+Collider\+::clone (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_editor_collider_abfee383f62b5bc06afffe5beedb729e3}
+Clones current component (Prototype Design Pattern) \begin{DoxyReturn}{Returns}
+nullptr, Editor\+Colliders are not supposed to be cloned 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_component_a74c984bd819bbef16fd4f306a90d34fe}{Component}.
+
+\hypertarget{class_editor_collider_ac2feb06d18c27ca29f06d5a70e48f9a1}{}\index{Editor\+Collider@{Editor\+Collider}!get\+Game\+Actor@{get\+Game\+Actor}}
+\index{get\+Game\+Actor@{get\+Game\+Actor}!Editor\+Collider@{Editor\+Collider}}
+\subsubsection[{get\+Game\+Actor()}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Actor} $>$ Editor\+Collider\+::get\+Game\+Actor (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_editor_collider_ac2feb06d18c27ca29f06d5a70e48f9a1}
+game\+Actor getter \hypertarget{class_editor_collider_a0f422a9ae779f98053e18a1bec4a200a}{}\index{Editor\+Collider@{Editor\+Collider}!get\+Rigid\+Static@{get\+Rigid\+Static}}
+\index{get\+Rigid\+Static@{get\+Rigid\+Static}!Editor\+Collider@{Editor\+Collider}}
+\subsubsection[{get\+Rigid\+Static()}]{\setlength{\rightskip}{0pt plus 5cm}Px\+Rigid\+Dynamic $\ast$ Editor\+Collider\+::get\+Rigid\+Static (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_editor_collider_a0f422a9ae779f98053e18a1bec4a200a}
+physx\+Rigid\+Static getter \hypertarget{class_editor_collider_a6581dd66dd2881b0faafe6975b4a188c}{}\index{Editor\+Collider@{Editor\+Collider}!init@{init}}
+\index{init@{init}!Editor\+Collider@{Editor\+Collider}}
+\subsubsection[{init() override}]{\setlength{\rightskip}{0pt plus 5cm}void Editor\+Collider\+::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_editor_collider_a6581dd66dd2881b0faafe6975b4a188c}
+\hyperlink{class_component}{Component} init override. Initializes the rigid body in the Phys\+X scene.
+
+\hyperlink{class_component}{Component} tick override. Updates the fake collider position and rotation to match the real \hyperlink{class_game}{Game} \hyperlink{class_actor}{Actor} 
+
+Reimplemented from \hyperlink{class_component_a162f8cdc070537a71f2ad0b5e763b86f}{Component}.
+
+\hypertarget{class_editor_collider_ad93e80e2f9faf19633976f1694740bc2}{}\index{Editor\+Collider@{Editor\+Collider}!set\+Game\+Actor@{set\+Game\+Actor}}
+\index{set\+Game\+Actor@{set\+Game\+Actor}!Editor\+Collider@{Editor\+Collider}}
+\subsubsection[{set\+Game\+Actor(shared\+\_\+ptr$<$ Actor $>$ game\+Actor)}]{\setlength{\rightskip}{0pt plus 5cm}void Editor\+Collider\+::set\+Game\+Actor (
+\begin{DoxyParamCaption}
+\item[{shared\+\_\+ptr$<$ {\bf Actor} $>$}]{game\+Actor}
+\end{DoxyParamCaption}
+)}\label{class_editor_collider_ad93e80e2f9faf19633976f1694740bc2}
+game\+Actor setter \hypertarget{class_editor_collider_a0ffb1252a656a1ec84d3492052bf3cee}{}\index{Editor\+Collider@{Editor\+Collider}!tick@{tick}}
+\index{tick@{tick}!Editor\+Collider@{Editor\+Collider}}
+\subsubsection[{tick(float delta\+Seconds) override}]{\setlength{\rightskip}{0pt plus 5cm}void Editor\+Collider\+::tick (
+\begin{DoxyParamCaption}
+\item[{float}]{delta\+Seconds}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_editor_collider_a0ffb1252a656a1ec84d3492052bf3cee}
+\hyperlink{class_component}{Component} tick override. Updates the fake collider position and rotation to match the real \hyperlink{class_game}{Game} \hyperlink{class_actor}{Actor}
+
+\hyperlink{class_component}{Component} init override. Initializes the rigid body in the Phys\+X scene. 
+
+Reimplemented from \hyperlink{class_component_a72d67b02e6733c1a6fb73cbaaf8ebff4}{Component}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Editor\+Collider.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Editor\+Collider.\+cpp\end{DoxyCompactItemize}

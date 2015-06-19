@@ -1,0 +1,118 @@
+\hypertarget{class_sphere_collider}{}\section{Sphere\+Collider Class Reference}
+\label{class_sphere_collider}\index{Sphere\+Collider@{Sphere\+Collider}}
+
+
+{\ttfamily \#include $<$Sphere\+Collider.\+hpp$>$}
+
+Inheritance diagram for Sphere\+Collider\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=4.000000cm]{class_sphere_collider}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_sphere_collider_af46ca28e45d8efa559f097aadfb9bc44}{Sphere\+Collider} ()
+\item 
+\hyperlink{class_sphere_collider_a9e4b771c5e43efbbc75aa8359748e514}{Sphere\+Collider} (float radius, Px\+Vec3 \hyperlink{class_collider_a42b57aa35ab665daf89ae844e479c560}{center})
+\item 
+virtual \hyperlink{class_sphere_collider_ac3f355cae4d6cbd988bf7b4ea74b5472}{$\sim$\+Sphere\+Collider} ()
+\item 
+float \hyperlink{class_sphere_collider_af9a9507ea31d7ce40dbf2bf3399a731b}{get\+Radius} ()
+\item 
+void \hyperlink{class_sphere_collider_ae8fb3c78c7cda1b89dbdb569961fef63}{set\+Radius} (float new\+Radius)
+\item 
+virtual void \hyperlink{class_sphere_collider_aa51773fa54349bec5730b3ae528c4179}{init} ()
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component}{Component} $>$ \hyperlink{class_sphere_collider_a68cd4eaf4ee2b13ac48efc38a760ff36}{clone} () override
+\item 
+virtual shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ \hyperlink{group__serialization__functions_gac6dec979a6872bf1ca8a78fb2f44c511}{get\+Component\+Description} () override
+\item 
+virtual void \hyperlink{group__serialization__functions_ga26f4dcd8bdc47e087b7e8f57c7879ca0}{deserialize} (shared\+\_\+ptr$<$ \hyperlink{class_component_description}{Component\+Description} $>$ desc) override
+\end{DoxyCompactItemize}
+\subsection*{Additional Inherited Members}
+
+
+\subsection{Detailed Description}
+\hyperlink{class_sphere_collider}{Sphere\+Collider} uses a sphere as the volume collider. Can either be real physics simulated or trigger only. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_sphere_collider_af46ca28e45d8efa559f097aadfb9bc44}{}\index{Sphere\+Collider@{Sphere\+Collider}!Sphere\+Collider@{Sphere\+Collider}}
+\index{Sphere\+Collider@{Sphere\+Collider}!Sphere\+Collider@{Sphere\+Collider}}
+\subsubsection[{Sphere\+Collider()}]{\setlength{\rightskip}{0pt plus 5cm}Sphere\+Collider\+::\+Sphere\+Collider (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_sphere_collider_af46ca28e45d8efa559f097aadfb9bc44}
+Default Constructor \hypertarget{class_sphere_collider_a9e4b771c5e43efbbc75aa8359748e514}{}\index{Sphere\+Collider@{Sphere\+Collider}!Sphere\+Collider@{Sphere\+Collider}}
+\index{Sphere\+Collider@{Sphere\+Collider}!Sphere\+Collider@{Sphere\+Collider}}
+\subsubsection[{Sphere\+Collider(float radius, Px\+Vec3 center)}]{\setlength{\rightskip}{0pt plus 5cm}Sphere\+Collider\+::\+Sphere\+Collider (
+\begin{DoxyParamCaption}
+\item[{float}]{radius, }
+\item[{Px\+Vec3}]{center = {\ttfamily PxVec3(0,0,0)}}
+\end{DoxyParamCaption}
+)}\label{class_sphere_collider_a9e4b771c5e43efbbc75aa8359748e514}
+Deserialization Constructor \hypertarget{class_sphere_collider_ac3f355cae4d6cbd988bf7b4ea74b5472}{}\index{Sphere\+Collider@{Sphere\+Collider}!````~Sphere\+Collider@{$\sim$\+Sphere\+Collider}}
+\index{````~Sphere\+Collider@{$\sim$\+Sphere\+Collider}!Sphere\+Collider@{Sphere\+Collider}}
+\subsubsection[{$\sim$\+Sphere\+Collider()}]{\setlength{\rightskip}{0pt plus 5cm}Sphere\+Collider\+::$\sim$\+Sphere\+Collider (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_sphere_collider_ac3f355cae4d6cbd988bf7b4ea74b5472}
+Default Destructor 
+
+\subsection{Member Function Documentation}
+\hypertarget{class_sphere_collider_a68cd4eaf4ee2b13ac48efc38a760ff36}{}\index{Sphere\+Collider@{Sphere\+Collider}!clone@{clone}}
+\index{clone@{clone}!Sphere\+Collider@{Sphere\+Collider}}
+\subsubsection[{clone() override}]{\setlength{\rightskip}{0pt plus 5cm}shared\+\_\+ptr$<$ {\bf Component} $>$ Sphere\+Collider\+::clone (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}\label{class_sphere_collider_a68cd4eaf4ee2b13ac48efc38a760ff36}
+Clones current component (Prototype Design Pattern) \begin{DoxyReturn}{Returns}
+shared\+\_\+ptr to cloned \hyperlink{class_sphere_collider}{Sphere\+Collider} \hyperlink{class_component}{Component} 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{class_collider_a28d0829db9804b27590afc9979e61a1c}{Collider}.
+
+\hypertarget{class_sphere_collider_af9a9507ea31d7ce40dbf2bf3399a731b}{}\index{Sphere\+Collider@{Sphere\+Collider}!get\+Radius@{get\+Radius}}
+\index{get\+Radius@{get\+Radius}!Sphere\+Collider@{Sphere\+Collider}}
+\subsubsection[{get\+Radius()}]{\setlength{\rightskip}{0pt plus 5cm}float Sphere\+Collider\+::get\+Radius (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{class_sphere_collider_af9a9507ea31d7ce40dbf2bf3399a731b}
+radius Getter \begin{DoxyReturn}{Returns}
+radius of the sphere 
+\end{DoxyReturn}
+\hypertarget{class_sphere_collider_aa51773fa54349bec5730b3ae528c4179}{}\index{Sphere\+Collider@{Sphere\+Collider}!init@{init}}
+\index{init@{init}!Sphere\+Collider@{Sphere\+Collider}}
+\subsubsection[{init()}]{\setlength{\rightskip}{0pt plus 5cm}void Sphere\+Collider\+::init (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [virtual]}}\label{class_sphere_collider_aa51773fa54349bec5730b3ae528c4179}
+Init component override. Create a new Sphere Shape in the Phys\+X scene. 
+
+Reimplemented from \hyperlink{class_collider_aed04ad82be15bcba1d3dc6a09f76dae6}{Collider}.
+
+\hypertarget{class_sphere_collider_ae8fb3c78c7cda1b89dbdb569961fef63}{}\index{Sphere\+Collider@{Sphere\+Collider}!set\+Radius@{set\+Radius}}
+\index{set\+Radius@{set\+Radius}!Sphere\+Collider@{Sphere\+Collider}}
+\subsubsection[{set\+Radius(float new\+Radius)}]{\setlength{\rightskip}{0pt plus 5cm}void Sphere\+Collider\+::set\+Radius (
+\begin{DoxyParamCaption}
+\item[{float}]{new\+Radius}
+\end{DoxyParamCaption}
+)}\label{class_sphere_collider_ae8fb3c78c7cda1b89dbdb569961fef63}
+radius Setter 
+\begin{DoxyParams}[1]{Parameters}
+\mbox{\tt in}  & {\em new\+Radius} & the radius of the sphere \\
+\hline
+\end{DoxyParams}
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Sphere\+Collider.\+hpp\item 
+/\+Users/guilherme\+\_\+cunha/\+Dev/\+G\+I\+T\+H\+U\+B/\+G\+U\+Inity/\+Source/Sphere\+Collider.\+cpp\end{DoxyCompactItemize}
