@@ -11,7 +11,7 @@
   </head>
   <body>
     <section class="page-header">
-      <h1 class="project-name">Guinity</h1>
+      <h1 class="project-name">GUInity</h1>
       <h2 class="project-tagline"></h2>
       <a href="https://github.com/Caspila/GUInity" class="btn">View on GitHub</a>
       <a href="https://github.com/Caspila/GUInity/zipball/master" class="btn">Download .zip</a>
@@ -20,85 +20,63 @@
 
     <section class="main-content">
       <h3>
-
-
-
-
-
-Dependencies
-Please note that even though I'm developing the engine from scratch, I'm also using a bunch of libraries to aid the development. For the purposes of this project, I've chosen to use, so far, the following libraries:
-
-PhysX (3.1.1) Physics library developed by NVIDIA -> https://developer.nvidia.com/physx-sdk
-FreeType (2.4.0) Free library for font handling fonts -> http://www.freetype.org/
-Boost(1.57.0) I don't believe this set of libraries need any introduction -> http://www.boost.org/
-GLFW(3.0.4) Cross-Platform library for handling window and basic OpenGL configuration -> http://www.glfw.org/
-libPNG Library to handle .png files -> http://www.libpng.org/pub/png/libpng.html
-FBX SDK (2015.1) Library to handle .fbx model files -> http://usa.autodesk.com/adsk/servlet/pc/item?siteID=123112&id=10775847
-FMOD Studio (1.05.02) Library to handle sound -> http://www.fmod.org/download/
-Also, please note that due to possible licensing issues for the libraries, I'm not providing any of them in this repository. The benefit is that the repository is very compact.
-
-Goal
-1- Get to a point where it's easy to create a simple game using code, in an component-based engine that has built-in physics, graphics and audio systems.
-
-2- Have an editor to ease the development.
-
-My goal is NOT to create a new and better Unity, but to understand how they were able to develop it. Unity has grown a lot over the last few years, they've been obviously doing something right. Therefore, I think it's a good foundation for a game engine.
-
-Considerations
-Creating a Game Engine is not a simple task. Instead of trying to create the most optimized engine ever, I'm just "doing" it, for now. Of course that does not mean that I'm throwing away memory and processing power, but I'm not scratching bits either. Most of the times, I aim for readability and try to experiment with new features of C++11. I've been learning a lot from this project and intend to carry it on as well as I can.
-I develop this project alongside my Master in Digital Media. This means that I don't have that much time to work on it.
-
-
 <a id="GUInity" class="anchor" href="#GUInity" aria-hidden="true"><span class="octicon octicon-link"></span></a>GUInity.</h3>
 
-<p>GUInity is a 3D component-based game engine. It's a personal project started by myself, Guilherme Cunha.
+<p>GUInity is a 3D component-based game engine. It's a personal project started by myself, Guilherme Cunha.</p>
 
-My objectives with GUInity are:
+<p>My objectives with GUInity are:</p>
 
-Study and practice C++ in a large project. It's also a way of learning new C++11 concepts.
-Get a better understanding about how game engines work under the hood
-Integrate several libraries into one software
-Develop with cross-platform in mind (currently GUInity works for both Windows and MacOS)</p>
+<UL>
+<LI>Study and practice C++ in a large project. It's also a way of learning new C++11 concepts.
+<LI>Get a better understanding about how game engines work under the hood
+<LI>Integrate several libraries into one software
+<LI>Develop with cross-platform in mind (currently GUInity works for both Windows and MacOS)
+</UL>
 
 <h3>
 <a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Name</h3>
 
-<p>I chose the name GUInity because it summarizes well what I'm trying to do:
+<p>I chose the name GUInity because it summarizes well what I'm trying to do:</p>
 
-GUI stands for Gui-lherme not for Graphical User Interface. It's mine! My precious!
-nity stands for Unity. It's the engine I have the most experience and the one that I'm using as a base for a lot of design decisions.</p>
-
+<UL>
+<LI>GUI stands for Gui-lherme not for Graphical User Interface. It's mine! My precious!
+<LI>nity stands for Unity. It's the engine I have the most experience and the one that I'm using as a base for a lot of design decisions.
+</UL>
 
 
 <h3>
 <a id="rather-drive-stick" class="anchor" href="#rather-drive-stick" aria-hidden="true"><span class="octicon octicon-link"></span></a>Dependencies</h3>
 
-<p>Please note that even though I'm developing the engine from scratch, I'm also using a bunch of libraries to aid the development. For the purposes of this project, I've chosen to use, so far, the following libraries:
-
-PhysX (3.1.1) Physics library developed by NVIDIA -> https://developer.nvidia.com/physx-sdk
-FreeType (2.4.0) Free library for font handling fonts -> http://www.freetype.org/
-Boost(1.57.0) I don't believe this set of libraries need any introduction -> http://www.boost.org/
-GLFW(3.0.4) Cross-Platform library for handling window and basic OpenGL configuration -> http://www.glfw.org/
-libPNG Library to handle .png files -> http://www.libpng.org/pub/png/libpng.html
-FBX SDK (2015.1) Library to handle .fbx model files -> http://usa.autodesk.com/adsk/servlet/pc/item?siteID=123112&id=10775847
-FMOD Studio (1.05.02) Library to handle sound -> http://www.fmod.org/download/
-Also, please note that due to possible licensing issues for the libraries, I'm not providing any of them in this repository. The benefit is that the repository is very compact.
+<p>Please note that even though I'm developing the engine from scratch, I'm also using a bunch of libraries to aid the development. For the purposes of this project, I've chosen to use, so far, the following libraries:</p>
+<UL>
+<LI>PhysX (3.1.1) Physics library developed by NVIDIA -> https://developer.nvidia.com/physx-sdk
+<LI>FreeType (2.4.0) Free library for font handling fonts -> http://www.freetype.org/
+<LI>Boost(1.57.0) I don't believe this set of libraries need any introduction -> http://www.boost.org/
+<LI>GLFW(3.0.4) Cross-Platform library for handling window and basic OpenGL configuration -> http://www.glfw.org/
+<LI>libPNG Library to handle .png files -> http://www.libpng.org/pub/png/libpng.html
+<LI>FBX SDK (2015.1) Library to handle .fbx model files -> http://usa.autodesk.com/adsk/servlet/pc/item?siteID=123112&id=10775847
+<LI>FMOD Studio (1.05.02) Library to handle sound -> http://www.fmod.org/download/
+</UL>
+<p>Also, please note that due to possible licensing issues for the libraries, I'm not providing any of them in this repository. The benefit is that the repository is very compact.
 </p>
 
 <h3>
 <a id="authors-and-contributors" class="anchor" href="#authors-and-contributors" aria-hidden="true"><span class="octicon octicon-link"></span></a>Goal</h3>
 
-<p>1- Get to a point where it's easy to create a simple game using code, in an component-based engine that has built-in physics, graphics and audio systems.
 
-2- Have an editor to ease the development.
+<UL>
+<LI>Get to a point where it's easy to create a simple game using code, in an component-based engine that has built-in physics, graphics and audio systems.
 
-My goal is NOT to create a new and better Unity, but to understand how they were able to develop it. Unity has grown a lot over the last few years, they've been obviously doing something right. Therefore, I think it's a good foundation for a game engine.</p>
+<LI>Have an editor to ease the development.
+</UL>
+
+<p>My goal is NOT to create a new and better Unity, but to understand how they were able to develop it. Unity has grown a lot over the last few years, they've been obviously doing something right. Therefore, I think it's a good foundation for a game engine.</p>
 
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Considerations</h3>
 
-<p>Creating a Game Engine is not a simple task. Instead of trying to create the most optimized engine ever, I'm just "doing" it, for now. Of course that does not mean that I'm throwing away memory and processing power, but I'm not scratching bits either. Most of the times, I aim for readability and try to experiment with new features of C++11. I've been learning a lot from this project and intend to carry it on as well as I can.
-I develop this project alongside my Master in Digital Media. This means that I don't have that much time to work on it.</p>
+<p>Creating a Game Engine is not a simple task. Instead of trying to create the most optimized engine ever, I'm just "doing" it, for now. Of course that does not mean that I'm throwing away memory and processing power, but I'm not scratching bits either. Most of the times, I aim for readability and try to experiment with new features of C++11. I've been learning a lot from this project and intend to carry it on as well as I can.</p>
+<p>I develop this project alongside my Master in Digital Media. This means that I don't have that much time to work on it.</p>
 
       <footer class="site-footer">
         <span class="site-footer-owner"><a href="https://github.com/Caspila/GUInity">Guinity</a> is maintained by <a href="https://github.com/Caspila">Caspila</a>.</span>
