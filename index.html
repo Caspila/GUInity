@@ -8,19 +8,49 @@
     <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen">
     <link rel="stylesheet" type="text/css" href="stylesheets/github-light.css" media="screen">
+
+<link rel="stylesheet" type="text/css" media="screen" href="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.css" />
+<style type="text/css">
+    a.fancybox img {
+        border: none;
+    } 
+</style>
+
   </head>
   <body>
+  <script type="text/javascript" src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+<script type="text/javascript" src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+<script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/fancybox/1.3.4/jquery.fancybox-1.3.4.pack.min.js"></script>
+<script type="text/javascript">
+    $(function($){
+        var addToAll = false;
+        var gallery = false;
+        var titlePosition = 'inside';
+        $(addToAll ? 'img' : 'img.fancybox').each(function(){
+            var $this = $(this);
+            var title = $this.attr('title');
+            var src = $this.attr('data-big') || $this.attr('src');
+            var a = $('<a href="#" class="fancybox"></a>').attr('href', src).attr('title', title);
+            $this.wrap(a);
+        });
+        if (gallery)
+            $('a.fancybox').attr('rel', 'fancyboxgallery');
+        $('a.fancybox').fancybox({
+            titlePosition: titlePosition
+        });
+    });
+    $.noConflict();
+</script>
     <section class="page-header">
       <h1 class="project-name">GUInity</h1>
       <h2 class="project-tagline"></h2>
       <a href="https://github.com/Caspila/GUInity" class="btn">View on GitHub</a>
       <a href="https://github.com/Caspila/GUInity/zipball/master" class="btn">Download .zip</a>
       <a href="https://github.com/Caspila/GUInity/tarball/master" class="btn">Download .tar.gz</a>
+      <a href="https://github.com/Caspila/GUInity/tarball/master" class="btn">Documentation</a>
     </section>
 
     <section class="main-content">
-      <h3>
-<a id="GUInity" class="anchor" href="#GUInity" aria-hidden="true"><span class="octicon octicon-link"></span></a>GUInity.</h3>
 
 <p>GUInity is a 3D component-based game engine. It's a personal project started by myself, Guilherme Cunha.</p>
 
@@ -71,6 +101,18 @@
 </UL>
 
 <p>My goal is NOT to create a new and better Unity, but to understand how they were able to develop it. Unity has grown a lot over the last few years, they've been obviously doing something right. Therefore, I think it's a good foundation for a game engine.</p>
+
+<h3>
+<a id="overall_look" class="anchor" href="#overall_look" aria-hidden="true"><span class="overall_look"></span></a>Overall Look and Description</h3>
+
+So I've been talking about component-based here and there but what does that mean? Developers that are familiar with Unity are already used to this concept but if that's not the case, here's the main idea.
+
+The game objects, Actors, are merely Component holders that exist in the World. All the behaviour that an Actor must have is done not through standard inheritance but by adding and removing Components to it. For example, to create an Actor that would be rendered on the screen, it would need a MeshFilter, reference to a Mesh Assets (.fbx or .obj) and a Mesh Renderer (contains reference of the Material that describes how the object will be rendered). The code would be:
+
+<code>
+
+
+<img class="fancybox" src="guinity.png" alt="GUInity Overview" >
 
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Considerations</h3>
