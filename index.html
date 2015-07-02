@@ -219,13 +219,13 @@ void PlayerScript::awake()
 void PlayerScript::tick(float deltaSeconds)
 {
   // Get reference to actor that owns this script
-  shared_ptr&lt;Actor&gt; lock = actor.lock();
+  shared_ptr&lt;Actor&gt; actorLock = actor.lock();
   
-  if (!lock)
+  if (!actorLock)
     return;
     
   // Get reference to its transform  
-  shared_ptr&lt;Transform&gt; transform = lock-&gt;transform;
+  shared_ptr&lt;Transform&gt; transform = actorLock-&gt;transform;
     
   // If keyboard arrow up is being pressed  
   if (Input::getKey(GLFW_KEY_UP))
@@ -237,7 +237,7 @@ void PlayerScript::tick(float deltaSeconds)
   // If keyboard arrow up is being pressed  
   if (Input::getKey(GLFW_KEY_LEFT))
   {
-    // Get current rotation and apply some rotation CW
+    // Get current rotation and apply some rotation CCW
     glm::quat rot = transform-&gt;getRotation();
     glm::quat left = glm::angleAxis(deltaSeconds * rotateSpeed, transform-&gt;getForward());
         
@@ -245,7 +245,7 @@ void PlayerScript::tick(float deltaSeconds)
   }
   if (Input::getKey(GLFW_KEY_RIGHT))
   {
-    // Get current rotation and apply some rotation CCW
+    // Get current rotation and apply some rotation CW
     glm::quat rot = transform-&gt;getRotation();
     glm::quat right = glm::angleAxis(deltaSeconds * rotateSpeed, -transform-&gt;getForward());
         
