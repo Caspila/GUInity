@@ -68,13 +68,13 @@
 
 <p>Please note that even though I'm developing the engine from scratch, I'm also using a bunch of libraries to aid the development. For the purposes of this project, I've chosen to use, so far, the following libraries:</p>
 <UL>
-<LI><b>PhysX (3.1.1)</b> - Physics library developed by NVIDIA (https://developer.nvidia.com/physx-sdk)
-<LI><b>FreeType (2.4.0)</b> - Free font library (http://www.freetype.org)
-<LI><b>Boost(1.57.0)</b> - I don't believe this set of libraries need any introduction (http://www.boost.org)
-<LI><b>GLFW(3.0.4)</b> - Cross-Platform library for handling window and basic OpenGL configurations (http://www.glfw.org)
-<LI><b>libPNG</b> .png library (http://www.libpng.org/pub/png/libpng.html)
-<LI><b>FBX SDK (2015.1)</b> - .fbx files library (http://usa.autodesk.com/adsk/servlet/pc/item?siteID=123112&id=10775847)
-<LI><b>FMOD Studio (1.05.02)</b> - Sound library (http://www.fmod.org/download)
+<LI><b><a href="https://developer.nvidia.com/physx-sdk" target="_blank">PhysX (3.1.1)</a></b> - Physics library developed by NVIDIA
+<LI><b><a href="http://www.freetype.org" target="_blank">FreeType (2.4.0)</a></b> - Free font library
+<LI><b><a href="http://www.boost.org" target="_blank">Boost(1.57.0)</a></b> - I don't believe this set of libraries need any introduction
+<LI><b><a href="http://www.glfw.org" target="_blank">GLFW(3.0.4)</a></b> - Cross-Platform library for handling window and basic OpenGL configurations
+<LI><b><a href="http://www.libpng.org/pub/png/libpng.html" target="_blank">libPNG</a></b> - .png library
+<LI><b><a href="http://usa.autodesk.com/adsk/servlet/pc/item?siteID=123112&id=10775847" target="_blank">FBX SDK (2015.1)</a></b> - .fbx library
+<LI><b><a href="http://www.fmod.org/download" target="_blank">FMOD Studio (1.05.02)</a></b> - Sound library
 </UL>
 <p>Also please note that due to possible licensing issues of the libraries and operational system specific binaries, I'm not providing any of them in this repository. The benefit is that the repository is fairly compact.
 </p>
@@ -277,7 +277,7 @@ void PlayerScript::onCollision(shared_ptr&lt;Actor&gt; actor)
 </pre>
 
 <p>This is just a basic introduction and there's much more to explore in GUInity.</p>
-<p>The following is the most classes and relationships of GUInity I could put in a UML Class Diagram and still keep it readable. </p>
+<p>The following class diagram is the most complete one I could make while still keeping it readable. </p>
 
 <img id="zoom_01" src="guinity_full_vertical.png" alt="GUInity Overview" >
 
@@ -285,7 +285,18 @@ void PlayerScript::onCollision(shared_ptr&lt;Actor&gt; actor)
     $('#zoom_01').elevateZoom({ zoomType: "inner", cursor: "crosshair" });
 </script>
 
-<center><a href="guinity_full_vertical.png" target:"_blank">Image in new tab</a></center>
+<center><a href="guinity_full_vertical.png" target="_blank">Image in new tab</a></center>
+
+<h3>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>GUInity game example</h3>
+
+<p>Below is a video showcasing a small <a href="https://en.wikipedia.org/wiki/Asteroids_(video_game)" target="_blank">Asteroids</a>-like game developed using GUInity.</p>
+
+
+
+<center>
+<iframe width="588" height="441" src="https://www.youtube.com/embed/My9RPdu9h-0" frameborder="0" allowfullscreen></iframe>
+</center>
 
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Considerations</h3>
