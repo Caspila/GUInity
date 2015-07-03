@@ -255,6 +255,7 @@ void PlayerScript::onCollision(shared_ptr&lt;Actor&gt; actor)
 
 <p>Below is a video showcasing a small <a href="https://en.wikipedia.org/wiki/Asteroids_(video_game)" target="_blank">Asteroids</a>-like game developed using GUInity.</p>
 
+<a href="https://www.youtube.com/embed/My9RPdu9h-0" target="_blank"> GUInity game example </a>
 
 
 <center>
