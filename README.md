@@ -1,10 +1,9 @@
 
+<h3>GUInity</h3> <p>is a 3D component-based game engine. It's a personal project started by myself, Guilherme Cunha.</p>
 
-  <body>
 
-<p>GUInity is a 3D component-based game engine. It's a personal project started by myself, Guilherme Cunha.</p>
-
-<p>My objectives with GUInity are:</p>
+<h3>
+<a id="designer-templates" class="anchor" href="#designer-templates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Objectives</h3>
 
 <UL>
 <LI>Study and practice C++ in a large project. It's also a way of learning new C++11 concepts.
@@ -29,15 +28,15 @@
 
 <p>Please note that even though I'm developing the engine from scratch, I'm also using a bunch of libraries to aid the development. For the purposes of this project, I've chosen to use, so far, the following libraries:</p>
 <UL>
-<LI>PhysX (3.1.1) Physics library developed by NVIDIA (https://developer.nvidia.com/physx-sdk)
-<LI>FreeType (2.4.0) Free font library (http://www.freetype.org)
-<LI>Boost(1.57.0) I don't believe this set of libraries need any introduction (http://www.boost.org)
-<LI>GLFW(3.0.4) Cross-Platform library for handling window and basic OpenGL configurations (http://www.glfw.org)
-<LI>libPNG .png library (http://www.libpng.org/pub/png/libpng.html)
-<LI>FBX SDK (2015.1) .fbx files library (http://usa.autodesk.com/adsk/servlet/pc/item?siteID=123112&id=10775847)
-<LI>FMOD Studio (1.05.02) Sound library (http://www.fmod.org/download)
+<LI><b><a href="https://developer.nvidia.com/physx-sdk" target="_blank">PhysX (3.1.1)</a></b> - Physics library developed by NVIDIA
+<LI><b><a href="http://www.freetype.org" target="_blank">FreeType (2.4.0)</a></b> - .ttf library
+<LI><b><a href="http://www.boost.org" target="_blank">Boost(1.57.0)</a></b> - I don't believe this set of libraries need any introduction
+<LI><b><a href="http://www.glfw.org" target="_blank">GLFW(3.0.4)</a></b> - Cross-platform library for handling window and basic OpenGL configurations
+<LI><b><a href="http://www.libpng.org/pub/png/libpng.html" target="_blank">libPNG</a></b> - .png library
+<LI><b><a href="http://usa.autodesk.com/adsk/servlet/pc/item?siteID=123112&id=10775847" target="_blank">FBX SDK (2015.1)</a></b> - .fbx library
+<LI><b><a href="http://www.fmod.org/download" target="_blank">FMOD Studio (1.05.02)</a></b> - Sound library
 </UL>
-<p>Also, please note that due to possible licensing issues of the libraries, I'm not providing any of them in this repository. The benefit is that the repository is fairly compact. Also it would be very hard to provide the libraries to every operational system.
+<p>Also please note that due to possible licensing issues of the libraries and operational system specific binaries, I'm not providing any of them in this repository. The benefit is that the repository is fairly compact.
 </p>
 
 <h3>
@@ -45,11 +44,14 @@
 
 
 <UL>
-<LI>Get to a point where it's easy to create a simple game using code, in an component-based engine that has built-in physics, graphics and audio systems.
+<LI>Get to a point where it's easy to create a simple game using code, in an component-based engine that has built-in physics, graphics and audio systems. &#9989
 <LI>Have an editor to ease the development.
 </UL>
 
 <p>My goal is NOT to create a new and better Unity, but to understand how they were able to develop it. Unity has grown a lot over the last few years, they've been obviously doing something right. Therefore, I think it's a good foundation for a game engine.</p>
+
+
+Here's the <a href="https://trello.com/b/dBtC9hem/guinity" target="_blank">Trello board</a> where I keep features that I'd like to implement in the future.
 
 <h3>
 <a id="overall_look" class="anchor" href="#overall_look" aria-hidden="true"><span class="overall_look"></span></a>Overall Look and Description</h3>
@@ -78,7 +80,7 @@ meshRenderer->setMaterial(spaceShipMaterial);
 
 <p> The components that are available right now are:</p>
 <UL>
-<LI> Camera - Adds to the Actor a Viewing Frustrum that's used to render the scene. Only one camera is supported at the moment.
+<LI> Camera - Adds a viewing frustrum that's used to render the scene. Only one camera is supported at the moment.
 <LI> Collider - Add Collision capabilities to the Actors. They can be used either for real physics simulation or as collision volumes (triggers). Colliders come in several shapes: Spheres, Boxes, Capsules and Meshes (convex hull of a mesh).
 <LI> Light - Lights up the world. Currently there's only one type of Light, point light and only one is used by the rendering module.
 <LI> MeshComponent - Has a reference to a Mesh. There are two types currently, a MeshFilter that references a MeshAsset and a FontMesh that generates a mesh based on a string.
@@ -89,7 +91,7 @@ meshRenderer->setMaterial(spaceShipMaterial);
 </UL>
 
 
-<p> This piece of code above is enough for creating an Actor and rendering it on the screen but you must've noticed that it references some variables that were not declared in it. The variables that are missing are references to Assets. Assets are game assets that are imported or generated by GUInity. 
+<p> The piece of code above is enough for creating an Actor and rendering it on the screen but you must've noticed that it references some variables that were not declared in it. The variables that are missing are references to Assets. Assets are game assets that are imported or generated by GUInity. 
 
 <p> The files that are inside the "data" folder are imported at the start of the program and can be accessed through the AssetsDatabase. Examples of Assets that are imported automatically are:</p></p>
 
@@ -180,13 +182,13 @@ void PlayerScript::awake()
 void PlayerScript::tick(float deltaSeconds)
 {
   // Get reference to actor that owns this script
-  shared_ptr&lt;Actor&gt; lock = actor.lock();
+  shared_ptr&lt;Actor&gt; actorLock = actor.lock();
   
-  if (!lock)
+  if (!actorLock)
     return;
     
   // Get reference to its transform  
-  shared_ptr&lt;Transform&gt; transform = lock-&gt;transform;
+  shared_ptr&lt;Transform&gt; transform = actorLock-&gt;transform;
     
   // If keyboard arrow up is being pressed  
   if (Input::getKey(GLFW_KEY_UP))
@@ -198,7 +200,7 @@ void PlayerScript::tick(float deltaSeconds)
   // If keyboard arrow up is being pressed  
   if (Input::getKey(GLFW_KEY_LEFT))
   {
-    // Get current rotation and apply some rotation CW
+    // Get current rotation and apply some rotation CCW
     glm::quat rot = transform-&gt;getRotation();
     glm::quat left = glm::angleAxis(deltaSeconds * rotateSpeed, transform-&gt;getForward());
         
@@ -206,7 +208,7 @@ void PlayerScript::tick(float deltaSeconds)
   }
   if (Input::getKey(GLFW_KEY_RIGHT))
   {
-    // Get current rotation and apply some rotation CCW
+    // Get current rotation and apply some rotation CW
     glm::quat rot = transform-&gt;getRotation();
     glm::quat right = glm::angleAxis(deltaSeconds * rotateSpeed, -transform-&gt;getForward());
         
@@ -238,13 +240,29 @@ void PlayerScript::onCollision(shared_ptr&lt;Actor&gt; actor)
 </pre>
 
 <p>This is just a basic introduction and there's much more to explore in GUInity.</p>
+<p>The following class diagram is the most complete one I could make while still keeping it readable. </p>
+
+<img id="zoom_01" src="http://caspila.github.io/GUInity/guinity_full_vertical.png" alt="GUInity Overview" >
+
+<script>
+    $('#zoom_01').elevateZoom({ zoomType: "inner", cursor: "crosshair" });
+</script>
+
+<center><a href="http://caspila.github.io/GUInity/guinity_full_vertical.png" target="_blank">Image in new tab</a></center>
+
+<h3>
+<a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>GUInity game example</h3>
+
+<p>Below is a video showcasing a small <a href="https://en.wikipedia.org/wiki/Asteroids_(video_game)" target="_blank">Asteroids</a>-like game developed using GUInity.</p>
+
+
+
+<center>
+<iframe width="588" height="441" src="https://www.youtube.com/embed/My9RPdu9h-0" frameborder="0" allowfullscreen></iframe>
+</center>
 
 <h3>
 <a id="support-or-contact" class="anchor" href="#support-or-contact" aria-hidden="true"><span class="octicon octicon-link"></span></a>Considerations</h3>
 
 <p>Creating a game engine is not a simple task. Instead of trying to create the most optimized engine ever, I'm just "doing it", for now. Every now and then, when I feel like I completely grasped a concept, I go back and do my best to optimize it. Most of the times, I aim for readability and try to experiment with new features of C++11. I've been learning a lot from this project and intend to carry it on as well as I can.</p>
 <p>I develop this project alongside my Master in Digital Media. This means I don't have as much time as I'd like to work on it. It also means that some periods this repository will have more updates than others.</p>
-
-  </body>
-</html>
-
