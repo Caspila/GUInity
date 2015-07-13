@@ -99,10 +99,202 @@
 		468B50C31A61E5CC00CD58A5 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 468B50C21A61E5CC00CD58A5 /* libfmod.dylib */; };
 		468B50C51A61E5E300CD58A5 /* libfmod.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 468B50C41A61E5E300CD58A5 /* libfmod.dylib */; };
 		468E620A1B313DD5008213E9 /* PointsTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468E62081B313DD5008213E9 /* PointsTracker.cpp */; };
-		4694EE3D1A4A3A16001E8C48 /* opengl_testing_mag.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4694EE3C1A4A3A16001E8C48 /* opengl_testing_mag.1 */; };
 		46B924391A81F40F00F84B7A /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924351A81F40F00F84B7A /* Sound.cpp */; };
 		46B9243A1A81F40F00F84B7A /* SoundSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924371A81F40F00F84B7A /* SoundSystem.cpp */; };
 		46C448451B3014CD00CD5BD1 /* AsteroidSpawner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C448431B3014CD00CD5BD1 /* AsteroidSpawner.cpp */; };
+		46E6DCBF1B53603E005262F4 /* MeshFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAA61A78A164007BF293 /* MeshFilter.cpp */; };
+		46E6DCC01B53603E005262F4 /* RigidStatic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BACD1A78A164007BF293 /* RigidStatic.cpp */; };
+		46E6DCC11B53603E005262F4 /* PhysXEventCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BABA1A78A164007BF293 /* PhysXEventCallback.cpp */; };
+		46E6DCC21B53603E005262F4 /* MeshComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAA41A78A164007BF293 /* MeshComponent.cpp */; };
+		46E6DCC31B53603E005262F4 /* ScriptComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAD91A78A164007BF293 /* ScriptComponent.cpp */; };
+		46E6DCC41B53603E005262F4 /* AssetDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA6B1A78A164007BF293 /* AssetDatabase.cpp */; };
+		46E6DCC51B53603E005262F4 /* PlayerScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BABE1A78A164007BF293 /* PlayerScript.cpp */; };
+		46E6DCC61B53603E005262F4 /* FSAuxiliar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA871A78A164007BF293 /* FSAuxiliar.cpp */; };
+		46E6DCC71B53603E005262F4 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAC51A78A164007BF293 /* Ray.cpp */; };
+		46E6DCC81B53603E005262F4 /* AsteroidSpawner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C448431B3014CD00CD5BD1 /* AsteroidSpawner.cpp */; };
+		46E6DCC91B53603E005262F4 /* Editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA7A1A78A164007BF293 /* Editor.cpp */; };
+		46E6DCCA1B53603E005262F4 /* ScaleHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAD51A78A164007BF293 /* ScaleHandle.cpp */; };
+		46E6DCCB1B53603E005262F4 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAE81A78A164007BF293 /* Texture.cpp */; };
+		46E6DCCC1B53603E005262F4 /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BACB1A78A164007BF293 /* RigidBody.cpp */; };
+		46E6DCCD1B53603E005262F4 /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAEC1A78A164007BF293 /* Transform.cpp */; };
+		46E6DCCE1B53603E005262F4 /* SpaceShipGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462019DE1B3158AB00D599DE /* SpaceShipGame.cpp */; };
+		46E6DCCF1B53603E005262F4 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA891A78A164007BF293 /* Game.cpp */; };
+		46E6DCD01B53603E005262F4 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA831A78A164007BF293 /* Font.cpp */; };
+		46E6DCD11B53603E005262F4 /* Asset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA691A78A164007BF293 /* Asset.cpp */; };
+		46E6DCD21B53603E005262F4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA971A78A164007BF293 /* main.cpp */; };
+		46E6DCD31B53603E005262F4 /* KillOnCollision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 463F86471B2FEF86008E8F69 /* KillOnCollision.cpp */; };
+		46E6DCD41B53603E005262F4 /* MathStructs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA9E1A78A164007BF293 /* MathStructs.cpp */; };
+		46E6DCD51B53603E005262F4 /* PhysXAllocatorCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAB81A78A164007BF293 /* PhysXAllocatorCallback.cpp */; };
+		46E6DCD61B53603E005262F4 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA701A78A164007BF293 /* Camera.cpp */; };
+		46E6DCD71B53603E005262F4 /* MoveTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAB01A78A164007BF293 /* MoveTool.cpp */; };
+		46E6DCD81B53603E005262F4 /* Collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA741A78A164007BF293 /* Collider.cpp */; };
+		46E6DCD91B53603E005262F4 /* RotateTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAD31A78A164007BF293 /* RotateTool.cpp */; };
+		46E6DCDA1B53603E005262F4 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA9A1A78A164007BF293 /* Material.cpp */; };
+		46E6DCDB1B53603E005262F4 /* MeshImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAA81A78A164007BF293 /* MeshImporter.cpp */; };
+		46E6DCDC1B53603E005262F4 /* KillDistanceBased.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462019D61B31527100D599DE /* KillDistanceBased.cpp */; };
+		46E6DCDD1B53603E005262F4 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA931A78A164007BF293 /* Input.cpp */; };
+		46E6DCDE1B53603E005262F4 /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924351A81F40F00F84B7A /* Sound.cpp */; };
+		46E6DCDF1B53603E005262F4 /* MeshCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAA21A78A164007BF293 /* MeshCollider.cpp */; };
+		46E6DCE01B53603E005262F4 /* Converter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA781A78A164007BF293 /* Converter.cpp */; };
+		46E6DCE11B53603E005262F4 /* MeshRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAAA1A78A164007BF293 /* MeshRenderer.cpp */; };
+		46E6DCE21B53603E005262F4 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA951A78A164007BF293 /* Light.cpp */; };
+		46E6DCE31B53603E005262F4 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAE01A78A164007BF293 /* Shader.cpp */; };
+		46E6DCE41B53603E005262F4 /* FontMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA851A78A164007BF293 /* FontMesh.cpp */; };
+		46E6DCE51B53603E005262F4 /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAB41A78A164007BF293 /* Physics.cpp */; };
+		46E6DCE61B53603E005262F4 /* World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAF61A78A164007BF293 /* World.cpp */; };
+		46E6DCE71B53603E005262F4 /* SphereCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAE21A78A164007BF293 /* SphereCollider.cpp */; };
+		46E6DCE81B53603E005262F4 /* Holder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA8F1A78A164007BF293 /* Holder.cpp */; };
+		46E6DCE91B53603E005262F4 /* EditorCameraControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA7C1A78A164007BF293 /* EditorCameraControl.cpp */; };
+		46E6DCEA1B53603E005262F4 /* ScaleTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAD71A78A164007BF293 /* ScaleTool.cpp */; };
+		46E6DCEB1B53603E005262F4 /* Factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA811A78A164007BF293 /* Factory.cpp */; };
+		46E6DCEC1B53603E005262F4 /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA641A78A164007BF293 /* Actor.cpp */; };
+		46E6DCED1B53603E005262F4 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAA01A78A164007BF293 /* Mesh.cpp */; };
+		46E6DCEE1B53603E005262F4 /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA761A78A164007BF293 /* Component.cpp */; };
+		46E6DCEF1B53603E005262F4 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAAC1A78A164007BF293 /* Module.cpp */; };
+		46E6DCF01B53603E005262F4 /* EditorCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA7E1A78A164007BF293 /* EditorCollider.cpp */; };
+		46E6DCF11B53603E005262F4 /* Time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAEA1A78A164007BF293 /* Time.cpp */; };
+		46E6DCF21B53603E005262F4 /* GLFWGraphicsSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA8B1A78A164007BF293 /* GLFWGraphicsSystem.cpp */; };
+		46E6DCF31B53603E005262F4 /* GraphicsSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA8D1A78A164007BF293 /* GraphicsSystem.cpp */; };
+		46E6DCF41B53603E005262F4 /* Math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA9C1A78A164007BF293 /* Math.cpp */; };
+		46E6DCF51B53603E005262F4 /* PointsTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468E62081B313DD5008213E9 /* PointsTracker.cpp */; };
+		46E6DCF61B53603E005262F4 /* PhysicsMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAB61A78A164007BF293 /* PhysicsMaterial.cpp */; };
+		46E6DCF71B53603E005262F4 /* SoundSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924371A81F40F00F84B7A /* SoundSystem.cpp */; };
+		46E6DCF81B53603E005262F4 /* print.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAC11A78A164007BF293 /* print.cpp */; };
+		46E6DCF91B53603E005262F4 /* BoxCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA6E1A78A164007BF293 /* BoxCollider.cpp */; };
+		46E6DCFA1B53603E005262F4 /* MoveHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAAE1A78A164007BF293 /* MoveHandle.cpp */; };
+		46E6DCFB1B53603E005262F4 /* RotateHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BACF1A78A164007BF293 /* RotateHandle.cpp */; };
+		46E6DCFC1B53603E005262F4 /* CapsuleCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA721A78A164007BF293 /* CapsuleCollider.cpp */; };
+		46E6DCFE1B53603E005262F4 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4672BB401A78A25A007BF293 /* libfreetype.a */; };
+		46E6DCFF1B53603E005262F4 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46389E101A6CF752000B0DEB /* libboost_system.a */; };
+		46E6DD001B53603E005262F4 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46389E0C1A6CF71E000B0DEB /* libboost_filesystem.a */; };
+		46E6DD011B53603E005262F4 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 466138E51A64CF4D00AB9D02 /* libpng16.a */; };
+		46E6DD021B53603E005262F4 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 468B50C21A61E5CC00CD58A5 /* libfmod.dylib */; };
+		46E6DD031B53603E005262F4 /* libfbxsdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 468B50C01A61E56700CD58A5 /* libfbxsdk.a */; };
+		46E6DD041B53603E005262F4 /* libboost_serialization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FFC2301A52880100FCFAC4 /* libboost_serialization.a */; };
+		46E6DD051B53603E005262F4 /* libLowLevel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AEC1A4A5598007B0CDD /* libLowLevel.a */; };
+		46E6DD061B53603E005262F4 /* libLowLevelCloth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AED1A4A5598007B0CDD /* libLowLevelCloth.a */; };
+		46E6DD071B53603E005262F4 /* libPhysX3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AEE1A4A5598007B0CDD /* libPhysX3.a */; };
+		46E6DD081B53603E005262F4 /* libPhysX3Common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AEF1A4A5598007B0CDD /* libPhysX3Common.a */; };
+		46E6DD091B53603E005262F4 /* libPhysX3Cooking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF01A4A5598007B0CDD /* libPhysX3Cooking.a */; };
+		46E6DD0A1B53603E005262F4 /* libPhysX3Extensions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF11A4A5598007B0CDD /* libPhysX3Extensions.a */; };
+		46E6DD0B1B53603E005262F4 /* libPhysX3Vehicle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF21A4A5598007B0CDD /* libPhysX3Vehicle.a */; };
+		46E6DD0C1B53603E005262F4 /* libPhysXProfileSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF31A4A5598007B0CDD /* libPhysXProfileSDK.a */; };
+		46E6DD0D1B53603E005262F4 /* libPvdRuntime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF41A4A5598007B0CDD /* libPvdRuntime.a */; };
+		46E6DD0E1B53603E005262F4 /* libPxTask.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF51A4A5598007B0CDD /* libPxTask.a */; };
+		46E6DD0F1B53603E005262F4 /* libSceneQuery.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF61A4A5598007B0CDD /* libSceneQuery.a */; };
+		46E6DD101B53603E005262F4 /* libSimulationController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF71A4A5598007B0CDD /* libSimulationController.a */; };
+		46E6DD111B53603E005262F4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AEA1A4A5526007B0CDD /* Cocoa.framework */; };
+		46E6DD121B53603E005262F4 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AE81A4A54BB007B0CDD /* libglfw3.a */; };
+		46E6DD131B53603E005262F4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AE61A4A5487007B0CDD /* CoreVideo.framework */; };
+		46E6DD141B53603E005262F4 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AE41A4A5483007B0CDD /* IOKit.framework */; };
+		46E6DD151B53603E005262F4 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AE21A4A547A007B0CDD /* OpenGL.framework */; };
+		46E6DD161B53603E005262F4 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8ADE1A4A5427007B0CDD /* libGLEW.a */; };
+		46E6DD171B53603E005262F4 /* libGLEWmx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8ADF1A4A5427007B0CDD /* libGLEWmx.a */; };
+		46E6DD1B1B53603E005262F4 /* libfreetype.6.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4672BB421A78A26D007BF293 /* libfreetype.6.dylib */; };
+		46E6DD1C1B53603E005262F4 /* libboost_system.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46389E121A6CF767000B0DEB /* libboost_system.dylib */; };
+		46E6DD1D1B53603E005262F4 /* libboost_filesystem.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46389E0E1A6CF738000B0DEB /* libboost_filesystem.dylib */; };
+		46E6DD1E1B53603E005262F4 /* libpng16.16.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 466138EA1A64CFA800AB9D02 /* libpng16.16.dylib */; };
+		46E6DD1F1B53603E005262F4 /* libfmod.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 468B50C41A61E5E300CD58A5 /* libfmod.dylib */; };
+		46E6DD201B53603E005262F4 /* libfbxsdk.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 468B50BE1A61E54B00CD58A5 /* libfbxsdk.dylib */; };
+		46E6DD211B53603E005262F4 /* libboost_serialization.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */; };
+		46E6DD221B53603E005262F4 /* libGLEW.1.11.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 464D8B091A4A56B9007B0CDD /* libGLEW.1.11.0.dylib */; };
+		46E6DD231B53603E005262F4 /* libGLEWmx.1.11.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 464D8B0A1A4A56B9007B0CDD /* libGLEWmx.1.11.0.dylib */; };
+		46E6DD311B5365D8005262F4 /* AsteroidSpawner.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46C448431B3014CD00CD5BD1 /* AsteroidSpawner.cpp */; };
+		46E6DD321B5365D8005262F4 /* KillOnCollision.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 463F86471B2FEF86008E8F69 /* KillOnCollision.cpp */; };
+		46E6DD331B5365D8005262F4 /* PlayerScript.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BABE1A78A164007BF293 /* PlayerScript.cpp */; };
+		46E6DD341B5365D8005262F4 /* SpaceShipGame.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462019DE1B3158AB00D599DE /* SpaceShipGame.cpp */; };
+		46E6DD351B5365D8005262F4 /* PointsTracker.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468E62081B313DD5008213E9 /* PointsTracker.cpp */; };
+		46E6DD361B5365D8005262F4 /* KillDistanceBased.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 462019D61B31527100D599DE /* KillDistanceBased.cpp */; };
+		46E6DD371B5365D8005262F4 /* PhysXAllocatorCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAB81A78A164007BF293 /* PhysXAllocatorCallback.cpp */; };
+		46E6DD381B5365D8005262F4 /* PhysXEventCallback.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BABA1A78A164007BF293 /* PhysXEventCallback.cpp */; };
+		46E6DD391B5365D8005262F4 /* Actor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA641A78A164007BF293 /* Actor.cpp */; };
+		46E6DD3A1B5365D8005262F4 /* Factory.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA811A78A164007BF293 /* Factory.cpp */; };
+		46E6DD3B1B5365D8005262F4 /* AssetDatabase.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA6B1A78A164007BF293 /* AssetDatabase.cpp */; };
+		46E6DD3C1B5365D8005262F4 /* Editor.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA7A1A78A164007BF293 /* Editor.cpp */; };
+		46E6DD3D1B5365D8005262F4 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA891A78A164007BF293 /* Game.cpp */; };
+		46E6DD3E1B5365D8005262F4 /* Transform.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAEC1A78A164007BF293 /* Transform.cpp */; };
+		46E6DD3F1B5365D8005262F4 /* World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAF61A78A164007BF293 /* World.cpp */; };
+		46E6DD401B5365D8005262F4 /* Component.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA761A78A164007BF293 /* Component.cpp */; };
+		46E6DD411B5365D8005262F4 /* MeshImporter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAA81A78A164007BF293 /* MeshImporter.cpp */; };
+		46E6DD421B5365D8005262F4 /* Asset.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA691A78A164007BF293 /* Asset.cpp */; };
+		46E6DD431B5365D8005262F4 /* Font.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA831A78A164007BF293 /* Font.cpp */; };
+		46E6DD441B5365D8005262F4 /* Material.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA9A1A78A164007BF293 /* Material.cpp */; };
+		46E6DD451B5365D8005262F4 /* Mesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAA01A78A164007BF293 /* Mesh.cpp */; };
+		46E6DD461B5365D8005262F4 /* PhysicsMaterial.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAB61A78A164007BF293 /* PhysicsMaterial.cpp */; };
+		46E6DD471B5365D8005262F4 /* Shader.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAE01A78A164007BF293 /* Shader.cpp */; };
+		46E6DD481B5365D8005262F4 /* Sound.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924351A81F40F00F84B7A /* Sound.cpp */; };
+		46E6DD491B5365D8005262F4 /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAE81A78A164007BF293 /* Texture.cpp */; };
+		46E6DD4A1B5365D8005262F4 /* Math.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA9C1A78A164007BF293 /* Math.cpp */; };
+		46E6DD4B1B5365D8005262F4 /* Ray.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAC51A78A164007BF293 /* Ray.cpp */; };
+		46E6DD4C1B5365D8005262F4 /* MathStructs.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA9E1A78A164007BF293 /* MathStructs.cpp */; };
+		46E6DD4D1B5365D8005262F4 /* Module.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAAC1A78A164007BF293 /* Module.cpp */; };
+		46E6DD4E1B5365D8005262F4 /* Converter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA781A78A164007BF293 /* Converter.cpp */; };
+		46E6DD4F1B5365D8005262F4 /* FSAuxiliar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA871A78A164007BF293 /* FSAuxiliar.cpp */; };
+		46E6DD501B5365D8005262F4 /* Holder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA8F1A78A164007BF293 /* Holder.cpp */; };
+		46E6DD511B5365D8005262F4 /* print.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAC11A78A164007BF293 /* print.cpp */; };
+		46E6DD521B5365D8005262F4 /* BoxCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA6E1A78A164007BF293 /* BoxCollider.cpp */; };
+		46E6DD531B5365D8005262F4 /* Camera.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA701A78A164007BF293 /* Camera.cpp */; };
+		46E6DD541B5365D8005262F4 /* CapsuleCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA721A78A164007BF293 /* CapsuleCollider.cpp */; };
+		46E6DD551B5365D8005262F4 /* Collider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA741A78A164007BF293 /* Collider.cpp */; };
+		46E6DD561B5365D8005262F4 /* EditorCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA7E1A78A164007BF293 /* EditorCollider.cpp */; };
+		46E6DD571B5365D8005262F4 /* FontMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA851A78A164007BF293 /* FontMesh.cpp */; };
+		46E6DD581B5365D8005262F4 /* Light.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA951A78A164007BF293 /* Light.cpp */; };
+		46E6DD591B5365D8005262F4 /* MeshCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAA21A78A164007BF293 /* MeshCollider.cpp */; };
+		46E6DD5A1B5365D8005262F4 /* MeshComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAA41A78A164007BF293 /* MeshComponent.cpp */; };
+		46E6DD5B1B5365D8005262F4 /* MeshFilter.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAA61A78A164007BF293 /* MeshFilter.cpp */; };
+		46E6DD5C1B5365D8005262F4 /* MeshRenderer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAAA1A78A164007BF293 /* MeshRenderer.cpp */; };
+		46E6DD5D1B5365D8005262F4 /* RigidBody.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BACB1A78A164007BF293 /* RigidBody.cpp */; };
+		46E6DD5E1B5365D8005262F4 /* RigidStatic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BACD1A78A164007BF293 /* RigidStatic.cpp */; };
+		46E6DD5F1B5365D8005262F4 /* ScriptComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAD91A78A164007BF293 /* ScriptComponent.cpp */; };
+		46E6DD601B5365D8005262F4 /* SphereCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAE21A78A164007BF293 /* SphereCollider.cpp */; };
+		46E6DD611B5365D8005262F4 /* GLFWGraphicsSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA8B1A78A164007BF293 /* GLFWGraphicsSystem.cpp */; };
+		46E6DD621B5365D8005262F4 /* GraphicsSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA8D1A78A164007BF293 /* GraphicsSystem.cpp */; };
+		46E6DD631B5365D8005262F4 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA931A78A164007BF293 /* Input.cpp */; };
+		46E6DD641B5365D8005262F4 /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAB41A78A164007BF293 /* Physics.cpp */; };
+		46E6DD651B5365D8005262F4 /* SoundSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 46B924371A81F40F00F84B7A /* SoundSystem.cpp */; };
+		46E6DD661B5365D8005262F4 /* Time.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAEA1A78A164007BF293 /* Time.cpp */; };
+		46E6DD671B5365D8005262F4 /* EditorCameraControl.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA7C1A78A164007BF293 /* EditorCameraControl.cpp */; };
+		46E6DD681B5365D8005262F4 /* MoveHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAAE1A78A164007BF293 /* MoveHandle.cpp */; };
+		46E6DD691B5365D8005262F4 /* MoveTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAB01A78A164007BF293 /* MoveTool.cpp */; };
+		46E6DD6A1B5365D8005262F4 /* RotateHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BACF1A78A164007BF293 /* RotateHandle.cpp */; };
+		46E6DD6B1B5365D8005262F4 /* RotateTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAD31A78A164007BF293 /* RotateTool.cpp */; };
+		46E6DD6C1B5365D8005262F4 /* ScaleHandle.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAD51A78A164007BF293 /* ScaleHandle.cpp */; };
+		46E6DD6D1B5365D8005262F4 /* ScaleTool.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAD71A78A164007BF293 /* ScaleTool.cpp */; };
+		46E6DD6E1B5365D8005262F4 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA971A78A164007BF293 /* main.cpp */; };
+		46E6DD6F1B536628005262F4 /* libboost_filesystem.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46389E0C1A6CF71E000B0DEB /* libboost_filesystem.a */; };
+		46E6DD701B536628005262F4 /* libboost_system.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46389E101A6CF752000B0DEB /* libboost_system.a */; };
+		46E6DD711B536628005262F4 /* libfbxsdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 468B50C01A61E56700CD58A5 /* libfbxsdk.a */; };
+		46E6DD721B536628005262F4 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4672BB401A78A25A007BF293 /* libfreetype.a */; };
+		46E6DD731B536628005262F4 /* libpng16.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 466138E51A64CF4D00AB9D02 /* libpng16.a */; };
+		46E6DD741B536628005262F4 /* libboost_serialization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FFC2301A52880100FCFAC4 /* libboost_serialization.a */; };
+		46E6DD751B536628005262F4 /* libLowLevel.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AEC1A4A5598007B0CDD /* libLowLevel.a */; };
+		46E6DD761B536628005262F4 /* libLowLevelCloth.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AED1A4A5598007B0CDD /* libLowLevelCloth.a */; };
+		46E6DD771B536628005262F4 /* libPhysX3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AEE1A4A5598007B0CDD /* libPhysX3.a */; };
+		46E6DD781B536628005262F4 /* libPhysX3Common.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AEF1A4A5598007B0CDD /* libPhysX3Common.a */; };
+		46E6DD791B536628005262F4 /* libPhysX3Cooking.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF01A4A5598007B0CDD /* libPhysX3Cooking.a */; };
+		46E6DD7A1B536628005262F4 /* libPhysX3Extensions.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF11A4A5598007B0CDD /* libPhysX3Extensions.a */; };
+		46E6DD7B1B536628005262F4 /* libPhysX3Vehicle.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF21A4A5598007B0CDD /* libPhysX3Vehicle.a */; };
+		46E6DD7C1B536628005262F4 /* libPhysXProfileSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF31A4A5598007B0CDD /* libPhysXProfileSDK.a */; };
+		46E6DD7D1B536628005262F4 /* libPvdRuntime.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF41A4A5598007B0CDD /* libPvdRuntime.a */; };
+		46E6DD7E1B536628005262F4 /* libPxTask.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF51A4A5598007B0CDD /* libPxTask.a */; };
+		46E6DD7F1B536628005262F4 /* libSceneQuery.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF61A4A5598007B0CDD /* libSceneQuery.a */; };
+		46E6DD801B536628005262F4 /* libSimulationController.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AF71A4A5598007B0CDD /* libSimulationController.a */; };
+		46E6DD811B536628005262F4 /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AEA1A4A5526007B0CDD /* Cocoa.framework */; };
+		46E6DD821B536628005262F4 /* libglfw3.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AE81A4A54BB007B0CDD /* libglfw3.a */; };
+		46E6DD831B536628005262F4 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AE61A4A5487007B0CDD /* CoreVideo.framework */; };
+		46E6DD841B536628005262F4 /* IOKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AE41A4A5483007B0CDD /* IOKit.framework */; };
+		46E6DD851B536628005262F4 /* OpenGL.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8AE21A4A547A007B0CDD /* OpenGL.framework */; };
+		46E6DD861B536628005262F4 /* libGLEW.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8ADE1A4A5427007B0CDD /* libGLEW.a */; };
+		46E6DD871B536628005262F4 /* libGLEWmx.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 464D8ADF1A4A5427007B0CDD /* libGLEWmx.a */; };
+		46E6DD881B536639005262F4 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 468B50C41A61E5E300CD58A5 /* libfmod.dylib */; };
+		46E6DD8A1B5366B4005262F4 /* libpng16.16.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 466138E71A64CF6100AB9D02 /* libpng16.16.dylib */; };
+		46E6DD8B1B5366B4005262F4 /* libboost_filesystem.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46389E0E1A6CF738000B0DEB /* libboost_filesystem.dylib */; };
+		46E6DD8C1B5366B4005262F4 /* libboost_system.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46389E121A6CF767000B0DEB /* libboost_system.dylib */; };
+		46E6DD8D1B5366B4005262F4 /* libfmod.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 468B50C41A61E5E300CD58A5 /* libfmod.dylib */; };
+		46E6DD901B5366B4005262F4 /* libGLEWmx.1.11.0.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 464D8B0A1A4A56B9007B0CDD /* libGLEWmx.1.11.0.dylib */; };
+		46E6DDBF1B538985005262F4 /* libfbxsdk.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46E6DDBE1B538985005262F4 /* libfbxsdk.dylib */; };
+		46E6DDC11B538A2D005262F4 /* libGLEWmx.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46E6DDC01B538A2D005262F4 /* libGLEWmx.dylib */; };
+		46E6DDC31B538A75005262F4 /* libfreetype.6.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46E6DDC21B538A75005262F4 /* libfreetype.6.dylib */; };
 		46FFC2311A52880100FCFAC4 /* libboost_serialization.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FFC2301A52880100FCFAC4 /* libboost_serialization.a */; };
 		46FFC2351A52886500FCFAC4 /* libboost_serialization.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */; };
 /* End PBXBuildFile section */
@@ -132,9 +324,52 @@
 			dstPath = /usr/share/man/man1/;
 			dstSubfolderSpec = 0;
 			files = (
-				4694EE3D1A4A3A16001E8C48 /* opengl_testing_mag.1 in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 1;
+		};
+		46E6DD181B53603E005262F4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+		46E6DD1A1B53603E005262F4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				46E6DD1B1B53603E005262F4 /* libfreetype.6.dylib in CopyFiles */,
+				46E6DD1C1B53603E005262F4 /* libboost_system.dylib in CopyFiles */,
+				46E6DD1D1B53603E005262F4 /* libboost_filesystem.dylib in CopyFiles */,
+				46E6DD1E1B53603E005262F4 /* libpng16.16.dylib in CopyFiles */,
+				46E6DD1F1B53603E005262F4 /* libfmod.dylib in CopyFiles */,
+				46E6DD201B53603E005262F4 /* libfbxsdk.dylib in CopyFiles */,
+				46E6DD211B53603E005262F4 /* libboost_serialization.dylib in CopyFiles */,
+				46E6DD221B53603E005262F4 /* libGLEW.1.11.0.dylib in CopyFiles */,
+				46E6DD231B53603E005262F4 /* libGLEWmx.1.11.0.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46E6DD891B5366B1005262F4 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 6;
+			files = (
+				46E6DD8A1B5366B4005262F4 /* libpng16.16.dylib in CopyFiles */,
+				46E6DDC31B538A75005262F4 /* libfreetype.6.dylib in CopyFiles */,
+				46E6DD8B1B5366B4005262F4 /* libboost_filesystem.dylib in CopyFiles */,
+				46E6DD8C1B5366B4005262F4 /* libboost_system.dylib in CopyFiles */,
+				46E6DD8D1B5366B4005262F4 /* libfmod.dylib in CopyFiles */,
+				46E6DDBF1B538985005262F4 /* libfbxsdk.dylib in CopyFiles */,
+				46E6DDC11B538A2D005262F4 /* libGLEWmx.dylib in CopyFiles */,
+				46E6DD901B5366B4005262F4 /* libGLEWmx.1.11.0.dylib in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
 
@@ -347,19 +582,22 @@
 		468E62081B313DD5008213E9 /* PointsTracker.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = PointsTracker.cpp; path = ../Source/PointsTracker.cpp; sourceTree = "<group>"; };
 		468E62091B313DD5008213E9 /* PointsTracker.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = PointsTracker.hpp; path = ../Source/PointsTracker.hpp; sourceTree = "<group>"; };
 		4694EE371A4A3A16001E8C48 /* GUInity_Editor */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = GUInity_Editor; sourceTree = BUILT_PRODUCTS_DIR; };
-		4694EE3C1A4A3A16001E8C48 /* opengl_testing_mag.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = opengl_testing_mag.1; sourceTree = "<group>"; };
 		46B924351A81F40F00F84B7A /* Sound.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Sound.cpp; path = ../Source/Sound.cpp; sourceTree = "<group>"; };
 		46B924361A81F40F00F84B7A /* Sound.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Sound.hpp; path = ../Source/Sound.hpp; sourceTree = "<group>"; };
 		46B924371A81F40F00F84B7A /* SoundSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SoundSystem.cpp; path = ../Source/SoundSystem.cpp; sourceTree = "<group>"; };
 		46B924381A81F40F00F84B7A /* SoundSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SoundSystem.hpp; path = ../Source/SoundSystem.hpp; sourceTree = "<group>"; };
 		46C448431B3014CD00CD5BD1 /* AsteroidSpawner.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = AsteroidSpawner.cpp; path = ../Source/AsteroidSpawner.cpp; sourceTree = "<group>"; };
 		46C448441B3014CD00CD5BD1 /* AsteroidSpawner.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = AsteroidSpawner.hpp; path = ../Source/AsteroidSpawner.hpp; sourceTree = "<group>"; };
+		46E6DD281B53603E005262F4 /* libGUInity_Dynamic */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = libGUInity_Dynamic; sourceTree = BUILT_PRODUCTS_DIR; };
+		46E6DD2D1B53657E005262F4 /* libGUInity_EditorDynamic.dylib */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; includeInIndex = 0; path = libGUInity_EditorDynamic.dylib; sourceTree = BUILT_PRODUCTS_DIR; };
+		46E6DDBE1B538985005262F4 /* libfbxsdk.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfbxsdk.dylib; path = /Applications/Autodesk/FBX_SDK/2015.1/lib/clang/debug/libfbxsdk.dylib; sourceTree = "<absolute>"; };
+		46E6DDC01B538A2D005262F4 /* libGLEWmx.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libGLEWmx.dylib; path = "../../../glew-1.11.0/lib/libGLEWmx.dylib"; sourceTree = "<group>"; };
+		46E6DDC21B538A75005262F4 /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = "../../../freetype-2.4.0/bin/lib/libfreetype.6.dylib"; sourceTree = "<group>"; };
 		46FE56821B2D3EDF00ADF5F2 /* Observer.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; name = Observer.hpp; path = ../Source/Observer.hpp; sourceTree = "<group>"; };
 		46FE56911B2FCB3800ADF5F2 /* Serialization.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Serialization.hpp; path = ../Source/Serialization.hpp; sourceTree = "<group>"; };
 		46FE56931B2FCB3800ADF5F2 /* Serialization2.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Serialization2.hpp; path = ../Source/Serialization2.hpp; sourceTree = "<group>"; };
 		46FE56951B2FCB3800ADF5F2 /* SerializationStructs.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = SerializationStructs.hpp; path = ../Source/SerializationStructs.hpp; sourceTree = "<group>"; };
 		46FFC2301A52880100FCFAC4 /* libboost_serialization.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libboost_serialization.a; path = ../../../boost_1_57_0/stage/lib/libboost_serialization.a; sourceTree = "<group>"; };
-		46FFC2321A52884900FCFAC4 /* libboost_serialization.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_serialization.dylib; path = ../../../boost_1_57_0/stage/lib/libboost_serialization.dylib; sourceTree = "<group>"; };
 		46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libboost_serialization.dylib; path = ../../../boost_1_57_0/stage/lib/libboost_serialization.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -397,6 +635,72 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		46E6DCFD1B53603E005262F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46E6DCFE1B53603E005262F4 /* libfreetype.a in Frameworks */,
+				46E6DCFF1B53603E005262F4 /* libboost_system.a in Frameworks */,
+				46E6DD001B53603E005262F4 /* libboost_filesystem.a in Frameworks */,
+				46E6DD011B53603E005262F4 /* libpng16.a in Frameworks */,
+				46E6DD021B53603E005262F4 /* libfmod.dylib in Frameworks */,
+				46E6DD031B53603E005262F4 /* libfbxsdk.a in Frameworks */,
+				46E6DD041B53603E005262F4 /* libboost_serialization.a in Frameworks */,
+				46E6DD051B53603E005262F4 /* libLowLevel.a in Frameworks */,
+				46E6DD061B53603E005262F4 /* libLowLevelCloth.a in Frameworks */,
+				46E6DD071B53603E005262F4 /* libPhysX3.a in Frameworks */,
+				46E6DD081B53603E005262F4 /* libPhysX3Common.a in Frameworks */,
+				46E6DD091B53603E005262F4 /* libPhysX3Cooking.a in Frameworks */,
+				46E6DD0A1B53603E005262F4 /* libPhysX3Extensions.a in Frameworks */,
+				46E6DD0B1B53603E005262F4 /* libPhysX3Vehicle.a in Frameworks */,
+				46E6DD0C1B53603E005262F4 /* libPhysXProfileSDK.a in Frameworks */,
+				46E6DD0D1B53603E005262F4 /* libPvdRuntime.a in Frameworks */,
+				46E6DD0E1B53603E005262F4 /* libPxTask.a in Frameworks */,
+				46E6DD0F1B53603E005262F4 /* libSceneQuery.a in Frameworks */,
+				46E6DD101B53603E005262F4 /* libSimulationController.a in Frameworks */,
+				46E6DD111B53603E005262F4 /* Cocoa.framework in Frameworks */,
+				46E6DD121B53603E005262F4 /* libglfw3.a in Frameworks */,
+				46E6DD131B53603E005262F4 /* CoreVideo.framework in Frameworks */,
+				46E6DD141B53603E005262F4 /* IOKit.framework in Frameworks */,
+				46E6DD151B53603E005262F4 /* OpenGL.framework in Frameworks */,
+				46E6DD161B53603E005262F4 /* libGLEW.a in Frameworks */,
+				46E6DD171B53603E005262F4 /* libGLEWmx.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46E6DD2A1B53657E005262F4 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46E6DD6F1B536628005262F4 /* libboost_filesystem.a in Frameworks */,
+				46E6DD701B536628005262F4 /* libboost_system.a in Frameworks */,
+				46E6DD711B536628005262F4 /* libfbxsdk.a in Frameworks */,
+				46E6DD721B536628005262F4 /* libfreetype.a in Frameworks */,
+				46E6DD881B536639005262F4 /* libfmod.dylib in Frameworks */,
+				46E6DD731B536628005262F4 /* libpng16.a in Frameworks */,
+				46E6DD741B536628005262F4 /* libboost_serialization.a in Frameworks */,
+				46E6DD751B536628005262F4 /* libLowLevel.a in Frameworks */,
+				46E6DD761B536628005262F4 /* libLowLevelCloth.a in Frameworks */,
+				46E6DD771B536628005262F4 /* libPhysX3.a in Frameworks */,
+				46E6DD781B536628005262F4 /* libPhysX3Common.a in Frameworks */,
+				46E6DD791B536628005262F4 /* libPhysX3Cooking.a in Frameworks */,
+				46E6DD7A1B536628005262F4 /* libPhysX3Extensions.a in Frameworks */,
+				46E6DD7B1B536628005262F4 /* libPhysX3Vehicle.a in Frameworks */,
+				46E6DD7C1B536628005262F4 /* libPhysXProfileSDK.a in Frameworks */,
+				46E6DD7D1B536628005262F4 /* libPvdRuntime.a in Frameworks */,
+				46E6DD7E1B536628005262F4 /* libPxTask.a in Frameworks */,
+				46E6DD7F1B536628005262F4 /* libSceneQuery.a in Frameworks */,
+				46E6DD801B536628005262F4 /* libSimulationController.a in Frameworks */,
+				46E6DD811B536628005262F4 /* Cocoa.framework in Frameworks */,
+				46E6DD821B536628005262F4 /* libglfw3.a in Frameworks */,
+				46E6DD831B536628005262F4 /* CoreVideo.framework in Frameworks */,
+				46E6DD841B536628005262F4 /* IOKit.framework in Frameworks */,
+				46E6DD851B536628005262F4 /* OpenGL.framework in Frameworks */,
+				46E6DD861B536628005262F4 /* libGLEW.a in Frameworks */,
+				46E6DD871B536628005262F4 /* libGLEWmx.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -429,6 +733,7 @@
 		464D8A861A4A5336007B0CDD /* Header */ = {
 			isa = PBXGroup;
 			children = (
+				46FE56901B2FCB2B00ADF5F2 /* _Serialization */,
 				462019DC1B31586200D599DE /* SpaceShipGame */,
 				46FE568B1B2FCA3200ADF5F2 /* _PhysX */,
 				46FE568A1B2FC9BB00ADF5F2 /* _Core */,
@@ -446,7 +751,6 @@
 			isa = PBXGroup;
 			children = (
 				462019DD1B31587200D599DE /* SpaceShipGame */,
-				46FE56901B2FCB2B00ADF5F2 /* _Serialization */,
 				46FE568C1B2FCA3B00ADF5F2 /* _PhysX */,
 				46FE56891B2FC9B300ADF5F2 /* _Core */,
 				46FE56871B2FC98000ADF5F2 /* _Importers */,
@@ -477,6 +781,9 @@
 		464D8A891A4A53A4007B0CDD /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				46E6DDC21B538A75005262F4 /* libfreetype.6.dylib */,
+				46E6DDC01B538A2D005262F4 /* libGLEWmx.dylib */,
+				46E6DDBE1B538985005262F4 /* libfbxsdk.dylib */,
 				466138E71A64CF6100AB9D02 /* libpng16.16.dylib */,
 				468B50C21A61E5CC00CD58A5 /* libfmod.dylib */,
 				46389E0C1A6CF71E000B0DEB /* libboost_filesystem.a */,
@@ -491,7 +798,6 @@
 				466138EA1A64CFA800AB9D02 /* libpng16.16.dylib */,
 				466138E51A64CF4D00AB9D02 /* libpng16.a */,
 				46FFC2341A52886500FCFAC4 /* libboost_serialization.dylib */,
-				46FFC2321A52884900FCFAC4 /* libboost_serialization.dylib */,
 				46FFC2301A52880100FCFAC4 /* libboost_serialization.a */,
 				464D8B091A4A56B9007B0CDD /* libGLEW.1.11.0.dylib */,
 				464D8B0A1A4A56B9007B0CDD /* libGLEWmx.1.11.0.dylib */,
@@ -669,7 +975,6 @@
 			children = (
 				464D8A881A4A5346007B0CDD /* Content */,
 				464D8A891A4A53A4007B0CDD /* Libs */,
-				4694EE391A4A3A16001E8C48 /* opengl_testing_mag */,
 				4694EE381A4A3A16001E8C48 /* Products */,
 				464D8A861A4A5336007B0CDD /* Header */,
 				464D8A871A4A5342007B0CDD /* Source */,
@@ -680,16 +985,10 @@
 			isa = PBXGroup;
 			children = (
 				4694EE371A4A3A16001E8C48 /* GUInity_Editor */,
+				46E6DD281B53603E005262F4 /* libGUInity_Dynamic */,
+				46E6DD2D1B53657E005262F4 /* libGUInity_EditorDynamic.dylib */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		4694EE391A4A3A16001E8C48 /* opengl_testing_mag */ = {
-			isa = PBXGroup;
-			children = (
-				4694EE3C1A4A3A16001E8C48 /* opengl_testing_mag.1 */,
-			);
-			path = opengl_testing_mag;
 			sourceTree = "<group>";
 		};
 		46FE56831B2D44F700ADF5F2 /* _Modules */ = {
@@ -846,6 +1145,16 @@
 		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		46E6DD2B1B53657E005262F4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
 		4694EE361A4A3A16001E8C48 /* GUInity_Editor */ = {
 			isa = PBXNativeTarget;
@@ -866,6 +1175,45 @@
 			productName = opengl_testing_mag;
 			productReference = 4694EE371A4A3A16001E8C48 /* GUInity_Editor */;
 			productType = "com.apple.product-type.tool";
+		};
+		46E6DCBC1B53603E005262F4 /* GUInity_Dynamic2 */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 46E6DD251B53603E005262F4 /* Build configuration list for PBXNativeTarget "GUInity_Dynamic2" */;
+			buildPhases = (
+				46E6DCBD1B53603E005262F4 /* ShellScript */,
+				46E6DCBE1B53603E005262F4 /* Sources */,
+				46E6DCFD1B53603E005262F4 /* Frameworks */,
+				46E6DD181B53603E005262F4 /* CopyFiles */,
+				46E6DD1A1B53603E005262F4 /* CopyFiles */,
+				46E6DD241B53603E005262F4 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GUInity_Dynamic2;
+			productName = opengl_testing_mag;
+			productReference = 46E6DD281B53603E005262F4 /* libGUInity_Dynamic */;
+			productType = "com.apple.product-type.tool";
+		};
+		46E6DD2C1B53657E005262F4 /* GUInity_EditorDynamic */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 46E6DD2E1B53657E005262F4 /* Build configuration list for PBXNativeTarget "GUInity_EditorDynamic" */;
+			buildPhases = (
+				46E6DD291B53657E005262F4 /* Sources */,
+				46E6DD2A1B53657E005262F4 /* Frameworks */,
+				46E6DD2B1B53657E005262F4 /* Headers */,
+				46E6DD891B5366B1005262F4 /* CopyFiles */,
+				46F549DD1B53975600850B98 /* ShellScript */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = GUInity_EditorDynamic;
+			productName = GUInity_EditorDynamic;
+			productReference = 46E6DD2D1B53657E005262F4 /* libGUInity_EditorDynamic.dylib */;
+			productType = "com.apple.product-type.library.dynamic";
 		};
 /* End PBXNativeTarget section */
 
@@ -889,6 +1237,8 @@
 			projectRoot = "";
 			targets = (
 				4694EE361A4A3A16001E8C48 /* GUInity_Editor */,
+				46E6DCBC1B53603E005262F4 /* GUInity_Dynamic2 */,
+				46E6DD2C1B53657E005262F4 /* GUInity_EditorDynamic */,
 			);
 		};
 /* End PBXProject section */
@@ -918,7 +1268,46 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
+			shellScript = "product_path=\"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}\"\n\necho ${product_path}\n\n\ninstall_name_tool ${product_path} -change   /usr/local/lib/libfreetype.6.dylib @executable_path/libfreetype.6.dylib\ninstall_name_tool ${product_path} -change   libboost_system.dylib @executable_path/libboost_system.dylib\ninstall_name_tool ${product_path} -change   libboost_filesystem.dylib @executable_path/libboost_filesystem.dylib\ninstall_name_tool ${product_path} -change   libboost_serialization.dylib @executable_path/libboost_serialization.dylib\ninstall_name_tool ${product_path} -change   /Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib/libpng16.16.dylib @executable_path/libpng16.16.dylib\ninstall_name_tool ${product_path} -change   @rpath/libfmod.dylib @executable_path/libfmod.dylib\ninstall_name_tool ${product_path} -change   libboost_serialization.dylib @executable_path/libboost_serialization.dylib\ninstall_name_tool ${product_path} -change   /usr/lib/libGLEW.1.11.0.dylib @executable_path/libGLEW.1.11.0.dylib\ninstall_name_tool ${product_path} -change   /usr/lib/libGLEWmx.1.11.0.dylib @executable_path/libGLEWmx.1.11.0.dylib\n\n";
+		};
+		46E6DCBD1B53603E005262F4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "";
+		};
+		46E6DD241B53603E005262F4 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
 			shellScript = "install_name_tool /Users/guilherme_cunha/Dev/GITHUB/GUInity/GUInity_MacOS/DerivedData/GUInity_MacOS/Build/Products/Debug/GUInity_Editor -change   /usr/local/lib/libfreetype.6.dylib @executable_path/libfreetype.6.dylib\ninstall_name_tool /Users/guilherme_cunha/Dev/GITHUB/GUInity/GUInity_MacOS/DerivedData/GUInity_MacOS/Build/Products/Debug/GUInity_Editor -change   libboost_system.dylib @executable_path/libboost_system.dylib\ninstall_name_tool /Users/guilherme_cunha/Dev/GITHUB/GUInity/GUInity_MacOS/DerivedData/GUInity_MacOS/Build/Products/Debug/GUInity_Editor -change   libboost_filesystem.dylib @executable_path/libboost_filesystem.dylib\ninstall_name_tool /Users/guilherme_cunha/Dev/GITHUB/GUInity/GUInity_MacOS/DerivedData/GUInity_MacOS/Build/Products/Debug/GUInity_Editor -change   libboost_serialization.dylib @executable_path/libboost_serialization.dylib\ninstall_name_tool /Users/guilherme_cunha/Dev/GITHUB/GUInity/GUInity_MacOS/DerivedData/GUInity_MacOS/Build/Products/Debug/GUInity_Editor -change   /Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib/libpng16.16.dylib @executable_path/libpng16.16.dylib\ninstall_name_tool /Users/guilherme_cunha/Dev/GITHUB/GUInity/GUInity_MacOS/DerivedData/GUInity_MacOS/Build/Products/Debug/GUInity_Editor -change   @rpath/libfmod.dylib @executable_path/libfmod.dylib\ninstall_name_tool /Users/guilherme_cunha/Dev/GITHUB/GUInity/GUInity_MacOS/DerivedData/GUInity_MacOS/Build/Products/Debug/GUInity_Editor -change   libboost_serialization.dylib @executable_path/libboost_serialization.dylib\ninstall_name_tool /Users/guilherme_cunha/Dev/GITHUB/GUInity/GUInity_MacOS/DerivedData/GUInity_MacOS/Build/Products/Debug/GUInity_Editor -change   /usr/lib/libGLEW.1.11.0.dylib @executable_path/libGLEW.1.11.0.dylib\ninstall_name_tool /Users/guilherme_cunha/Dev/GITHUB/GUInity/GUInity_MacOS/DerivedData/GUInity_MacOS/Build/Products/Debug/GUInity_Editor -change   /usr/lib/libGLEWmx.1.11.0.dylib @executable_path/libGLEWmx.1.11.0.dylib\n\n\n";
+		};
+		46F549DD1B53975600850B98 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "product_path=\"${BUILT_PRODUCTS_DIR}/lib${PRODUCT_NAME}.dylib\"\n\necho ${product_path}\n\n\ninstall_name_tool ${product_path} -change   /usr/local/lib/libfreetype.6.dylib @executable_path/libfreetype.6.dylib\ninstall_name_tool ${product_path} -change   libboost_system.dylib @executable_path/libboost_system.dylib\ninstall_name_tool ${product_path} -change   libboost_filesystem.dylib @executable_path/libboost_filesystem.dylib\ninstall_name_tool ${product_path} -change   libboost_serialization.dylib @executable_path/libboost_serialization.dylib\ninstall_name_tool ${product_path} -change   /Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib/libpng16.16.dylib @executable_path/libpng16.16.dylib\ninstall_name_tool ${product_path} -change   @rpath/libfmod.dylib @executable_path/libfmod.dylib\ninstall_name_tool ${product_path} -change   libboost_serialization.dylib @executable_path/libboost_serialization.dylib\ninstall_name_tool ${product_path} -change   /usr/lib/libGLEW.1.11.0.dylib @executable_path/libGLEW.1.11.0.dylib\ninstall_name_tool ${product_path} -change   /usr/lib/libGLEWmx.1.11.0.dylib @executable_path/libGLEWmx.1.11.0.dylib\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -989,6 +1378,144 @@
 				4672BB1C1A78A164007BF293 /* MoveHandle.cpp in Sources */,
 				4672BB2C1A78A164007BF293 /* RotateHandle.cpp in Sources */,
 				4672BAFE1A78A164007BF293 /* CapsuleCollider.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46E6DCBE1B53603E005262F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46E6DCBF1B53603E005262F4 /* MeshFilter.cpp in Sources */,
+				46E6DCC01B53603E005262F4 /* RigidStatic.cpp in Sources */,
+				46E6DCC11B53603E005262F4 /* PhysXEventCallback.cpp in Sources */,
+				46E6DCC21B53603E005262F4 /* MeshComponent.cpp in Sources */,
+				46E6DCC31B53603E005262F4 /* ScriptComponent.cpp in Sources */,
+				46E6DCC41B53603E005262F4 /* AssetDatabase.cpp in Sources */,
+				46E6DCC51B53603E005262F4 /* PlayerScript.cpp in Sources */,
+				46E6DCC61B53603E005262F4 /* FSAuxiliar.cpp in Sources */,
+				46E6DCC71B53603E005262F4 /* Ray.cpp in Sources */,
+				46E6DCC81B53603E005262F4 /* AsteroidSpawner.cpp in Sources */,
+				46E6DCC91B53603E005262F4 /* Editor.cpp in Sources */,
+				46E6DCCA1B53603E005262F4 /* ScaleHandle.cpp in Sources */,
+				46E6DCCB1B53603E005262F4 /* Texture.cpp in Sources */,
+				46E6DCCC1B53603E005262F4 /* RigidBody.cpp in Sources */,
+				46E6DCCD1B53603E005262F4 /* Transform.cpp in Sources */,
+				46E6DCCE1B53603E005262F4 /* SpaceShipGame.cpp in Sources */,
+				46E6DCCF1B53603E005262F4 /* Game.cpp in Sources */,
+				46E6DCD01B53603E005262F4 /* Font.cpp in Sources */,
+				46E6DCD11B53603E005262F4 /* Asset.cpp in Sources */,
+				46E6DCD21B53603E005262F4 /* main.cpp in Sources */,
+				46E6DCD31B53603E005262F4 /* KillOnCollision.cpp in Sources */,
+				46E6DCD41B53603E005262F4 /* MathStructs.cpp in Sources */,
+				46E6DCD51B53603E005262F4 /* PhysXAllocatorCallback.cpp in Sources */,
+				46E6DCD61B53603E005262F4 /* Camera.cpp in Sources */,
+				46E6DCD71B53603E005262F4 /* MoveTool.cpp in Sources */,
+				46E6DCD81B53603E005262F4 /* Collider.cpp in Sources */,
+				46E6DCD91B53603E005262F4 /* RotateTool.cpp in Sources */,
+				46E6DCDA1B53603E005262F4 /* Material.cpp in Sources */,
+				46E6DCDB1B53603E005262F4 /* MeshImporter.cpp in Sources */,
+				46E6DCDC1B53603E005262F4 /* KillDistanceBased.cpp in Sources */,
+				46E6DCDD1B53603E005262F4 /* Input.cpp in Sources */,
+				46E6DCDE1B53603E005262F4 /* Sound.cpp in Sources */,
+				46E6DCDF1B53603E005262F4 /* MeshCollider.cpp in Sources */,
+				46E6DCE01B53603E005262F4 /* Converter.cpp in Sources */,
+				46E6DCE11B53603E005262F4 /* MeshRenderer.cpp in Sources */,
+				46E6DCE21B53603E005262F4 /* Light.cpp in Sources */,
+				46E6DCE31B53603E005262F4 /* Shader.cpp in Sources */,
+				46E6DCE41B53603E005262F4 /* FontMesh.cpp in Sources */,
+				46E6DCE51B53603E005262F4 /* Physics.cpp in Sources */,
+				46E6DCE61B53603E005262F4 /* World.cpp in Sources */,
+				46E6DCE71B53603E005262F4 /* SphereCollider.cpp in Sources */,
+				46E6DCE81B53603E005262F4 /* Holder.cpp in Sources */,
+				46E6DCE91B53603E005262F4 /* EditorCameraControl.cpp in Sources */,
+				46E6DCEA1B53603E005262F4 /* ScaleTool.cpp in Sources */,
+				46E6DCEB1B53603E005262F4 /* Factory.cpp in Sources */,
+				46E6DCEC1B53603E005262F4 /* Actor.cpp in Sources */,
+				46E6DCED1B53603E005262F4 /* Mesh.cpp in Sources */,
+				46E6DCEE1B53603E005262F4 /* Component.cpp in Sources */,
+				46E6DCEF1B53603E005262F4 /* Module.cpp in Sources */,
+				46E6DCF01B53603E005262F4 /* EditorCollider.cpp in Sources */,
+				46E6DCF11B53603E005262F4 /* Time.cpp in Sources */,
+				46E6DCF21B53603E005262F4 /* GLFWGraphicsSystem.cpp in Sources */,
+				46E6DCF31B53603E005262F4 /* GraphicsSystem.cpp in Sources */,
+				46E6DCF41B53603E005262F4 /* Math.cpp in Sources */,
+				46E6DCF51B53603E005262F4 /* PointsTracker.cpp in Sources */,
+				46E6DCF61B53603E005262F4 /* PhysicsMaterial.cpp in Sources */,
+				46E6DCF71B53603E005262F4 /* SoundSystem.cpp in Sources */,
+				46E6DCF81B53603E005262F4 /* print.cpp in Sources */,
+				46E6DCF91B53603E005262F4 /* BoxCollider.cpp in Sources */,
+				46E6DCFA1B53603E005262F4 /* MoveHandle.cpp in Sources */,
+				46E6DCFB1B53603E005262F4 /* RotateHandle.cpp in Sources */,
+				46E6DCFC1B53603E005262F4 /* CapsuleCollider.cpp in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		46E6DD291B53657E005262F4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				46E6DD311B5365D8005262F4 /* AsteroidSpawner.cpp in Sources */,
+				46E6DD321B5365D8005262F4 /* KillOnCollision.cpp in Sources */,
+				46E6DD331B5365D8005262F4 /* PlayerScript.cpp in Sources */,
+				46E6DD341B5365D8005262F4 /* SpaceShipGame.cpp in Sources */,
+				46E6DD351B5365D8005262F4 /* PointsTracker.cpp in Sources */,
+				46E6DD361B5365D8005262F4 /* KillDistanceBased.cpp in Sources */,
+				46E6DD371B5365D8005262F4 /* PhysXAllocatorCallback.cpp in Sources */,
+				46E6DD381B5365D8005262F4 /* PhysXEventCallback.cpp in Sources */,
+				46E6DD391B5365D8005262F4 /* Actor.cpp in Sources */,
+				46E6DD3A1B5365D8005262F4 /* Factory.cpp in Sources */,
+				46E6DD3B1B5365D8005262F4 /* AssetDatabase.cpp in Sources */,
+				46E6DD3C1B5365D8005262F4 /* Editor.cpp in Sources */,
+				46E6DD3D1B5365D8005262F4 /* Game.cpp in Sources */,
+				46E6DD3E1B5365D8005262F4 /* Transform.cpp in Sources */,
+				46E6DD3F1B5365D8005262F4 /* World.cpp in Sources */,
+				46E6DD401B5365D8005262F4 /* Component.cpp in Sources */,
+				46E6DD411B5365D8005262F4 /* MeshImporter.cpp in Sources */,
+				46E6DD421B5365D8005262F4 /* Asset.cpp in Sources */,
+				46E6DD431B5365D8005262F4 /* Font.cpp in Sources */,
+				46E6DD441B5365D8005262F4 /* Material.cpp in Sources */,
+				46E6DD451B5365D8005262F4 /* Mesh.cpp in Sources */,
+				46E6DD461B5365D8005262F4 /* PhysicsMaterial.cpp in Sources */,
+				46E6DD471B5365D8005262F4 /* Shader.cpp in Sources */,
+				46E6DD481B5365D8005262F4 /* Sound.cpp in Sources */,
+				46E6DD491B5365D8005262F4 /* Texture.cpp in Sources */,
+				46E6DD4A1B5365D8005262F4 /* Math.cpp in Sources */,
+				46E6DD4B1B5365D8005262F4 /* Ray.cpp in Sources */,
+				46E6DD4C1B5365D8005262F4 /* MathStructs.cpp in Sources */,
+				46E6DD4D1B5365D8005262F4 /* Module.cpp in Sources */,
+				46E6DD4E1B5365D8005262F4 /* Converter.cpp in Sources */,
+				46E6DD4F1B5365D8005262F4 /* FSAuxiliar.cpp in Sources */,
+				46E6DD501B5365D8005262F4 /* Holder.cpp in Sources */,
+				46E6DD511B5365D8005262F4 /* print.cpp in Sources */,
+				46E6DD521B5365D8005262F4 /* BoxCollider.cpp in Sources */,
+				46E6DD531B5365D8005262F4 /* Camera.cpp in Sources */,
+				46E6DD541B5365D8005262F4 /* CapsuleCollider.cpp in Sources */,
+				46E6DD551B5365D8005262F4 /* Collider.cpp in Sources */,
+				46E6DD561B5365D8005262F4 /* EditorCollider.cpp in Sources */,
+				46E6DD571B5365D8005262F4 /* FontMesh.cpp in Sources */,
+				46E6DD581B5365D8005262F4 /* Light.cpp in Sources */,
+				46E6DD591B5365D8005262F4 /* MeshCollider.cpp in Sources */,
+				46E6DD5A1B5365D8005262F4 /* MeshComponent.cpp in Sources */,
+				46E6DD5B1B5365D8005262F4 /* MeshFilter.cpp in Sources */,
+				46E6DD5C1B5365D8005262F4 /* MeshRenderer.cpp in Sources */,
+				46E6DD5D1B5365D8005262F4 /* RigidBody.cpp in Sources */,
+				46E6DD5E1B5365D8005262F4 /* RigidStatic.cpp in Sources */,
+				46E6DD5F1B5365D8005262F4 /* ScriptComponent.cpp in Sources */,
+				46E6DD601B5365D8005262F4 /* SphereCollider.cpp in Sources */,
+				46E6DD611B5365D8005262F4 /* GLFWGraphicsSystem.cpp in Sources */,
+				46E6DD621B5365D8005262F4 /* GraphicsSystem.cpp in Sources */,
+				46E6DD631B5365D8005262F4 /* Input.cpp in Sources */,
+				46E6DD641B5365D8005262F4 /* Physics.cpp in Sources */,
+				46E6DD651B5365D8005262F4 /* SoundSystem.cpp in Sources */,
+				46E6DD661B5365D8005262F4 /* Time.cpp in Sources */,
+				46E6DD671B5365D8005262F4 /* EditorCameraControl.cpp in Sources */,
+				46E6DD681B5365D8005262F4 /* MoveHandle.cpp in Sources */,
+				46E6DD691B5365D8005262F4 /* MoveTool.cpp in Sources */,
+				46E6DD6A1B5365D8005262F4 /* RotateHandle.cpp in Sources */,
+				46E6DD6B1B5365D8005262F4 /* RotateTool.cpp in Sources */,
+				46E6DD6C1B5365D8005262F4 /* ScaleHandle.cpp in Sources */,
+				46E6DD6D1B5365D8005262F4 /* ScaleTool.cpp in Sources */,
+				46E6DD6E1B5365D8005262F4 /* main.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1157,6 +1684,186 @@
 			};
 			name = Release;
 		};
+		46E6DD261B53603E005262F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1y";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				EXECUTABLE_EXTENSION = dylib;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"_DEBUG=1",
+					GUINITY_DEBUG,
+					_GLFW_USE_MENUBAR,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/Users/guilherme_cunha/Dev/glew-1.11.0/include",
+					"/Users/guilherme_cunha/Dev/glfw-3.0.4/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include",
+					/Users/guilherme_cunha/Dev/glm,
+					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/inc,
+					/Applications/Autodesk/FBX_SDK/2015.1/include,
+					/Users/guilherme_cunha/Dev/boost_1_57_0,
+					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Samples/PxToolkit/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Source/foundation/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include/foundation",
+					"/Users/guilherme_cunha/Dev/freetype-2.4.0/include",
+					"/Users/guilherme_cunha/Dev/alglib-3.9.0/cpp/src",
+				);
+				LD_RUNPATH_SEARCH_PATHS = libfmod.dylib;
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
+					"/Users/guilherme_cunha/Dev/glfw-3.0.4/bin/src/Debug",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Lib/osx64",
+					/Users/guilherme_cunha/Dev/boost_1_57_0/stage/lib,
+					"$(SYSTEM_APPS_DIR)/Autodesk/FBX_SDK/2015.1/lib/clang/debug",
+					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/lib,
+					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib",
+					"/Users/guilherme_cunha/Dev/freetype-2.4.0/bin/lib",
+				);
+				OTHER_CFLAGS = "";
+				PRODUCT_NAME = GUInity_Dynamic;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Debug;
+		};
+		46E6DD271B53603E005262F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1y";
+				EXECUTABLE_EXTENSION = dylib;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=0",
+					"$(inherited)",
+					"_DEBUG=0",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/Users/guilherme_cunha/Dev/glew-1.11.0/include",
+					"/Users/guilherme_cunha/Dev/glfw-3.0.4/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include",
+					/Users/guilherme_cunha/Dev/glm,
+					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/inc,
+					/Applications/Autodesk/FBX_SDK/2015.1/include,
+					/Users/guilherme_cunha/Dev/boost_1_57_0,
+					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Samples/PxToolkit/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Source/foundation/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include/foundation",
+					"/Users/guilherme_cunha/Dev/freetype-2.4.0/include",
+					"/Users/guilherme_cunha/Dev/alglib-3.9.0/cpp/src",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
+					"/Users/guilherme_cunha/Dev/glfw-3.0.4/bin/src/Debug",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Lib/osx64",
+					/Users/guilherme_cunha/Dev/boost_1_57_0/stage/lib,
+					"$(SYSTEM_APPS_DIR)/Autodesk/FBX_SDK/2015.1/lib/clang/debug",
+					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/lib,
+					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib",
+					"/Users/guilherme_cunha/Dev/freetype-2.4.0/bin/lib",
+				);
+				OTHER_CFLAGS = "";
+				PRODUCT_NAME = GUInity_Dynamic;
+				VALID_ARCHS = "i386 x86_64";
+			};
+			name = Release;
+		};
+		46E6DD2F1B53657E005262F4 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+					"_DEBUG=1",
+					GUINITY_DEBUG,
+					_GLFW_USE_MENUBAR,
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/Users/guilherme_cunha/Dev/glew-1.11.0/include",
+					"/Users/guilherme_cunha/Dev/glfw-3.0.4/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include",
+					/Users/guilherme_cunha/Dev/glm,
+					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/inc,
+					/Applications/Autodesk/FBX_SDK/2015.1/include,
+					/Users/guilherme_cunha/Dev/boost_1_57_0,
+					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Samples/PxToolkit/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Source/foundation/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include/foundation",
+					"/Users/guilherme_cunha/Dev/freetype-2.4.0/include",
+					"/Users/guilherme_cunha/Dev/alglib-3.9.0/cpp/src",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
+					"/Users/guilherme_cunha/Dev/glfw-3.0.4/bin/src/Debug",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Lib/osx64",
+					/Users/guilherme_cunha/Dev/boost_1_57_0/stage/lib,
+					"$(SYSTEM_APPS_DIR)/Autodesk/FBX_SDK/2015.1/lib/clang/debug",
+					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/lib,
+					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib",
+					"/Users/guilherme_cunha/Dev/freetype-2.4.0/bin/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		46E6DD301B53657E005262F4 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
+				EXECUTABLE_PREFIX = lib;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=0",
+					"$(inherited)",
+					"_DEBUG=0",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"/Users/guilherme_cunha/Dev/glew-1.11.0/include",
+					"/Users/guilherme_cunha/Dev/glfw-3.0.4/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include",
+					/Users/guilherme_cunha/Dev/glm,
+					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/inc,
+					/Applications/Autodesk/FBX_SDK/2015.1/include,
+					/Users/guilherme_cunha/Dev/boost_1_57_0,
+					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Samples/PxToolkit/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Source/foundation/include",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include/foundation",
+					"/Users/guilherme_cunha/Dev/freetype-2.4.0/include",
+					"/Users/guilherme_cunha/Dev/alglib-3.9.0/cpp/src",
+				);
+				LIBRARY_SEARCH_PATHS = (
+					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
+					"/Users/guilherme_cunha/Dev/glfw-3.0.4/bin/src/Debug",
+					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Lib/osx64",
+					/Users/guilherme_cunha/Dev/boost_1_57_0/stage/lib,
+					"$(SYSTEM_APPS_DIR)/Autodesk/FBX_SDK/2015.1/lib/clang/debug",
+					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/lib,
+					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib",
+					"/Users/guilherme_cunha/Dev/freetype-2.4.0/bin/lib",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -1174,6 +1881,24 @@
 			buildConfigurations = (
 				4694EE411A4A3A16001E8C48 /* Debug */,
 				4694EE421A4A3A16001E8C48 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		46E6DD251B53603E005262F4 /* Build configuration list for PBXNativeTarget "GUInity_Dynamic2" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46E6DD261B53603E005262F4 /* Debug */,
+				46E6DD271B53603E005262F4 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		46E6DD2E1B53657E005262F4 /* Build configuration list for PBXNativeTarget "GUInity_EditorDynamic" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				46E6DD2F1B53657E005262F4 /* Debug */,
+				46E6DD301B53657E005262F4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

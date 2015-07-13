@@ -9,15 +9,30 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
-		<key>opengl_testing_mag.xcscheme</key>
+		<key>GUInity_EditorDynamic.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
+			<integer>4</integer>
 		</dict>
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>4694EE361A4A3A16001E8C48</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>46E6DC081B535EAC005262F4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>46E6DCBC1B53603E005262F4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>46E6DD2C1B53657E005262F4</key>
 		<dict>
 			<key>primary</key>
 			<true/>
