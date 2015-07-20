@@ -67,7 +67,7 @@ void EditorCameraControl::tick(float deltaSeconds)
 
 	if (rightButtonPressed)
 	{
-		glm::vec2 mouseDelta = Input::mouseDelta;
+		glm::vec2 mouseDelta = Input::getMouseDelta();
 
 		getActor()->transform->rotation = glm::angleAxis(-mouseDelta.x * deltaSeconds, glm::vec3(0, 1, 0))* glm::angleAxis(mouseDelta.y * deltaSeconds, getActor()->transform->getRight())  * getActor()->transform->rotation;
 

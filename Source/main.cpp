@@ -114,17 +114,19 @@ BOOST_SHARED_POINTER_EXPORT_GUID(Transform, "Transform")
 
 #define EXPORT __attribute__((visibility("default")))
 
+
 EXPORT
-int startGUInity()
+int startGUInity(GLFWwindow* window)
 {
     
-    int notOK = GraphicsSystem::getInstance()->init(1024,768);
+    int notOK = GraphicsSystem::getInstance()->initGLFW(window,1024,768);
 	if (notOK)
 		return 1;
     
     AssetDatabase::init();
     
-    Input input(GraphicsSystem::getInstance()->getWindow());
+    Input input(window);
+    //    Input input(GraphicsSystem::getInstance()->getWindow());
 	
 	SoundSystem::getInstance()->init();
     
@@ -147,7 +149,10 @@ int startGUInity()
     editor->world->awake();
     game->world->awake();
     
-    while (!glfwWindowShouldClose(GraphicsSystem::getInstance()->getWindow().get())) {
+    
+    while(!GraphicsSystem::getInstance()->shouldClose())
+    {
+        
         Time::frameStart();
         
         Input::updateInputState();
@@ -187,16 +192,255 @@ int startGUInity()
     return 0;
 }
 
-int main(int argc, char *argv[]) {
+EXPORT
+int startGUInity(wxGLCanvas* window,wxGLContext* context)
+{
     
-    return startGUInity();
-//    int notOK = GraphicsSystem::getInstance()->init(1024,768);
+    int notOK = GraphicsSystem::getInstance()->initWX(window,context,1024,768);
+	if (notOK)
+		return 1;
+    
+    AssetDatabase::init();
+    
+    Input input();
+    //    Input input(GraphicsSystem::getInstance()->getWindow());
+	
+	SoundSystem::getInstance()->init();
+    
+    Physics physics;
+    physics.init();
+    
+    
+    EngineMode engineMode = EngineMode::editor;
+    
+    shared_ptr<Editor> editor = make_shared<Editor>();
+    editor->init();
+    
+    shared_ptr<Game> game = make_shared<Game>();
+    game->init();
+    
+    shared_ptr<MyGame> myGame = make_shared<SpaceShipGame>();
+    
+    myGame->setupInitialScene();
+    
+    editor->world->awake();
+    game->world->awake();
+    
+    
+    while(!GraphicsSystem::getInstance()->shouldClose())
+    {
+        
+        Time::frameStart();
+        
+        Input::updateInputState();
+        
+        
+        switch (engineMode)
+        {
+            case EngineMode::editor:
+                editor->update(Time::deltaTime,game->world);
+                break;
+            case EngineMode::game:
+                game->update(Time::deltaTime);
+                break;
+            default:
+                break;
+        }
+		
+        if (Input::getKeyPressed(GLFW_KEY_1))
+            engineMode = EngineMode::editor;
+        if (Input::getKeyPressed(GLFW_KEY_2))
+            engineMode = EngineMode::game;
+        
+        float fps = Time::frameEnd();
+        cout << "FPS:" << 1.0f/fps << endl;
+    }
+    
+    physics.shutdown();
+	
+    editor->shutdown();
+    
+    game->shutdown();
+    
+    // close GL context and any other GLFW resources
+	SoundSystem::getInstance()->shutdown();
+    GraphicsSystem::getInstance()->shutdown();
+    
+    return 0;
+}
+
+class QWindow;
+class QOpenGLContext;
+
+EXPORT
+int startGUInity(QWindow* window,QOpenGLContext* context)
+{
+    
+    int notOK = GraphicsSystem::getInstance()->initQT(window,context,1024,768);
+	if (notOK)
+		return 1;
+    
+    AssetDatabase::init();
+    
+    Input input();
+    //    Input input(GraphicsSystem::getInstance()->getWindow());
+	
+	SoundSystem::getInstance()->init();
+    
+    Physics physics;
+    physics.init();
+    
+    
+    EngineMode engineMode = EngineMode::editor;
+    
+    shared_ptr<Editor> editor = make_shared<Editor>();
+    editor->init();
+    
+    shared_ptr<Game> game = make_shared<Game>();
+    game->init();
+    
+    shared_ptr<MyGame> myGame = make_shared<SpaceShipGame>();
+    
+    myGame->setupInitialScene();
+    
+    editor->world->awake();
+    game->world->awake();
+    
+    
+    while(!GraphicsSystem::getInstance()->shouldClose())
+    {
+        
+        Time::frameStart();
+        
+        Input::updateInputState();
+        
+        
+        switch (engineMode)
+        {
+            case EngineMode::editor:
+                editor->update(Time::deltaTime,game->world);
+                break;
+            case EngineMode::game:
+                game->update(Time::deltaTime);
+                break;
+            default:
+                break;
+        }
+		
+        if (Input::getKeyPressed(GLFW_KEY_1))
+            engineMode = EngineMode::editor;
+        if (Input::getKeyPressed(GLFW_KEY_2))
+            engineMode = EngineMode::game;
+        
+        float fps = Time::frameEnd();
+        cout << "FPS:" << 1.0f/fps << endl;
+    }
+    
+    physics.shutdown();
+	
+    editor->shutdown();
+    
+    game->shutdown();
+    
+    // close GL context and any other GLFW resources
+	SoundSystem::getInstance()->shutdown();
+    GraphicsSystem::getInstance()->shutdown();
+    
+    return 0;
+}
+
+
+EXPORT
+int startGUInity()
+{
+    
+    int notOK = GraphicsSystem::getInstance()->init(1024,768);
+	if (notOK)
+		return 1;
+    
+    AssetDatabase::init();
+    
+    Input input;
+//    Input input(GraphicsSystem::getInstance()->getWindow());
+	
+	SoundSystem::getInstance()->init();
+    
+    Physics physics;
+    physics.init();
+    
+    
+    EngineMode engineMode = EngineMode::editor;
+    
+    shared_ptr<Editor> editor = make_shared<Editor>();
+    editor->init();
+    
+    shared_ptr<Game> game = make_shared<Game>();
+    game->init();
+    
+    shared_ptr<MyGame> myGame = make_shared<SpaceShipGame>();
+    
+    myGame->setupInitialScene();
+    
+    editor->world->awake();
+    game->world->awake();
+    
+    
+    while(!GraphicsSystem::getInstance()->shouldClose())
+    {
+
+        Time::frameStart();
+        
+        Input::updateInputState();
+        
+        
+        switch (engineMode)
+        {
+            case EngineMode::editor:
+                editor->update(Time::deltaTime,game->world);
+                break;
+            case EngineMode::game:
+                game->update(Time::deltaTime);
+                break;
+            default:
+                break;
+        }
+		
+        if (Input::getKeyPressed(GLFW_KEY_1))
+            engineMode = EngineMode::editor;
+        if (Input::getKeyPressed(GLFW_KEY_2))
+            engineMode = EngineMode::game;
+        
+        float fps = Time::frameEnd();
+        cout << "FPS:" << 1.0f/fps << endl;
+    }
+    
+    physics.shutdown();
+	
+    editor->shutdown();
+    
+    game->shutdown();
+    
+    // close GL context and any other GLFW resources
+	SoundSystem::getInstance()->shutdown();
+    GraphicsSystem::getInstance()->shutdown();
+    
+    return 0;
+}
+
+class wxGLCanvas;
+
+//EXPORT
+//int startGUInityWX(wxGLCanvas *glCanvas)
+//{
+//    
+//    int notOK = GraphicsSystem::getInstance()->initWX(glCanvas,1024,768);
 //	if (notOK)
 //		return 1;
-//
+//    
 //    AssetDatabase::init();
 //    
-//    Input input(GraphicsSystem::getInstance()->getWindow());
+//    Input input;
+////    Input input(GraphicsSystem::getInstance()->getWindow());
 //	
 //	SoundSystem::getInstance()->init();
 //    
@@ -211,7 +455,7 @@ int main(int argc, char *argv[]) {
 //    
 //    shared_ptr<Game> game = make_shared<Game>();
 //    game->init();
-//   
+//    
 //    shared_ptr<MyGame> myGame = make_shared<SpaceShipGame>();
 //    
 //    myGame->setupInitialScene();
@@ -219,7 +463,10 @@ int main(int argc, char *argv[]) {
 //    editor->world->awake();
 //    game->world->awake();
 //    
-//    while (!glfwWindowShouldClose(GraphicsSystem::getInstance()->getWindow().get())) {
+//    
+//    while(!GraphicsSystem::getInstance()->shouldClose())
+//    {
+//        
 //        Time::frameStart();
 //        
 //        Input::updateInputState();
@@ -255,7 +502,13 @@ int main(int argc, char *argv[]) {
 //    // close GL context and any other GLFW resources
 //	SoundSystem::getInstance()->shutdown();
 //    GraphicsSystem::getInstance()->shutdown();
-//
 //    
-//	return 0;
+//    return 0;
+//}
+
+
+int main(int argc, char *argv[]) {
+    
+    return startGUInity();
+
 }

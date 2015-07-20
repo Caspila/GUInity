@@ -3,8 +3,9 @@
 #include <iostream>
 #include <memory>
 #include <string>
+//#include <OpenGL/OpenGL.h>
 #include <gl/glew.h>
-#include <GLFW/glfw3.h>
+
 #include "StaticCounter.hpp"
 
 #ifndef DATA_PATH

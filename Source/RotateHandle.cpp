@@ -55,7 +55,7 @@ void RotateHandle::tick(float deltaSeconds)
 		myParent->transform->rotation = currentActor->transform->rotation;
 	}
 
-	Ray r = Editor::cameraComponent->screenPointToRay(Input::mousePos);
+	Ray r = Editor::cameraComponent->screenPointToRay(Input::getMousePos());
 
 	PxRaycastBuffer hitCallback;
 
@@ -79,7 +79,7 @@ void RotateHandle::tick(float deltaSeconds)
 	
 	if (isPressed)
 	{
-		glm::vec2 mouseDelta = Input::mouseDelta;
+		glm::vec2 mouseDelta = Input::getMouseDelta();
 		if (glm::length(mouseDelta) > 0)
 		{
             glm::vec3 point1 = currentActor->transform->position;
@@ -118,8 +118,8 @@ void RotateHandle::tick(float deltaSeconds)
             
             Plane p(point1, point2, point3);
             
-            glm::vec3 newWorldPlane = Editor::cameraComponent->screenPointToPlane(p, Input::mousePos);
-            glm::vec3 oldWorldPlane = Editor::cameraComponent->screenPointToPlane(p, Input::mousePos - Input::mouseDelta);
+            glm::vec3 newWorldPlane = Editor::cameraComponent->screenPointToPlane(p, Input::getMousePos());
+            glm::vec3 oldWorldPlane = Editor::cameraComponent->screenPointToPlane(p, Input::getMousePos() - Input::getMouseDelta());
             
             float dot = 1 - glm::dot((newWorldPlane-point1), (oldWorldPlane-point1));
             dot = fabs(dot);

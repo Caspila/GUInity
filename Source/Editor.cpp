@@ -102,7 +102,7 @@ void Editor::update(float deltaSeconds, shared_ptr<World> gameWorld)
     }
     
     // Checks if user is clicking at an object
-	Ray r = cameraComponent->screenPointToRay(Input::mousePos);
+	Ray r = cameraComponent->screenPointToRay(Input::getMousePos());
     
 	PxRaycastBuffer hitCallback;
 	if (Input::getMouseButtonPressed(GLFW_MOUSE_BUTTON_1))

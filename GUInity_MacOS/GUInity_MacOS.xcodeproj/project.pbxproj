@@ -54,7 +54,6 @@
 		4672BB071A78A164007BF293 /* FontMesh.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA851A78A164007BF293 /* FontMesh.cpp */; };
 		4672BB081A78A164007BF293 /* FSAuxiliar.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA871A78A164007BF293 /* FSAuxiliar.cpp */; };
 		4672BB091A78A164007BF293 /* Game.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA891A78A164007BF293 /* Game.cpp */; };
-		4672BB0A1A78A164007BF293 /* GLFWGraphicsSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA8B1A78A164007BF293 /* GLFWGraphicsSystem.cpp */; };
 		4672BB0B1A78A164007BF293 /* GraphicsSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA8D1A78A164007BF293 /* GraphicsSystem.cpp */; };
 		4672BB0C1A78A164007BF293 /* Holder.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA8F1A78A164007BF293 /* Holder.cpp */; };
 		4672BB0E1A78A164007BF293 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA931A78A164007BF293 /* Input.cpp */; };
@@ -94,6 +93,23 @@
 		4672BB3F1A78A164007BF293 /* World.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAF61A78A164007BF293 /* World.cpp */; };
 		4672BB411A78A25A007BF293 /* libfreetype.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 4672BB401A78A25A007BF293 /* libfreetype.a */; };
 		4672BB431A78A26D007BF293 /* libfreetype.6.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 4672BB421A78A26D007BF293 /* libfreetype.6.dylib */; };
+		467CA82C1B5CD2290084FD0A /* QtGui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468255F41B562C850095FA94 /* QtGui.framework */; };
+		468255931B53A6FC0095FA94 /* GLFW_Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468255911B53A6FC0095FA94 /* GLFW_Context.cpp */; };
+		468255961B53AE4D0095FA94 /* WXGL_Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468255941B53AE4D0095FA94 /* WXGL_Context.cpp */; };
+		468255991B53B0F00095FA94 /* libwx_osx_cocoa.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 468255971B53B0E40095FA94 /* libwx_osx_cocoa.dylib */; };
+		4682559A1B53B10A0095FA94 /* libwx_osx_cocoa.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 468255971B53B0E40095FA94 /* libwx_osx_cocoa.dylib */; };
+		468255DA1B54DB4D0095FA94 /* libfreetype.6.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 46E6DDC21B538A75005262F4 /* libfreetype.6.dylib */; };
+		468255DB1B54DB7D0095FA94 /* GLFW_Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468255911B53A6FC0095FA94 /* GLFW_Context.cpp */; };
+		468255DC1B54DBA30095FA94 /* WXGL_Context.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468255941B53AE4D0095FA94 /* WXGL_Context.cpp */; };
+		468255DF1B54DC860095FA94 /* GLFW_Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468255DD1B54DC860095FA94 /* GLFW_Input.cpp */; };
+		468255E41B54E2F40095FA94 /* InputModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468255E31B54E2F40095FA94 /* InputModule.cpp */; };
+		468255E51B54E6410095FA94 /* GLFW_Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468255DD1B54DC860095FA94 /* GLFW_Input.cpp */; };
+		468255E61B54E6510095FA94 /* InputModule.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468255E31B54E2F40095FA94 /* InputModule.cpp */; };
+		468255EC1B561C850095FA94 /* QT_GLContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468255EA1B561C850095FA94 /* QT_GLContext.cpp */; };
+		468255ED1B561F840095FA94 /* libwx_osx_cocoa.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 468255971B53B0E40095FA94 /* libwx_osx_cocoa.dylib */; };
+		468255EE1B561FAB0095FA94 /* libwx_osx_cocoa.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 468255971B53B0E40095FA94 /* libwx_osx_cocoa.dylib */; };
+		468255F51B562C850095FA94 /* QtGui.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 468255F41B562C850095FA94 /* QtGui.framework */; };
+		468255F71B562CCE0095FA94 /* QT_GLContext.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 468255EA1B561C850095FA94 /* QT_GLContext.cpp */; };
 		468B50BF1A61E54B00CD58A5 /* libfbxsdk.dylib in CopyFiles */ = {isa = PBXBuildFile; fileRef = 468B50BE1A61E54B00CD58A5 /* libfbxsdk.dylib */; };
 		468B50C11A61E56700CD58A5 /* libfbxsdk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 468B50C01A61E56700CD58A5 /* libfbxsdk.a */; };
 		468B50C31A61E5CC00CD58A5 /* libfmod.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 468B50C21A61E5CC00CD58A5 /* libfmod.dylib */; };
@@ -150,7 +166,6 @@
 		46E6DD5E1B5365D8005262F4 /* RigidStatic.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BACD1A78A164007BF293 /* RigidStatic.cpp */; };
 		46E6DD5F1B5365D8005262F4 /* ScriptComponent.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAD91A78A164007BF293 /* ScriptComponent.cpp */; };
 		46E6DD601B5365D8005262F4 /* SphereCollider.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAE21A78A164007BF293 /* SphereCollider.cpp */; };
-		46E6DD611B5365D8005262F4 /* GLFWGraphicsSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA8B1A78A164007BF293 /* GLFWGraphicsSystem.cpp */; };
 		46E6DD621B5365D8005262F4 /* GraphicsSystem.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA8D1A78A164007BF293 /* GraphicsSystem.cpp */; };
 		46E6DD631B5365D8005262F4 /* Input.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BA931A78A164007BF293 /* Input.cpp */; };
 		46E6DD641B5365D8005262F4 /* Physics.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4672BAB41A78A164007BF293 /* Physics.cpp */; };
@@ -216,6 +231,7 @@
 				468B50C51A61E5E300CD58A5 /* libfmod.dylib in CopyFiles */,
 				468B50BF1A61E54B00CD58A5 /* libfbxsdk.dylib in CopyFiles */,
 				46FFC2351A52886500FCFAC4 /* libboost_serialization.dylib in CopyFiles */,
+				4682559A1B53B10A0095FA94 /* libwx_osx_cocoa.dylib in CopyFiles */,
 				464D8B0B1A4A56B9007B0CDD /* libGLEW.1.11.0.dylib in CopyFiles */,
 				464D8B0C1A4A56B9007B0CDD /* libGLEWmx.1.11.0.dylib in CopyFiles */,
 			);
@@ -244,6 +260,7 @@
 				46E6DDBF1B538985005262F4 /* libfbxsdk.dylib in CopyFiles */,
 				46E6DDC11B538A2D005262F4 /* libGLEWmx.dylib in CopyFiles */,
 				46E6DD901B5366B4005262F4 /* libGLEWmx.1.11.0.dylib in CopyFiles */,
+				468255EE1B561FAB0095FA94 /* libwx_osx_cocoa.dylib in CopyFiles */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -371,8 +388,6 @@
 		4672BA881A78A164007BF293 /* FSAuxiliar.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = FSAuxiliar.hpp; path = ../Source/FSAuxiliar.hpp; sourceTree = "<group>"; };
 		4672BA891A78A164007BF293 /* Game.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Game.cpp; path = ../Source/Game.cpp; sourceTree = "<group>"; };
 		4672BA8A1A78A164007BF293 /* Game.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = Game.hpp; path = ../Source/Game.hpp; sourceTree = "<group>"; };
-		4672BA8B1A78A164007BF293 /* GLFWGraphicsSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLFWGraphicsSystem.cpp; path = ../Source/GLFWGraphicsSystem.cpp; sourceTree = "<group>"; };
-		4672BA8C1A78A164007BF293 /* GLFWGraphicsSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GLFWGraphicsSystem.hpp; path = ../Source/GLFWGraphicsSystem.hpp; sourceTree = "<group>"; };
 		4672BA8D1A78A164007BF293 /* GraphicsSystem.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GraphicsSystem.cpp; path = ../Source/GraphicsSystem.cpp; sourceTree = "<group>"; };
 		4672BA8E1A78A164007BF293 /* GraphicsSystem.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GraphicsSystem.hpp; path = ../Source/GraphicsSystem.hpp; sourceTree = "<group>"; };
 		4672BA8F1A78A164007BF293 /* Holder.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Holder.cpp; path = ../Source/Holder.cpp; sourceTree = "<group>"; };
@@ -451,6 +466,19 @@
 		4672BAF71A78A164007BF293 /* World.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = World.hpp; path = ../Source/World.hpp; sourceTree = "<group>"; };
 		4672BB401A78A25A007BF293 /* libfreetype.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfreetype.a; path = "../../../freetype-2.4.0/bin/lib/libfreetype.a"; sourceTree = "<group>"; };
 		4672BB421A78A26D007BF293 /* libfreetype.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfreetype.6.dylib; path = "../../../freetype-2.4.0/bin/lib/libfreetype.6.dylib"; sourceTree = "<group>"; };
+		4682558F1B53A69C0095FA94 /* GLContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GLContext.hpp; path = ../Source/GLContext.hpp; sourceTree = "<group>"; };
+		468255911B53A6FC0095FA94 /* GLFW_Context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLFW_Context.cpp; path = ../Source/GLFW_Context.cpp; sourceTree = "<group>"; };
+		468255921B53A6FC0095FA94 /* GLFW_Context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GLFW_Context.hpp; path = ../Source/GLFW_Context.hpp; sourceTree = "<group>"; };
+		468255941B53AE4D0095FA94 /* WXGL_Context.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = WXGL_Context.cpp; path = ../Source/WXGL_Context.cpp; sourceTree = "<group>"; };
+		468255951B53AE4D0095FA94 /* WXGL_Context.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = WXGL_Context.hpp; path = ../Source/WXGL_Context.hpp; sourceTree = "<group>"; };
+		468255971B53B0E40095FA94 /* libwx_osx_cocoa.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libwx_osx_cocoa.dylib; path = "../../../wxWidgets-3.0.2/build/osx/DerivedData/wxcocoa/Build/Products/Debug/libwx_osx_cocoa.dylib"; sourceTree = "<group>"; };
+		468255DD1B54DC860095FA94 /* GLFW_Input.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = GLFW_Input.cpp; path = ../Source/GLFW_Input.cpp; sourceTree = "<group>"; };
+		468255DE1B54DC860095FA94 /* GLFW_Input.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = GLFW_Input.hpp; path = ../Source/GLFW_Input.hpp; sourceTree = "<group>"; };
+		468255E11B54DF7E0095FA94 /* InputModule.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = InputModule.hpp; path = ../Source/InputModule.hpp; sourceTree = "<group>"; };
+		468255E31B54E2F40095FA94 /* InputModule.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = InputModule.cpp; path = ../Source/InputModule.cpp; sourceTree = "<group>"; };
+		468255EA1B561C850095FA94 /* QT_GLContext.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = QT_GLContext.cpp; path = ../Source/QT_GLContext.cpp; sourceTree = "<group>"; };
+		468255EB1B561C850095FA94 /* QT_GLContext.hpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.h; name = QT_GLContext.hpp; path = ../Source/QT_GLContext.hpp; sourceTree = "<group>"; };
+		468255F41B562C850095FA94 /* QtGui.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QtGui.framework; path = ../../../Qt/5.4/clang_64/lib/QtGui.framework; sourceTree = "<group>"; };
 		468B50BE1A61E54B00CD58A5 /* libfbxsdk.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfbxsdk.dylib; path = /Applications/Autodesk/FBX_SDK/2015.1/lib/clang/debug/libfbxsdk.dylib; sourceTree = "<absolute>"; };
 		468B50C01A61E56700CD58A5 /* libfbxsdk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libfbxsdk.a; path = /Applications/Autodesk/FBX_SDK/2015.1/lib/clang/debug/libfbxsdk.a; sourceTree = "<absolute>"; };
 		468B50C21A61E5CC00CD58A5 /* libfmod.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libfmod.dylib; path = ../../../FMOD_Programmers_API/api/lowlevel/lib/libfmod.dylib; sourceTree = "<group>"; };
@@ -481,13 +509,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				4672BB411A78A25A007BF293 /* libfreetype.a in Frameworks */,
 				46389E111A6CF752000B0DEB /* libboost_system.a in Frameworks */,
 				46389E0D1A6CF71E000B0DEB /* libboost_filesystem.a in Frameworks */,
+				46FFC2311A52880100FCFAC4 /* libboost_serialization.a in Frameworks */,
+				4672BB411A78A25A007BF293 /* libfreetype.a in Frameworks */,
 				466138E91A64CF9000AB9D02 /* libpng16.a in Frameworks */,
 				468B50C31A61E5CC00CD58A5 /* libfmod.dylib in Frameworks */,
+				468255991B53B0F00095FA94 /* libwx_osx_cocoa.dylib in Frameworks */,
+				467CA82C1B5CD2290084FD0A /* QtGui.framework in Frameworks */,
 				468B50C11A61E56700CD58A5 /* libfbxsdk.a in Frameworks */,
-				46FFC2311A52880100FCFAC4 /* libboost_serialization.a in Frameworks */,
 				464D8AF81A4A5598007B0CDD /* libLowLevel.a in Frameworks */,
 				464D8AF91A4A5598007B0CDD /* libLowLevelCloth.a in Frameworks */,
 				464D8AFA1A4A5598007B0CDD /* libPhysX3.a in Frameworks */,
@@ -514,13 +544,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				468255F51B562C850095FA94 /* QtGui.framework in Frameworks */,
 				46E6DD6F1B536628005262F4 /* libboost_filesystem.a in Frameworks */,
 				46E6DD701B536628005262F4 /* libboost_system.a in Frameworks */,
+				46E6DD741B536628005262F4 /* libboost_serialization.a in Frameworks */,
 				46E6DD711B536628005262F4 /* libfbxsdk.a in Frameworks */,
 				46E6DD721B536628005262F4 /* libfreetype.a in Frameworks */,
 				46E6DD881B536639005262F4 /* libfmod.dylib in Frameworks */,
 				46E6DD731B536628005262F4 /* libpng16.a in Frameworks */,
-				46E6DD741B536628005262F4 /* libboost_serialization.a in Frameworks */,
 				46E6DD751B536628005262F4 /* libLowLevel.a in Frameworks */,
 				46E6DD761B536628005262F4 /* libLowLevelCloth.a in Frameworks */,
 				46E6DD771B536628005262F4 /* libPhysX3.a in Frameworks */,
@@ -540,6 +571,8 @@
 				46E6DD851B536628005262F4 /* OpenGL.framework in Frameworks */,
 				46E6DD861B536628005262F4 /* libGLEW.a in Frameworks */,
 				46E6DD871B536628005262F4 /* libGLEWmx.a in Frameworks */,
+				468255DA1B54DB4D0095FA94 /* libfreetype.6.dylib in Frameworks */,
+				468255ED1B561F840095FA94 /* libwx_osx_cocoa.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -623,6 +656,8 @@
 		464D8A891A4A53A4007B0CDD /* Libs */ = {
 			isa = PBXGroup;
 			children = (
+				468255F41B562C850095FA94 /* QtGui.framework */,
+				468255971B53B0E40095FA94 /* libwx_osx_cocoa.dylib */,
 				46E6DDC21B538A75005262F4 /* libfreetype.6.dylib */,
 				46E6DDC01B538A2D005262F4 /* libGLEWmx.dylib */,
 				46E6DDBE1B538985005262F4 /* libfbxsdk.dylib */,
@@ -835,12 +870,17 @@
 		46FE56831B2D44F700ADF5F2 /* _Modules */ = {
 			isa = PBXGroup;
 			children = (
-				4672BA8C1A78A164007BF293 /* GLFWGraphicsSystem.hpp */,
 				4672BA8E1A78A164007BF293 /* GraphicsSystem.hpp */,
 				4672BA941A78A164007BF293 /* Input.hpp */,
 				4672BAB51A78A164007BF293 /* Physics.hpp */,
+				4682558F1B53A69C0095FA94 /* GLContext.hpp */,
 				46B924381A81F40F00F84B7A /* SoundSystem.hpp */,
+				468255921B53A6FC0095FA94 /* GLFW_Context.hpp */,
+				468255951B53AE4D0095FA94 /* WXGL_Context.hpp */,
 				4672BAEB1A78A164007BF293 /* Time.hpp */,
+				468255DE1B54DC860095FA94 /* GLFW_Input.hpp */,
+				468255E11B54DF7E0095FA94 /* InputModule.hpp */,
+				468255EB1B561C850095FA94 /* QT_GLContext.hpp */,
 			);
 			name = _Modules;
 			sourceTree = "<group>";
@@ -848,12 +888,16 @@
 		46FE56841B2D451E00ADF5F2 /* _Modules */ = {
 			isa = PBXGroup;
 			children = (
-				4672BA8B1A78A164007BF293 /* GLFWGraphicsSystem.cpp */,
 				4672BA8D1A78A164007BF293 /* GraphicsSystem.cpp */,
 				4672BA931A78A164007BF293 /* Input.cpp */,
+				468255EA1B561C850095FA94 /* QT_GLContext.cpp */,
+				468255DD1B54DC860095FA94 /* GLFW_Input.cpp */,
 				4672BAB41A78A164007BF293 /* Physics.cpp */,
 				46B924371A81F40F00F84B7A /* SoundSystem.cpp */,
 				4672BAEA1A78A164007BF293 /* Time.cpp */,
+				468255911B53A6FC0095FA94 /* GLFW_Context.cpp */,
+				468255941B53AE4D0095FA94 /* WXGL_Context.cpp */,
+				468255E31B54E2F40095FA94 /* InputModule.cpp */,
 			);
 			name = _Modules;
 			sourceTree = "<group>";
@@ -1101,7 +1145,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "product_path=\"${BUILT_PRODUCTS_DIR}/lib${PRODUCT_NAME}.dylib\"\n\necho ${product_path}\n\n\ninstall_name_tool ${product_path} -change   /usr/local/lib/libfreetype.6.dylib @executable_path/libfreetype.6.dylib\ninstall_name_tool ${product_path} -change   libboost_system.dylib @executable_path/libboost_system.dylib\ninstall_name_tool ${product_path} -change   libboost_filesystem.dylib @executable_path/libboost_filesystem.dylib\ninstall_name_tool ${product_path} -change   libboost_serialization.dylib @executable_path/libboost_serialization.dylib\ninstall_name_tool ${product_path} -change   /Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib/libpng16.16.dylib @executable_path/libpng16.16.dylib\ninstall_name_tool ${product_path} -change   @rpath/libfmod.dylib @executable_path/libfmod.dylib\ninstall_name_tool ${product_path} -change   libboost_serialization.dylib @executable_path/libboost_serialization.dylib\ninstall_name_tool ${product_path} -change   /usr/lib/libGLEW.1.11.0.dylib @executable_path/libGLEW.1.11.0.dylib\ninstall_name_tool ${product_path} -change   /usr/lib/libGLEWmx.1.11.0.dylib @executable_path/libGLEWmx.1.11.0.dylib\n\n";
+			shellScript = "product_path=\"${BUILT_PRODUCTS_DIR}/lib${PRODUCT_NAME}.dylib\"\n\necho ${product_path}\n\n\ninstall_name_tool ${product_path} -change   /usr/local/lib/libfreetype.6.dylib @executable_path/libfreetype.6.dylib\ninstall_name_tool ${product_path} -change   libboost_system.dylib @executable_path/libboost_system.dylib\ninstall_name_tool ${product_path} -change   libboost_filesystem.dylib @executable_path/libboost_filesystem.dylib\ninstall_name_tool ${product_path} -change   libboost_serialization.dylib @executable_path/libboost_serialization.dylib\ninstall_name_tool ${product_path} -change   /Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib/libpng16.16.dylib @executable_path/libpng16.16.dylib\ninstall_name_tool ${product_path} -change   @rpath/libfmod.dylib @executable_path/libfmod.dylib\ninstall_name_tool ${product_path} -change   libboost_serialization.dylib @executable_path/libboost_serialization.dylib\ninstall_name_tool ${product_path} -change   /usr/lib/libGLEW.1.11.0.dylib @executable_path/libGLEW.1.11.0.dylib\ninstall_name_tool ${product_path} -change   /usr/lib/libGLEWmx.1.11.0.dylib @executable_path/libGLEWmx.1.11.0.dylib\ninstall_name_tool ${product_path} -change   @executable_path/../Frameworks/libwx_osx_cocoa.dylib @executable_path/libwx_osx_cocoa.dylib\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -1112,7 +1156,10 @@
 			files = (
 				4672BB181A78A164007BF293 /* MeshFilter.cpp in Sources */,
 				4672BB2B1A78A164007BF293 /* RigidStatic.cpp in Sources */,
+				468255E41B54E2F40095FA94 /* InputModule.cpp in Sources */,
+				468255961B53AE4D0095FA94 /* WXGL_Context.cpp in Sources */,
 				4672BB221A78A164007BF293 /* PhysXEventCallback.cpp in Sources */,
+				468255DF1B54DC860095FA94 /* GLFW_Input.cpp in Sources */,
 				4672BB171A78A164007BF293 /* MeshComponent.cpp in Sources */,
 				4672BB311A78A164007BF293 /* ScriptComponent.cpp in Sources */,
 				4672BAFB1A78A164007BF293 /* AssetDatabase.cpp in Sources */,
@@ -1127,6 +1174,7 @@
 				4672BB3A1A78A164007BF293 /* Transform.cpp in Sources */,
 				462019E01B3158AB00D599DE /* SpaceShipGame.cpp in Sources */,
 				4672BB091A78A164007BF293 /* Game.cpp in Sources */,
+				468255EC1B561C850095FA94 /* QT_GLContext.cpp in Sources */,
 				4672BB061A78A164007BF293 /* Font.cpp in Sources */,
 				4672BAFA1A78A164007BF293 /* Asset.cpp in Sources */,
 				4672BB101A78A164007BF293 /* main.cpp in Sources */,
@@ -1161,7 +1209,7 @@
 				4672BB1B1A78A164007BF293 /* Module.cpp in Sources */,
 				4672BB041A78A164007BF293 /* EditorCollider.cpp in Sources */,
 				4672BB391A78A164007BF293 /* Time.cpp in Sources */,
-				4672BB0A1A78A164007BF293 /* GLFWGraphicsSystem.cpp in Sources */,
+				468255931B53A6FC0095FA94 /* GLFW_Context.cpp in Sources */,
 				4672BB0B1A78A164007BF293 /* GraphicsSystem.cpp in Sources */,
 				4672BB131A78A164007BF293 /* Math.cpp in Sources */,
 				468E620A1B313DD5008213E9 /* PointsTracker.cpp in Sources */,
@@ -1196,6 +1244,7 @@
 				46E6DD3F1B5365D8005262F4 /* World.cpp in Sources */,
 				46E6DD401B5365D8005262F4 /* Component.cpp in Sources */,
 				46E6DD411B5365D8005262F4 /* MeshImporter.cpp in Sources */,
+				468255E51B54E6410095FA94 /* GLFW_Input.cpp in Sources */,
 				46E6DD421B5365D8005262F4 /* Asset.cpp in Sources */,
 				46E6DD431B5365D8005262F4 /* Font.cpp in Sources */,
 				46E6DD441B5365D8005262F4 /* Material.cpp in Sources */,
@@ -1227,7 +1276,6 @@
 				46E6DD5E1B5365D8005262F4 /* RigidStatic.cpp in Sources */,
 				46E6DD5F1B5365D8005262F4 /* ScriptComponent.cpp in Sources */,
 				46E6DD601B5365D8005262F4 /* SphereCollider.cpp in Sources */,
-				46E6DD611B5365D8005262F4 /* GLFWGraphicsSystem.cpp in Sources */,
 				46E6DD621B5365D8005262F4 /* GraphicsSystem.cpp in Sources */,
 				46E6DD631B5365D8005262F4 /* Input.cpp in Sources */,
 				46E6DD641B5365D8005262F4 /* Physics.cpp in Sources */,
@@ -1239,8 +1287,12 @@
 				46E6DD6A1B5365D8005262F4 /* RotateHandle.cpp in Sources */,
 				46E6DD6B1B5365D8005262F4 /* RotateTool.cpp in Sources */,
 				46E6DD6C1B5365D8005262F4 /* ScaleHandle.cpp in Sources */,
+				468255E61B54E6510095FA94 /* InputModule.cpp in Sources */,
 				46E6DD6D1B5365D8005262F4 /* ScaleTool.cpp in Sources */,
 				46E6DD6E1B5365D8005262F4 /* main.cpp in Sources */,
+				468255DB1B54DB7D0095FA94 /* GLFW_Context.cpp in Sources */,
+				468255F71B562CCE0095FA94 /* QT_GLContext.cpp in Sources */,
+				468255DC1B54DBA30095FA94 /* WXGL_Context.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1324,12 +1376,17 @@
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++1y";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/guilherme_cunha/Dev/Qt/5.4/clang_64/lib,
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 					"_DEBUG=1",
 					GUINITY_DEBUG,
 					_GLFW_USE_MENUBAR,
+					WXGL,
 				);
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1347,6 +1404,9 @@
 					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include/foundation",
 					"/Users/guilherme_cunha/Dev/freetype-2.4.0/include",
 					"/Users/guilherme_cunha/Dev/alglib-3.9.0/cpp/src",
+					"$(WXROOT)/build/osx/setup/cocoa/include",
+					"$(WXROOT)/include",
+					"/Users/guilherme_cunha/Dev/wxWidgets-3.0.2/include",
 				);
 				LD_RUNPATH_SEARCH_PATHS = libfmod.dylib;
 				LIBRARY_SEARCH_PATHS = (
@@ -1358,10 +1418,12 @@
 					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/lib,
 					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib",
 					"/Users/guilherme_cunha/Dev/freetype-2.4.0/bin/lib",
+					"/Users/guilherme_cunha/Dev/wxWidgets-3.0.2/build/osx/DerivedData/wxcocoa/Build/Products/Debug",
 				);
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "i386 x86_64";
+				WXROOT = "/Users/guilherme_cunha/Dev/wxWidgets-3.0.2";
 			};
 			name = Debug;
 		};
@@ -1371,6 +1433,10 @@
 				ALWAYS_SEARCH_USER_PATHS = YES;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "c++1y";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/guilherme_cunha/Dev/Qt/5.4/clang_64/lib,
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=0",
 					"$(inherited)",
@@ -1392,6 +1458,9 @@
 					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include/foundation",
 					"/Users/guilherme_cunha/Dev/freetype-2.4.0/include",
 					"/Users/guilherme_cunha/Dev/alglib-3.9.0/cpp/src",
+					"$(WXROOT)/build/osx/setup/cocoa/include",
+					"$(WXROOT)/include",
+					"/Users/guilherme_cunha/Dev/wxWidgets-3.0.2/include",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
@@ -1402,10 +1471,12 @@
 					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/lib,
 					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib",
 					"/Users/guilherme_cunha/Dev/freetype-2.4.0/bin/lib",
+					"/Users/guilherme_cunha/Dev/wxWidgets-3.0.2/build/osx/DerivedData/wxcocoa/Build/Products/Debug",
 				);
 				OTHER_CFLAGS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				VALID_ARCHS = "i386 x86_64";
+				WXROOT = "/Users/guilherme_cunha/Dev/wxWidgets-3.0.2";
 			};
 			name = Release;
 		};
@@ -1413,7 +1484,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1y";
 				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/guilherme_cunha/Dev/Qt/5.4/clang_64/lib,
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1437,6 +1513,9 @@
 					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include/foundation",
 					"/Users/guilherme_cunha/Dev/freetype-2.4.0/include",
 					"/Users/guilherme_cunha/Dev/alglib-3.9.0/cpp/src",
+					"$(WXROOT)/build/osx/setup/cocoa/include",
+					"$(WXROOT)/include",
+					"/Users/guilherme_cunha/Dev/wxWidgets-3.0.2/include",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
@@ -1447,8 +1526,10 @@
 					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/lib,
 					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib",
 					"/Users/guilherme_cunha/Dev/freetype-2.4.0/bin/lib",
+					"/Users/guilherme_cunha/Dev/wxWidgets-3.0.2/build/osx/DerivedData/wxcocoa/Build/Products/Debug",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WXROOT = "/Users/guilherme_cunha/Dev/wxWidgets-3.0.2";
 			};
 			name = Debug;
 		};
@@ -1456,7 +1537,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "c++1y";
 				EXECUTABLE_PREFIX = lib;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/guilherme_cunha/Dev/Qt/5.4/clang_64/lib,
+				);
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=0",
 					"$(inherited)",
@@ -1478,6 +1564,9 @@
 					"/Users/guilherme_cunha/Dev/physx-3.3.1_osx_sdk_core/Include/foundation",
 					"/Users/guilherme_cunha/Dev/freetype-2.4.0/include",
 					"/Users/guilherme_cunha/Dev/alglib-3.9.0/cpp/src",
+					"$(WXROOT)/build/osx/setup/cocoa/include",
+					"$(WXROOT)/include",
+					"/Users/guilherme_cunha/Dev/wxWidgets-3.0.2/include",
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"/Users/guilherme_cunha/Dev/glew-1.11.0/lib",
@@ -1488,8 +1577,10 @@
 					/Users/guilherme_cunha/Dev/FMOD_Programmers_API/api/lowlevel/lib,
 					"/Users/guilherme_cunha/Dev/libpng-1.6.16/build/lib",
 					"/Users/guilherme_cunha/Dev/freetype-2.4.0/bin/lib",
+					"/Users/guilherme_cunha/Dev/wxWidgets-3.0.2/build/osx/DerivedData/wxcocoa/Build/Products/Debug",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				WXROOT = "/Users/guilherme_cunha/Dev/wxWidgets-3.0.2";
 			};
 			name = Release;
 		};

@@ -3,6 +3,7 @@
 #include <glm/geometric.hpp>
 #include "GraphicsSystem.hpp"
 #include <map>
+#include <gl/glew.h>
 
 /** Default Constructor */
 Mesh::Mesh() : Asset()

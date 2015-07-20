@@ -22,6 +22,7 @@
 #include "Time.hpp"
 #include <glm/common.hpp>
 #include <glm/gtc/type_ptr.hpp>
+#include "GLFW_Context.hpp"
 
 /** Initialize the system, create the window and such
  @param[in] width The width of the screen
@@ -32,22 +33,9 @@ int GLFWGraphicsSystem::init(int width, int height)
     screenWidth = width;
     screenHeight = height;
     
-    if (!glfwInit()) {
-		fprintf(stderr, "ERROR: could not start GLFW3\n");
-		return 1;
-	}
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 4);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
-    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);
-    
-	window.reset(glfwCreateWindow(screenWidth, screenHeight, "Hello Triangle", NULL, NULL), glfwDestroyWindow);
-	if (!window) {
-		fprintf(stderr, "ERROR: could not open window with GLFW3\n");
-		glfwTerminate();
-		return 1;
-	}
-	glfwMakeContextCurrent(window.get());
+    glContext = make_shared<GLFW_Context>();
+    glContext->init(width,height);
+
 	// start GLEW extension handler
 	glewExperimental = GL_TRUE;
 	glewInit();
@@ -69,6 +57,7 @@ int GLFWGraphicsSystem::init(int width, int height)
 	return 0;
     
 }
+
 /** Shutdown the system, destroy window and release any allocated memory*/
 void GLFWGraphicsSystem::shutdown()
 {
@@ -80,15 +69,17 @@ void GLFWGraphicsSystem::shutdown()
 	
     defaultTexture = nullptr;
     
-    glfwTerminate();
+    
+    glContext->shutdown();
     
 }
+
+
+
 /** Swap buffers*/
 void GLFWGraphicsSystem::swap()
 {
-    glfwPollEvents();
-    // put the stuff we've been drawing onto the display
-    glfwSwapBuffers(window.get());
+    glContext->swapBuffers();
     
 }
 /** Clear buffers*/

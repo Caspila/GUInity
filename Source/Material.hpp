@@ -8,13 +8,13 @@
 
 #pragma once
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
+
 #include "Module.hpp"
 #include <map>
 #include <vector>
 #include "Holder.hpp"
 #include "Asset.hpp"
+
 
 class Shader;
 class Texture;

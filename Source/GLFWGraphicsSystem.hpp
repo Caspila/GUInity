@@ -9,6 +9,9 @@
 class GLFWGraphicsSystem : public GraphicsSystem
 {
 private:
+    /** Handle to the window*/
+	shared_ptr<GLFWwindow> window;
+    
 	/** Number of textures used on last draw call. Used to disable unused textures on OpenGL. */
     int currentTexturesUsed;
 	/** Screen width */
@@ -23,6 +26,10 @@ public:
 	virtual ~GLFWGraphicsSystem() {};
 	/** Default Constructor */
 	GLFWGraphicsSystem() {};
+    
+    /** window Getter */
+	virtual shared_ptr<GLFWwindow> getWindow()  { return window; }
+    
     
 	/** Initialize the system, create the window and such
      @param[in] width The width of the screen
@@ -169,6 +176,7 @@ public:
      */
 	bool setUniform1fv(const GLuint shaderProgram, const GLchar* uniformName,int count, GLfloat* value);
     
+
 };
 
 #endif // GLFWGRAPHICSYSTEM_H

@@ -34,7 +34,7 @@ void ScaleHandle::tick(float deltaSeconds)
     //		myParent->transform->rotationQuat = currentActor->transform->rotationQuat;
     //	}
     
-	Ray r = Editor::cameraComponent->screenPointToRay(Input::mousePos);
+	Ray r = Editor::cameraComponent->screenPointToRay(Input::getMousePos());
     
 	PxRaycastBuffer hitCallback;
     
@@ -55,11 +55,11 @@ void ScaleHandle::tick(float deltaSeconds)
 	if (isPressed)
 	{
         
-		glm::vec2 mouseDelta = Input::mouseDelta;
+		glm::vec2 mouseDelta = Input::getMouseDelta();
 		if (glm::length(mouseDelta) > 0)
 		{
-			glm::vec3 newWorldPos = Editor::cameraComponent->screenPointToWorld(Input::mousePos);
-			glm::vec3 oldWorldPos = Editor::cameraComponent->screenPointToWorld(Input::mousePos - Input::mouseDelta);
+			glm::vec3 newWorldPos = Editor::cameraComponent->screenPointToWorld(Input::getMousePos());
+			glm::vec3 oldWorldPos = Editor::cameraComponent->screenPointToWorld(Input::getMousePos() - Input::getMouseDelta());
             
 			glm::vec3 mouseWorldDir = newWorldPos - oldWorldPos;
 			mouseWorldDir = glm::normalize(mouseWorldDir);
